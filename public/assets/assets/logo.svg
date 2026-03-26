@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 224 38" role="img" aria-label="CreaTuEmpresaUSA Logo" overflow="visible">
+  <title>CreaTuEmpresaUSA</title>
+  <!-- Wordmark -->
+  <text x="0" y="26" font-family="Georgia,'Times New Roman',serif" font-size="24" font-weight="700" letter-spacing="-0.3">
+    <tspan fill="#0A2540">CreaTuEmpresa</tspan><tspan fill="#DC2626">USA</tspan>
+  </text>
+  <!-- Thin USA flag stripe -->
+  <rect x="0"  y="31" width="44"  height="6" fill="#3C3B6E" rx="1"/>
+  <circle cx="7"  cy="34" r="1.1" fill="rgba(255,255,255,.85)"/>
+  <circle cx="12" cy="34" r="1.1" fill="rgba(255,255,255,.85)"/>
+  <circle cx="17" cy="34" r="1.1" fill="rgba(255,255,255,.85)"/>
+  <circle cx="22" cy="34" r="1.1" fill="rgba(255,255,255,.85)"/>
+  <circle cx="27" cy="34" r="1.1" fill="rgba(255,255,255,.85)"/>
+  <circle cx="32" cy="34" r="1.1" fill="rgba(255,255,255,.85)"/>
+  <circle cx="37" cy="34" r="1.1" fill="rgba(255,255,255,.85)"/>
+  <rect x="45" y="31" width="179" height="2" fill="#B22234"/>
+  <rect x="45" y="33" width="179" height="2" fill="white"/>
+  <rect x="45" y="35" width="179" height="2" fill="#B22234"/>
+</svg>

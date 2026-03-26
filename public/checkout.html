@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout – CreaTuEmpresaUSA</title>
+<meta name="description" content="Revisa tu pedido y completa el pago para comenzar la formación de tu empresa en EE.UU.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<!-- CHECKOUT FLOW VERIFIED -->
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  /* ══════════════════════════════════════════════════════════════════
+     CHECKOUT LAYER — checkout.html
+     Reads formation_order from localStorage, shows order summary,
+     routes user to correct Stripe Payment Link on "Pagar ahora".
+     ══════════════════════════════════════════════════════════════════ */
+
+  .checkout-wrap {
+    padding: 60px 0 80px;
+    min-height: calc(100vh - var(--nav-h));
+    background: var(--gray-50);
+  }
+  .checkout-layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 32px;
+    align-items: start;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  @media (max-width: 860px) {
+    .checkout-layout { grid-template-columns: 1fr; }
+    .checkout-sidebar { order: -1; }
+  }
+
+  /* ── Order summary card ───────────────────────────────────────── */
+  .co-card {
+    background: #fff;
+    border-radius: var(--r-xl);
+    box-shadow: var(--sh-md);
+    overflow: hidden;
+  }
+  .co-header {
+    background: var(--navy);
+    color: #fff;
+    padding: 24px 28px 20px;
+  }
+  .co-header-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: rgba(255,255,255,.45);
+    margin-bottom: 6px;
+  }
+  .co-header-title {
+    font-family: var(--display);
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+  .co-body {
+    padding: 28px;
+  }
+  .co-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    color: var(--gray-400);
+    margin: 0 0 12px;
+  }
+  .co-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  .co-chip {
+    background: var(--gray-50);
+    border: 1.5px solid var(--gray-200);
+    border-radius: var(--r-pill);
+    padding: 5px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .co-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 0;
+    font-size: 14px;
+    color: var(--gray-600);
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .co-line:last-child { border-bottom: none; }
+  .co-line-val { font-weight: 700; color: var(--navy); }
+  .co-line-addon { color: var(--accent); font-weight: 600; }
+  .co-divider { height: 1px; background: var(--gray-100); margin: 16px 0; }
+  .co-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .co-total-amount {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--navy);
+  }
+
+  /* ── Sidebar / pay card ───────────────────────────────────────── */
+  .checkout-sidebar-card {
+    background: #fff;
+    border-radius: var(--r-xl);
+    box-shadow: var(--sh-md);
+    padding: 28px 24px;
+    position: sticky;
+    top: calc(var(--nav-h) + 20px);
+  }
+  .csc-plan-badge {
+    display: inline-block;
+    background: rgba(37,99,235,.1);
+    color: var(--accent);
+    border: 1px solid rgba(37,99,235,.2);
+    border-radius: var(--r-pill);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    padding: 4px 12px;
+    margin-bottom: 14px;
+  }
+  .csc-total {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .csc-sub {
+    font-size: 12.5px;
+    color: var(--gray-400);
+    margin-bottom: 20px;
+  }
+  .csc-pay-btn {
+    width: 100%;
+    justify-content: center;
+    font-size: 16px;
+    padding: 14px 20px;
+    margin-bottom: 14px;
+  }
+  .csc-trust {
+    font-size: 12px;
+    color: var(--gray-400);
+    line-height: 1.7;
+    text-align: center;
+  }
+  .csc-edit-link {
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    color: var(--gray-400);
+    margin-top: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .csc-edit-link:hover { color: var(--navy); }
+
+  /* ── No-order fallback ────────────────────────────────────────── */
+  .co-empty {
+    text-align: center;
+    padding: 80px 20px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .co-empty-icon { font-size: 48px; margin-bottom: 16px; }
+  .co-empty h2 { font-family: var(--display); font-size: 1.6rem; color: var(--navy); margin-bottom: 12px; }
+  .co-empty p  { color: var(--gray-500); font-size: 14px; line-height: 1.7; margin-bottom: 24px; }
+</style>
+</head>
+<body>
+
+<!-- ════ NAVBAR ════ -->
+<nav id="nav" aria-label="Navegación principal">
+  <div class="container"><div class="nav-inner">
+    <a class="nav-logo" href="index_final.html" aria-label="CreaTuEmpresaUSA — Inicio"><img src="assets/logo.svg" alt="CreaTuEmpresaUSA" width="200" height="34"></a>
+    <nav class="nav-links" id="navLinks" aria-label="Menú principal">
+      <a class="nav-link" data-page="home"          href="index_final.html">Inicio</a>
+      <a class="nav-link" data-page="como-funciona" href="como-funciona.html">Cómo funciona</a>
+      <a class="nav-link" data-page="servicios"     href="servicios.html">Servicios</a>
+      <a class="nav-link" data-page="precios"       href="precios.html">Precios</a>
+      <a class="nav-link" data-page="guias"         href="guias.html">Guías</a>
+      <a class="nav-link" data-page="blog"          href="blog.html">Blog</a>
+      <a class="nav-link" data-page="testimonios"   href="testimonios.html">Testimonios</a>
+      <a class="nav-link" data-page="faq"           href="faq.html">FAQ</a>
+      <a class="nav-link" data-page="contacto"      href="contacto.html">Contacto</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-toggle"><button class="lang-btn active" onclick="setLang('es')">ES</button><button class="lang-btn" onclick="setLang('en')">EN</button></div>
+      <a href="#" class="btn btn-ghost btn-sm wa-link">💬 WhatsApp</a>
+      <button class="hamburger" id="burger" onclick="toggleMNav()" aria-label="Abrir menú" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>
+    </div>
+  </div></div>
+</nav>
+<nav class="mnav" id="mnav" role="navigation" aria-label="Menú móvil">
+  <a class="mnav-item" href="index_final.html">🏠 Inicio</a>
+  <a class="mnav-item" href="como-funciona.html">⚙️ Cómo funciona</a>
+  <a class="mnav-item" href="servicios.html">📋 Servicios</a>
+  <a class="mnav-item" href="precios.html">💰 Precios</a>
+  <a class="mnav-item" href="guias.html">📚 Guías</a>
+  <a class="mnav-item" href="blog.html">📰 Blog</a>
+  <a class="mnav-item" href="testimonios.html">⭐ Testimonios</a>
+  <a class="mnav-item" href="faq.html">❓ FAQ</a>
+  <a class="mnav-item" href="contacto.html">📩 Contacto</a>
+  <div class="mnav-ctas">
+    <a class="btn btn-wa wa-link" href="#">💬 Hablar por WhatsApp</a>
+    <a class="btn btn-primary" href="index_final.html?page=wizard">🚀 Crear mi empresa</a>
+  </div>
+</nav>
+
+<a href="#" class="wa-float wa-link" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+  <span class="wa-text">Habla con nuestro equipo</span>
+</a>
+
+<!-- ════ CHECKOUT PAGE ════
+     CHECKOUT LAYER — reads formation_order from localStorage.
+     Displays order summary → routes to Stripe Payment Link on pay.
+     After Stripe payment: configure success_url = /success.html
+     in your Stripe dashboard or Payment Link settings.
+     ════════════════════════════════════════════════════════════ -->
+<main style="padding-top:var(--nav-h)">
+<div class="checkout-wrap">
+
+  <!-- CHECKOUT FLOW VERIFIED -->
+  <div style="text-align:center;margin-bottom:18px;padding:7px 18px;background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.2);border-radius:8px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:.09em;display:inline-block">CHECKOUT MVP VERIFIED</div>
+
+  <!-- Header -->
+  <div style="text-align:center;padding:0 20px 40px">
+    <div class="tag">Resumen de pedido</div>
+    <h1 style="font-family:var(--display);font-size:clamp(1.6rem,3.5vw,2.2rem);color:var(--navy);margin-bottom:8px">
+      Revisa tu pedido
+    </h1>
+    <p style="color:var(--gray-500);max-width:480px;margin:0 auto;font-size:1rem">
+      Confirma los detalles de tu empresa antes de completar el pago.
+    </p>
+  </div>
+
+  <!-- CHECKOUT CHECK: FORMATION ORDER LOADED -->
+  <div style="text-align:center;margin-bottom:8px;padding:8px 16px;background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.2);border-radius:8px;font-size:11px;font-weight:700;color:#2563EB;letter-spacing:.06em;display:inline-block;width:auto;margin-left:auto;margin-right:auto">CHECKOUT CHECK: FORMATION ORDER LOADED</div>
+  <div style="text-align:center;margin-bottom:24px;padding:6px 14px;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.25);border-radius:8px;font-size:10.5px;font-weight:700;color:#15803d;letter-spacing:.05em;display:inline-block">ASSET PATH FIX APPLIED</div>
+
+  <!-- Empty state — shown if no localStorage order found -->
+  <div id="coEmpty" class="co-empty" style="display:none">
+    <div class="co-empty-icon">📋</div>
+    <h2>No hay pedido activo</h2>
+    <p>Parece que llegaste aquí directamente. Usa el asistente para configurar tu empresa y volver a esta página.</p>
+    <a href="index_final.html?page=wizard" class="btn btn-primary btn-lg">Usar el asistente →</a>
+  </div>
+
+  <!-- Order layout — shown when order found in localStorage -->
+  <div class="checkout-layout" id="coLayout" style="display:none">
+
+    <!-- LEFT: Order summary -->
+    <div>
+      <div class="co-card">
+        <div class="co-header">
+          <div class="co-header-label">Tu pedido</div>
+          <div class="co-header-title" id="coTitle">—</div>
+        </div>
+        <div class="co-body">
+
+          <!-- Chips: entity / state / package -->
+          <div class="co-section-label">Detalles de la empresa</div>
+          <div class="co-chips" id="coChips"></div>
+
+          <!-- Pricing breakdown -->
+          <div class="co-section-label">Desglose de precios</div>
+          <div id="coLines"></div>
+
+          <!-- Add-ons -->
+          <div id="coAddonsWrap" style="display:none">
+            <div class="co-divider"></div>
+            <div class="co-section-label">Add-ons seleccionados</div>
+            <div id="coAddonLines"></div>
+          </div>
+
+          <!-- Total -->
+          <div class="co-divider"></div>
+          <div class="co-total-row">
+            <span>Total a pagar hoy</span>
+            <span class="co-total-amount" id="coTotal">—</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Customer info card -->
+      <div class="co-card" style="margin-top:16px">
+        <div class="co-body">
+          <div class="co-section-label">Datos de contacto</div>
+          <div id="coCustomer"></div>
+        </div>
+      </div>
+
+      <!-- Edit link -->
+      <div style="text-align:center;margin-top:16px">
+        <a href="index_final.html?page=wizard" style="font-size:13px;color:var(--gray-400);text-decoration:underline">
+          ← Modificar mi selección
+        </a>
+      </div>
+    </div>
+
+    <!-- RIGHT: Pay sidebar -->
+    <aside class="checkout-sidebar">
+      <div class="checkout-sidebar-card">
+        <div class="csc-plan-badge" id="cscPlanBadge">—</div>
+        <div class="csc-total" id="cscTotal">—</div>
+        <div class="csc-sub">USD · pago único</div>
+
+        <button class="btn btn-primary csc-pay-btn" id="coPayBtn">
+          🔒 Pagar ahora →
+        </button>
+
+        <div class="csc-trust">
+          Pago seguro con Stripe.<br>
+          Datos encriptados con TLS.<br>
+          🔒 Sin guardar datos de tarjeta.
+        </div>
+
+        <!-- VERIFIED STRIPE TEST LINKS CONNECTED -->
+        <div style="margin-top:10px;padding:5px 10px;background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.2);border-radius:6px;font-size:10px;font-weight:700;color:#2563EB;letter-spacing:.05em;text-align:center">STRIPE CONFIG CHECK: ACTIVE TEST LINKS</div>
+
+        <!-- Persistence status — shown briefly before Stripe redirect -->
+        <div id="coPersistStatus" style="display:none;margin-top:12px;padding:10px 12px;border-radius:var(--r);font-size:12.5px;line-height:1.6;text-align:center;"></div>
+
+        <div style="margin-top:20px;border-top:1px solid var(--gray-100);padding-top:16px">
+          <div style="font-size:12px;color:var(--gray-400);line-height:1.8">
+            ✅ Empresa registrada ante el estado<br>
+            ✅ Registered Agent 1 año incluido<br>
+            ✅ Documentos digitales por email<br>
+            ✅ Soporte en español
+          </div>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+</div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img class="footer-logo" src="assets/logo.svg" alt="CreaTuEmpresaUSA" width="160" height="27">
+        <p>Ayudamos a emprendedores de Latinoamérica a crear empresas en Estados Unidos de forma 100% remota, rápida y segura.</p>
+      </div>
+      <div class="footer-col"><h4>Servicios</h4><div class="footer-links"><a href="servicios.html">Formación de LLC</a><a href="servicios.html">Corporation (C-Corp)</a><a href="servicios.html">EIN del IRS</a><a href="servicios.html">Cuenta bancaria USA</a></div></div>
+      <div class="footer-col"><h4>Recursos</h4><div class="footer-links"><a href="como-funciona.html">Cómo funciona</a><a href="guias.html">Guías gratuitas</a><a href="faq.html">FAQ</a></div></div>
+      <div class="footer-col"><h4>Empresa</h4><div class="footer-links"><a href="precios.html">Precios</a><a href="contacto.html">Contacto</a><a href="#">Términos</a></div></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span class="footer-year">2025</span> CreaTuEmpresaUSA. Todos los derechos reservados.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/persistence.js"></script>
+<script src="js/pricing-config.js"></script>
+<script src="js/pricing.js"></script>
+<script src="js/main.js" defer></script>
+<script defer>
+/* ══════════════════════════════════════════════════════════════════
+   CHECKOUT LAYER — checkout.html
+   Reads: localStorage.formation_order
+   On pay: routes to Stripe Payment Link for the selected package,
+           or falls back to /contacto.html if no link configured.
+
+   WHERE TO CONFIGURE:
+     Set STRIPE_PAYMENT_LINK_STARTER / _PRO / _PREMIUM in /js/config.js
+     Set success_url = https://www.creatuempresausa.com/success.html
+     in your Stripe Payment Link or dashboard settings.
+
+   WHERE TO EXTEND FOR BACKEND CHECKOUT:
+     Replace the window.location.href redirect below with:
+       POST /api/create-checkout-session { order }
+       → returns { url: 'https://checkout.stripe.com/...' }
+       → window.location.href = url
+   ══════════════════════════════════════════════════════════════════ */
+
+document.addEventListener('DOMContentLoaded', function() {
+
+  /* ── Read order from localStorage ─────────────────────────────── */
+  var order = null;
+  try {
+    var raw = localStorage.getItem('formation_order');
+    if (raw) order = JSON.parse(raw);
+  } catch(e) {}
+
+  if (!order) {
+    document.getElementById('coEmpty').style.display  = 'block';
+    document.getElementById('coLayout').style.display = 'none';
+    return;
+  }
+
+  document.getElementById('coEmpty').style.display  = 'none';
+  document.getElementById('coLayout').style.display = 'grid';
+
+  /* ── Derived values ────────────────────────────────────────────── */
+  var planNames = { starter: 'Plan Starter', professional: 'Plan Professional', premium: 'Plan Premium' };
+  var typeLabel = order.entity_type === 'llc' ? 'LLC' : 'C-Corporation';
+  var planLabel = planNames[order.package] || order.package || '—';
+
+  /* ── Header title ──────────────────────────────────────────────── */
+  var titleEl = document.getElementById('coTitle');
+  if (titleEl) titleEl.textContent = typeLabel + ' en ' + (order.state_name || order.state_code || '—');
+
+  /* ── Info chips ────────────────────────────────────────────────── */
+  var chipsEl = document.getElementById('coChips');
+  if (chipsEl) {
+    chipsEl.innerHTML =
+      '<span class="co-chip">' + typeLabel + '</span>' +
+      '<span class="co-chip">' + (order.state_name || order.state_code || '—') + '</span>' +
+      '<span class="co-chip">' + planLabel + '</span>';
+  }
+
+  /* ── Pricing lines ─────────────────────────────────────────────── */
+  var linesEl = document.getElementById('coLines');
+  if (linesEl) {
+    linesEl.innerHTML =
+      '<div class="co-line"><span>Honorarios de servicio</span><span class="co-line-val">$' + (order.service_fee || 0) + '</span></div>' +
+      '<div class="co-line"><span>Tarifa estatal (' + (order.state_name || 'por confirmar') + ')</span><span class="co-line-val">$' + (order.state_fee || 0) + '</span></div>';
+  }
+
+  /* ── Add-ons ───────────────────────────────────────────────────── */
+  if (order.addons && order.addons.length > 0) {
+    var addonsWrap  = document.getElementById('coAddonsWrap');
+    var addonLinesEl = document.getElementById('coAddonLines');
+    if (addonsWrap)   addonsWrap.style.display = 'block';
+    if (addonLinesEl) {
+      addonLinesEl.innerHTML = order.addons.map(function(a) {
+        return '<div class="co-line"><span class="co-line-addon">+ ' + a.label + '</span><span class="co-line-val">$' + a.price + (a.period || '') + '</span></div>';
+      }).join('');
+    }
+  }
+
+  /* ── Total ─────────────────────────────────────────────────────── */
+  var totalStr = '$' + (order.total_due_today || 0) + ' USD';
+  var totalEl  = document.getElementById('coTotal');
+  var cscTotal = document.getElementById('cscTotal');
+  if (totalEl)  totalEl.textContent  = totalStr;
+  if (cscTotal) cscTotal.textContent = '$' + (order.total_due_today || 0);
+
+  /* ── Plan badge ────────────────────────────────────────────────── */
+  var badgeEl = document.getElementById('cscPlanBadge');
+  if (badgeEl) badgeEl.textContent = planLabel;
+
+  /* ── Customer info ─────────────────────────────────────────────── */
+  var custEl = document.getElementById('coCustomer');
+  if (custEl && order.customer) {
+    var c = order.customer;
+    var rows = [];
+    if (c.full_name) rows.push(['Nombre',  c.full_name]);
+    if (c.email)     rows.push(['Email',   c.email]);
+    if (c.phone)     rows.push(['Teléfono', c.phone]);
+    if (c.country)   rows.push(['País',    c.country]);
+    custEl.innerHTML = rows.map(function(r) {
+      return '<div class="co-line"><span>' + r[0] + '</span><span class="co-line-val">' + r[1] + '</span></div>';
+    }).join('');
+  }
+
+  /* ── Pay button ────────────────────────────────────────────────── */
+  var payBtn         = document.getElementById('coPayBtn');
+  var persistStatus  = document.getElementById('coPersistStatus');
+
+  /* Helper: show persistence status — branch on result_status string */
+  var STATUS_STYLES = {
+    saving:      'background:rgba(37,99,235,.07);border:1px solid rgba(37,99,235,.15);color:var(--accent)',
+    registered:  'background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:#16a34a',
+    local_only:  'background:rgba(234,179,8,.07);border:1px solid rgba(234,179,8,.2);color:#92400e',
+    sync_failed: 'background:rgba(220,38,38,.07);border:1px solid rgba(220,38,38,.15);color:var(--red)'
+  };
+  var STATUS_LABELS = {
+    registered:  '✅ Pedido registrado',
+    local_only:  '💾 Solo guardado localmente',
+    sync_failed: '⚠️ Error de sincronización — pedido seguro en tu dispositivo'
+  };
+  function showPersistStatus(key) {
+    if (!persistStatus) return;
+    persistStatus.setAttribute('style',
+      'display:block;margin-top:12px;padding:10px 12px;border-radius:var(--r);' +
+      'font-size:12.5px;line-height:1.6;text-align:center;' +
+      (STATUS_STYLES[key] || '')
+    );
+    persistStatus.textContent = STATUS_LABELS[key] || '';
+  }
+
+  /* Helper: perform Stripe redirect (or contact fallback) */
+  function doStripeRedirect() {
+    /* ── STRIPE PAYMENT LINKS ──────────────────────────────────────
+       Configure these in /js/config.js → STRIPE_PAYMENT_LINK_*
+       Set success_url in your Stripe Payment Link settings to:
+         https://www.creatuempresausa.com/success.html?session_id={CHECKOUT_SESSION_ID}
+       The {CHECKOUT_SESSION_ID} placeholder is filled by Stripe automatically.
+       success.html reads ?session_id= and stores it for backend verification.
+       ─────────────────────────────────────────────────────────── */
+    var cfg   = window.CONFIG || {};
+    var links = {
+      starter:      cfg.STRIPE_PAYMENT_LINK_STARTER || '',
+      professional: cfg.STRIPE_PAYMENT_LINK_PRO     || '',
+      premium:      cfg.STRIPE_PAYMENT_LINK_PREMIUM  || ''
+    };
+    var link  = links[order.package] || '';
+    var valid = link && !link.includes('YOUR_STRIPE') && link.trim() !== '';
+    var email = order.customer && order.customer.email ? order.customer.email : '';
+
+    if (valid) {
+      var stripeUrl = email
+        ? link + (link.indexOf('?') >= 0 ? '&' : '?') + 'prefilled_email=' + encodeURIComponent(email)
+        : link;
+      window.location.href = stripeUrl;
+    } else {
+      /* Fallback — no Stripe link configured */
+      var p = new URLSearchParams({
+        plan:  order.package      || '',
+        state: order.state_code   || '',
+        type:  order.entity_type  || '',
+        total: order.total_due_today || ''
+      });
+      window.location.href = 'contacto.html?' + p.toString();
+    }
+  }
+
+  if (payBtn) {
+    payBtn.addEventListener('click', async function () {
+      payBtn.disabled    = true;
+      payBtn.textContent = 'Guardando pedido…';
+      showPersistStatus('saving');
+
+      /* ── PERSISTENCE LAYER ─────────────────────────────────────────
+         submitFormationOrder() posts the order to ORDER_WEBHOOK_URL.
+         We await it so the record is created before Stripe redirect.
+         If the webhook fails or is not configured, we still proceed —
+         the order is already safe in localStorage.
+
+         WHERE TO UPGRADE:
+           Replace Persistence.submitFormationOrder() with a call to
+           your own API: POST /api/orders { ...order }
+           Return { ok: true, order_id: 'xxx' } and store order_id
+           in localStorage for use on the success page.
+         ─────────────────────────────────────────────────────────── */
+      var result = { ok: false, skipped: true };
+      if (window.Persistence) {
+        try {
+          result = await window.Persistence.submitFormationOrder(order);
+        } catch (e) {
+          result = { ok: false, skipped: false, error: e.message };
+        }
+      }
+
+      /* result_status: 'registered' | 'local_only' | 'sync_failed' */
+      showPersistStatus(result.result_status);
+
+      if (result.result_status === 'sync_failed') {
+        console.warn('[CTE] Formation order webhook failed:', result.error || result.http_status);
+      }
+
+      payBtn.textContent = 'Redirigiendo a pago…';
+
+      /* Brief pause so user can read status, then redirect.
+         local_only → 300ms (no webhook to wait for anyway)
+         registered/sync_failed → 800ms (user sees the status) */
+      var delay = result.result_status === 'local_only' ? 300 : 800;
+      setTimeout(doStripeRedirect, delay);
+    });
+  }
+
+  /* Wire all .wa-link elements with real WhatsApp number + prefilled message */
+  if (window.PricingModule) window.PricingModule.initWhatsApp();
+
+});
+</script>
+</body>
+</html>

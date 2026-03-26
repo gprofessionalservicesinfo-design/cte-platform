@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Aguila mascot">
+  <title>Aguila - Asistente CreaTuEmpresaUSA</title>
+  <!-- Background circle -->
+  <circle cx="60" cy="60" r="58" fill="#0A2540"/>
+  <!-- Body -->
+  <ellipse cx="60" cy="72" rx="22" ry="26" fill="#1a4a7a"/>
+  <!-- Chest / lighter body -->
+  <ellipse cx="60" cy="76" rx="14" ry="19" fill="#e8f0fa"/>
+  <!-- Left wing -->
+  <path d="M38 65 Q12 50 8 28 Q22 42 40 58 Z" fill="#0A2540"/>
+  <path d="M38 65 Q15 55 12 35 Q25 48 40 60 Z" fill="#1a4a7a"/>
+  <!-- Right wing -->
+  <path d="M82 65 Q108 50 112 28 Q98 42 80 58 Z" fill="#0A2540"/>
+  <path d="M82 65 Q105 55 108 35 Q95 48 80 60 Z" fill="#1a4a7a"/>
+  <!-- Head -->
+  <circle cx="60" cy="42" r="20" fill="#1a4a7a"/>
+  <!-- White head feathers -->
+  <ellipse cx="60" cy="38" rx="16" ry="13" fill="white"/>
+  <!-- Eyes -->
+  <circle cx="53" cy="40" r="5" fill="#0A2540"/>
+  <circle cx="67" cy="40" r="5" fill="#0A2540"/>
+  <circle cx="54" cy="39" r="2" fill="white"/>
+  <circle cx="68" cy="39" r="2" fill="white"/>
+  <circle cx="54.5" cy="39.5" r="1" fill="#0A2540"/>
+  <circle cx="68.5" cy="39.5" r="1" fill="#0A2540"/>
+  <!-- Beak -->
+  <path d="M57 46 Q60 52 63 46 Q60 49 57 46 Z" fill="#DC2626"/>
+  <line x1="57" y1="46" x2="63" y2="46" stroke="#B22234" stroke-width="1"/>
+  <!-- Talons -->
+  <path d="M48 94 Q44 100 42 104 M48 94 Q48 102 46 106 M48 94 Q52 101 51 106" stroke="#0A2540" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M72 94 Q76 100 78 104 M72 94 Q72 102 74 106 M72 94 Q68 101 69 106" stroke="#0A2540" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- USA flag badge on chest -->
+  <rect x="50" y="70" width="20" height="13" rx="2" fill="#3C3B6E"/>
+  <rect x="50" y="73" width="20" height="2" fill="#B22234"/>
+  <rect x="50" y="77" width="20" height="2" fill="#B22234"/>
+  <rect x="50" y="81" width="20" height="2" fill="#B22234"/>
+  <rect x="50" y="70" width="8"  height="7"  fill="#3C3B6E"/>
+  <circle cx="52" cy="72" r="0.8" fill="white"/>
+  <circle cx="55" cy="72" r="0.8" fill="white"/>
+  <circle cx="58" cy="72" r="0.8" fill="white"/>
+  <circle cx="52" cy="75" r="0.8" fill="white"/>
+  <circle cx="55" cy="75" r="0.8" fill="white"/>
+</svg>
