@@ -10,7 +10,26 @@ export default async function ClientLayout({ children }: { children: React.React
   // The middleware already handles unauthenticated blocking; layout only needs
   // the user object for display data.
   const { data: { session } } = await supabase.auth.getSession()
-  const user = session?.user ?? null
+  let user = session?.user ?? null
+
+  if (!user) {
+    const { cookies } = await import('next/headers')
+    const cookieStore = cookies()
+    const t = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token')
+    const t0 = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token.0')
+    const t1 = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token.1')
+    let raw = t?.value || (t0?.value ? t0.value + (t1?.value ?? '') : null)
+    if (raw) {
+      try {
+        const d = JSON.parse(decodeURIComponent(raw))
+        if (d?.user) user = d.user
+        else if (d?.access_token) {
+          const p = JSON.parse(atob(d.access_token.split('.')[1]))
+          if (p?.sub) user = { id: p.sub, email: p.email } as any
+        }
+      } catch {}
+    }
+  }
 
   // Fetch display data only when we have a user — degrade gracefully if not
   const [{ data: profile }, { data: company }] = user
