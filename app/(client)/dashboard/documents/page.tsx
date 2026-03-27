@@ -67,12 +67,12 @@ export default function DocumentsPage() {
       .from('documents')
       .insert({
         company_id: company.id,
-        type: 'client_upload',
+        type: 'other',
         file_name: file.name,
         file_size: file.size,
         mime_type: file.type,
         storage_path: fileName,
-        status: 'pending_review',
+        status: 'uploaded',
       })
 
     if (dbError) {
