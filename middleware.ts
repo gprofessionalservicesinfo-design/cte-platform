@@ -61,10 +61,15 @@ export async function middleware(request: NextRequest) {
 
   // Admin route guard
   if (isAuthenticated && pathname.startsWith('/admin')) {
+    const userId = session?.user?.id
+    if (!userId) {
+      // Allow through if using raw cookie (dev/legacy mode)
+      return supabaseResponse
+    }
     const { data: profile } = await supabase
       .from('users')
       .select('role')
-      .eq('id', session!.user.id)
+      .eq('id', userId)
       .single()
     if (profile?.role !== 'admin') {
       return NextResponse.redirect(new URL('/dashboard', request.url))
