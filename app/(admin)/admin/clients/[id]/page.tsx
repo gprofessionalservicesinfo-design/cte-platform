@@ -23,10 +23,27 @@ interface PageProps {
 export default async function AdminClientDetailPage({ params }: PageProps) {
   const supabase = createAdminServerClient()
 
-  const { data: { session } } = await supabase.auth.getSession()
-  const user = session?.user
-  // LOCAL DEV ONLY — skip auth guard so detail pages load without a session
-  if (!user && process.env.NODE_ENV !== 'development') redirect('/login')
+  // Read session from cookie (production fix)
+  let user: any = null
+  if (process.env.NODE_ENV !== 'development') {
+    const { cookies } = await import('next/headers')
+    const cookieStore = cookies()
+    const t = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token')
+    const t0 = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token.0')
+    const t1 = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token.1')
+    let raw = t?.value || (t0?.value ? t0.value + (t1?.value ?? '') : null)
+    if (raw) {
+      try {
+        const d = JSON.parse(decodeURIComponent(raw))
+        if (d?.user) user = d.user
+        else if (d?.access_token) {
+          const p = JSON.parse(Buffer.from(d.access_token.split('.')[1], 'base64').toString())
+          if (p?.sub) user = { id: p.sub, email: p.email }
+        }
+      } catch {}
+    }
+    if (!user) redirect('/login')
+  }
 
   // Load company with nested client → user join
   const { data: company, error } = await supabase
