@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 
-function adminClient() {
   return createAdminClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -20,7 +19,6 @@ export default async function DashboardPage() {
 
   // getSession() reads from cookie locally — does not require a network call to Supabase.
   // getUser() was causing false-negatives (returns null when anon key rejected server-side),
-  // triggering an infinite /login ↔ /dashboard redirect loop.
   // Try cookie-based session first
   const { data: { session } } = await supabase.auth.getSession()
   let user = session?.user ?? null
@@ -59,7 +57,6 @@ export default async function DashboardPage() {
     if (process.env.NODE_ENV === 'development') {
       // Allow through — middleware already validated the cookie
     } else {
-      redirect('/login')
     }
   }
 
