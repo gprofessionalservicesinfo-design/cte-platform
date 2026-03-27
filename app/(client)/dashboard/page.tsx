@@ -24,15 +24,23 @@ export default async function DashboardPage() {
   const { data: { session } } = await supabase.auth.getSession()
   let user = session?.user ?? null
 
-  // Fallback: read JWT from cookie manually
+  // Fallback: read JWT from cookie manually (handles legacy anon key format)
   if (!user) {
     const { cookies } = await import('next/headers')
     const cookieStore = cookies()
+    // Try both cookie formats
     const tokenCookie = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token')
-    if (tokenCookie?.value) {
+    const tokenCookie0 = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token.0')
+    const raw = tokenCookie?.value || tokenCookie0?.value
+    if (raw) {
       try {
-        const tokenData = JSON.parse(decodeURIComponent(tokenCookie.value))
+        const tokenData = JSON.parse(decodeURIComponent(raw))
         if (tokenData?.user) user = tokenData.user
+        else if (tokenData?.access_token) {
+          // Parse JWT payload
+          const payload = JSON.parse(atob(tokenData.access_token.split('.')[1]))
+          if (payload?.sub) user = { id: payload.sub, email: payload.email } as any
+        }
       } catch {}
     }
   }
