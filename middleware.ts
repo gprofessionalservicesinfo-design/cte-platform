@@ -54,8 +54,8 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
-  // Authenticated users are sent away from auth pages
-  if (isAuthenticated && (pathname === '/login' || pathname === '/register')) {
+  // Authenticated users are sent away from auth pages (only with real session, not raw cookie)
+  if (session?.user && (pathname === '/login' || pathname === '/register')) {
     return NextResponse.redirect(new URL('/dashboard', request.url))
   }
 
