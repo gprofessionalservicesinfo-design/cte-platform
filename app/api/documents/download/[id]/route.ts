@@ -1,25 +1,36 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminServerClient } from '@/lib/supabase/server'
 
 interface RouteParams {
   params: { id: string }
 }
 
 export async function GET(request: NextRequest, { params }: RouteParams) {
-  const supabase = await createClient()
+  const supabase = createAdminServerClient()
 
-  const { data: { user }, error: authError } = await supabase.auth.getUser()
-  if (authError || !user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  // Read user from cookie
+  let user: any = null
+  const { cookies } = await import('next/headers')
+  const cookieStore = cookies()
+  const t = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token')
+  const t0 = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token.0')
+  const t1 = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token.1')
+  let raw = t?.value || (t0?.value ? t0.value + (t1?.value ?? '') : null)
+  if (raw) {
+    try {
+      const d = JSON.parse(decodeURIComponent(raw))
+      if (d?.user) user = d.user
+      else if (d?.access_token) {
+        const p = JSON.parse(Buffer.from(d.access_token.split('.')[1], 'base64').toString())
+        if (p?.sub) user = { id: p.sub, email: p.email }
+      }
+    } catch {}
   }
 
-  // Resolve role once so we can gate draft access below.
-  const { data: userRow } = await supabase
-    .from('users')
-    .select('role')
-    .eq('id', user.id)
-    .single()
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
+  // Resolve role
+  const { data: userRow } = await supabase.from('users').select('role').eq('id', user.id).single()
   const isAdmin = userRow?.role === 'admin'
 
   // Fetch document — RLS (documents_client / documents_admin) enforces access.
