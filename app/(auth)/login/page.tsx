@@ -27,14 +27,16 @@ export default function LoginPage() {
     }
 
     // Check if user is admin and redirect accordingly
-    const { createClient } = await import('@/lib/supabase/client')
-    const sb = createClient()
-    const { data: profile } = await sb.from('users').select('role').eq('id', (await sb.auth.getUser()).data.user?.id ?? '').single()
-    if (profile?.role === 'admin') {
-      window.location.href = '/admin/clients'
-    } else {
-      window.location.href = '/dashboard'
+    const sbCheck = createClient()
+    const { data: { user: loggedUser } } = await sbCheck.auth.getUser()
+    if (loggedUser?.id) {
+      const { data: profile } = await sbCheck.from('users').select('role').eq('id', loggedUser.id).single()
+      if (profile?.role === 'admin') {
+        window.location.href = '/admin/clients'
+        return
+      }
     }
+    window.location.href = '/dashboard'
   }
 
   return (
