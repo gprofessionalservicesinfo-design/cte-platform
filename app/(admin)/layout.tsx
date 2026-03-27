@@ -9,17 +9,30 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const isLocalDev = process.env.NODE_ENV === 'development'
 
   if (!isLocalDev) {
-    // Production: enforce session + admin role
-    const { data: { session } } = await supabase.auth.getSession()
-    const user = session?.user
+    // Production: read session from cookie directly
+    const { cookies } = await import('next/headers')
+    const cookieStore = cookies()
+    let user: any = null
+    const t = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token')
+    const t0 = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token.0')
+    const t1 = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token.1')
+    let raw = t?.value || (t0?.value ? t0.value + (t1?.value ?? '') : null)
+    if (raw) {
+      try {
+        const d = JSON.parse(decodeURIComponent(raw))
+        if (d?.user) user = d.user
+        else if (d?.access_token) {
+          const p = JSON.parse(Buffer.from(d.access_token.split('.')[1], 'base64').toString())
+          if (p?.sub) user = { id: p.sub, email: p.email }
+        }
+      } catch {}
+    }
     if (!user) redirect('/login')
-
     const { data: profile } = await supabase
       .from('users')
       .select('role, email')
       .eq('id', user.id)
       .single()
-
     if (profile?.role !== 'admin') redirect('/dashboard')
   }
 
