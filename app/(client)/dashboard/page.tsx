@@ -8,11 +8,29 @@ import { FileText, Mail, Building2 } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
 
 export default async function DashboardPage() {
-  const supabase = await createClient()
-  const { data: { session } } = await supabase.auth.getSession()
-  const user = session?.user ?? null
-
+  // Read user from cookie directly (legacy anon key workaround)
+  const { cookies } = await import('next/headers')
+  const cookieStore = cookies()
+  let user: any = null
+  
+  const t = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token')
+  const t0 = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token.0')
+  const t1 = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token.1')
+  let raw = t?.value || (t0?.value ? t0.value + (t1?.value ?? '') : null)
+  
+  if (raw) {
+    try {
+      const d = JSON.parse(decodeURIComponent(raw))
+      if (d?.user) user = d.user
+      else if (d?.access_token) {
+        const p = JSON.parse(Buffer.from(d.access_token.split('.')[1], 'base64').toString())
+        if (p?.sub) user = { id: p.sub, email: p.email }
+      }
+    } catch {}
+  }
+  
   if (!user) redirect('/login')
+  console.log('[dashboard] user:', user?.id, user?.email)
 
   const db = createAdminClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
