@@ -93,12 +93,19 @@ th,td{border:1px solid #000;padding:6px;text-align:left}th{background:#f0f0f0}
 </body></html>`
     }
 
+    // Upload HTML to Supabase Storage
+    const fileName = body.doc_type + '_draft_' + Date.now() + '.html'
+    const storagePath = body.company_id + '/' + fileName
+    const blob = new Blob([html], { type: 'text/html' })
+    await supabase.storage.from('documents').upload(storagePath, blob, { contentType: 'text/html', upsert: true })
+
     const { data: docRow } = await supabase.from('documents').insert({
       company_id: body.company_id,
       uploaded_by: '00000000-0000-0000-0000-000000000001',
       type: body.doc_type === 'articles' ? 'articles' : 'operating_agreement',
-      file_name: body.doc_type + '_draft_' + Date.now() + '.html',
-      file_url: 'drafts/' + body.company_id + '/' + body.doc_type + '_' + Date.now() + '.html',
+      file_name: fileName,
+      file_url: storagePath,
+      storage_path: storagePath,
       file_size: html.length,
       mime_type: 'text/html',
       status: 'draft',
