@@ -1,102 +1,79 @@
-import { redirect } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
+'use client'
+
+import { useEffect, useState } from 'react'
+import { createClient } from '@/lib/supabase/client'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { StatusBadge } from '@/components/client/status-badge'
-import { StatusTimeline } from '@/components/client/status-timeline'
-import { Building2 } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
 
-export default async function CompanyPage() {
-  const supabase = await createClient()
+export default function CompanyPage() {
+  const [company, setCompany] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-  const authUser = user
+  useEffect(() => {
+    async function load() {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) { window.location.href = '/login'; return }
 
-  // Production cookie fix
-  let user: any = authUser
-  if (!user) {
-    const { cookies } = await import('next/headers')
-    const cookieStore = cookies()
-    const t = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token')
-    const t0 = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token.0')
-    const t1 = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token.1')
-    let raw = t?.value || (t0?.value ? t0.value + (t1?.value ?? '') : null)
-    if (raw) {
-      try {
-        const d = JSON.parse(decodeURIComponent(raw))
-        if (d?.user) user = d.user
-        else if (d?.access_token) {
-          const p = JSON.parse(atob(d.access_token.split('.')[1]))
-          if (p?.sub) user = { id: p.sub, email: p.email }
-        }
-      } catch {}
+      const { data } = await supabase
+        .from('companies')
+        .select('*')
+        .order('created_at')
+        .limit(1)
+        .maybeSingle()
+
+      setCompany(data)
+      setLoading(false)
     }
-  }
+    load()
+  }, [])
 
-  if (!user) redirect('/login')
+  if (loading) return <div className="p-8 text-center text-gray-500">Cargando...</div>
 
-  // RLS (owns_company via current_client_id) filters to current client automatically
-  const { data: company } = await supabase
-    .from('companies')
-    .select('*')
-    .order('created_at')
-    .limit(1)
-    .maybeSingle()
-
-  if (!company) {
-    return (
-      <div className="text-center py-20">
-        <Building2 className="mx-auto h-12 w-12 text-gray-300 mb-4" />
-        <h2 className="text-lg font-semibold text-gray-700">No company found</h2>
-        <p className="text-gray-500 text-sm mt-1">Contact support to get your company set up.</p>
-      </div>
-    )
-  }
-
-  const fields = [
-    { label: 'Company Name',       value: company.company_name },
-    { label: 'Entity Type',        value: company.entity_type },
-    { label: 'State of Formation', value: company.state },
-    { label: 'Registered Agent',   value: company.registered_agent },
-    { label: 'Formation Date',     value: company.formation_date ? formatDate(company.formation_date) : 'Pending' },
-    { label: 'EIN (Tax ID)',        value: company.ein ?? 'Pending assignment' },
-    { label: 'Order Reference',    value: company.order_reference ?? '—' },
-  ]
+  if (!company) return (
+    <div className="text-center py-20">
+      <p className="text-gray-500">No se encontró información de tu empresa.</p>
+    </div>
+  )
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Company Details</h1>
-        <p className="text-gray-500 mt-1">Your LLC information and formation status.</p>
-      </div>
-
-      <Card>
-        <CardHeader className="pb-4 flex flex-row items-center justify-between">
-          <CardTitle className="text-lg">{company.company_name}</CardTitle>
-          <StatusBadge status={company.status} />
-        </CardHeader>
-        <CardContent>
-          <dl className="divide-y divide-gray-100">
-            {fields.map((field) => (
-              <div key={field.label} className="py-3 sm:grid sm:grid-cols-3 sm:gap-4">
-                <dt className="text-sm font-medium text-gray-500">{field.label}</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 font-medium">
-                  {field.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </CardContent>
-      </Card>
-
+      <h1 className="text-2xl font-bold text-gray-900">Mi Empresa</h1>
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Formation Progress</CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle>{company.company_name}</CardTitle>
+            <StatusBadge status={company.status} />
+          </div>
         </CardHeader>
-        <CardContent className="pb-8">
-          <StatusTimeline currentStatus={company.status} />
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="text-sm text-gray-500">Estado de formación</p>
+              <p className="font-medium">{company.state}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-500">Paquete</p>
+              <p className="font-medium capitalize">{company.package}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-500">Número de orden</p>
+              <p className="font-medium">{company.order_reference}</p>
+            </div>
+            {company.ein && (
+              <div>
+                <p className="text-sm text-gray-500">EIN</p>
+                <p className="font-medium">{company.ein}</p>
+              </div>
+            )}
+            {company.formation_date && (
+              <div>
+                <p className="text-sm text-gray-500">Fecha de formación</p>
+                <p className="font-medium">{formatDate(company.formation_date)}</p>
+              </div>
+            )}
+          </div>
         </CardContent>
       </Card>
     </div>
