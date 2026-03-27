@@ -26,16 +26,6 @@ export default function LoginPage() {
       return
     }
 
-    // Check if user is admin and redirect accordingly
-    const sbCheck = createClient()
-    const { data: { user: loggedUser } } = await sbCheck.auth.getUser()
-    if (loggedUser?.id) {
-      const { data: profile } = await sbCheck.from('users').select('role').eq('id', loggedUser.id).single()
-      if (profile?.role === 'admin') {
-        window.location.href = '/admin/clients'
-        return
-      }
-    }
     window.location.href = '/dashboard'
   }
 
