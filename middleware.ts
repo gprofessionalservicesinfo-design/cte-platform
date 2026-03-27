@@ -44,7 +44,8 @@ export async function middleware(request: NextRequest) {
   const { data: { session } } = await supabase.auth.getSession()
   // Also check raw cookie for auth token (handles legacy anon key format)
   const rawCookie = request.cookies.get('sb-rhprcuqhuesorrncswjs-auth-token')?.value
-  const isAuthenticated = !!session?.user || !!rawCookie
+  const rawCookie0 = request.cookies.get('sb-rhprcuqhuesorrncswjs-auth-token.0')?.value
+  const isAuthenticated = !!session?.user || !!rawCookie || !!rawCookie0
 
   console.log(`[middleware] MIDDLEWARE SESSION OK: ${isAuthenticated} — ${pathname}`)
 
