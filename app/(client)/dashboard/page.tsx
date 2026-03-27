@@ -31,15 +31,22 @@ export default async function DashboardPage() {
     // Try both cookie formats
     const tokenCookie = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token')
     const tokenCookie0 = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token.0')
-    const raw = tokenCookie?.value || tokenCookie0?.value
+    // Combine split cookies (.0 + .1)
+    const tokenCookie1 = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token.1')
+    let raw = tokenCookie?.value
+    if (!raw && tokenCookie0?.value) {
+      raw = tokenCookie0.value + (tokenCookie1?.value ?? '')
+    }
     if (raw) {
       try {
         const tokenData = JSON.parse(decodeURIComponent(raw))
         if (tokenData?.user) user = tokenData.user
         else if (tokenData?.access_token) {
-          // Parse JWT payload
-          const payload = JSON.parse(atob(tokenData.access_token.split('.')[1]))
-          if (payload?.sub) user = { id: payload.sub, email: payload.email } as any
+          const parts = tokenData.access_token.split('.')
+          if (parts.length >= 2) {
+            const payload = JSON.parse(atob(parts[1]))
+            if (payload?.sub) user = { id: payload.sub, email: payload.email } as any
+          }
         }
       } catch {}
     }
