@@ -37,7 +37,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
   // If the user doesn't own this document, Supabase returns null.
   const { data: document, error: docError } = await supabase
     .from('documents')
-    .select('id, file_url, file_name, status, company_id')
+    .select('id, file_url, storage_path, file_name, status, company_id')
     .eq('id', params.id)
     .single()
 
@@ -52,16 +52,20 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
   //   - relative path:  "company_id/filename.pdf"  (new schema)
   //   - absolute URL:   "https://....supabase.co/storage/v1/object/public/documents/..."
   let storagePath: string
+  const pathSource = document.storage_path || document.file_url
+
+  if (!pathSource) {
+    return NextResponse.json({ error: 'No storage path found' }, { status: 404 })
+  }
 
   try {
-    if (document.file_url.startsWith('http')) {
-      const url = new URL(document.file_url)
+    if (pathSource.startsWith('http')) {
+      const url = new URL(pathSource)
       const match = url.pathname.match(/\/object\/(?:public|sign)\/documents\/(.+)/)
       if (!match) throw new Error('Unparseable URL')
       storagePath = decodeURIComponent(match[1])
     } else {
-      // Relative path stored directly (new schema convention)
-      storagePath = document.file_url
+      storagePath = pathSource
     }
   } catch {
     return NextResponse.json({ error: 'Invalid document URL' }, { status: 500 })
