@@ -45,10 +45,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     return NextResponse.json({ error: 'Document not found' }, { status: 404 })
   }
 
-  // Draft documents are admin-only until finalized.
-  if (document.status === 'draft' && !isAdmin) {
-    return NextResponse.json({ error: 'Document not available' }, { status: 403 })
-  }
+  // Allow clients to view their own documents regardless of status
 
   // Extract storage path from file_url.
   // file_url can be:
