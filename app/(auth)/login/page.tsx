@@ -26,12 +26,22 @@ export default function LoginPage() {
       return
     }
 
+    // Check if admin and redirect accordingly
+    const sbCheck = createClient()
+    const { data: { user: loggedUser } } = await sbCheck.auth.getUser()
+    if (loggedUser?.id) {
+      const { data: prof } = await sbCheck.from('users').select('role').eq('id', loggedUser.id).single()
+      if (prof?.role === 'admin') {
+        window.location.href = '/admin/clients'
+        return
+      }
+    }
     window.location.href = '/dashboard'
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 w-full max-w-md">
+    <div>
+      <div>
         <h1 className="text-2xl font-bold text-gray-900 mb-2">Iniciar sesión</h1>
         <p className="text-gray-500 text-sm mb-6">Accede a tu portal de cliente</p>
 
