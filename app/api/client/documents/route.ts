@@ -1,91 +1,73 @@
-import { NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
+import { NextRequest, NextResponse } from 'next/server'
 import { createAdminServerClient } from '@/lib/supabase/server'
 
-function getUserIdFromCookies(): string | null {
+interface RouteParams {
+  params: { id: string }
+}
+
+export async function GET(request: NextRequest, { params }: RouteParams) {
+  const supabase = createAdminServerClient()
+
+  // Read user from cookie
+  let user: any = null
+  const { cookies } = await import('next/headers')
   const cookieStore = cookies()
-  const names = [
-    'sb-rhprcuqhuesorrncswjs-auth-token.0',
-    'sb-rhprcuqhuesorrncswjs-auth-token',
-    'sb-rhprcuqhuesorrncswjs-auth-token.1',
-  ]
-  for (const name of names) {
-    const val = cookieStore.get(name)?.value
-    if (!val) continue
+  const t = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token')
+  const t0 = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token.0')
+  const t1 = cookieStore.get('sb-rhprcuqhuesorrncswjs-auth-token.1')
+  let raw = t?.value || (t0?.value ? t0.value + (t1?.value ?? '') : null)
+  if (raw) {
     try {
-      const parsed = JSON.parse(val)
-      const id = parsed?.user?.id ?? parsed?.sub ?? null
-      if (id) return id
+      const d = JSON.parse(decodeURIComponent(raw))
+      if (d?.user) user = d.user
+      else if (d?.access_token) {
+        const p = JSON.parse(Buffer.from(d.access_token.split('.')[1], 'base64').toString())
+        if (p?.sub) user = { id: p.sub, email: p.email }
+      }
     } catch {}
   }
-  return null
-}
 
-export async function GET() {
-  try {
-    const userId = getUserIdFromCookies()
-    if (!userId) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-    const supabase = createAdminServerClient()
+  const { data: document, error: docError } = await supabase
+    .from('documents')
+    .select('id, file_url, storage_path, file_name, status, company_id')
+    .eq('id', params.id)
+    .single()
 
-    const { data: client } = await supabase
-      .from('clients')
-      .select('id')
-      .eq('user_id', userId)
-      .maybeSingle()
-
-    if (!client) {
-      return NextResponse.json({ documents: [], company: null })
-    }
-
-    const { data: company } = await supabase
-      .from('companies')
-      .select('id, company_name')
-      .eq('client_id', client.id)
-      .order('created_at')
-      .limit(1)
-      .maybeSingle()
-
-    if (!company) {
-      return NextResponse.json({ documents: [], company: null })
-    }
-
-    const { data: documents, error } = await supabase
-      .from('documents')
-      .select('*')
-      .eq('company_id', company.id)
-      .order('created_at', { ascending: false })
-
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 })
-    }
-
-    return NextResponse.json({ documents: documents ?? [], company })
-  } catch (err) {
-    return NextResponse.json({ error: 'Internal error' }, { status: 500 })
+  if (docError || !document) {
+    return NextResponse.json({ error: 'Document not found' }, { status: 404 })
   }
-}
 
-export async function POST(request: Request) {
-  try {
-    const userId = getUserIdFromCookies()
-    if (!userId) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
+  const pathSource = document.storage_path || document.file_url
 
-    const body = await request.json()
-    const supabase = createAdminServerClient()
-
-    const { error } = await supabase.from('documents').insert({
-      ...body,
-      uploaded_by: userId,
-    })
-
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-    return NextResponse.json({ ok: true })
-  } catch (err) {
-    return NextResponse.json({ error: 'Internal error' }, { status: 500 })
+  if (!pathSource) {
+    return NextResponse.json({ error: 'No storage path found' }, { status: 404 })
   }
+
+  let storagePath: string
+
+  try {
+    if (pathSource.startsWith('http')) {
+      const url = new URL(pathSource)
+      const match = url.pathname.match(/\/object\/(?:public|sign)\/documents\/(.+)/)
+      if (!match) throw new Error('Unparseable URL')
+      storagePath = decodeURIComponent(match[1])
+    } else {
+      storagePath = pathSource
+    }
+  } catch {
+    return NextResponse.json({ error: 'Invalid document path' }, { status: 500 })
+  }
+
+  // Bucket is public — use public URL directly
+  const { data: publicData } = supabase.storage
+    .from('documents')
+    .getPublicUrl(storagePath)
+
+  if (!publicData?.publicUrl) {
+    return NextResponse.json({ error: 'Failed to get public URL' }, { status: 500 })
+  }
+
+  return NextResponse.redirect(publicData.publicUrl)
 }
