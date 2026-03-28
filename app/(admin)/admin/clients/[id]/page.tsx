@@ -266,7 +266,7 @@ export default async function AdminClientDetailPage({ params }: PageProps) {
               id:               company.id,
               name:             company.company_name,
               state:            company.state,
-              state_code:       company.state_code ?? '',
+              state_code:       company.state ?? '',
               entity_type:      company.entity_type,
               registered_agent: company.registered_agent,
             }}
