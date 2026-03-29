@@ -79,5 +79,25 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     return NextResponse.json({ error: 'Failed to get public URL' }, { status: 500 })
   }
 
-  return NextResponse.redirect(publicData.publicUrl)
+  // Proxy the file instead of redirecting so we can control Content-Type headers.
+  // A bare redirect lets Supabase set the headers, which omits charset=utf-8 on
+  // HTML files — causing encoding corruption (â€" instead of —) and raw-source display.
+  const upstream = await fetch(publicData.publicUrl)
+  if (!upstream.ok) {
+    return NextResponse.json({ error: 'File not found in storage' }, { status: 404 })
+  }
+
+  const isHtml = storagePath.endsWith('.html') || document.file_name?.endsWith('.html')
+  const contentType = isHtml
+    ? 'text/html; charset=utf-8'
+    : (upstream.headers.get('content-type') ?? 'application/octet-stream')
+
+  const disposition = isHtml ? 'inline' : `attachment; filename="${document.file_name ?? 'document'}"`
+
+  return new NextResponse(upstream.body, {
+    headers: {
+      'Content-Type': contentType,
+      'Content-Disposition': disposition,
+    },
+  })
 }
