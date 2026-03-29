@@ -97,7 +97,12 @@ th,td{border:1px solid #000;padding:6px;text-align:left}th{background:#f0f0f0}
     const fileName = body.doc_type + '_draft_' + Date.now() + '.html'
     const storagePath = body.company_id + '/' + fileName
     const blob = new Blob([html], { type: 'text/html' })
-    await supabase.storage.from('documents').upload(storagePath, blob, { contentType: 'text/html', upsert: true })
+    const { error: uploadError } = await supabase.storage.from('documents').upload(storagePath, blob, { contentType: 'text/html', upsert: true })
+    if (uploadError) {
+      console.error('[documents/generate] storage upload failed:', uploadError.message, { storagePath })
+      return NextResponse.json({ error: 'Storage upload failed: ' + uploadError.message }, { status: 500 })
+    }
+    console.log('[documents/generate] upload ok:', storagePath)
 
     const { data: docRow } = await supabase.from('documents').insert({
       company_id: body.company_id,
