@@ -93,6 +93,18 @@ th,td{border:1px solid #000;padding:6px;text-align:left}th{background:#f0f0f0}
 </body></html>`
     }
 
+    // Ensure bucket exists
+    const { data: buckets } = await supabase.storage.listBuckets()
+    const bucketExists = (buckets ?? []).some(b => b.name === 'documents')
+    if (!bucketExists) {
+      const { error: bucketErr } = await supabase.storage.createBucket('documents', { public: true })
+      if (bucketErr) {
+        console.error('[documents/generate] bucket create failed:', bucketErr.message)
+        return NextResponse.json({ error: 'Bucket create failed: ' + bucketErr.message }, { status: 500 })
+      }
+      console.log('[documents/generate] bucket created')
+    }
+
     // Upload HTML to Supabase Storage
     const fileName = body.doc_type + '_draft_' + Date.now() + '.html'
     const storagePath = body.company_id + '/' + fileName
