@@ -71,17 +71,13 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     return NextResponse.json({ error: 'Invalid document URL' }, { status: 500 })
   }
 
-  // Generate a signed URL valid for 1 hour
-  const { data: signedData, error: signedError } = await supabase.storage
+  const { data: publicData } = supabase.storage
     .from('documents')
-    .createSignedUrl(storagePath, 3600)
+    .getPublicUrl(storagePath)
 
-  if (signedError || !signedData?.signedUrl) {
-    return NextResponse.json(
-      { error: 'Failed to generate download URL: ' + signedError?.message },
-      { status: 500 }
-    )
+  if (!publicData?.publicUrl) {
+    return NextResponse.json({ error: 'Failed to get public URL' }, { status: 500 })
   }
 
-  return NextResponse.redirect(signedData.signedUrl)
+  return NextResponse.redirect(publicData.publicUrl)
 }

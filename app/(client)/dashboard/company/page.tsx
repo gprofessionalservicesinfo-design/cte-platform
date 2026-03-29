@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { StatusBadge } from '@/components/client/status-badge'
 import { formatDate } from '@/lib/utils'
@@ -12,18 +11,14 @@ export default function CompanyPage() {
 
   useEffect(() => {
     async function load() {
-      const supabase = createClient()
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) { window.location.href = '/login'; return }
-
-      const { data } = await supabase
-        .from('companies')
-        .select('*')
-        .order('created_at')
-        .limit(1)
-        .maybeSingle()
-
-      setCompany(data)
+      const res = await fetch('/api/client/company')
+      if (!res.ok) {
+        if (res.status === 401) { window.location.href = '/login'; return }
+        setLoading(false)
+        return
+      }
+      const { company } = await res.json()
+      setCompany(company)
       setLoading(false)
     }
     load()
