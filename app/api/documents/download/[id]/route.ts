@@ -75,9 +75,15 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     .from('documents')
     .getPublicUrl(storagePath)
 
-  if (!publicData?.publicUrl) {
-    return NextResponse.json({ error: 'Failed to get public URL' }, { status: 500 })
-  }
+  console.log('[download] doc.id:', params.id)
+  console.log('[download] pathSource:', pathSource)
+  console.log('[download] storagePath:', storagePath)
+  console.log('[download] publicUrl:', publicData?.publicUrl)
 
-  return NextResponse.redirect(publicData.publicUrl)
+  return NextResponse.json({
+    storagePath,
+    publicUrl: publicData?.publicUrl ?? null,
+    pathSource,
+    doc: { id: document.id, file_url: document.file_url, storage_path: document.storage_path },
+  })
 }
