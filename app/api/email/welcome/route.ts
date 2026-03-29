@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
 
   try {
     await resend.emails.send({
-      from: 'CreaTuEmpresaUSA <onboarding@resend.dev>',
+      from: 'CreaTuEmpresaUSA <noreply@creatuempresausa.com>',
       to: toEmail,
       subject: `✅ Recibimos tu orden — ${packageName} LLC Formation`,
       html: `
