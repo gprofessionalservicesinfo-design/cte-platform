@@ -27,11 +27,23 @@ export async function GET(_req: NextRequest) {
 
     const supabase = createAdminServerClient()
 
+    const { data: clientRow } = await supabase
+      .from('clients')
+      .select('id')
+      .eq('user_id', user.id)
+      .single()
+
+    if (!clientRow?.id) {
+      return NextResponse.json({ error: 'Company not found' }, { status: 404 })
+    }
+
     const { data: company, error: companyErr } = await supabase
       .from('companies')
       .select('id, company_name, state, entity_type')
-      .eq('user_id', user.id)
-      .single()
+      .eq('client_id', clientRow.id)
+      .order('created_at')
+      .limit(1)
+      .maybeSingle()
 
     if (companyErr || !company) {
       return NextResponse.json({ error: 'Company not found' }, { status: 404 })
@@ -68,12 +80,22 @@ export async function POST(req: NextRequest) {
 
     const supabase = createAdminServerClient()
 
-    // Verify the company belongs to this user
+    // Verify the company belongs to this user via clients table
+    const { data: clientRow } = await supabase
+      .from('clients')
+      .select('id')
+      .eq('user_id', user.id)
+      .single()
+
+    if (!clientRow?.id) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
+
     const { data: company, error: companyErr } = await supabase
       .from('companies')
       .select('id')
       .eq('id', company_id)
-      .eq('user_id', user.id)
+      .eq('client_id', clientRow.id)
       .single()
 
     if (companyErr || !company) {
