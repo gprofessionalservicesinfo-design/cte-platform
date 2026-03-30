@@ -113,6 +113,12 @@ export async function POST(request: NextRequest) {
           const fullName    = session.customer_details?.name  ?? 'Cliente'
           const amountTotal = session.amount_total ?? 0
 
+          // Extract terms acceptance timestamp from client_reference_id (ta_<ISO>)
+          const clientRef      = session.client_reference_id ?? ''
+          const termsAcceptedAt = clientRef.startsWith('ta_')
+            ? (() => { try { return new Date(decodeURIComponent(clientRef.slice(3))).toISOString() } catch { return null } })()
+            : null
+
           const packageMap: Record<number, string> = {
             25900: 'starter',
             29900: 'starter',
@@ -158,9 +164,10 @@ export async function POST(request: NextRequest) {
               const { data: clientData, error: clientError } = await supabase
                 .from('clients')
                 .upsert({
-                  user_id: userId,
-                  phone:   session.customer_details?.phone ?? '',
-                  country: session.customer_details?.address?.country ?? '',
+                  user_id:          userId,
+                  phone:            session.customer_details?.phone ?? '',
+                  country:          session.customer_details?.address?.country ?? '',
+                  ...(termsAcceptedAt ? { terms_accepted_at: termsAcceptedAt } : {}),
                 }, { onConflict: 'user_id' })
                 .select('id')
                 .single()

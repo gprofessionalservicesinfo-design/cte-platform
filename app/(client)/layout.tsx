@@ -1,6 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
 import { ClientSidebar } from '@/components/client/sidebar'
-import { TermsBanner } from '@/components/client/terms-banner'
 
 export default async function ClientLayout({ children }: { children: React.ReactNode }) {
   const supabase = createClient()
@@ -48,7 +47,6 @@ export default async function ClientLayout({ children }: { children: React.React
         userEmail={profile?.email ?? user?.email}
       />
       <div className="lg:pl-64">
-        <TermsBanner />
         <main className="pt-16 lg:pt-8 pb-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">{children}</main>
       </div>
     </div>
