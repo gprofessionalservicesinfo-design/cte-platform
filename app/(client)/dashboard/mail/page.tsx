@@ -107,7 +107,7 @@ export default function MailPage() {
               className={item.is_read ? 'opacity-70' : 'border-primary/30 shadow-sm'}
             >
               <CardContent className="py-4">
-                <div className="flex items-start justify-between gap-4">
+                <div className="flex items-start justify-between gap-2">
                   <div className="flex items-start gap-3 min-w-0">
                     <div
                       className={`p-2 rounded-lg flex-shrink-0 ${
@@ -121,7 +121,7 @@ export default function MailPage() {
                       )}
                     </div>
                     <div className="min-w-0">
-                      <p className={`font-medium ${item.is_read ? 'text-gray-600' : 'text-gray-900'}`}>
+                      <p className={`font-medium truncate ${item.is_read ? 'text-gray-600' : 'text-gray-900'}`}>
                         {!item.is_read && (
                           <span className="inline-block w-2 h-2 bg-blue-500 rounded-full mr-2 mb-0.5" />
                         )}
@@ -140,10 +140,10 @@ export default function MailPage() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="flex-shrink-0 text-xs"
+                      className="flex-shrink-0 text-xs px-2 whitespace-nowrap"
                       onClick={() => markAsRead(item.id)}
                     >
-                      Mark read
+                      Leído
                     </Button>
                   )}
                 </div>

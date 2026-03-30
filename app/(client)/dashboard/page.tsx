@@ -131,7 +131,7 @@ export default async function DashboardPage() {
         <Card>
           <CardHeader><CardTitle className="text-base">EIN (Tax ID)</CardTitle></CardHeader>
           <CardContent>
-            <p className="text-2xl font-mono font-bold text-gray-900">{company.ein}</p>
+            <p className="text-xl sm:text-2xl font-mono font-bold text-gray-900 break-all">{company.ein}</p>
             <p className="text-sm text-gray-500 mt-1">Numero de identificacion fiscal federal</p>
           </CardContent>
         </Card>
@@ -139,7 +139,7 @@ export default async function DashboardPage() {
 
       <Card>
         <CardHeader><CardTitle className="text-base">Necesitas ayuda?</CardTitle></CardHeader>
-        <CardContent className="flex gap-3">
+        <CardContent className="flex flex-wrap gap-3">
           <a href="https://wa.me/19046248859" target="_blank" className="bg-green-500 text-white px-5 py-2 rounded-lg font-medium text-sm">WhatsApp</a>
           <a href="mailto:info@creatuempresausa.com" className="bg-gray-100 text-gray-700 px-5 py-2 rounded-lg font-medium text-sm">Email</a>
         </CardContent>

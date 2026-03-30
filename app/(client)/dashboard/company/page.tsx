@@ -43,7 +43,7 @@ export default function CompanyPage() {
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <p className="text-sm text-gray-500">Estado de formación</p>
               <p className="font-medium">{company.state}</p>

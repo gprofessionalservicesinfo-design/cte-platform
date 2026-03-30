@@ -51,17 +51,17 @@ export default function BillingPage() {
             <CardTitle>Resumen del paquete</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            <div className="flex justify-between">
-              <span className="text-gray-500">Paquete</span>
-              <span className="font-medium capitalize">{company.package}</span>
+            <div className="flex justify-between gap-2">
+              <span className="text-gray-500 shrink-0">Paquete</span>
+              <span className="font-medium capitalize text-right">{company.package}</span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-gray-500">Empresa</span>
-              <span className="font-medium">{company.company_name}</span>
+            <div className="flex justify-between gap-2">
+              <span className="text-gray-500 shrink-0">Empresa</span>
+              <span className="font-medium text-right truncate max-w-[60%]">{company.company_name}</span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-gray-500">Orden</span>
-              <span className="font-medium">{company.order_reference}</span>
+            <div className="flex justify-between gap-2">
+              <span className="text-gray-500 shrink-0">Orden</span>
+              <span className="font-medium text-right">{company.order_reference}</span>
             </div>
           </CardContent>
         </Card>

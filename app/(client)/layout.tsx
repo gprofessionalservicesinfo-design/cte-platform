@@ -47,7 +47,7 @@ export default async function ClientLayout({ children }: { children: React.React
         userEmail={profile?.email ?? user?.email}
       />
       <div className="lg:pl-64">
-        <main className="py-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">{children}</main>
+        <main className="pt-16 lg:pt-8 pb-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">{children}</main>
       </div>
     </div>
   )

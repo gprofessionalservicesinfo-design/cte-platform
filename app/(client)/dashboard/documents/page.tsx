@@ -132,12 +132,12 @@ export default function DocumentsPage() {
                       <p className="font-medium text-gray-900 text-sm">{DOC_TYPE_LABELS[doc.type] ?? doc.type}</p>
                       <p className="text-xs text-gray-400 mt-0.5">{formatDateTime(doc.generated_at ?? doc.created_at)}</p>
                     </div>
-                    <div className="flex items-center gap-2 shrink-0">
-                      <span className={`text-xs px-2 py-1 rounded-full font-medium ${doc.status === 'final' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}`}>
+                    <div className="flex flex-col items-end gap-1.5 shrink-0">
+                      <span className={`text-xs px-2 py-1 rounded-full font-medium whitespace-nowrap ${doc.status === 'final' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}`}>
                         {doc.status === 'final' ? 'Final' : 'Borrador'}
                       </span>
                       {doc.storage_path && (
-                        <Button variant="outline" size="sm" className="h-8 text-xs" onClick={() => handleDownload(doc)}>
+                        <Button variant="outline" size="sm" className="h-7 text-xs whitespace-nowrap" onClick={() => handleDownload(doc)}>
                           <Download className="h-3.5 w-3.5 mr-1" />Descargar
                         </Button>
                       )}
