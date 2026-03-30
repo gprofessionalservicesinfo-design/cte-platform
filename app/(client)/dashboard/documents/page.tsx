@@ -180,7 +180,8 @@ export default function DocumentsPage() {
                         ref={el => { fileRefs.current[req.id] = el }}
                         type="file"
                         className="hidden"
-                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,image/*"
+                        capture={undefined}
                         onChange={(e) => handleUpload(e, req.id)}
                       />
                       <Button
