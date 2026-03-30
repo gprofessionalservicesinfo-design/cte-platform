@@ -167,7 +167,11 @@ create table if not exists public.documents (
                     'ein_letter',           -- IRS EIN confirmation letter
                     'formation_certificate',-- State certificate of formation
                     'annual_report',        -- Annual / biennial report
-                    'other'
+                    'other',
+                    'gov_id',              -- Client: government ID / passport
+                    'proof_addr',          -- Client: proof of address
+                    'biz_info',            -- Client: business information
+                    'members'              -- Client: member information
                   )),
   file_name     text not null,
   file_url      text not null,              -- Storage path: documents/{company_id}/{filename}
