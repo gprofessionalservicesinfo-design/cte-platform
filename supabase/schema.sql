@@ -171,7 +171,12 @@ create table if not exists public.documents (
                     'gov_id',              -- Client: government ID / passport
                     'proof_addr',          -- Client: proof of address
                     'biz_info',            -- Client: business information
-                    'members'              -- Client: member information
+                    'members',             -- Client: member information
+                    'itin_status',         -- Client: ITIN or application status
+                    'source_funds',        -- Client: source of funds
+                    'wire_info',           -- Client: preferred bank info
+                    'ein_auth',            -- Client: signed SS-4 form
+                    'oa_signature'         -- Client: signed Operating Agreement
                   )),
   file_name     text not null,
   file_url      text not null,              -- Storage path: documents/{company_id}/{filename}
