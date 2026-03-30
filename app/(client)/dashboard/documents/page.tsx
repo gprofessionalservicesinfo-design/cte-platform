@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
-import { createClient } from '@/lib/supabase/client'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { FileText, Upload, Loader2, Download, CheckCircle2, Clock } from 'lucide-react'
@@ -53,29 +52,30 @@ export default function DocumentsPage() {
     const file = e.target.files?.[0]
     if (!file || !company) return
     setUploadingFor(docId)
-    const supabase = createClient()
-    const fileName = `${company.id}/${Date.now()}_${file.name}`
-    const { error: uploadError } = await supabase.storage.from('documents').upload(fileName, file)
-    if (uploadError) {
-      toast.error('Error al subir: ' + uploadError.message)
-      setUploadingFor(null)
-      return
+
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+      formData.append('type', docId)
+      formData.append('company_id', company.id)
+
+      const res = await fetch('/api/client/documents/upload', {
+        method: 'POST',
+        body: formData,
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        toast.error(data.error ?? 'Error al subir documento')
+      } else {
+        toast.success('Documento subido exitosamente')
+        await loadDocuments()
+      }
+    } catch (err) {
+      toast.error('Error de red: ' + (err instanceof Error ? err.message : String(err)))
     }
-    const res = await fetch('/api/client/documents', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        company_id: company.id,
-        type: docId,
-        file_name: file.name,
-        file_size: file.size,
-        mime_type: file.type,
-        storage_path: fileName,
-        status: 'uploaded',
-      }),
-    })
-    if (!res.ok) { toast.error('Error al registrar documento') }
-    else { toast.success('Documento subido exitosamente'); await loadDocuments() }
+
     setUploadingFor(null)
     if (fileRefs.current[docId]) fileRefs.current[docId]!.value = ''
   }
