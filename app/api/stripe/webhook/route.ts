@@ -2,6 +2,63 @@ import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe'
 import { createClient as createSupabaseAdmin } from '@supabase/supabase-js'
 import Stripe from 'stripe'
+import { Resend } from 'resend'
+
+const resend = new Resend(process.env.RESEND_API_KEY)
+
+async function sendWelcomeEmail(opts: {
+  customerName: string
+  customerEmail: string
+  packageName: string
+  amountTotal: number
+  orderRef: string
+}) {
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://creatuempresausa.com'
+  try {
+    const { error } = await resend.emails.send({
+      from: 'CreaTuEmpresaUSA <noreply@creatuempresausa.com>',
+      to: opts.customerEmail,
+      subject: `✅ Recibimos tu orden — ${opts.packageName} LLC Formation`,
+      html: `
+        <div style="font-family:system-ui,sans-serif;max-width:600px;margin:0 auto;padding:40px 20px;background:#f8fafc">
+          <div style="background:#0A2540;border-radius:16px;padding:40px;color:#fff;text-align:center;margin-bottom:24px">
+            <div style="font-size:48px;margin-bottom:12px">🎉</div>
+            <h1 style="font-size:24px;font-weight:800;margin:0 0 8px">Recibimos tu pago</h1>
+            <p style="opacity:.75;margin:0">Tu caso fue creado exitosamente.</p>
+          </div>
+          <div style="background:#fff;border-radius:16px;padding:28px;margin-bottom:20px;border:1px solid #e2e8f0">
+            <h2 style="font-size:16px;font-weight:700;color:#0A2540;margin:0 0 16px">Resumen del pedido</h2>
+            <table style="width:100%;border-collapse:collapse">
+              <tr><td style="padding:8px 0;color:#64748b;font-size:14px;border-bottom:1px solid #f1f5f9">Cliente</td><td style="padding:8px 0;font-weight:600;color:#0A2540;font-size:14px;text-align:right;border-bottom:1px solid #f1f5f9">${opts.customerName}</td></tr>
+              <tr><td style="padding:8px 0;color:#64748b;font-size:14px;border-bottom:1px solid #f1f5f9">Paquete</td><td style="padding:8px 0;font-weight:600;color:#0A2540;font-size:14px;text-align:right;border-bottom:1px solid #f1f5f9">${opts.packageName}</td></tr>
+              <tr><td style="padding:8px 0;color:#64748b;font-size:14px;border-bottom:1px solid #f1f5f9">Monto pagado</td><td style="padding:8px 0;font-weight:600;color:#0A2540;font-size:14px;text-align:right;border-bottom:1px solid #f1f5f9">$${opts.amountTotal} USD</td></tr>
+              <tr><td style="padding:8px 0;color:#64748b;font-size:14px">Número de orden</td><td style="padding:8px 0;font-weight:700;color:#2563eb;font-size:14px;text-align:right">${opts.orderRef}</td></tr>
+            </table>
+          </div>
+          <div style="background:#fff;border-radius:16px;padding:28px;margin-bottom:20px;border:1px solid #e2e8f0">
+            <h2 style="font-size:16px;font-weight:700;color:#0A2540;margin:0 0 16px">Qué sigue</h2>
+            <p style="padding:6px 0;font-size:14px;color:#16a34a;font-weight:700">✅ Pago recibido y caso creado</p>
+            <p style="padding:6px 0;font-size:14px;color:#64748b">📋 Revisión de documentos (24-48 hrs)</p>
+            <p style="padding:6px 0;font-size:14px;color:#64748b">📤 Filing estatal (3-7 días hábiles)</p>
+            <p style="padding:6px 0;font-size:14px;color:#64748b">🔢 Obtención de EIN</p>
+            <p style="padding:6px 0;font-size:14px;color:#64748b">📦 Entrega de documentos finales</p>
+          </div>
+          <div style="text-align:center;margin-bottom:16px">
+            <a href="${appUrl}/login" style="display:inline-block;background:#0A2540;color:#fff;padding:14px 32px;border-radius:12px;font-weight:700;text-decoration:none;font-size:15px;margin-bottom:12px">🚀 Acceder a mi portal</a>
+          </div>
+          <div style="text-align:center;margin-bottom:24px">
+            <a href="https://wa.me/19046248859" style="display:inline-block;background:#25D366;color:#fff;padding:14px 32px;border-radius:12px;font-weight:700;text-decoration:none;font-size:15px">💬 Hablar por WhatsApp</a>
+          </div>
+          <p style="text-align:center;color:#94a3b8;font-size:12px">CreaTuEmpresaUSA · Si tienes preguntas escríbenos por WhatsApp</p>
+        </div>
+      `,
+    })
+    if (error) console.error('[webhook] Resend error:', error)
+    else console.log('[webhook] Welcome email sent to:', opts.customerEmail)
+  } catch (err) {
+    console.error('[webhook] Failed to send welcome email:', err)
+  }
+}
 
 // Service-role client — bypasses RLS for webhook writes
 function adminClient() {
@@ -195,25 +252,17 @@ export async function POST(request: NextRequest) {
                 } else {
                   console.log('[webhook] New client created:', email, '| pkg:', pkg, '| company:', companyData?.id)
 
-                // Send welcome email
+                // Send welcome email directly via Resend
                 const pkgNames: Record<string, string> = {
                   starter: 'Plan Starter', professional: 'Plan Professional', premium: 'Plan Premium'
                 }
-                try {
-                  await fetch(process.env.NEXT_PUBLIC_APP_URL + '/api/email/welcome', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                      customerName:  fullName,
-                      customerEmail: email,
-                      packageName:   pkgNames[pkg] ?? pkg,
-                      amountTotal:   amountTotal / 100,
-                      orderRef:      orderRef,
-                    }),
-                  })
-                } catch (emailErr) {
-                  console.error('[webhook] Email error:', emailErr)
-                }
+                await sendWelcomeEmail({
+                  customerName:  fullName,
+                  customerEmail: email,
+                  packageName:   pkgNames[pkg] ?? pkg,
+                  amountTotal:   amountTotal / 100,
+                  orderRef,
+                })
                 }
               }
             }
