@@ -359,6 +359,7 @@ export async function POST(request: NextRequest) {
                 const pkgNames: Record<string, string> = {
                   starter: 'Plan Starter', professional: 'Plan Professional', premium: 'Plan Premium'
                 }
+                const welcomeSubject = `Tu empresa en EE.UU. está en camino 🚀`
                 await sendWelcomeEmail({
                   customerName:  fullName,
                   customerEmail: email,
@@ -366,6 +367,18 @@ export async function POST(request: NextRequest) {
                   amountTotal:   amountTotal / 100,
                   orderRef,
                 })
+
+                // Save welcome email to mail_items for client portal visibility
+                if (companyData?.id) {
+                  await supabase.from('mail_items').insert({
+                    company_id:  companyData.id,
+                    title:       welcomeSubject,
+                    sender:      'noreply@creatuempresausa.com',
+                    description: `Pago recibido · ${pkgNames[pkg] ?? pkg} · $${amountTotal / 100} USD · Orden ${orderRef}`,
+                    is_read:     false,
+                    received_at: new Date().toISOString(),
+                  })
+                }
 
                 // Send WhatsApp notification — prefer phone from client_reference_id (wizard), fallback to Stripe
                 const phone = phoneFromRef || session.metadata?.phone || session.customer_details?.phone || ''

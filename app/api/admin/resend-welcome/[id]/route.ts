@@ -37,11 +37,12 @@ export async function POST(
     : customerEmail
 
   try {
+    const emailSubject = `Tu empresa en EE.UU. está en camino 🚀`
     await resend.emails.send({
       from: 'CreaTuEmpresaUSA <noreply@creatuempresausa.com>',
       replyTo: 'soporte@creatuempresausa.com',
       to: toEmail,
-      subject: `Tu empresa en EE.UU. está en camino 🚀`,
+      subject: emailSubject,
       html: `
         <div style="font-family:system-ui,sans-serif;max-width:600px;margin:0 auto;padding:40px 20px;background:#f8fafc">
           <div style="background:#0A2540;border-radius:16px;padding:40px;color:#fff;text-align:center;margin-bottom:24px">
@@ -60,6 +61,17 @@ export async function POST(
         </div>
       `,
     })
+
+    // Save to mail_items so it appears in client portal and admin
+    await supabase.from('mail_items').insert({
+      company_id:  company.id,
+      title:       emailSubject,
+      sender:      'noreply@creatuempresausa.com',
+      description: `Bienvenido ${customerName}. Tu caso para ${company.company_name} está activo.`,
+      is_read:     false,
+      received_at: new Date().toISOString(),
+    })
+
     return NextResponse.json({ success: true })
   } catch (e: any) {
     console.error('[admin/resend-welcome]', e)

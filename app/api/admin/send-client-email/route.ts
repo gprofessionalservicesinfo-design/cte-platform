@@ -1,7 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { createClient as createSupabaseAdmin } from '@supabase/supabase-js'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
+
+function adminClient() {
+  return createSupabaseAdmin(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
+}
 
 export async function POST(req: NextRequest) {
   const { to, name, subject, body, companyId } = await req.json()
@@ -27,6 +35,21 @@ export async function POST(req: NextRequest) {
         </div>
       `,
     })
+
+    // Save to mail_items so it appears in client portal and admin
+    if (companyId) {
+      const supabase = adminClient()
+      const preview = body.length > 200 ? body.slice(0, 200) + '…' : body
+      await supabase.from('mail_items').insert({
+        company_id:  companyId,
+        title:       subject,
+        sender:      'soporte@creatuempresausa.com',
+        description: preview,
+        is_read:     false,
+        received_at: new Date().toISOString(),
+      })
+    }
+
     return NextResponse.json({ success: true })
   } catch (error: any) {
     console.error('[admin/send-client-email]', error)
