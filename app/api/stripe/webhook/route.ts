@@ -79,13 +79,18 @@ async function sendWhatsApp(opts: {
   companyName: string
   stateName: string
 }) {
-  const to = formatWhatsAppNumber(opts.phone)
-  if (!to) { console.log('[webhook] WhatsApp skipped — no valid phone number'); return }
+  console.log('[whatsapp] sendWhatsApp called — raw phone:', opts.phone)
 
-  const from = process.env.TWILIO_WHATSAPP_FROM
+  const to = formatWhatsAppNumber(opts.phone)
+  console.log('[whatsapp] formatted to:', to)
+  if (!to) { console.warn('[whatsapp] SKIP — phone could not be formatted to E.164:', opts.phone); return }
+
+  // Sandbox: whatsapp:+14155238886  |  Production: set TWILIO_WHATSAPP_FROM in Vercel
+  const from = process.env.TWILIO_WHATSAPP_FROM ?? 'whatsapp:+14155238886'
   const sid  = process.env.TWILIO_ACCOUNT_SID
   const auth = process.env.TWILIO_AUTH_TOKEN
-  if (!from || !sid || !auth) { console.warn('[webhook] WhatsApp skipped — Twilio env vars missing'); return }
+  console.log('[whatsapp] from:', from, '| sid present:', !!sid, '| auth present:', !!auth)
+  if (!sid || !auth) { console.warn('[whatsapp] SKIP — TWILIO_ACCOUNT_SID or TWILIO_AUTH_TOKEN missing'); return }
 
   const body =
     `Hola ${opts.customerName}! 🎉 Bienvenido a CreaTuEmpresaUSA.\n\n` +
@@ -97,10 +102,11 @@ async function sendWhatsApp(opts: {
 
   try {
     const client = twilio(sid, auth)
+    console.log('[whatsapp] Sending message — from:', from, '| to:', to)
     const msg = await client.messages.create({ from, to, body })
-    console.log('[webhook] WhatsApp sent — sid:', msg.sid, '| to:', to)
-  } catch (err) {
-    console.error('[webhook] WhatsApp send failed:', err)
+    console.log('[whatsapp] SUCCESS — sid:', msg.sid, '| status:', msg.status, '| to:', to)
+  } catch (err: any) {
+    console.error('[whatsapp] FAILED — code:', err?.code, '| status:', err?.status, '| message:', err?.message)
   }
 }
 
@@ -216,7 +222,9 @@ export async function POST(request: NextRequest) {
 
           // Parse client_reference_id — format: "ta_<ISO>||ph_<phone>" (each part optional)
           const clientRef  = session.client_reference_id ?? ''
+          console.log('[webhook] client_reference_id raw:', clientRef)
           const refDecoded = (() => { try { return decodeURIComponent(clientRef) } catch { return clientRef } })()
+          console.log('[webhook] client_reference_id decoded:', refDecoded)
           const refParts   = refDecoded.split('||')
           const termsAcceptedAt = (() => {
             const part = refParts.find(p => p.startsWith('ta_'))
@@ -227,6 +235,7 @@ export async function POST(request: NextRequest) {
             const part = refParts.find(p => p.startsWith('ph_'))
             return part ? part.slice(3) : null
           })()
+          console.log('[webhook] termsAcceptedAt:', termsAcceptedAt, '| phoneFromRef:', phoneFromRef)
 
           const packageMap: Record<number, string> = {
             25900: 'starter',
@@ -318,6 +327,8 @@ export async function POST(request: NextRequest) {
 
                 // Send WhatsApp notification — prefer phone from client_reference_id (wizard), fallback to Stripe
                 const phone = phoneFromRef || session.metadata?.phone || session.customer_details?.phone || ''
+                console.log('[webhook] phone sources — ref:', phoneFromRef, '| metadata:', session.metadata?.phone, '| details:', session.customer_details?.phone)
+                console.log('[webhook] final phone for WhatsApp:', phone || '(none — skipping)')
                 if (phone) {
                   await sendWhatsApp({
                     phone,
