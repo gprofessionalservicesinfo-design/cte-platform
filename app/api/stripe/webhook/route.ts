@@ -372,11 +372,11 @@ export async function POST(request: NextRequest) {
                 if (companyData?.id) {
                   await supabase.from('mail_items').insert({
                     company_id:  companyData.id,
-                    title:       welcomeSubject,
-                    sender:      'noreply@creatuempresausa.com',
-                    description: `Pago recibido · ${pkgNames[pkg] ?? pkg} · $${amountTotal / 100} USD · Orden ${orderRef}`,
+                    title:       '¡Tu empresa en EE.UU. está en camino! 🚀',
+                    sender:      'CreaTuEmpresaUSA <noreply@creatuempresausa.com>',
+                    description: 'Email de bienvenida enviado automáticamente al completar tu orden.',
+                    category:    'welcome',
                     is_read:     false,
-                    received_at: new Date().toISOString(),
                   })
                 }
 

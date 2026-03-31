@@ -65,11 +65,11 @@ export async function POST(
     // Save to mail_items so it appears in client portal and admin
     await supabase.from('mail_items').insert({
       company_id:  company.id,
-      title:       emailSubject,
-      sender:      'noreply@creatuempresausa.com',
-      description: `Bienvenido ${customerName}. Tu caso para ${company.company_name} está activo.`,
+      title:       '¡Tu empresa en EE.UU. está en camino! 🚀',
+      sender:      'CreaTuEmpresaUSA <noreply@creatuempresausa.com>',
+      description: 'Email de bienvenida enviado automáticamente al completar tu orden.',
+      category:    'welcome-resend',
       is_read:     false,
-      received_at: new Date().toISOString(),
     })
 
     return NextResponse.json({ success: true })

@@ -39,14 +39,13 @@ export async function POST(req: NextRequest) {
     // Save to mail_items so it appears in client portal and admin
     if (companyId) {
       const supabase = adminClient()
-      const preview = body.length > 200 ? body.slice(0, 200) + '…' : body
       await supabase.from('mail_items').insert({
         company_id:  companyId,
         title:       subject,
         sender:      'soporte@creatuempresausa.com',
-        description: preview,
+        description: body,
+        category:    'admin',
         is_read:     false,
-        received_at: new Date().toISOString(),
       })
     }
 
