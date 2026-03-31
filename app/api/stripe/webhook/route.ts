@@ -214,11 +214,19 @@ export async function POST(request: NextRequest) {
           const fullName    = session.customer_details?.name  ?? 'Cliente'
           const amountTotal = session.amount_total ?? 0
 
-          // Extract terms acceptance timestamp from client_reference_id (ta_<ISO>)
-          const clientRef      = session.client_reference_id ?? ''
-          const termsAcceptedAt = clientRef.startsWith('ta_')
-            ? (() => { try { return new Date(decodeURIComponent(clientRef.slice(3))).toISOString() } catch { return null } })()
-            : null
+          // Parse client_reference_id — format: "ta_<ISO>||ph_<phone>" (each part optional)
+          const clientRef  = session.client_reference_id ?? ''
+          const refDecoded = (() => { try { return decodeURIComponent(clientRef) } catch { return clientRef } })()
+          const refParts   = refDecoded.split('||')
+          const termsAcceptedAt = (() => {
+            const part = refParts.find(p => p.startsWith('ta_'))
+            if (!part) return null
+            try { return new Date(part.slice(3)).toISOString() } catch { return null }
+          })()
+          const phoneFromRef = (() => {
+            const part = refParts.find(p => p.startsWith('ph_'))
+            return part ? part.slice(3) : null
+          })()
 
           const packageMap: Record<number, string> = {
             25900: 'starter',
@@ -308,8 +316,8 @@ export async function POST(request: NextRequest) {
                   orderRef,
                 })
 
-                // Send WhatsApp notification
-                const phone = session.metadata?.phone || session.customer_details?.phone || ''
+                // Send WhatsApp notification — prefer phone from client_reference_id (wizard), fallback to Stripe
+                const phone = phoneFromRef || session.metadata?.phone || session.customer_details?.phone || ''
                 if (phone) {
                   await sendWhatsApp({
                     phone,

@@ -772,8 +772,12 @@ document.addEventListener('DOMContentLoaded', function() {
       var sep = link.indexOf('?') >= 0 ? '&' : '?';
       var stripeUrl = link;
       if (email) { stripeUrl += sep + 'prefilled_email=' + encodeURIComponent(email); sep = '&'; }
-      var taTs = localStorage.getItem('cte_terms_accepted');
-      if (taTs) { stripeUrl += sep + 'client_reference_id=ta_' + encodeURIComponent(taTs); }
+      var refParts = [];
+      var taTs  = localStorage.getItem('cte_terms_accepted');
+      var phone = order && order.customer && order.customer.phone ? order.customer.phone.trim() : '';
+      if (taTs)  refParts.push('ta_'  + taTs);
+      if (phone) refParts.push('ph_' + phone);
+      if (refParts.length) { stripeUrl += sep + 'client_reference_id=' + encodeURIComponent(refParts.join('||')); }
       window.location.href = stripeUrl;
     } else {
       /* Fallback — no Stripe link configured */
