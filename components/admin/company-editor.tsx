@@ -18,7 +18,7 @@ interface CompanyEditorProps {
 }
 
 const ENTITY_TYPES = ['LLC', 'C-Corp', 'S-Corp', 'Non-Profit', 'Sole Proprietorship', 'General Partnership', 'Series LLC']
-const STATES = ['WY', 'DE', 'FL', 'CO', 'TX', 'NV', 'CA', 'NY', 'TX', 'WA']
+const STATES = ['WY', 'DE', 'FL', 'CO', 'TX', 'NV', 'CA', 'NY', 'WA']
 
 export function CompanyEditor({ companyId, initialData }: CompanyEditorProps) {
   const [editing, setEditing] = useState(false)
@@ -125,7 +125,7 @@ export function CompanyEditor({ companyId, initialData }: CompanyEditorProps) {
           className="w-full border border-gray-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">— Seleccionar —</option>
-          {[...new Set(STATES)].map((s) => <option key={s} value={s}>{s}</option>)}
+          {STATES.map((s) => <option key={s} value={s}>{s}</option>)}
         </select>
       </div>
       <div className="space-y-1.5">
