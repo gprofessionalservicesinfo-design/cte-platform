@@ -694,10 +694,8 @@ document.addEventListener('DOMContentLoaded', function() {
   var termsCloseBtn  = document.getElementById('coTermsCloseBtn');
   var termsAcceptBtn = document.getElementById('coTermsAcceptBtn');
 
-  /* Restore checkbox state from localStorage */
-  if (localStorage.getItem('cte_terms_accepted')) {
-    if (termsCheck) termsCheck.checked = true;
-  }
+  /* Checkbox always starts unchecked — user must read and accept on each visit */
+  if (termsCheck) termsCheck.checked = false;
 
   function updatePayBtn() {
     if (payBtn) payBtn.disabled = !(termsCheck && termsCheck.checked);

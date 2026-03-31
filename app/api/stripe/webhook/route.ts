@@ -18,8 +18,9 @@ async function sendWelcomeEmail(opts: {
   try {
     const { error } = await resend.emails.send({
       from: 'CreaTuEmpresaUSA <noreply@creatuempresausa.com>',
+      replyTo: 'soporte@creatuempresausa.com',
       to: opts.customerEmail,
-      subject: `✅ Recibimos tu orden — ${opts.packageName} LLC Formation`,
+      subject: `Tu empresa en EE.UU. está en camino 🚀`,
       html: `
         <div style="font-family:system-ui,sans-serif;max-width:600px;margin:0 auto;padding:40px 20px;background:#f8fafc">
           <div style="background:#0A2540;border-radius:16px;padding:40px;color:#fff;text-align:center;margin-bottom:24px">
