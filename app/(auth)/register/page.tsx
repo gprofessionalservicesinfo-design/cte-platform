@@ -14,7 +14,7 @@ export default function RegisterPage() {
   const [password, setPassword] = useState('')
   const [error, setError]       = useState<string | null>(null)
   const [loading, setLoading]   = useState(false)
-  const [oauthLoading, setOauthLoading] = useState<'google' | 'apple' | null>(null)
+  const [oauthLoading, setOauthLoading] = useState<'google' | 'facebook' | null>(null)
   const [success, setSuccess]   = useState(false)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -42,7 +42,7 @@ export default function RegisterPage() {
     setLoading(false)
   }
 
-  async function handleOAuth(provider: 'google' | 'apple') {
+  async function handleOAuth(provider: 'google' | 'facebook') {
     setError(null)
     setOauthLoading(provider)
 
@@ -121,18 +121,18 @@ export default function RegisterPage() {
         <Button
           type="button"
           variant="outline"
-          className="w-full"
-          onClick={() => handleOAuth('apple')}
+          className="w-full border-[#1877F2] text-[#1877F2] hover:bg-[#1877F2] hover:text-white"
+          onClick={() => handleOAuth('facebook')}
           disabled={busy}
         >
-          {oauthLoading === 'apple' ? (
+          {oauthLoading === 'facebook' ? (
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
           ) : (
-            <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
-              <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.4c1.39.07 2.35.74 3.15.76 1.2-.24 2.35-.93 3.62-.84 1.54.12 2.7.72 3.46 1.84-3.17 1.9-2.42 5.98.48 7.13-.57 1.52-1.32 3.02-2.71 3.99zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+            <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24" aria-hidden="true" fill="#1877F2">
+              <path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
             </svg>
           )}
-          Continue with Apple
+          Continue with Facebook
         </Button>
       </div>
 
