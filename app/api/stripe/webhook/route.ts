@@ -320,6 +320,41 @@ export async function POST(request: NextRequest) {
                 } else {
                   console.log('[webhook] New client created:', email, '| pkg:', pkg, '| company:', companyData?.id)
 
+                // Pull wizard data from pending_orders and enrich company record
+                if (companyData?.id) {
+                  const { data: pendingOrder } = await supabase
+                    .from('pending_orders')
+                    .select('id, payload')
+                    .eq('email', email.toLowerCase().trim())
+                    .is('claimed_at', null)
+                    .order('created_at', { ascending: false })
+                    .limit(1)
+                    .maybeSingle()
+
+                  if (pendingOrder?.payload) {
+                    const p = pendingOrder.payload as any
+                    const wizardUpdate: Record<string, any> = {}
+                    if (p.company_name)     wizardUpdate.company_name     = p.company_name
+                    if (p.entity_type)      wizardUpdate.entity_type      = p.entity_type
+                    if (p.state_code)       wizardUpdate.state            = p.state_code
+                    if (p.alternate_name_1) wizardUpdate.alternate_name_1 = p.alternate_name_1
+                    if (p.alternate_name_2) wizardUpdate.alternate_name_2 = p.alternate_name_2
+                    if (p.members_count)    wizardUpdate.members_count    = p.members_count
+                    if (p.business_activity) wizardUpdate.business_activity = p.business_activity
+                    if (Object.keys(wizardUpdate).length > 0) {
+                      await supabase.from('companies').update(wizardUpdate).eq('id', companyData.id)
+                      console.log('[webhook] Wizard data applied to company:', wizardUpdate)
+                    }
+                    // Mark order as claimed
+                    await supabase
+                      .from('pending_orders')
+                      .update({ claimed_at: new Date().toISOString() })
+                      .eq('id', pendingOrder.id)
+                  } else {
+                    console.log('[webhook] No pending wizard order found for:', email)
+                  }
+                }
+
                 // Send welcome email directly via Resend
                 const pkgNames: Record<string, string> = {
                   starter: 'Plan Starter', professional: 'Plan Professional', premium: 'Plan Premium'

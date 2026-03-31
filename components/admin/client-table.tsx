@@ -28,6 +28,7 @@ interface ClientRow {
   company_name: string
   state: string
   status: string
+  package: string | null
   ein: string | null
   created_at: string
   stripe_customer_id: string | null
@@ -46,16 +47,34 @@ interface ClientTableProps {
 const PAGE_SIZE = 10
 
 const STATUS_OPTIONS = [
-  { value: 'all', label: 'All statuses' },
+  { value: 'all', label: 'Todos los estados' },
   { value: 'name_check', label: 'Name Check' },
   { value: 'articles_filed', label: 'Articles Filed' },
   { value: 'ein_processing', label: 'EIN Processing' },
   { value: 'completed', label: 'Completed' },
 ]
 
+const PACKAGE_OPTIONS = [
+  { value: 'all', label: 'Todos los paquetes' },
+  { value: 'basic', label: 'Basic' },
+  { value: 'standard', label: 'Standard' },
+  { value: 'premium', label: 'Premium' },
+]
+
+const STATE_OPTIONS = [
+  { value: 'all', label: 'Todos los estados' },
+  { value: 'WY', label: 'Wyoming (WY)' },
+  { value: 'DE', label: 'Delaware (DE)' },
+  { value: 'FL', label: 'Florida (FL)' },
+  { value: 'CO', label: 'Colorado (CO)' },
+  { value: 'TX', label: 'Texas (TX)' },
+]
+
 export function ClientTable({ clients }: ClientTableProps) {
   const [search, setSearch] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
+  const [packageFilter, setPackageFilter] = useState('all')
+  const [stateFilter, setStateFilter] = useState('all')
   const [page, setPage] = useState(1)
   const [sortKey, setSortKey] = useState<keyof ClientRow>('created_at')
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc')
@@ -77,6 +96,14 @@ export function ClientTable({ clients }: ClientTableProps) {
       result = result.filter((c) => c.status === statusFilter)
     }
 
+    if (packageFilter !== 'all') {
+      result = result.filter((c) => c.package === packageFilter)
+    }
+
+    if (stateFilter !== 'all') {
+      result = result.filter((c) => c.state === stateFilter)
+    }
+
     result.sort((a, b) => {
       const aVal = String(a[sortKey] ?? '')
       const bVal = String(b[sortKey] ?? '')
@@ -84,7 +111,7 @@ export function ClientTable({ clients }: ClientTableProps) {
     })
 
     return result
-  }, [clients, search, statusFilter, sortKey, sortDir])
+  }, [clients, search, statusFilter, packageFilter, stateFilter, sortKey, sortDir])
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
@@ -109,25 +136,59 @@ export function ClientTable({ clients }: ClientTableProps) {
     setPage(1)
   }
 
+  function handlePackageChange(value: string) {
+    setPackageFilter(value)
+    setPage(1)
+  }
+
+  function handleStateChange(value: string) {
+    setStateFilter(value)
+    setPage(1)
+  }
+
   return (
     <div className="space-y-4">
       {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-3">
-        <div className="relative flex-1">
+      <div className="flex flex-col sm:flex-row gap-3 flex-wrap">
+        <div className="relative flex-1 min-w-[200px]">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
           <Input
-            placeholder="Search by company or email…"
+            placeholder="Buscar por empresa, email o nombre…"
             value={search}
             onChange={(e) => handleSearch(e.target.value)}
             className="pl-9"
           />
         </div>
         <Select value={statusFilter} onValueChange={handleStatusChange}>
-          <SelectTrigger className="w-full sm:w-48">
-            <SelectValue placeholder="Filter by status" />
+          <SelectTrigger className="w-full sm:w-44">
+            <SelectValue placeholder="Status" />
           </SelectTrigger>
           <SelectContent>
             {STATUS_OPTIONS.map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Select value={packageFilter} onValueChange={handlePackageChange}>
+          <SelectTrigger className="w-full sm:w-44">
+            <SelectValue placeholder="Paquete" />
+          </SelectTrigger>
+          <SelectContent>
+            {PACKAGE_OPTIONS.map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Select value={stateFilter} onValueChange={handleStateChange}>
+          <SelectTrigger className="w-full sm:w-44">
+            <SelectValue placeholder="Estado" />
+          </SelectTrigger>
+          <SelectContent>
+            {STATE_OPTIONS.map((opt) => (
               <SelectItem key={opt.value} value={opt.value}>
                 {opt.label}
               </SelectItem>
@@ -207,8 +268,8 @@ export function ClientTable({ clients }: ClientTableProps) {
       {/* Pagination */}
       <div className="flex items-center justify-between text-sm text-gray-500">
         <p>
-          Showing {filtered.length === 0 ? 0 : (page - 1) * PAGE_SIZE + 1}–
-          {Math.min(page * PAGE_SIZE, filtered.length)} of {filtered.length} clients
+          Mostrando {filtered.length === 0 ? 0 : (page - 1) * PAGE_SIZE + 1}–
+          {Math.min(page * PAGE_SIZE, filtered.length)} de {filtered.length} clientes
         </p>
         <div className="flex items-center gap-2">
           <Button

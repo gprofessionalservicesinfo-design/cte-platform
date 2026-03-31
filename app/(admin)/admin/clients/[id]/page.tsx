@@ -12,7 +12,10 @@ import { EINEditor } from '@/components/admin/ein-editor'
 import { PaymentPanel } from '@/components/admin/payment-panel'
 import { DocumentChecklist } from '@/components/admin/document-checklist'
 import { CrmOpsPanel } from '@/components/admin/crm-ops-panel'
-import { ChevronLeft, Building2, User, Mail, CreditCard, ClipboardList, TrendingUp } from 'lucide-react'
+import { SendEmailModal } from '@/components/admin/send-email-modal'
+import { CompanyEditor } from '@/components/admin/company-editor'
+import { ResendWelcomeBtn } from '@/components/admin/resend-welcome-btn'
+import { ChevronLeft, Building2, User, Mail, CreditCard, ClipboardList, TrendingUp, MessageCircle, ExternalLink } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
 import type { InvoiceRow } from '@/components/billing/invoice-table'
 
@@ -116,7 +119,7 @@ export default async function AdminClientDetailPage({ params }: PageProps) {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-start justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
         <div>
           <Button variant="ghost" size="sm" asChild className="mb-3 -ml-2 text-gray-500">
             <Link href="/admin/clients">
@@ -131,6 +134,37 @@ export default async function AdminClientDetailPage({ params }: PageProps) {
           <p className="text-gray-500 mt-1 text-sm">
             {company.entity_type} · {company.state} · Created {formatDate(company.created_at)}
           </p>
+        </div>
+        {/* Action bar */}
+        <div className="flex flex-wrap gap-2 sm:justify-end">
+          <SendEmailModal
+            clientEmail={profile?.email ?? ''}
+            clientName={profile?.full_name ?? 'Cliente'}
+            companyId={company.id}
+          />
+          {client?.phone && (
+            <Button variant="outline" size="sm" asChild>
+              <a
+                href={`https://wa.me/${(client.phone as string).replace(/\D/g, '')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MessageCircle className="h-4 w-4 mr-1.5 text-green-600" />
+                WhatsApp
+              </a>
+            </Button>
+          )}
+          <Button variant="outline" size="sm" asChild>
+            <a
+              href={`${process.env.NEXT_PUBLIC_APP_URL ?? ''}/dashboard`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ExternalLink className="h-4 w-4 mr-1.5" />
+              Ver portal
+            </a>
+          </Button>
+          <ResendWelcomeBtn companyId={company.id} />
         </div>
       </div>
 
@@ -147,21 +181,19 @@ export default async function AdminClientDetailPage({ params }: PageProps) {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <dl className="divide-y divide-gray-100 text-sm">
-                <div className="py-2 flex justify-between">
-                  <dt className="text-gray-500">Entity Type</dt>
-                  <dd className="font-medium text-gray-900">{company.entity_type}</dd>
-                </div>
-                <div className="py-2 flex justify-between">
-                  <dt className="text-gray-500">Registered Agent</dt>
-                  <dd className="font-medium text-gray-900">{company.registered_agent}</dd>
-                </div>
-                <div className="py-2 flex justify-between">
-                  <dt className="text-gray-500">Formation Date</dt>
-                  <dd className="font-medium text-gray-900">
-                    {company.formation_date ? formatDate(company.formation_date) : 'Pending'}
-                  </dd>
-                </div>
+              <CompanyEditor
+                companyId={company.id}
+                initialData={{
+                  company_name:    company.company_name,
+                  entity_type:     company.entity_type ?? null,
+                  state:           company.state ?? null,
+                  formation_date:  company.formation_date ?? null,
+                  registered_agent: company.registered_agent ?? null,
+                }}
+              />
+
+              {/* Read-only fields */}
+              <dl className="divide-y divide-gray-100 text-sm pt-2 border-t">
                 <div className="py-2 flex justify-between">
                   <dt className="text-gray-500">Package</dt>
                   <dd className="font-medium text-gray-900 capitalize">
