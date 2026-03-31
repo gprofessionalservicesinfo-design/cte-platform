@@ -3,6 +3,7 @@ import { stripe } from '@/lib/stripe'
 import { createClient as createSupabaseAdmin } from '@supabase/supabase-js'
 import Stripe from 'stripe'
 import { Resend } from 'resend'
+import twilio from 'twilio'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -57,6 +58,49 @@ async function sendWelcomeEmail(opts: {
     else console.log('[webhook] Welcome email sent to:', opts.customerEmail)
   } catch (err) {
     console.error('[webhook] Failed to send welcome email:', err)
+  }
+}
+
+function formatWhatsAppNumber(raw: string): string | null {
+  // Strip all non-digit chars except leading +
+  const digits = raw.replace(/[^\d+]/g, '')
+  if (!digits) return null
+  // Already E.164
+  if (digits.startsWith('+') && digits.length >= 10) return `whatsapp:${digits}`
+  // Bare digits: assume international if 10+ digits
+  const d = digits.replace(/^\+/, '')
+  if (d.length >= 10) return `whatsapp:+${d}`
+  return null
+}
+
+async function sendWhatsApp(opts: {
+  phone: string
+  customerName: string
+  companyName: string
+  stateName: string
+}) {
+  const to = formatWhatsAppNumber(opts.phone)
+  if (!to) { console.log('[webhook] WhatsApp skipped — no valid phone number'); return }
+
+  const from = process.env.TWILIO_WHATSAPP_FROM
+  const sid  = process.env.TWILIO_ACCOUNT_SID
+  const auth = process.env.TWILIO_AUTH_TOKEN
+  if (!from || !sid || !auth) { console.warn('[webhook] WhatsApp skipped — Twilio env vars missing'); return }
+
+  const body =
+    `Hola ${opts.customerName}! 🎉 Bienvenido a CreaTuEmpresaUSA.\n\n` +
+    `Tu orden para *${opts.companyName}* en *${opts.stateName}* ha sido recibida exitosamente.\n\n` +
+    `Nuestro equipo comenzará a procesar tu caso en las próximas 24 horas.\n\n` +
+    `Accede a tu portal: https://creatuempresausa.com/login\n\n` +
+    `¿Tienes alguna pregunta? Estamos aquí para ayudarte.\n\n` +
+    `— Equipo CreaTuEmpresaUSA`
+
+  try {
+    const client = twilio(sid, auth)
+    const msg = await client.messages.create({ from, to, body })
+    console.log('[webhook] WhatsApp sent — sid:', msg.sid, '| to:', to)
+  } catch (err) {
+    console.error('[webhook] WhatsApp send failed:', err)
   }
 }
 
@@ -263,6 +307,17 @@ export async function POST(request: NextRequest) {
                   amountTotal:   amountTotal / 100,
                   orderRef,
                 })
+
+                // Send WhatsApp notification
+                const phone = session.metadata?.phone || session.customer_details?.phone || ''
+                if (phone) {
+                  await sendWhatsApp({
+                    phone,
+                    customerName: fullName,
+                    companyName:  companyData?.id ? (fullName + ' LLC') : fullName,
+                    stateName:    session.metadata?.state_name || 'USA',
+                  })
+                }
                 }
               }
             }
