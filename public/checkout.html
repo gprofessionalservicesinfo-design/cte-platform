@@ -773,9 +773,15 @@ document.addEventListener('DOMContentLoaded', function() {
       var refParts = [];
       var taTs  = localStorage.getItem('cte_terms_accepted');
       var phone = order && order.customer && order.customer.phone ? order.customer.phone.trim() : '';
+      console.log('[checkout] order.customer:', order && order.customer ? JSON.stringify(order.customer) : '(null)');
+      console.log('[checkout] taTs:', taTs || '(none)');
+      console.log('[checkout] phone:', phone || '(empty — WhatsApp will be skipped)');
       if (taTs)  refParts.push('ta_'  + taTs);
       if (phone) refParts.push('ph_' + phone);
-      if (refParts.length) { stripeUrl += sep + 'client_reference_id=' + encodeURIComponent(refParts.join('||')); }
+      var clientRefId = refParts.length ? refParts.join('||') : '';
+      if (clientRefId) { stripeUrl += sep + 'client_reference_id=' + encodeURIComponent(clientRefId); }
+      console.log('[checkout] client_reference_id being sent to Stripe:', clientRefId || '(none)');
+      console.log('[checkout] final Stripe URL:', stripeUrl);
       window.location.href = stripeUrl;
     } else {
       /* Fallback — no Stripe link configured */
