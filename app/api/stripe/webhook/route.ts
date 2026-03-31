@@ -62,14 +62,20 @@ async function sendWelcomeEmail(opts: {
 }
 
 function formatWhatsAppNumber(raw: string): string | null {
-  // Strip all non-digit chars except leading +
-  const digits = raw.replace(/[^\d+]/g, '')
+  const trimmed = raw.trim()
+  if (!trimmed) return null
+  // Strip everything except digits and leading +
+  const digits = trimmed.replace(/[^\d+]/g, '')
   if (!digits) return null
-  // Already E.164
-  if (digits.startsWith('+') && digits.length >= 10) return `whatsapp:${digits}`
-  // Bare digits: assume international if 10+ digits
-  const d = digits.replace(/^\+/, '')
-  if (d.length >= 10) return `whatsapp:+${d}`
+  // Already valid E.164 (starts with + and has 10+ digits)
+  if (digits.startsWith('+') && digits.length >= 11) return `whatsapp:${digits}`
+  const bare = digits.replace(/^\+/, '')
+  // 10-digit US number (no country code) → prepend +1
+  if (bare.length === 10) return `whatsapp:+1${bare}`
+  // 11-digit starting with 1 → US/Canada, add +
+  if (bare.length === 11 && bare.startsWith('1')) return `whatsapp:+${bare}`
+  // Any other 10+ digit string → assume already has country code, add +
+  if (bare.length >= 10) return `whatsapp:+${bare}`
   return null
 }
 
