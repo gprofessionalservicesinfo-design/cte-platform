@@ -103,7 +103,7 @@ export default async function AdminClientDetailPage({ params }: PageProps) {
       .from('mail_items')
       .select('*')
       .eq('company_id', params.id)
-      .order('received_at', { ascending: false }),
+      .order('created_at', { ascending: false }),
     supabase
       .from('status_history')
       .select('id, old_status, new_status, note, created_at, users(full_name)')
@@ -355,7 +355,7 @@ export default async function AdminClientDetailPage({ params }: PageProps) {
                         )}
                       </div>
                       <p className="text-xs text-gray-400 mt-1.5">
-                        {formatDate(item.received_at)}
+                        {formatDate(item.created_at)}
                       </p>
                     </div>
                   ))}

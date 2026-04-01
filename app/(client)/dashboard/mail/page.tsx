@@ -15,7 +15,7 @@ interface MailItem {
   description: string | null
   category: string | null
   is_read: boolean
-  received_at: string
+  created_at: string
 }
 
 export default function MailPage() {
@@ -43,7 +43,7 @@ export default function MailPage() {
         .from('mail_items')
         .select('*')
         .eq('company_id', company.id)
-        .order('received_at', { ascending: false })
+        .order('created_at', { ascending: false })
 
       setMail(data ?? [])
       setLoading(false)
@@ -133,7 +133,7 @@ export default function MailPage() {
                       {item.description && (
                         <p className="text-sm text-gray-500 mt-0.5">{item.description}</p>
                       )}
-                      <p className="text-xs text-gray-400 mt-1">{formatDate(item.received_at)}</p>
+                      <p className="text-xs text-gray-400 mt-1">{formatDate(item.created_at)}</p>
                     </div>
                   </div>
                   {!item.is_read && (
