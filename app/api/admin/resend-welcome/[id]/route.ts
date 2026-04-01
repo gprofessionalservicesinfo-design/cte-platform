@@ -1,8 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminServerClient } from '@/lib/supabase/server'
+import { createClient as createSupabaseAdmin } from '@supabase/supabase-js'
 import { Resend } from 'resend'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
+
+// Service-role client — bypasses RLS, guaranteed for writes
+function adminClient() {
+  return createSupabaseAdmin(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
+}
 
 export async function POST(
   _req: NextRequest,
@@ -62,15 +71,18 @@ export async function POST(
       `,
     })
 
-    // Save to mail_items so it appears in client portal and admin
-    await supabase.from('mail_items').insert({
+    // Save to mail_items — use service-role client to bypass RLS
+    const db = adminClient()
+    console.log('[resend-welcome] Inserting mail_items for company_id:', company.id)
+    const { data: mailData, error: mailError } = await db.from('mail_items').insert({
       company_id:  company.id,
       title:       '¡Tu empresa en EE.UU. está en camino! 🚀',
       sender:      'CreaTuEmpresaUSA <noreply@creatuempresausa.com>',
       description: 'Email de bienvenida enviado automáticamente al completar tu orden.',
       category:    'welcome-resend',
       is_read:     false,
-    })
+    }).select()
+    console.log('[resend-welcome] mail_items insert result — data:', JSON.stringify(mailData), '| error:', JSON.stringify(mailError))
 
     return NextResponse.json({ success: true })
   } catch (e: any) {
