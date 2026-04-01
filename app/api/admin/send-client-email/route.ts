@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
         title:       subject,
         sender:      'soporte@creatuempresausa.com',
         description: body,
-        category:    'admin',
+        category:    'general',
         is_read:     false,
       })
     }

@@ -375,7 +375,7 @@ export async function POST(request: NextRequest) {
                     title:       '¡Tu empresa en EE.UU. está en camino! 🚀',
                     sender:      'CreaTuEmpresaUSA <noreply@creatuempresausa.com>',
                     description: 'Email de bienvenida enviado automáticamente al completar tu orden.',
-                    category:    'welcome',
+                    category:    'general',
                     is_read:     false,
                   })
                 }

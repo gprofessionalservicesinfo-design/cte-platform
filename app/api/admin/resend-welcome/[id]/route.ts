@@ -79,7 +79,7 @@ export async function POST(
       title:       '¡Tu empresa en EE.UU. está en camino! 🚀',
       sender:      'CreaTuEmpresaUSA <noreply@creatuempresausa.com>',
       description: 'Email de bienvenida enviado automáticamente al completar tu orden.',
-      category:    'welcome-resend',
+      category:    'general',
       is_read:     false,
     }).select()
     console.log('[resend-welcome] mail_items insert result — data:', JSON.stringify(mailData), '| error:', JSON.stringify(mailError))
