@@ -4,9 +4,8 @@ import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Mail, MailOpen, Inbox } from 'lucide-react'
+import { Mail, MailOpen, Inbox, X } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
-import { toast } from 'sonner'
 
 interface MailItem {
   id: string
@@ -21,6 +20,7 @@ interface MailItem {
 export default function MailPage() {
   const [mail, setMail] = useState<MailItem[]>([])
   const [loading, setLoading] = useState(true)
+  const [selected, setSelected] = useState<MailItem | null>(null)
 
   useEffect(() => {
     async function load() {
@@ -51,20 +51,14 @@ export default function MailPage() {
     load()
   }, [])
 
-  async function markAsRead(mailId: string) {
-    const supabase = await createClient()
-    const { error } = await supabase
-      .from('mail_items')
-      .update({ is_read: true })
-      .eq('id', mailId)
-
-    if (error) {
-      toast.error('Failed to mark as read')
-      return
+  async function openItem(item: MailItem) {
+    setSelected(item)
+    if (!item.is_read) {
+      const supabase = await createClient()
+      await supabase.from('mail_items').update({ is_read: true }).eq('id', item.id)
+      setMail((prev) => prev.map((m) => m.id === item.id ? { ...m, is_read: true } : m))
+      setSelected((s) => s?.id === item.id ? { ...s, is_read: true } : s)
     }
-
-    setMail((prev) => prev.map((m) => (m.id === mailId ? { ...m, is_read: true } : m)))
-    toast.success('Marked as read')
   }
 
   if (loading) {
@@ -104,21 +98,17 @@ export default function MailPage() {
           {mail.map((item) => (
             <Card
               key={item.id}
-              className={item.is_read ? 'opacity-70' : 'border-primary/30 shadow-sm'}
+              className={`cursor-pointer transition-colors hover:border-blue-300 ${item.is_read ? 'opacity-70' : 'border-primary/30 shadow-sm'}`}
+              onClick={() => openItem(item)}
             >
               <CardContent className="py-4">
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex items-start gap-3 min-w-0">
-                    <div
-                      className={`p-2 rounded-lg flex-shrink-0 ${
-                        item.is_read ? 'bg-gray-100' : 'bg-blue-50'
-                      }`}
-                    >
-                      {item.is_read ? (
-                        <MailOpen className="h-4 w-4 text-gray-400" />
-                      ) : (
-                        <Mail className="h-4 w-4 text-blue-600" />
-                      )}
+                    <div className={`p-2 rounded-lg flex-shrink-0 ${item.is_read ? 'bg-gray-100' : 'bg-blue-50'}`}>
+                      {item.is_read
+                        ? <MailOpen className="h-4 w-4 text-gray-400" />
+                        : <Mail className="h-4 w-4 text-blue-600" />
+                      }
                     </div>
                     <div className="min-w-0">
                       <p className={`font-medium truncate ${item.is_read ? 'text-gray-600' : 'text-gray-900'}`}>
@@ -131,25 +121,52 @@ export default function MailPage() {
                         <p className="text-xs text-gray-400 mt-0.5">From: {item.sender}</p>
                       )}
                       {item.description && (
-                        <p className="text-sm text-gray-500 mt-0.5">{item.description}</p>
+                        <p className="text-sm text-gray-500 mt-0.5 line-clamp-1">{item.description}</p>
                       )}
                       <p className="text-xs text-gray-400 mt-1">{formatDate(item.created_at)}</p>
                     </div>
                   </div>
-                  {!item.is_read && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="flex-shrink-0 text-xs px-2 whitespace-nowrap"
-                      onClick={() => markAsRead(item.id)}
-                    >
-                      Leído
-                    </Button>
-                  )}
                 </div>
               </CardContent>
             </Card>
           ))}
+        </div>
+      )}
+
+      {/* Detail modal */}
+      {selected && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white rounded-xl shadow-xl w-full max-w-lg max-h-[80vh] flex flex-col">
+            <div className="flex items-start justify-between gap-3 px-5 py-4 border-b">
+              <div className="min-w-0">
+                <h2 className="font-semibold text-gray-900 leading-snug">{selected.title}</h2>
+                {selected.sender && (
+                  <p className="text-xs text-gray-500 mt-0.5">De: {selected.sender}</p>
+                )}
+                <p className="text-xs text-gray-400 mt-0.5">{formatDate(selected.created_at)}</p>
+              </div>
+              <button
+                onClick={() => setSelected(null)}
+                className="flex-shrink-0 text-gray-400 hover:text-gray-600 mt-0.5"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="px-5 py-4 overflow-y-auto flex-1">
+              {selected.description ? (
+                <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">
+                  {selected.description}
+                </p>
+              ) : (
+                <p className="text-sm text-gray-400 italic">Sin contenido.</p>
+              )}
+            </div>
+            <div className="px-5 py-4 border-t flex justify-end">
+              <Button size="sm" onClick={() => setSelected(null)}>
+                Cerrar
+              </Button>
+            </div>
+          </div>
         </div>
       )}
     </div>

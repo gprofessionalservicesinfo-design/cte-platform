@@ -15,6 +15,7 @@ import { CrmOpsPanel } from '@/components/admin/crm-ops-panel'
 import { SendEmailModal } from '@/components/admin/send-email-modal'
 import { CompanyEditor } from '@/components/admin/company-editor'
 import { ResendWelcomeBtn } from '@/components/admin/resend-welcome-btn'
+import { MailItemsPanel } from '@/components/admin/mail-items-panel'
 import { ChevronLeft, Building2, User, Mail, CreditCard, ClipboardList, TrendingUp, MessageCircle, ExternalLink } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
 import type { InvoiceRow } from '@/components/billing/invoice-table'
@@ -327,40 +328,7 @@ export default async function AdminClientDetailPage({ params }: PageProps) {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              {!mail || mail.length === 0 ? (
-                <p className="text-sm text-gray-400 text-center py-4">No mail items yet.</p>
-              ) : (
-                <div className="space-y-2">
-                  {mail.map((item: any) => (
-                    <div
-                      key={item.id}
-                      className={`rounded-lg border p-3 text-sm ${
-                        item.is_read ? 'bg-gray-50 border-gray-100' : 'bg-blue-50 border-blue-100'
-                      }`}
-                    >
-                      <div className="flex items-start justify-between gap-2">
-                        <div>
-                          <p className={`font-medium ${item.is_read ? 'text-gray-600' : 'text-gray-900'}`}>
-                            {item.title}
-                          </p>
-                          {item.sender && (
-                            <p className="text-xs text-gray-400 mt-0.5">From: {item.sender}</p>
-                          )}
-                          {item.description && (
-                            <p className="text-xs text-gray-500 mt-0.5">{item.description}</p>
-                          )}
-                        </div>
-                        {!item.is_read && (
-                          <span className="flex-shrink-0 w-2 h-2 bg-blue-500 rounded-full mt-1" />
-                        )}
-                      </div>
-                      <p className="text-xs text-gray-400 mt-1.5">
-                        {formatDate(item.created_at)}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              )}
+              <MailItemsPanel initialItems={(mail as any) ?? []} />
             </CardContent>
           </Card>
           {/* Document Checklist */}
