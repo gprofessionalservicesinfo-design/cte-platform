@@ -392,6 +392,40 @@ export async function POST(request: NextRequest) {
                     stateName:    session.metadata?.state_name || 'USA',
                   })
                 }
+
+                // ── Agent System: registrar tarea y log para el agente intake ──
+                await supabase.from('agent_tasks').insert({
+                  agent_id:  'intake',
+                  case_id:   companyData.id,
+                  task_type: 'process_new_client',
+                  status:    'pending',
+                  priority:  1,
+                  payload: {
+                    case_id:           companyData.id,
+                    client_id:         clientData.id,
+                    stripe_session_id: session.id,
+                    amount:            amountTotal / 100,
+                    currency:          session.currency ?? 'usd',
+                    customer_email:    email,
+                    created_at:        new Date().toISOString(),
+                  },
+                })
+
+                await supabase.from('agent_logs').insert({
+                  agent_id:           'intake',
+                  case_id:            companyData.id,
+                  action:             'new_client_detected',
+                  status:             'pending_review',
+                  human_review_level: 'H1',
+                  input_summary: {
+                    stripe_session_id: session.id,
+                    customer_email:    email,
+                    amount:            amountTotal / 100,
+                  },
+                  output_summary: {},
+                })
+                console.log('[webhook] Agent intake task + log creados para case:', companyData.id)
+
                 }
               }
             }
