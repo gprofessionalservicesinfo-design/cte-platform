@@ -85,21 +85,27 @@ async function sendWhatsApp(opts: {
   customerName: string
   companyName: string
   stateName: string
-}) {
+}): Promise<{ success: boolean; to: string | null; sid?: string; error?: string; skipReason?: string }> {
   console.log('[whatsapp] sendWhatsApp called — raw phone:', opts.phone)
 
   const to = formatWhatsAppNumber(opts.phone)
   console.log('[whatsapp] formatted to:', to)
-  if (!to) { console.warn('[whatsapp] SKIP — phone could not be formatted to E.164:', opts.phone); return }
+  if (!to) {
+    console.warn('[whatsapp] SKIP — phone could not be formatted to E.164:', opts.phone)
+    return { success: false, to: null, skipReason: `Número inválido: "${opts.phone}"` }
+  }
 
   // Sandbox: whatsapp:+14155238886  |  Production: set TWILIO_WHATSAPP_FROM in Vercel
   const from = process.env.TWILIO_WHATSAPP_FROM ?? 'whatsapp:+14155238886'
   const sid  = process.env.TWILIO_ACCOUNT_SID
   const auth = process.env.TWILIO_AUTH_TOKEN
   console.log('[whatsapp] from:', from, '| sid present:', !!sid, '| auth present:', !!auth)
-  if (!sid || !auth) { console.warn('[whatsapp] SKIP — TWILIO_ACCOUNT_SID or TWILIO_AUTH_TOKEN missing'); return }
+  if (!sid || !auth) {
+    console.warn('[whatsapp] SKIP — TWILIO_ACCOUNT_SID or TWILIO_AUTH_TOKEN missing')
+    return { success: false, to, skipReason: 'Variables TWILIO_ACCOUNT_SID o TWILIO_AUTH_TOKEN no configuradas' }
+  }
 
-  const body =
+  const msgBody =
     `Hola ${opts.customerName}! 🎉 Bienvenido a CreaTuEmpresaUSA.\n\n` +
     `Tu orden para *${opts.companyName}* en *${opts.stateName}* ha sido recibida exitosamente.\n\n` +
     `Nuestro equipo comenzará a procesar tu caso en las próximas 24 horas.\n\n` +
@@ -110,10 +116,12 @@ async function sendWhatsApp(opts: {
   try {
     const client = twilio(sid, auth)
     console.log('[whatsapp] Sending message — from:', from, '| to:', to)
-    const msg = await client.messages.create({ from, to, body })
+    const msg = await client.messages.create({ from, to, body: msgBody })
     console.log('[whatsapp] SUCCESS — sid:', msg.sid, '| status:', msg.status, '| to:', to)
+    return { success: true, to, sid: msg.sid }
   } catch (err: any) {
     console.error('[whatsapp] FAILED — code:', err?.code, '| status:', err?.status, '| message:', err?.message)
+    return { success: false, to, error: `code:${err?.code} status:${err?.status} — ${err?.message}` }
   }
 }
 
@@ -187,6 +195,8 @@ export async function POST(request: NextRequest) {
     console.error('Webhook signature verification failed:', err)
     return NextResponse.json({ error: 'Invalid webhook signature' }, { status: 400 })
   }
+
+  console.log('[webhook] env check — TWILIO_ACCOUNT_SID:', !!process.env.TWILIO_ACCOUNT_SID, '| TWILIO_AUTH_TOKEN:', !!process.env.TWILIO_AUTH_TOKEN, '| TWILIO_WHATSAPP_FROM:', process.env.TWILIO_WHATSAPP_FROM ?? '(fallback sandbox)')
 
   const supabase = adminClient()
 
@@ -385,12 +395,41 @@ export async function POST(request: NextRequest) {
                 console.log('[webhook] phone sources — ref:', phoneFromRef, '| metadata:', session.metadata?.phone, '| details:', session.customer_details?.phone)
                 console.log('[webhook] final phone for WhatsApp:', phone || '(none — skipping)')
                 if (phone) {
-                  await sendWhatsApp({
+                  const waResult = await sendWhatsApp({
                     phone,
                     customerName: fullName,
                     companyName:  companyData?.id ? (fullName + ' LLC') : fullName,
                     stateName:    session.metadata?.state_name || 'USA',
                   })
+                  // Persist WhatsApp result to mail_items for visibility in admin
+                  if (companyData?.id) {
+                    const waTitle = waResult.success ? 'WhatsApp enviado ✅' : 'WhatsApp falló ❌'
+                    const waDesc  = waResult.success
+                      ? `Mensaje enviado a ${waResult.to} — SID: ${waResult.sid}`
+                      : waResult.skipReason
+                        ? `Omitido — ${waResult.skipReason}`
+                        : `Error al enviar a ${waResult.to ?? phone} — ${waResult.error}`
+                    await supabase.from('mail_items').insert({
+                      company_id:  companyData.id,
+                      title:       waTitle,
+                      sender:      'sistema@creatuempresausa.com',
+                      description: waDesc,
+                      category:    'general',
+                      is_read:     false,
+                    })
+                  }
+                } else {
+                  // Log skip to mail_items so admin can see phone was missing
+                  if (companyData?.id) {
+                    await supabase.from('mail_items').insert({
+                      company_id:  companyData.id,
+                      title:       'WhatsApp no enviado — sin teléfono',
+                      sender:      'sistema@creatuempresausa.com',
+                      description: 'No se encontró número de teléfono en client_reference_id ni en los datos de Stripe.',
+                      category:    'general',
+                      is_read:     false,
+                    })
+                  }
                 }
 
                 // ── Agent System: registrar tarea y log para el agente intake ──
