@@ -825,6 +825,10 @@ document.addEventListener('DOMContentLoaded', function() {
       /* result_status: 'registered' | 'local_only' | 'sync_failed' */
       showPersistStatus(result.result_status);
 
+      console.log('[checkout] /api/orders result_status:', result.result_status);
+      console.log('[checkout] /api/orders full result:', JSON.stringify(result));
+      console.log('[checkout] formation_order payload being sent:', JSON.stringify(order));
+
       if (result.result_status === 'sync_failed') {
         console.warn('[CTE] Formation order webhook failed:', result.error || result.http_status);
       }

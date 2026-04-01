@@ -57,7 +57,7 @@ window.CONFIG = {
      Receives the full structured order payload on wizard submit.
      Use to: create DB record, trigger Stripe session, notify team.
      Supports: Zapier, Make, your own API endpoint.             */
-  ORDER_WEBHOOK_URL: "/api/orders",
+  ORDER_WEBHOOK_URL: "https://creatuempresausa.com/api/orders",
 
   /* ── EIN Intake Webhook ─────────────────────────────────────────
      Receives the EIN form payload from /ein-intake.html.
