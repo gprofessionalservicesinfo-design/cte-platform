@@ -7,9 +7,124 @@ import twilio from 'twilio'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
+function buildWelcomeEmailHtml(opts: {
+  customerName: string
+  customerEmail: string
+  companyName: string
+  stateName: string
+  packageName: string
+  amountTotal: number
+  orderRef: string
+  portalUrl: string
+}): string {
+  return `<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#f1f5f9;font-family:Arial,Helvetica,sans-serif">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f9;padding:40px 20px">
+<tr><td align="center">
+<table cellpadding="0" cellspacing="0" style="max-width:600px;width:100%">
+
+  <!-- HEADER -->
+  <tr><td style="background:#0A2540;border-radius:12px 12px 0 0;padding:36px 40px;text-align:center">
+    <p style="margin:0 0 16px;font-size:12px;font-weight:700;letter-spacing:3px;color:#93c5fd;text-transform:uppercase">CreaTuEmpresaUSA</p>
+    <h1 style="margin:0 0 8px;font-size:28px;font-weight:800;color:#ffffff;line-height:1.2">¡Hola ${opts.customerName}! 🎉</h1>
+    <p style="margin:0;font-size:16px;color:#93c5fd;font-weight:500">Tu empresa en EE.UU. está en camino</p>
+  </td></tr>
+
+  <!-- ORDER SUMMARY -->
+  <tr><td style="background:#ffffff;padding:32px 40px;border-left:1px solid #e2e8f0;border-right:1px solid #e2e8f0">
+    <p style="margin:0 0 20px;font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1.5px">Resumen del pedido</p>
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;color:#64748b">Empresa</td>
+        <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;font-weight:700;color:#0A2540;text-align:right">${opts.companyName}</td>
+      </tr>
+      <tr>
+        <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;color:#64748b">Estado de formación</td>
+        <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;font-weight:700;color:#0A2540;text-align:right">${opts.stateName}</td>
+      </tr>
+      <tr>
+        <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;color:#64748b">Paquete</td>
+        <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;font-weight:700;color:#0A2540;text-align:right">${opts.packageName}</td>
+      </tr>
+      <tr>
+        <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;color:#64748b">Número de orden</td>
+        <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;font-weight:700;color:#2563eb;text-align:right">${opts.orderRef}</td>
+      </tr>
+      <tr>
+        <td style="padding:11px 0;font-size:14px;color:#64748b">Total pagado</td>
+        <td style="padding:11px 0;font-size:18px;font-weight:800;color:#0A2540;text-align:right">$${opts.amountTotal} USD</td>
+      </tr>
+    </table>
+  </td></tr>
+
+  <!-- NEXT STEPS -->
+  <tr><td style="background:#f8fafc;padding:32px 40px;border:1px solid #e2e8f0;border-top:none">
+    <p style="margin:0 0 20px;font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1.5px">Próximos pasos</p>
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr><td style="padding:8px 0">
+        <table cellpadding="0" cellspacing="0"><tr>
+          <td style="font-size:20px;padding-right:12px;vertical-align:middle">✅</td>
+          <td style="vertical-align:middle"><span style="font-size:14px;font-weight:700;color:#16a34a">Pago recibido</span>&nbsp;&nbsp;<span style="font-size:11px;background:#dcfce7;color:#16a34a;padding:3px 10px;border-radius:20px;font-weight:700">Completado</span></td>
+        </tr></table>
+      </td></tr>
+      <tr><td style="padding:8px 0">
+        <table cellpadding="0" cellspacing="0"><tr>
+          <td style="font-size:20px;padding-right:12px;vertical-align:middle">📋</td>
+          <td style="vertical-align:middle"><span style="font-size:14px;font-weight:600;color:#0A2540">Revisión de documentos</span>&nbsp;&nbsp;<span style="font-size:11px;background:#fef3c7;color:#d97706;padding:3px 10px;border-radius:20px;font-weight:700">En proceso</span></td>
+        </tr></table>
+      </td></tr>
+      <tr><td style="padding:8px 0">
+        <table cellpadding="0" cellspacing="0"><tr>
+          <td style="font-size:20px;padding-right:12px;vertical-align:middle">📤</td>
+          <td style="vertical-align:middle"><span style="font-size:14px;color:#64748b">Filing estatal</span>&nbsp;&nbsp;<span style="font-size:11px;background:#f1f5f9;color:#94a3b8;padding:3px 10px;border-radius:20px;font-weight:700">Pendiente</span></td>
+        </tr></table>
+      </td></tr>
+      <tr><td style="padding:8px 0">
+        <table cellpadding="0" cellspacing="0"><tr>
+          <td style="font-size:20px;padding-right:12px;vertical-align:middle">🔢</td>
+          <td style="vertical-align:middle"><span style="font-size:14px;color:#64748b">Obtención de EIN</span>&nbsp;&nbsp;<span style="font-size:11px;background:#f1f5f9;color:#94a3b8;padding:3px 10px;border-radius:20px;font-weight:700">Pendiente</span></td>
+        </tr></table>
+      </td></tr>
+      <tr><td style="padding:8px 0">
+        <table cellpadding="0" cellspacing="0"><tr>
+          <td style="font-size:20px;padding-right:12px;vertical-align:middle">📦</td>
+          <td style="vertical-align:middle"><span style="font-size:14px;color:#64748b">Entrega de documentos</span>&nbsp;&nbsp;<span style="font-size:11px;background:#f1f5f9;color:#94a3b8;padding:3px 10px;border-radius:20px;font-weight:700">Pendiente</span></td>
+        </tr></table>
+      </td></tr>
+    </table>
+  </td></tr>
+
+  <!-- CTA -->
+  <tr><td style="background:#ffffff;padding:36px 40px;text-align:center;border:1px solid #e2e8f0;border-top:none">
+    <a href="${opts.portalUrl}" style="display:inline-block;background:#2563eb;color:#ffffff;padding:16px 44px;border-radius:8px;font-size:16px;font-weight:700;text-decoration:none;letter-spacing:0.3px">Acceder a mi portal →</a>
+    <p style="margin:28px 0 6px;font-size:13px;color:#64748b">¿Tienes preguntas? Estamos aquí para ayudarte:</p>
+    <p style="margin:0;font-size:13px">
+      <a href="mailto:soporte@creatuempresausa.com" style="color:#2563eb;text-decoration:none;font-weight:600">soporte@creatuempresausa.com</a>
+      &nbsp;&nbsp;·&nbsp;&nbsp;
+      <a href="https://wa.me/19046248859" style="color:#16a34a;text-decoration:none;font-weight:700">💬 WhatsApp</a>
+    </p>
+  </td></tr>
+
+  <!-- FOOTER -->
+  <tr><td style="background:#0A2540;border-radius:0 0 12px 12px;padding:24px 40px;text-align:center">
+    <p style="margin:0 0 4px;font-size:12px;color:#64748b">© 2026 CreaTuEmpresaUSA · Todos los derechos reservados</p>
+    <p style="margin:0;font-size:11px;color:#334155">Este email fue enviado a ${opts.customerEmail} por haber realizado una compra en CreaTuEmpresaUSA.</p>
+  </td></tr>
+
+</table>
+</td></tr>
+</table>
+</body>
+</html>`
+}
+
 async function sendWelcomeEmail(opts: {
   customerName: string
   customerEmail: string
+  companyName?: string
+  stateName?: string
   packageName: string
   amountTotal: number
   orderRef: string
@@ -21,39 +136,16 @@ async function sendWelcomeEmail(opts: {
       replyTo: 'soporte@creatuempresausa.com',
       to: opts.customerEmail,
       subject: `Tu empresa en EE.UU. está en camino 🚀`,
-      html: `
-        <div style="font-family:system-ui,sans-serif;max-width:600px;margin:0 auto;padding:40px 20px;background:#f8fafc">
-          <div style="background:#0A2540;border-radius:16px;padding:40px;color:#fff;text-align:center;margin-bottom:24px">
-            <div style="font-size:48px;margin-bottom:12px">🎉</div>
-            <h1 style="font-size:24px;font-weight:800;margin:0 0 8px">Recibimos tu pago</h1>
-            <p style="opacity:.75;margin:0">Tu caso fue creado exitosamente.</p>
-          </div>
-          <div style="background:#fff;border-radius:16px;padding:28px;margin-bottom:20px;border:1px solid #e2e8f0">
-            <h2 style="font-size:16px;font-weight:700;color:#0A2540;margin:0 0 16px">Resumen del pedido</h2>
-            <table style="width:100%;border-collapse:collapse">
-              <tr><td style="padding:8px 0;color:#64748b;font-size:14px;border-bottom:1px solid #f1f5f9">Cliente</td><td style="padding:8px 0;font-weight:600;color:#0A2540;font-size:14px;text-align:right;border-bottom:1px solid #f1f5f9">${opts.customerName}</td></tr>
-              <tr><td style="padding:8px 0;color:#64748b;font-size:14px;border-bottom:1px solid #f1f5f9">Paquete</td><td style="padding:8px 0;font-weight:600;color:#0A2540;font-size:14px;text-align:right;border-bottom:1px solid #f1f5f9">${opts.packageName}</td></tr>
-              <tr><td style="padding:8px 0;color:#64748b;font-size:14px;border-bottom:1px solid #f1f5f9">Monto pagado</td><td style="padding:8px 0;font-weight:600;color:#0A2540;font-size:14px;text-align:right;border-bottom:1px solid #f1f5f9">$${opts.amountTotal} USD</td></tr>
-              <tr><td style="padding:8px 0;color:#64748b;font-size:14px">Número de orden</td><td style="padding:8px 0;font-weight:700;color:#2563eb;font-size:14px;text-align:right">${opts.orderRef}</td></tr>
-            </table>
-          </div>
-          <div style="background:#fff;border-radius:16px;padding:28px;margin-bottom:20px;border:1px solid #e2e8f0">
-            <h2 style="font-size:16px;font-weight:700;color:#0A2540;margin:0 0 16px">Qué sigue</h2>
-            <p style="padding:6px 0;font-size:14px;color:#16a34a;font-weight:700">✅ Pago recibido y caso creado</p>
-            <p style="padding:6px 0;font-size:14px;color:#64748b">📋 Revisión de documentos (24-48 hrs)</p>
-            <p style="padding:6px 0;font-size:14px;color:#64748b">📤 Filing estatal (3-7 días hábiles)</p>
-            <p style="padding:6px 0;font-size:14px;color:#64748b">🔢 Obtención de EIN</p>
-            <p style="padding:6px 0;font-size:14px;color:#64748b">📦 Entrega de documentos finales</p>
-          </div>
-          <div style="text-align:center;margin-bottom:16px">
-            <a href="${appUrl}/login" style="display:inline-block;background:#0A2540;color:#fff;padding:14px 32px;border-radius:12px;font-weight:700;text-decoration:none;font-size:15px;margin-bottom:12px">🚀 Acceder a mi portal</a>
-          </div>
-          <div style="text-align:center;margin-bottom:24px">
-            <a href="https://wa.me/19046248859" style="display:inline-block;background:#25D366;color:#fff;padding:14px 32px;border-radius:12px;font-weight:700;text-decoration:none;font-size:15px">💬 Hablar por WhatsApp</a>
-          </div>
-          <p style="text-align:center;color:#94a3b8;font-size:12px">CreaTuEmpresaUSA · Si tienes preguntas escríbenos por WhatsApp</p>
-        </div>
-      `,
+      html: buildWelcomeEmailHtml({
+        customerName: opts.customerName,
+        customerEmail: opts.customerEmail,
+        companyName:  opts.companyName ?? opts.customerName + ' LLC',
+        stateName:    opts.stateName ?? 'Wyoming (WY)',
+        packageName:  opts.packageName,
+        amountTotal:  opts.amountTotal,
+        orderRef:     opts.orderRef,
+        portalUrl:    appUrl + '/login',
+      }),
     })
     if (error) console.error('[webhook] Resend error:', error)
     else console.log('[webhook] Welcome email sent to:', opts.customerEmail)
@@ -331,6 +423,8 @@ export async function POST(request: NextRequest) {
                   console.log('[webhook] New client created:', email, '| pkg:', pkg, '| company:', companyData?.id)
 
                 // Pull wizard data from pending_orders and enrich company record
+                let wizardCompanyName: string | undefined
+                let wizardStateName: string | undefined
                 if (companyData?.id) {
                   const { data: pendingOrder } = await supabase
                     .from('pending_orders')
@@ -355,6 +449,9 @@ export async function POST(request: NextRequest) {
                       await supabase.from('companies').update(wizardUpdate).eq('id', companyData.id)
                       console.log('[webhook] Wizard data applied to company:', wizardUpdate)
                     }
+                    // Capture for welcome email
+                    wizardCompanyName = p.company_name
+                    wizardStateName   = p.state_name ?? p.state_code
                     // Mark order as claimed
                     await supabase
                       .from('pending_orders')
@@ -369,10 +466,11 @@ export async function POST(request: NextRequest) {
                 const pkgNames: Record<string, string> = {
                   starter: 'Plan Starter', professional: 'Plan Professional', premium: 'Plan Premium'
                 }
-                const welcomeSubject = `Tu empresa en EE.UU. está en camino 🚀`
                 await sendWelcomeEmail({
                   customerName:  fullName,
                   customerEmail: email,
+                  companyName:   wizardCompanyName,
+                  stateName:     wizardStateName,
                   packageName:   pkgNames[pkg] ?? pkg,
                   amountTotal:   amountTotal / 100,
                   orderRef,
