@@ -10,29 +10,49 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { SendEmailModal } from '@/components/admin/send-email-modal'
 import { DocumentUpload } from '@/components/admin/document-upload'
 
-/* ── SOS portals by state code ────────────────────────────────── */
+/* ── SOS portals — keyed by 2-letter code AND full name ──────── */
 const SOS_LINKS: Record<string, { label: string; href: string }> = {
-  WY: { label: 'Wyoming SOS',                    href: 'https://sos.wyo.gov/business/' },
-  FL: { label: 'Florida SunBiz',                 href: 'https://dos.myflorida.com/sunbiz/' },
-  CO: { label: 'Colorado SOS',                   href: 'https://www.sos.state.co.us/biz/' },
-  DE: { label: 'Delaware Division of Corporations', href: 'https://icis.corp.delaware.gov/' },
-  TX: { label: 'Texas SOS',                      href: 'https://www.sos.state.tx.us/corp/' },
-  NM: { label: 'New Mexico SOS',                 href: 'https://www.sos.nm.gov/business-services/' },
-  NV: { label: 'Nevada SOS',                     href: 'https://esos.nv.gov/EntitySearch/OnlineEntitySearch' },
-  AZ: { label: 'Arizona SOS',                    href: 'https://azsos.gov/business' },
-  GA: { label: 'Georgia SOS',                    href: 'https://ecorp.sos.ga.gov/' },
-  NY: { label: 'New York DOS',                   href: 'https://apps.dos.ny.gov/publicInquiry/' },
-  CA: { label: 'California SOS',                 href: 'https://bizfileonline.sos.ca.gov/' },
+  WY: { label: 'Wyoming SOS',       href: 'https://sos.wyo.gov/business/' },
+  FL: { label: 'Florida SunBiz',    href: 'https://dos.myflorida.com/sunbiz/' },
+  CO: { label: 'Colorado SOS',      href: 'https://www.sos.state.co.us/biz/' },
+  DE: { label: 'Delaware Corporations', href: 'https://icis.corp.delaware.gov/' },
+  TX: { label: 'Texas SOS',         href: 'https://www.sos.state.tx.us/corp/' },
+  NM: { label: 'New Mexico SOS',    href: 'https://www.sos.nm.gov/business-services/' },
+  NV: { label: 'Nevada SOS',        href: 'https://esos.nv.gov/EntitySearch/OnlineEntitySearch' },
+  AZ: { label: 'Arizona SOS',       href: 'https://azsos.gov/business' },
+  GA: { label: 'Georgia SOS',       href: 'https://ecorp.sos.ga.gov/' },
+  NY: { label: 'New York DOS',      href: 'https://apps.dos.ny.gov/publicInquiry/' },
+  CA: { label: 'California SOS',    href: 'https://bizfileonline.sos.ca.gov/' },
+  // Full state names as fallback keys
+  Wyoming:      { label: 'Wyoming SOS',       href: 'https://sos.wyo.gov/business/' },
+  Florida:      { label: 'Florida SunBiz',    href: 'https://dos.myflorida.com/sunbiz/' },
+  Colorado:     { label: 'Colorado SOS',      href: 'https://www.sos.state.co.us/biz/' },
+  Delaware:     { label: 'Delaware Corporations', href: 'https://icis.corp.delaware.gov/' },
+  Texas:        { label: 'Texas SOS',         href: 'https://www.sos.state.tx.us/corp/' },
+  'New Mexico': { label: 'New Mexico SOS',    href: 'https://www.sos.nm.gov/business-services/' },
+  Nevada:       { label: 'Nevada SOS',        href: 'https://esos.nv.gov/EntitySearch/OnlineEntitySearch' },
+  Arizona:      { label: 'Arizona SOS',       href: 'https://azsos.gov/business' },
+  Georgia:      { label: 'Georgia SOS',       href: 'https://ecorp.sos.ga.gov/' },
+  'New York':   { label: 'New York DOS',      href: 'https://apps.dos.ny.gov/publicInquiry/' },
+  California:   { label: 'California SOS',    href: 'https://bizfileonline.sos.ca.gov/' },
 }
 
 const ANNUAL_LINKS: Record<string, { label: string; href: string }> = {
-  WY: { label: 'WY Annual Report', href: 'https://wyobiz.wyo.gov/' },
-  FL: { label: 'FL Annual Report', href: 'https://dos.myflorida.com/sunbiz/maintain/fees/' },
-  CO: { label: 'CO Periodic Report', href: 'https://www.sos.state.co.us/biz/' },
-  DE: { label: 'DE Franchise Tax',   href: 'https://icis.corp.delaware.gov/' },
+  WY: { label: 'WY Annual Report',    href: 'https://wyobiz.wyo.gov/' },
+  FL: { label: 'FL Annual Report',    href: 'https://dos.myflorida.com/sunbiz/maintain/fees/' },
+  CO: { label: 'CO Periodic Report',  href: 'https://www.sos.state.co.us/biz/' },
+  DE: { label: 'DE Franchise Tax',    href: 'https://icis.corp.delaware.gov/' },
   TX: { label: 'TX No Annual Report', href: 'https://www.sos.state.tx.us/corp/' },
   NM: { label: 'NM No Annual Report', href: 'https://www.sos.nm.gov/' },
   NV: { label: 'NV Annual List',      href: 'https://esos.nv.gov/' },
+  // Full name keys
+  Wyoming:    { label: 'WY Annual Report',    href: 'https://wyobiz.wyo.gov/' },
+  Florida:    { label: 'FL Annual Report',    href: 'https://dos.myflorida.com/sunbiz/maintain/fees/' },
+  Colorado:   { label: 'CO Periodic Report',  href: 'https://www.sos.state.co.us/biz/' },
+  Delaware:   { label: 'DE Franchise Tax',    href: 'https://icis.corp.delaware.gov/' },
+  Texas:      { label: 'TX No Annual Report', href: 'https://www.sos.state.tx.us/corp/' },
+  'New Mexico': { label: 'NM No Annual Report', href: 'https://www.sos.nm.gov/' },
+  Nevada:     { label: 'NV Annual List',      href: 'https://esos.nv.gov/' },
 }
 
 /* ── Badge helper ─────────────────────────────────────────────── */
@@ -128,9 +148,11 @@ export function OperationsHub({ company, clientEmail, clientName, documents }: P
   const bkStatusLabel =
     bkStatus === 'completed' ? 'Completado' : bkStatus === 'in_progress' ? 'En proceso' : 'No iniciado'
 
-  const stateCode = (company.state_code ?? company.state ?? '').toUpperCase().trim()
-  const sos = SOS_LINKS[stateCode] ?? { label: 'State SOS Portal', href: 'https://www.google.com/search?q=secretary+of+state+business+search' }
-  const annual = ANNUAL_LINKS[stateCode] ?? SOS_LINKS[stateCode] ?? { label: 'Annual Report', href: `https://www.google.com/search?q=${stateCode}+LLC+annual+report` }
+  const stateCode = (company.state_code ?? '').toUpperCase().trim()
+  const stateName = (company.state ?? '').trim()
+  const DEFAULT_SOS = { label: 'State SOS Portal', href: 'https://www.google.com/search?q=secretary+of+state+business+search' }
+  const sos    = SOS_LINKS[stateCode] ?? SOS_LINKS[stateName] ?? DEFAULT_SOS
+  const annual = ANNUAL_LINKS[stateCode] ?? ANNUAL_LINKS[stateName] ?? SOS_LINKS[stateCode] ?? SOS_LINKS[stateName] ?? { label: 'Annual Report', href: `https://www.google.com/search?q=${stateName || stateCode}+LLC+annual+report` }
 
   /* Derived statuses */
   const einStatus   = company.ein ? 'green' : 'yellow'
