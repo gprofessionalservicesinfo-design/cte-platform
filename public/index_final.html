@@ -2564,38 +2564,9 @@ function wizBuildUpsells() {
     if (!el) return;
     var rows = '';
     var count = 0;
-    /* Section C: inject Banking 2-card block first */
+    /* Section C: Address block first, then Banking */
     if (sec === 'C') {
-      var bkIncluded = ['growth','premium'].indexOf(WIZ.plan) !== -1;
-      if (bkIncluded) {
-        rows += '<div style="padding:14px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:var(--r);font-size:13px;color:var(--gray-700);margin-bottom:16px">✅ Tu plan incluye Banking Assistance.</div>';
-      } else {
-        var stdSel = !!WIZ.addons['bankingStd'] ? ' selected' : '';
-        var vipSel = !!WIZ.addons['bankingVip'] ? ' selected' : '';
-        var rec = wizGetBankRec();
-        rows += '<div style="margin-bottom:20px">'
-          + '<div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:10px">🏦 Apertura de cuenta bancaria en EE.UU.</div>'
-          + '<div class="wiz7-banking-grid">'
-          /* Standard card */
-          + '<div class="wiz7-banking-card'+stdSel+'" id="bkCardStd" onclick="wiz7ToggleBank(\'bankingStd\',\'bankingVip\',99,\'Banking Setup Standard\')">'
-          + '<div style="margin-bottom:8px"><span class="wiz7-bk-badge-rec">Standard</span></div>'
-          + '<div style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:4px">Banking Setup</div>'
-          + '<div style="font-size:12px;color:var(--gray-500);margin-bottom:12px;flex:1">Guía paso a paso para abrir cuenta en '+rec+'. Documentos, scripts y soporte por email.</div>'
-          + '<div style="font-size:20px;font-weight:800;color:var(--navy)">$99</div>'
-          + '</div>'
-          /* VIP card */
-          + '<div class="wiz7-banking-card'+vipSel+'" id="bkCardVip" onclick="wiz7ToggleBank(\'bankingVip\',\'bankingStd\',249,\'Banking Setup VIP\')">'
-          + '<div style="margin-bottom:8px"><span class="wiz7-bk-badge-vip">VIP</span></div>'
-          + '<div style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:4px">Banking Setup <span style="color:var(--accent)">VIP</span></div>'
-          + '<div style="font-size:12px;color:var(--gray-500);margin-bottom:12px;flex:1">Todo lo de Standard + llamada de 30 min con nuestro especialista bancario + seguimiento hasta que tu cuenta esté activa.</div>'
-          + '<div style="font-size:20px;font-weight:800;color:var(--accent)">$249</div>'
-          + '</div>'
-          + '</div>'
-          + '<div style="font-size:11px;color:var(--gray-400);margin-top:2px">Selecciona una opción o ninguna.</div>'
-          + '</div>';
-        count++; /* ensure "all included" fallback doesn't show */
-      }
-      /* Address 2-card block (after banking) */
+      /* 1 — Address 2-card block */
       var addrStdSel = !!WIZ.addons['addrStd'] ? ' selected' : '';
       var addrVipSel = !!WIZ.addons['addrVip'] ? ' selected' : '';
       /* Restore saved period labels for display */
@@ -2633,6 +2604,33 @@ function wizBuildUpsells() {
         + '<div style="font-size:11px;color:var(--gray-400);margin-top:2px">Selecciona una opción o ninguna. Puedes cancelar en cualquier momento.</div>'
         + '</div>';
       count++;
+      /* 2 — Banking 2-card block */
+      var bkIncluded = ['growth','premium'].indexOf(WIZ.plan) !== -1;
+      if (bkIncluded) {
+        rows += '<div style="padding:14px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:var(--r);font-size:13px;color:var(--gray-700);margin-bottom:16px">✅ Tu plan incluye Banking Assistance.</div>';
+      } else {
+        var stdSel = !!WIZ.addons['bankingStd'] ? ' selected' : '';
+        var vipSel = !!WIZ.addons['bankingVip'] ? ' selected' : '';
+        var rec = wizGetBankRec();
+        rows += '<div style="margin-bottom:20px">'
+          + '<div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:10px">🏦 Apertura de cuenta bancaria en EE.UU.</div>'
+          + '<div class="wiz7-banking-grid">'
+          + '<div class="wiz7-banking-card'+stdSel+'" id="bkCardStd" onclick="wiz7ToggleBank(\'bankingStd\',\'bankingVip\',99,\'Banking Setup Standard\')">'
+          + '<div style="margin-bottom:8px"><span class="wiz7-bk-badge-rec">Standard</span></div>'
+          + '<div style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:4px">Banking Setup</div>'
+          + '<div style="font-size:12px;color:var(--gray-500);margin-bottom:12px;flex:1">Guía paso a paso para abrir cuenta en '+rec+'. Documentos, scripts y soporte por email.</div>'
+          + '<div style="font-size:20px;font-weight:800;color:var(--navy)">$99</div>'
+          + '</div>'
+          + '<div class="wiz7-banking-card'+vipSel+'" id="bkCardVip" onclick="wiz7ToggleBank(\'bankingVip\',\'bankingStd\',249,\'Banking Setup VIP\')">'
+          + '<div style="margin-bottom:8px"><span class="wiz7-bk-badge-vip">VIP</span></div>'
+          + '<div style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:4px">Banking Setup <span style="color:var(--accent)">VIP</span></div>'
+          + '<div style="font-size:12px;color:var(--gray-500);margin-bottom:12px;flex:1">Todo lo de Standard + llamada de 30 min con nuestro especialista bancario + seguimiento hasta que tu cuenta esté activa.</div>'
+          + '<div style="font-size:20px;font-weight:800;color:var(--accent)">$249</div>'
+          + '</div>'
+          + '</div>'
+          + '<div style="font-size:11px;color:var(--gray-400);margin-top:2px">Selecciona una opción o ninguna.</div>'
+          + '</div>';
+      }
     }
     WIZ7_SECTIONS[sec].forEach(function(u) {
       if (u.includedIn.indexOf(WIZ.plan) !== -1) return;
