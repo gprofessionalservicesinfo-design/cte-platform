@@ -18,6 +18,7 @@ import { ResendWelcomeBtn } from '@/components/admin/resend-welcome-btn'
 import { BankingSetupToggle } from '@/components/admin/banking-setup-toggle'
 import { AddressServiceToggle } from '@/components/admin/address-service-toggle'
 import { AddressServicePanel } from '@/components/admin/address-service-panel'
+import { OperationsHub } from '@/components/admin/operations-hub'
 import { MailItemsPanel } from '@/components/admin/mail-items-panel'
 import { ChevronLeft, Building2, User, Mail, CreditCard, ClipboardList, TrendingUp, MessageCircle, ExternalLink } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
@@ -313,6 +314,24 @@ export default async function AdminClientDetailPage({ params }: PageProps) {
               />
             </CardContent>
           </Card>
+
+          {/* Operations Hub */}
+          <div>
+            <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3 px-1">⚙️ Operations Hub</h2>
+            <OperationsHub
+              company={{
+                id:                    company.id,
+                company_name:          company.company_name,
+                state:                 company.state ?? null,
+                ein:                   company.ein ?? null,
+                address_status:        (company as any).address_status ?? null,
+                banking_setup_enabled: (company as any).banking_setup_enabled ?? null,
+              }}
+              clientEmail={profile?.email ?? ''}
+              clientName={profile?.full_name ?? 'Cliente'}
+              documents={((documents as any) ?? []).filter((d: any) => !d.template_id)}
+            />
+          </div>
 
           {/* Document Generator */}
           <DocumentGeneratorPanel
