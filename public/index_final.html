@@ -1991,13 +1991,13 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
         <h3 style="font-size:13px;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px">Tu selección</h3>
         <div class="wiz-sidebar-row"><span class="wiz-sb-label">Empresa</span><span class="wiz-sb-val" id="sbTypeVal">—</span></div>
         <div class="wiz-sidebar-row"><span class="wiz-sb-label">Estado</span><span class="wiz-sb-val" id="sbStateVal">—</span></div>
-        <div class="wiz-sidebar-row"><span class="wiz-sb-label">Paquete</span><span class="wiz-sb-val" id="sbPlanVal">—</span></div>
-        <div class="sb-breakdown" id="sbBreakdown">
+        <div class="wiz-sidebar-row" id="sbPlanRow" style="display:none"><span class="wiz-sb-label">Paquete</span><span class="wiz-sb-val" id="sbPlanVal">—</span></div>
+        <div class="sb-breakdown" id="sbBreakdown" style="display:none">
           <div class="sb-breakdown-row"><span>Honorarios de servicio</span><span id="sbServiceFee">—</span></div>
           <div class="sb-breakdown-row"><span>Tarifa estatal</span><span id="sbStateFee">—</span></div>
           <div class="sb-breakdown-row" id="sbAddonsRow" style="display:none"><span>Add-ons</span><span id="sbAddonsVal">—</span></div>
         </div>
-        <div class="wiz-sidebar-row" style="border-top:1px solid var(--gray-200);margin-top:12px;padding-top:12px">
+        <div class="wiz-sidebar-row" id="sbTotalRow" style="display:none;border-top:1px solid var(--gray-200);margin-top:12px;padding-top:12px">
           <span class="wiz-sb-label" style="font-weight:700;color:var(--navy)">Total a pagar hoy</span>
           <span class="wiz-sb-val" style="font-size:20px;font-weight:800;color:var(--navy)" id="sbPriceVal">—</span>
         </div>
@@ -2155,6 +2155,7 @@ function wizGoTo(step) {
   if (step === 7) wizBuildUpsells();
   var sidebar = document.getElementById('wizardSidebar');
   if (sidebar) sidebar.style.visibility = (step >= 4) ? 'visible' : 'hidden';
+  wizUpdateSidebar();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function wizNext(fromStep) {
@@ -2249,26 +2250,36 @@ function wizUpdatePlanPrices() {
 }
 
 function wizUpdateSidebar() {
+  var planChosen = WIZ.currentStep >= 6;
   var pd = wizGetPlanData(WIZ.plan, WIZ.state);
   var addonTotal = Object.keys(WIZ.addons).reduce(function(s,k){ return s + WIZ.addons[k].price; }, 0);
   var grand = pd.total + addonTotal;
-  var sbType  = document.getElementById('sbTypeVal');
-  var sbState = document.getElementById('sbStateVal');
-  var sbPlan  = document.getElementById('sbPlanVal');
-  var sbSvc   = document.getElementById('sbServiceFee');
-  var sbSf    = document.getElementById('sbStateFee');
-  var sbTotal = document.getElementById('sbPriceVal');
-  var sbAddR  = document.getElementById('sbAddonsRow');
-  var sbAddV  = document.getElementById('sbAddonsVal');
+  var sbType     = document.getElementById('sbTypeVal');
+  var sbState    = document.getElementById('sbStateVal');
+  var sbPlan     = document.getElementById('sbPlanVal');
+  var sbPlanRow  = document.getElementById('sbPlanRow');
+  var sbBreakdown= document.getElementById('sbBreakdown');
+  var sbTotalRow = document.getElementById('sbTotalRow');
+  var sbSvc      = document.getElementById('sbServiceFee');
+  var sbSf       = document.getElementById('sbStateFee');
+  var sbTotal    = document.getElementById('sbPriceVal');
+  var sbAddR     = document.getElementById('sbAddonsRow');
+  var sbAddV     = document.getElementById('sbAddonsVal');
   var typeLabels = { llc:'LLC', corporation:'C-Corp', s_corporation:'S-Corp', non_profit:'Non-Profit', sole_proprietorship:'Sole Prop.' };
   if (sbType)  sbType.textContent  = typeLabels[WIZ.type] || WIZ.type || '—';
   if (sbState) sbState.textContent = WIZ.stateName || '—';
-  if (sbPlan)  sbPlan.textContent  = pd.name;
-  if (sbSvc)   sbSvc.textContent   = '$'+pd.service;
-  if (sbSf)    sbSf.textContent    = '$'+pd.stateFee;
-  if (sbTotal) sbTotal.textContent = '$'+grand;
-  if (sbAddR)  sbAddR.style.display = addonTotal > 0 ? 'flex' : 'none';
-  if (sbAddV)  sbAddV.textContent = '+$'+addonTotal;
+  /* Plan rows: only after step 6 */
+  if (sbPlanRow)   sbPlanRow.style.display   = planChosen ? 'flex' : 'none';
+  if (sbBreakdown) sbBreakdown.style.display = planChosen ? 'block' : 'none';
+  if (sbTotalRow)  sbTotalRow.style.display  = planChosen ? 'flex' : 'none';
+  if (planChosen) {
+    if (sbPlan)  sbPlan.textContent  = pd.name;
+    if (sbSvc)   sbSvc.textContent   = '$'+pd.service;
+    if (sbSf)    sbSf.textContent    = '$'+pd.stateFee;
+    if (sbTotal) sbTotal.textContent = '$'+grand;
+    if (sbAddR)  sbAddR.style.display = addonTotal > 0 ? 'flex' : 'none';
+    if (sbAddV)  sbAddV.textContent = '+$'+addonTotal;
+  }
 }
 
 /* ── Upsell step (step 7) ─────────────────────────────────── */
