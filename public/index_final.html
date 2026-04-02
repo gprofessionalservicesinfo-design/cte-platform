@@ -714,6 +714,18 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
 .wiz-option-desc{font-size:13px;color:var(--gray-500);line-height:1.6;margin-bottom:12px}
 .wiz-option-list{list-style:none;font-size:12.5px;color:var(--gray-600);display:flex;flex-direction:column;gap:4px}
 .wiz-plans{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+/* Toggle switch for upsells */
+.wiz-toggle{display:inline-block;width:44px;height:24px;border-radius:12px;background:#d1d5db;border:none;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0;padding:0;vertical-align:middle}
+.wiz-toggle::after{content:'';position:absolute;width:18px;height:18px;background:#fff;border-radius:50%;top:3px;left:3px;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.wiz-toggle.on{background:var(--accent)}
+.wiz-toggle.on::after{left:23px}
+/* Upsell row */
+.wiz-upsell-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--gray-100)}
+.wiz-upsell-row:last-child{border-bottom:none}
+.wiz-upsell-info{flex:1;min-width:0}
+.wiz-upsell-name{font-weight:600;font-size:14px;color:var(--navy)}
+.wiz-upsell-desc{font-size:12px;color:var(--gray-500);margin-top:2px}
+.wiz-upsell-price{font-weight:700;font-size:15px;color:var(--navy);white-space:nowrap;text-align:right}
 .wiz-plan-option{cursor:pointer;position:relative}
 .wiz-plan-option input[type="radio"]{position:absolute;opacity:0;width:0;height:0}
 .wiz-plan-popular{text-align:center;background:var(--accent);color:#fff;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:5px;border-radius:var(--r) var(--r) 0 0}
@@ -1971,7 +1983,7 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
           <div class="wiz-cta-card"><div style="font-size:32px;margin-bottom:8px">📅</div><h3 style="font-size:16px;font-weight:700;margin-bottom:6px">Agendar llamada</h3><p style="font-size:13px;color:var(--gray-500);margin-bottom:14px">Habla con un asesor antes de decidir.</p><a href="#" class="btn btn-ghost" style="width:100%;justify-content:center">Agendar gratis →</a></div>
           <div class="wiz-cta-card"><div style="font-size:32px;margin-bottom:8px">💬</div><h3 style="font-size:16px;font-weight:700;margin-bottom:6px">WhatsApp directo</h3><p style="font-size:13px;color:var(--gray-500);margin-bottom:14px">Respuesta inmediata de nuestro equipo.</p><a href="#" class="btn btn-wa" style="width:100%;justify-content:center">💬 Hablar ahora</a></div>
         </div>
-        <div class="wiz-nav" style="margin-top:24px"><button class="btn btn-ghost" onclick="wizGoTo(7)">← Anterior</button><button class="btn btn-ghost btn-sm" onclick="wizReset()">Empezar de nuevo</button></div>
+        <div class="wiz-nav" style="margin-top:24px"><button class="btn btn-ghost" onclick="wizGoTo(7)">← Anterior</button></div>
       </div>
 
     </div><!-- /wizard-main -->
@@ -2025,18 +2037,23 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
             <button type="button" onclick="wizGoTo(6)" style="background:none;border:none;font-size:11px;color:var(--accent);cursor:pointer;padding:0;font-weight:600">✏️ Editar</button>
           </div>
           <div id="sbPlanVal" class="wiz-sb-val" style="margin-bottom:10px">—</div>
-          <div class="sb-breakdown" id="sbBreakdown">
-            <div class="sb-breakdown-row"><span>Honorarios de servicio</span><span id="sbServiceFee">—</span></div>
-            <div class="sb-breakdown-row"><span>Tarifa estatal</span><span id="sbStateFee">—</span></div>
+          <!-- Breakdown lines -->
+          <div id="sbBreakdown" style="font-size:12px;color:var(--gray-500)">
+            <div style="display:flex;justify-content:space-between;padding:3px 0"><span>Honorarios de servicio</span><span id="sbServiceFee">—</span></div>
+            <div style="display:flex;justify-content:space-between;padding:3px 0"><span>Tarifa estatal</span><span id="sbStateFee">—</span></div>
           </div>
-          <!-- Extras seleccionados (populated dynamically) -->
-          <div id="sbExtrasSection" style="display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--gray-200)">
-            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-400);margin-bottom:6px">Extras seleccionados</div>
+          <!-- Extras (populated dynamically) -->
+          <div id="sbExtrasSection" style="display:none;margin-top:6px;padding-top:6px;border-top:1px dashed var(--gray-200);font-size:12px;color:var(--gray-500)">
             <div id="sbExtrasList"></div>
           </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:10px;border-top:1px solid var(--gray-200)">
-            <span class="wiz-sb-label" style="font-weight:700;color:var(--navy)">Total a pagar hoy</span>
-            <span style="font-size:20px;font-weight:800;color:var(--navy)" id="sbPriceVal">—</span>
+          <!-- Total -->
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:12px;border-top:2px solid var(--navy)">
+            <span style="font-size:13px;font-weight:700;color:var(--navy)">Total hoy</span>
+            <span style="font-size:26px;font-weight:800;color:var(--accent)" id="sbPriceVal">—</span>
+          </div>
+          <!-- Continuar button (step 7+) -->
+          <div id="sbContinuarArea" style="display:none;margin-top:14px">
+            <button onclick="wizRenderSummary();wizGoTo(8)" style="width:100%;padding:13px;background:var(--accent);color:#fff;border:none;border-radius:var(--r-lg);font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.02em">Continuar →</button>
           </div>
         </div>
 
@@ -2340,22 +2357,24 @@ function wizUpdateSidebar() {
     if (sbExtrasList) {
       sbExtrasList.innerHTML = addonKeys.map(function(k) {
         var a = WIZ.addons[k];
-        return '<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:12px;color:var(--navy)">'
-          + '<span style="flex:1;padding-right:6px">'+a.label+(a.period ? ' <span style="color:var(--gray-400)">'+a.period+'</span>' : '')+'</span>'
-          + '<span style="font-weight:700;white-space:nowrap">+$'+a.price+'</span>'
+        return '<div style="display:flex;justify-content:space-between;align-items:center;padding:3px 0">'
+          + '<span style="flex:1;padding-right:6px">'+a.label+(a.period ? '<span style="color:var(--gray-400)"> '+a.period+'</span>' : '')+'</span>'
+          + '<span style="font-weight:600;white-space:nowrap">+$'+a.price+'</span>'
           + '<button type="button" onclick="wizRemoveUpsell(\''+k+'\')" title="Quitar" '
-          + 'style="margin-left:6px;background:none;border:none;color:var(--gray-400);font-size:14px;cursor:pointer;padding:0 2px;line-height:1">✕</button>'
+          + 'style="margin-left:6px;background:none;border:none;color:var(--gray-400);font-size:13px;cursor:pointer;padding:0 2px;line-height:1">✕</button>'
           + '</div>';
       }).join('');
     }
+    /* ── Continuar button (step 7+) ── */
+    var sbContinuarArea = document.getElementById('sbContinuarArea');
+    if (sbContinuarArea) sbContinuarArea.style.display = step >= 7 ? 'block' : 'none';
   }
 }
 
 function wizRemoveUpsell(id) {
   delete WIZ.addons[id];
-  /* Restore the upsell card in step 7 if present */
-  var btn = document.querySelector('#wizUpsellContainer button[onclick*="wizAddUpsell(\''+id+'\'"]');
-  if (btn) { var card = btn.closest('[data-uid]'); if (card) card.style.display = 'block'; }
+  var toggle = document.querySelector('#wizUpsellContainer .wiz-toggle[data-uid="'+id+'"]');
+  if (toggle) toggle.classList.remove('on');
   wizUpdateSidebar();
 }
 
@@ -2363,43 +2382,46 @@ function wizRemoveUpsell(id) {
 function wizBuildUpsells() {
   var container = document.getElementById('wizUpsellContainer');
   if (!container) return;
-  var cfg = window.PRICING_CONFIG;
   var upsells = [
-    { id:'opAgreement', label:'Operating Agreement completo', price:79,  period:'',    desc:'Documento legal personalizado de tu LLC. Protege tu estructura societaria.',                           includedIn:['growth','premium'] },
-    { id:'regAgent',    label:'Registered Agent (renovación)',price:99,  period:'/año', desc:'Renovación del agente registrado a partir del año 2. Requerido por ley en todos los estados.',       includedIn:[] },
-    { id:'compliance',  label:'Compliance anual',             price:149, period:'/año', desc:'Recordatorios de obligaciones anuales, seguimiento de reportes y alertas de vencimiento. Nunca pierdas un plazo.', includedIn:['premium'] },
-    { id:'itin',        label:'ITIN / Tax Readiness',         price:149, period:'',    desc:'Asistencia para obtener tu ITIN. Ideal si necesitas declarar impuestos federales.',                  includedIn:[] },
+    { id:'ein',         label:'EIN / Tax ID',              price:99,  period:'',    desc:'Número de identificación fiscal del IRS. Requerido para cuentas bancarias.',     includedIn:['basic','growth','premium'] },
+    { id:'opAgreement', label:'Operating Agreement',        price:79,  period:'',    desc:'Documento legal personalizado que protege la estructura de tu LLC.',             includedIn:['growth','premium'] },
+    { id:'regAgent',    label:'Registered Agent (año 1)',   price:99,  period:'/año', desc:'Agente registrado requerido por ley. Incluye notificaciones legales.',          includedIn:[] },
+    { id:'dba',         label:'DBA / Trade Name',           price:99,  period:'',    desc:'Opera bajo un nombre comercial diferente al nombre legal de tu LLC.',            includedIn:[] },
+    { id:'itin',        label:'ITIN / Tax Readiness',       price:149, period:'',    desc:'Asistencia para obtener tu ITIN. Ideal para declarar impuestos federales.',     includedIn:[] },
+    { id:'banking',     label:'Banking Onboarding',         price:79,  period:'',    desc:'Asesoría para abrir tu cuenta bancaria en EE.UU. Guía paso a paso.',            includedIn:['growth','premium'] },
+    { id:'compliance',  label:'Compliance anual',           price:149, period:'/año', desc:'Recordatorios de vencimientos y seguimiento de obligaciones estatales.',       includedIn:['premium'] },
+    { id:'virtualAddr', label:'Dirección virtual',          price:99,  period:'/año', desc:'Dirección comercial en EE.UU. para recibir correo y aparentar presencia.',     includedIn:['premium'] },
+    { id:'waSupport',   label:'Premium Support WhatsApp',   price:49,  period:'/mes', desc:'Soporte prioritario vía WhatsApp con respuesta en menos de 2 horas.',         includedIn:[] },
   ];
+  var visibleCount = 0;
   var html = '';
   upsells.forEach(function(u) {
-    if (u.includedIn.includes(WIZ.plan)) return; // skip included
-    html += '<div style="background:#fff;border:1.5px solid var(--gray-200);border-radius:var(--r-lg);padding:22px;margin-bottom:14px">'
-      + '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:14px">'
-      + '<div><div style="font-weight:700;font-size:15px;color:var(--navy);margin-bottom:4px">'+u.label+'</div>'
-      + '<div style="font-size:13px;color:var(--gray-500);line-height:1.55">'+u.desc+'</div></div>'
-      + '<div style="font-size:18px;font-weight:800;color:var(--navy);white-space:nowrap">$'+u.price+(u.period?'<span style="font-size:12px;font-weight:400;color:var(--gray-400)">'+u.period+'</span>':'')+'</div>'
+    if (u.includedIn.indexOf(WIZ.plan) !== -1) return;
+    visibleCount++;
+    var isOn = !!WIZ.addons[u.id];
+    html += '<div class="wiz-upsell-row">'
+      + '<button class="wiz-toggle'+(isOn?' on':'')+'" data-uid="'+u.id+'"'
+      + ' onclick="wizToggleUpsell(this,\''+u.id+'\','+u.price+',\''+u.label.replace(/'/g,"\\'")
+      + '\',\''+u.period+'\')" aria-label="Agregar '+u.label+'"></button>'
+      + '<div class="wiz-upsell-info">'
+      + '<div class="wiz-upsell-name">'+u.label+'</div>'
+      + '<div class="wiz-upsell-desc">'+u.desc+'</div>'
       + '</div>'
-      + '<div style="display:flex;gap:10px;margin-top:14px">'
-      + '<button onclick="wizAddUpsell(\''+u.id+'\','+u.price+',\''+u.label+'\',\''+u.period+'\')" style="padding:9px 20px;background:var(--navy);color:#fff;border:none;border-radius:var(--r);font-size:13px;font-weight:700;cursor:pointer">Agregar +$'+u.price+'</button>'
-      + '<button onclick="this.closest(\'[data-uid]\').style.display=\'none\'" data-skip="'+u.id+'" style="padding:9px 18px;background:transparent;border:1.5px solid var(--gray-200);border-radius:var(--r);font-size:13px;font-weight:600;color:var(--gray-500);cursor:pointer">No por ahora</button>'
-      + '</div></div>';
+      + '<div class="wiz-upsell-price">$'+u.price+(u.period?'<span style="font-size:11px;font-weight:400;color:var(--gray-400)">'+u.period+'</span>':'')+'</div>'
+      + '</div>';
   });
-  if (!html) html = '<div style="text-align:center;padding:28px;color:var(--gray-500)">✅ ¡Tu plan '+WIZ.plan+' ya incluye todo lo que necesitas!</div>';
+  if (!visibleCount) html = '<div style="text-align:center;padding:28px;color:var(--gray-500)">✅ Tu plan '+WIZ.plan+' ya incluye todos los servicios esenciales.</div>';
   container.innerHTML = html;
-  // Add data-uid to each upsell for skip/remove button
-  container.querySelectorAll('[style*="margin-bottom:14px"]').forEach(function(el,i) { el.setAttribute('data-uid', i); });
-  // Hide cards for addons already selected in this session
-  Object.keys(WIZ.addons).forEach(function(id) {
-    var btn = container.querySelector('button[onclick*="wizAddUpsell(\''+id+'\'"]');
-    if (btn) { var card = btn.closest('[data-uid]'); if (card) card.style.display = 'none'; }
-  });
 }
-function wizAddUpsell(id, price, label, period) {
-  WIZ.addons[id] = { price:price, label:label, period:period };
+function wizToggleUpsell(btn, id, price, label, period) {
+  if (WIZ.addons[id]) {
+    delete WIZ.addons[id];
+    btn.classList.remove('on');
+  } else {
+    WIZ.addons[id] = { price:price, label:label, period:period };
+    btn.classList.add('on');
+  }
   wizUpdateSidebar();
-  // Hide the upsell card after adding
-  var btn = document.querySelector('[onclick*="wizAddUpsell(\''+id+'\'"]');
-  if (btn) btn.closest('[data-uid]').style.display = 'none';
 }
 
 /* ── Add-ons ──────────────────────────────────────────────── */
