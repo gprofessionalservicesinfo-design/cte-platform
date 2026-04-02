@@ -3,17 +3,18 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { Users, FileText, Activity, CreditCard, Shield, LogOut, Menu, X, ShoppingBag, Mail, Wrench } from 'lucide-react'
+import { Users, FileText, Activity, CreditCard, Shield, LogOut, Menu, X, ShoppingBag, Mail, Wrench, LayoutDashboard } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 
 const NAV_ITEMS = [
+  { href: '/admin',           label: 'Dashboard',   icon: LayoutDashboard },
   { href: '/admin/clients',   label: 'Clients',     icon: Users },
   { href: '/admin/orders',    label: 'Orders',      icon: ShoppingBag },
   { href: '/admin/documents', label: 'Documents',   icon: FileText },
   { href: '/admin/addresses', label: 'Direcciones', icon: Mail },
-  { href: '/admin/clients',   label: 'Operations',  icon: Wrench, note: 'hub' },
+  { href: '/admin/operations',label: 'Operations',  icon: Wrench },
   { href: '/admin/status',    label: 'Status',      icon: Activity },
   { href: '/admin/billing',   label: 'Billing',     icon: CreditCard },
 ]
@@ -37,6 +38,7 @@ export function AdminSidebar({ userEmail }: AdminSidebarProps) {
   }
 
   function isActive(href: string) {
+    if (href === '/admin') return pathname === '/admin'
     return pathname.startsWith(href)
   }
 
