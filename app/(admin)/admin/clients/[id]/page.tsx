@@ -323,6 +323,7 @@ export default async function AdminClientDetailPage({ params }: PageProps) {
                 id:                        company.id,
                 company_name:              company.company_name,
                 state:                     company.state ?? null,
+                state_code:                (company as any).state_code ?? company.state ?? null,
                 ein:                       company.ein ?? null,
                 address_status:            (company as any).address_status ?? null,
                 banking_setup_enabled:     (company as any).banking_setup_enabled ?? null,

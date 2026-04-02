@@ -10,20 +10,19 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { SendEmailModal } from '@/components/admin/send-email-modal'
 import { DocumentUpload } from '@/components/admin/document-upload'
 
-/* ── SOS portals by state ─────────────────────────────────────── */
+/* ── SOS portals by state code ────────────────────────────────── */
 const SOS_LINKS: Record<string, { label: string; href: string }> = {
-  WY: { label: 'Wyoming SOS',    href: 'https://sos.wyo.gov/business/' },
-  FL: { label: 'Florida SunBiz', href: 'https://dos.myflorida.com/sunbiz/' },
-  CO: { label: 'Colorado SOS',   href: 'https://www.sos.state.co.us/biz/' },
-  DE: { label: 'Delaware SOS',   href: 'https://icis.corp.delaware.gov/' },
-  TX: { label: 'Texas SOS',      href: 'https://www.sos.state.tx.us/corp/' },
-  NM: { label: 'New Mexico SOS', href: 'https://www.sos.nm.gov/business-services/' },
-  NV: { label: 'Nevada SOS',     href: 'https://esos.nv.gov/EntitySearch/OnlineEntitySearch' },
-  AZ: { label: 'Arizona SOS',    href: 'https://azsos.gov/business' },
-  GA: { label: 'Georgia SOS',    href: 'https://ecorp.sos.ga.gov/' },
-  NY: { label: 'New York DOS',   href: 'https://apps.dos.ny.gov/publicInquiry/' },
-  CA: { label: 'California SOS', href: 'https://bizfileonline.sos.ca.gov/' },
-  TX2: { label: 'Texas SOS',     href: 'https://www.sos.state.tx.us/corp/' },
+  WY: { label: 'Wyoming SOS',                    href: 'https://sos.wyo.gov/business/' },
+  FL: { label: 'Florida SunBiz',                 href: 'https://dos.myflorida.com/sunbiz/' },
+  CO: { label: 'Colorado SOS',                   href: 'https://www.sos.state.co.us/biz/' },
+  DE: { label: 'Delaware Division of Corporations', href: 'https://icis.corp.delaware.gov/' },
+  TX: { label: 'Texas SOS',                      href: 'https://www.sos.state.tx.us/corp/' },
+  NM: { label: 'New Mexico SOS',                 href: 'https://www.sos.nm.gov/business-services/' },
+  NV: { label: 'Nevada SOS',                     href: 'https://esos.nv.gov/EntitySearch/OnlineEntitySearch' },
+  AZ: { label: 'Arizona SOS',                    href: 'https://azsos.gov/business' },
+  GA: { label: 'Georgia SOS',                    href: 'https://ecorp.sos.ga.gov/' },
+  NY: { label: 'New York DOS',                   href: 'https://apps.dos.ny.gov/publicInquiry/' },
+  CA: { label: 'California SOS',                 href: 'https://bizfileonline.sos.ca.gov/' },
 }
 
 const ANNUAL_LINKS: Record<string, { label: string; href: string }> = {
@@ -65,6 +64,7 @@ interface Props {
     id: string
     company_name: string
     state: string | null
+    state_code: string | null
     ein: string | null
     address_status: string | null
     banking_setup_enabled: boolean | null
@@ -128,8 +128,8 @@ export function OperationsHub({ company, clientEmail, clientName, documents }: P
   const bkStatusLabel =
     bkStatus === 'completed' ? 'Completado' : bkStatus === 'in_progress' ? 'En proceso' : 'No iniciado'
 
-  const stateCode = (company.state ?? '').toUpperCase()
-  const sos = SOS_LINKS[stateCode] ?? { label: 'State SOS Portal', href: `https://www.google.com/search?q=${stateCode}+secretary+of+state+LLC+filing` }
+  const stateCode = (company.state_code ?? company.state ?? '').toUpperCase().trim()
+  const sos = SOS_LINKS[stateCode] ?? { label: 'State SOS Portal', href: 'https://www.google.com/search?q=secretary+of+state+business+search' }
   const annual = ANNUAL_LINKS[stateCode] ?? SOS_LINKS[stateCode] ?? { label: 'Annual Report', href: `https://www.google.com/search?q=${stateCode}+LLC+annual+report` }
 
   /* Derived statuses */
