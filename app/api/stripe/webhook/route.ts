@@ -445,6 +445,22 @@ export async function POST(request: NextRequest) {
                     if (p.alternate_name_2) wizardUpdate.alternate_name_2 = p.alternate_name_2
                     if (p.members_count)    wizardUpdate.members_count    = p.members_count
                     if (p.business_activity) wizardUpdate.business_activity = p.business_activity
+                    // Detect address addon purchased in wizard
+                    const addonIds: string[] = p.addons
+                      ? Object.keys(p.addons)
+                      : []
+                    const hasAddrStd = addonIds.includes('addrStd')
+                    const hasAddrVip = addonIds.includes('addrVip')
+                    if (hasAddrStd || hasAddrVip) {
+                      wizardUpdate.address_service_enabled = true
+                      wizardUpdate.address_status          = 'pending'
+                      wizardUpdate.address_plan_type       = hasAddrVip ? 'vip' : 'standard'
+                      wizardUpdate.address_service_type    = hasAddrVip ? 'vip' : 'standard'
+                      wizardUpdate.address_provider        = 'VPM'
+                      const addrAddon = p.addons[hasAddrVip ? 'addrVip' : 'addrStd']
+                      wizardUpdate.address_service_period  = addrAddon?.period === '/año' ? 'annual' : 'monthly'
+                      console.log('[webhook] Address addon detected:', wizardUpdate.address_plan_type, wizardUpdate.address_service_period)
+                    }
                     if (Object.keys(wizardUpdate).length > 0) {
                       await supabase.from('companies').update(wizardUpdate).eq('id', companyData.id)
                       console.log('[webhook] Wizard data applied to company:', wizardUpdate)

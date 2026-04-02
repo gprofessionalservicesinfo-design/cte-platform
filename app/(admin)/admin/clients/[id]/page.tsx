@@ -17,6 +17,7 @@ import { CompanyEditor } from '@/components/admin/company-editor'
 import { ResendWelcomeBtn } from '@/components/admin/resend-welcome-btn'
 import { BankingSetupToggle } from '@/components/admin/banking-setup-toggle'
 import { AddressServiceToggle } from '@/components/admin/address-service-toggle'
+import { AddressServicePanel } from '@/components/admin/address-service-panel'
 import { MailItemsPanel } from '@/components/admin/mail-items-panel'
 import { ChevronLeft, Building2, User, Mail, CreditCard, ClipboardList, TrendingUp, MessageCircle, ExternalLink } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
@@ -387,6 +388,27 @@ export default async function AdminClientDetailPage({ params }: PageProps) {
               />
             </CardContent>
           </Card>
+
+          {/* Business Address Panel */}
+          {(company as any).address_service_enabled && (
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base">📬 Business Address</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <AddressServicePanel
+                  companyId={company.id}
+                  initialStatus={(company as any).address_status ?? 'not_purchased'}
+                  initialProvider={(company as any).address_provider ?? 'VPM'}
+                  initialPlanType={(company as any).address_plan_type ?? null}
+                  initialActivatedAt={(company as any).address_activated_at ?? null}
+                  initialRenewalDate={(company as any).address_renewal_date ?? null}
+                  initialNotes={(company as any).address_notes ?? null}
+                  initialExternalId={(company as any).address_external_id ?? null}
+                />
+              </CardContent>
+            </Card>
+          )}
         </div>
       </div>
 

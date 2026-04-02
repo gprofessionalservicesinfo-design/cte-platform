@@ -3,17 +3,18 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { Users, FileText, Activity, CreditCard, Shield, LogOut, Menu, X, ShoppingBag } from 'lucide-react'
+import { Users, FileText, Activity, CreditCard, Shield, LogOut, Menu, X, ShoppingBag, Mail } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 
 const NAV_ITEMS = [
-  { href: '/admin/clients',   label: 'Clients',   icon: Users },
-  { href: '/admin/orders',    label: 'Orders',    icon: ShoppingBag },
-  { href: '/admin/documents', label: 'Documents', icon: FileText },
-  { href: '/admin/status',    label: 'Status',    icon: Activity },
-  { href: '/admin/billing',   label: 'Billing',   icon: CreditCard },
+  { href: '/admin/clients',   label: 'Clients',    icon: Users },
+  { href: '/admin/orders',    label: 'Orders',     icon: ShoppingBag },
+  { href: '/admin/documents', label: 'Documents',  icon: FileText },
+  { href: '/admin/addresses', label: 'Direcciones', icon: Mail },
+  { href: '/admin/status',    label: 'Status',     icon: Activity },
+  { href: '/admin/billing',   label: 'Billing',    icon: CreditCard },
 ]
 
 interface AdminSidebarProps {
