@@ -100,9 +100,9 @@ window.CONFIG = {
       badge:   null,
       popular: false,
       features: [
-        "Formación de LLC",
+        "Formación de LLC o Corporation",
         "Articles of Organization",
-        "Registered Agent (1 año)",
+        "Registered Agent (12 meses)",
         "EIN del IRS",
         "Documentos digitales",
         "Soporte por email"
@@ -110,7 +110,7 @@ window.CONFIG = {
       not_included: [
         "Operating Agreement",
         "Asesoría bancaria",
-        "Dirección virtual"
+        "Business Address"
       ]
     },
     growth: {
@@ -122,12 +122,13 @@ window.CONFIG = {
       features: [
         "Todo lo del Basic",
         "Operating Agreement completo",
-        "Asesoría bancaria",
-        "Recordatorios de compliance",
+        "Asesoría apertura bancaria",
+        "Guía de compliance anual",
         "Soporte prioritario email"
       ],
       not_included: [
-        "Dirección virtual",
+        "Business Address",
+        "Fast-track",
         "ITIN"
       ]
     },
@@ -139,10 +140,11 @@ window.CONFIG = {
       popular: false,
       features: [
         "Todo lo del Growth",
-        "Dirección virtual en EE.UU.",
-        "Recordatorios de compliance",
-        "Soporte prioritario WhatsApp",
-        "Atención concierge dedicada"
+        "Fast-track (prioridad máxima)",
+        "Business Address Standard (12 meses)",
+        "Sesión de asesoría fiscal",
+        "Soporte dedicado WhatsApp",
+        "Form 5472 incluido"
       ],
       not_included: []
     }

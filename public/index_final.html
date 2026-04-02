@@ -1951,7 +1951,7 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
               <div style="display:inline-block;background:linear-gradient(90deg,#0A2540,#2563eb);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:8px;letter-spacing:.05em">CONCIERGE</div>
               <div class="wiz-plan-header"><div class="wiz-plan-name">Plan Premium</div><div class="wiz-plan-price" id="wiz3PricePrem">$1,250</div></div>
               <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:6px">Todo en Growth +</div>
-              <ul class="wiz-plan-features"><li>✅ Fast-track (prioridad máxima)</li><li>✅ Dirección virtual en EE.UU.</li><li>✅ Sesión de asesoría fiscal</li><li>✅ Soporte dedicado WhatsApp</li><li>✅ Form 5472 incluido</li></ul>
+              <ul class="wiz-plan-features"><li>✅ Fast-track (prioridad máxima)</li><li>✅ Business Address Standard (12 meses)</li><li>✅ Sesión de asesoría fiscal</li><li>✅ Soporte dedicado WhatsApp</li><li>✅ Form 5472 incluido</li></ul>
               <div style="border-top:1px solid var(--gray-200);margin-top:10px;padding-top:8px">
                 <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);padding:2px 0"><span>Honorarios de servicio</span><span style="font-weight:600">$1,200</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);padding:2px 0"><span>Tarifa estatal</span><span style="font-weight:600" id="wiz3StateFeePrem">$50</span></div>
@@ -2567,6 +2567,11 @@ function wizBuildUpsells() {
     /* Section C: Address block first, then Banking */
     if (sec === 'C') {
       /* 1 — Address 2-card block */
+      var addrIncluded = WIZ.plan === 'premium';
+      if (addrIncluded) {
+        rows += '<div style="padding:14px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:var(--r);font-size:13px;color:var(--gray-700);margin-bottom:16px">✅ Tu plan Premium incluye Business Address Standard (12 meses).</div>';
+        count++;
+      } else {
       var addrStdSel = !!WIZ.addons['addrStd'] ? ' selected' : '';
       var addrVipSel = !!WIZ.addons['addrVip'] ? ' selected' : '';
       /* Restore saved period labels for display */
@@ -2604,6 +2609,7 @@ function wizBuildUpsells() {
         + '<div style="font-size:11px;color:var(--gray-400);margin-top:2px">Selecciona una opción o ninguna. Puedes cancelar en cualquier momento.</div>'
         + '</div>';
       count++;
+      } /* end else (addr not included) */
       /* 2 — Banking 2-card block */
       var bkIncluded = ['growth','premium'].indexOf(WIZ.plan) !== -1;
       if (bkIncluded) {

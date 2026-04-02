@@ -99,15 +99,15 @@ window.PRICING_CONFIG = {
      automatically on page load (see initPricingConfig()).
      includedIn: plan IDs where this add-on is already included.     */
   addons: {
-    ein:          { price: 99,  period: '',     label: 'Tramitación de EIN',              includedIn: ['basic','growth','premium'] },
-    regAgent:     { price: 99,  period: '/año', label: 'Registered Agent (renovación)',   includedIn: [] },
-    opAgreement:  { price: 79,  period: '',     label: 'Operating Agreement completo',    includedIn: ['growth','premium'] },
-    virtualAddr:  { price: 99,  period: '/año', label: 'Dirección virtual en EE.UU.',    includedIn: ['premium'] },
-    banking:      { price: 79,  period: '',     label: 'Asesoría bancaria',               includedIn: ['growth','premium'] },
-    certCopy:     { price: 49,  period: '',     label: 'Copia certificada',               includedIn: [] },
-    goodStanding: { price: 49,  period: '',     label: 'Certificate of Good Standing',    includedIn: [] },
-    compliance:   { price: 49,  period: '/año', label: 'Recordatorios de compliance',     includedIn: ['premium'] },
-    itin:         { price: 149, period: '',     label: 'Asistencia para ITIN',            includedIn: [] }
+    ein:          { price: 99,  period: '',     label: 'Tramitación de EIN',                      includedIn: ['basic','growth','premium'] },
+    regAgent:     { price: 99,  period: '/año', label: 'Registered Agent (renovación año 2+)',    includedIn: ['basic','growth','premium'] }, /* 1st year always included */
+    opAgreement:  { price: 79,  period: '',     label: 'Operating Agreement completo',             includedIn: ['growth','premium'] },
+    addrStd:      { price: 39,  period: '/mes', label: 'Business Address Standard',               includedIn: ['premium'] },
+    banking:      { price: 79,  period: '',     label: 'Asesoría apertura bancaria',               includedIn: ['growth','premium'] },
+    certCopy:     { price: 49,  period: '',     label: 'Copia certificada',                        includedIn: [] },
+    goodStanding: { price: 49,  period: '',     label: 'Certificate of Good Standing',             includedIn: [] },
+    compliance:   { price: 49,  period: '/año', label: 'Recordatorios de compliance',              includedIn: ['premium'] },
+    itin:         { price: 149, period: '',     label: 'Asistencia para ITIN',                     includedIn: [] }
   },
 
   /* ── FUTURE ANNUAL OBLIGATIONS ─────────────────────────────────
