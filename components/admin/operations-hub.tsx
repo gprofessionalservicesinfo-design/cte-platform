@@ -70,12 +70,31 @@ function Badge({ label, color }: { label: string; color: 'gray' | 'blue' | 'gree
 /* ── External link button ─────────────────────────────────────── */
 function ExtBtn({ href, children }: { href: string; children: React.ReactNode }) {
   return (
-    <Button variant="outline" size="sm" asChild>
-      <a href={href} target="_blank" rel="noopener noreferrer" className="gap-1.5">
+    <Button variant="outline" size="sm" className="h-9 gap-1.5 text-sm" asChild>
+      <a href={href} target="_blank" rel="noopener noreferrer">
         <ExternalLink className="h-3.5 w-3.5 flex-shrink-0" />
         {children}
       </a>
     </Button>
+  )
+}
+
+/* ── Section header ───────────────────────────────────────────── */
+function SectionHeader({ icon: Icon, title, badge }: {
+  icon: React.ElementType
+  title: string
+  badge?: React.ReactNode
+}) {
+  return (
+    <div className="flex items-center justify-between pb-3 mb-4 border-b border-gray-100">
+      <div className="flex items-center gap-2.5">
+        <div className="bg-gray-100 rounded-md p-1.5">
+          <Icon className="h-4 w-4 text-gray-600" />
+        </div>
+        <h3 className="text-sm font-semibold text-gray-800">{title}</h3>
+      </div>
+      {badge}
+    </div>
   )
 }
 
@@ -164,235 +183,205 @@ export function OperationsHub({ company, clientEmail, clientName, documents }: P
   const bankLabel   = company.banking_setup_enabled ? 'Habilitado' : 'No habilitado'
 
   return (
-    <>
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <div className="space-y-6">
 
       {/* 1 — Company Formation */}
-      <Card>
-        <CardHeader className="pb-2">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-sm flex items-center gap-2">
-              <Building2 className="h-4 w-4 text-gray-500" /> Company Formation
-            </CardTitle>
-            <Badge label="SOS Filing" color="gray" />
+      <Card className="shadow-sm">
+        <CardContent className="pt-5 pb-5">
+          <SectionHeader icon={Building2} title="Company Formation"
+            badge={<Badge label="SOS Filing" color="gray" />} />
+          <div className="flex flex-wrap gap-3">
+            <ExtBtn href={sos.href}>{sos.label}</ExtBtn>
           </div>
-        </CardHeader>
-        <CardContent className="flex flex-wrap gap-2">
-          <ExtBtn href={sos.href}>{sos.label}</ExtBtn>
         </CardContent>
       </Card>
 
       {/* 2 — EIN */}
-      <Card>
-        <CardHeader className="pb-2">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-sm flex items-center gap-2">
-              <Hash className="h-4 w-4 text-gray-500" /> EIN / Tax ID
-            </CardTitle>
-            <Badge label={einLabel} color={einStatus} />
+      <Card className="shadow-sm">
+        <CardContent className="pt-5 pb-5">
+          <SectionHeader icon={Hash} title="EIN / Tax ID"
+            badge={<Badge label={einLabel} color={einStatus} />} />
+          <div className="flex flex-wrap gap-3">
+            <ExtBtn href="https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online">
+              Apply EIN Online (IRS)
+            </ExtBtn>
+            <ExtBtn href="https://www.irs.gov/pub/irs-pdf/fss4.pdf">
+              EIN by Fax (SS-4)
+            </ExtBtn>
           </div>
-        </CardHeader>
-        <CardContent className="flex flex-wrap gap-2">
-          <ExtBtn href="https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online">
-            Apply EIN Online (IRS)
-          </ExtBtn>
-          <ExtBtn href="https://www.irs.gov/pub/irs-pdf/fss4.pdf">
-            EIN by Fax (SS-4)
-          </ExtBtn>
         </CardContent>
       </Card>
 
       {/* 3 — ITIN */}
-      <Card>
-        <CardHeader className="pb-2">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-sm flex items-center gap-2">
-              <FileText className="h-4 w-4 text-gray-500" /> ITIN (Form W-7)
-            </CardTitle>
-            <Badge label="Opcional" color="gray" />
+      <Card className="shadow-sm">
+        <CardContent className="pt-5 pb-5">
+          <SectionHeader icon={FileText} title="ITIN (Form W-7)"
+            badge={<Badge label="Opcional" color="gray" />} />
+          <div className="flex flex-wrap gap-3">
+            <ExtBtn href="https://www.irs.gov/forms-pubs/about-form-w-7">Open Form W-7</ExtBtn>
+            <ExtBtn href="https://www.irs.gov/individuals/international-taxpayers/acceptance-agent-program">Find CAA Near Me</ExtBtn>
           </div>
-        </CardHeader>
-        <CardContent className="flex flex-wrap gap-2">
-          <ExtBtn href="https://www.irs.gov/forms-pubs/about-form-w-7">Open Form W-7</ExtBtn>
-          <ExtBtn href="https://www.irs.gov/individuals/international-taxpayers/acceptance-agent-program">Find CAA Near Me</ExtBtn>
         </CardContent>
       </Card>
 
       {/* 4 — Business Address */}
-      <Card>
-        <CardHeader className="pb-2">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-sm flex items-center gap-2">
-              <Mail className="h-4 w-4 text-gray-500" /> Business Address (VPM)
-            </CardTitle>
-            <Badge label={addrLabel} color={addrColor} />
+      <Card className="shadow-sm">
+        <CardContent className="pt-5 pb-5">
+          <SectionHeader icon={Mail} title="Business Address (VPM)"
+            badge={<Badge label={addrLabel} color={addrColor} />} />
+          <div className="flex flex-wrap gap-3">
+            <ExtBtn href="https://www.virtualpostmail.com/login">Open VPM Dashboard</ExtBtn>
+            <ExtBtn href="https://www.virtualpostmail.com/signup">Create VPM Account</ExtBtn>
           </div>
-        </CardHeader>
-        <CardContent className="flex flex-wrap gap-2">
-          <ExtBtn href="https://www.virtualpostmail.com/login">Open VPM Dashboard</ExtBtn>
-          <ExtBtn href="https://www.virtualpostmail.com/signup">Create VPM Account</ExtBtn>
         </CardContent>
       </Card>
 
       {/* 5 — Banking */}
-      <Card>
-        <CardHeader className="pb-2">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-sm flex items-center gap-2">
-              <Landmark className="h-4 w-4 text-gray-500" /> Banking Setup
-            </CardTitle>
-            <Badge label={bankLabel} color={bankColor} />
+      <Card className="shadow-sm">
+        <CardContent className="pt-5 pb-5">
+          <SectionHeader icon={Landmark} title="Banking Setup"
+            badge={<Badge label={bankLabel} color={bankColor} />} />
+          <div className="flex flex-wrap gap-3">
+            <ExtBtn href="https://relayfi.com">Relay</ExtBtn>
+            <ExtBtn href="https://mercury.com">Mercury</ExtBtn>
+            <ExtBtn href="https://wise.com/us/business/">Wise Business</ExtBtn>
+            <ExtBtn href="https://stripe.com/atlas">Stripe Atlas</ExtBtn>
+            <ExtBtn href="https://www.payoneer.com">Payoneer</ExtBtn>
           </div>
-        </CardHeader>
-        <CardContent className="flex flex-wrap gap-2">
-          <ExtBtn href="https://relayfi.com">Relay</ExtBtn>
-          <ExtBtn href="https://mercury.com">Mercury</ExtBtn>
-          <ExtBtn href="https://wise.com/us/business/">Wise Business</ExtBtn>
-          <ExtBtn href="https://stripe.com/atlas">Stripe Atlas</ExtBtn>
-          <ExtBtn href="https://www.payoneer.com">Payoneer</ExtBtn>
         </CardContent>
       </Card>
 
       {/* 6 — Taxes & Compliance */}
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm flex items-center gap-2">
-            <Calculator className="h-4 w-4 text-gray-500" /> Taxes & Compliance
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-3">
-          <div className="flex flex-wrap gap-2">
-            <ExtBtn href="https://www.irs.gov/businesses">IRS Tax Center</ExtBtn>
-          </div>
-          <div className="border-t pt-3 space-y-2">
-            <p className="text-xs font-medium text-gray-500">Upload Tax Docs</p>
-            <DocumentUpload companyId={company.id} initialDocs={documents} />
-          </div>
-          <div className="border-t pt-3">
-            <p className="text-xs font-medium text-gray-500 mb-2">Send to CPA</p>
-            <SendEmailModal
-              clientEmail={clientEmail}
-              clientName={clientName}
-              companyId={company.id}
-            />
+      <Card className="shadow-sm">
+        <CardContent className="pt-5 pb-5">
+          <SectionHeader icon={Calculator} title="Taxes & Compliance" />
+          <div className="space-y-4">
+            <div className="flex flex-wrap gap-3">
+              <ExtBtn href="https://www.irs.gov/businesses">IRS Tax Center</ExtBtn>
+            </div>
+            <div className="border-t pt-4 space-y-2">
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Upload Tax Docs</p>
+              <DocumentUpload companyId={company.id} initialDocs={documents} />
+            </div>
+            <div className="border-t pt-4">
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Send to CPA</p>
+              <SendEmailModal
+                clientEmail={clientEmail}
+                clientName={clientName}
+                companyId={company.id}
+              />
+            </div>
           </div>
         </CardContent>
       </Card>
 
       {/* 7 — Annual Compliance */}
-      <Card>
-        <CardHeader className="pb-2">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-sm flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-gray-500" /> Annual Compliance
-            </CardTitle>
-            <Badge label="Upcoming" color="yellow" />
+      <Card className="shadow-sm">
+        <CardContent className="pt-5 pb-5">
+          <SectionHeader icon={Calendar} title="Annual Compliance"
+            badge={<Badge label="Upcoming" color="yellow" />} />
+          <div className="flex flex-wrap gap-3">
+            <ExtBtn href={annual.href}>{annual.label}</ExtBtn>
+            <ExtBtn href={sos.href}>Check Good Standing</ExtBtn>
           </div>
-        </CardHeader>
-        <CardContent className="flex flex-wrap gap-2">
-          <ExtBtn href={annual.href}>{annual.label}</ExtBtn>
-          <ExtBtn href={sos.href}>Check Good Standing</ExtBtn>
         </CardContent>
       </Card>
+
+      {/* 8 — Accounting & Bookkeeping (only when EIN exists) */}
+      {company.ein && (
+        <Card className="shadow-sm">
+          <CardContent className="pt-5 pb-5">
+            <SectionHeader icon={BookOpen} title="Accounting & Bookkeeping"
+              badge={
+                <div className="flex items-center gap-2">
+                  {bkFeedback && <span className="text-xs text-gray-400">{bkFeedback}</span>}
+                  <Badge label={bkStatusLabel} color={bkStatusColor} />
+                </div>
+              }
+            />
+
+            {/* 3-card grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
+              {/* QuickBooks */}
+              <div className={`border rounded-xl p-5 space-y-3 min-h-[140px] shadow-sm transition-colors ${bkTool === 'quickbooks' ? 'border-blue-400 bg-blue-50' : 'border-gray-200 bg-white'}`}>
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-semibold text-gray-900">QuickBooks</p>
+                  <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-green-100 text-green-700">Popular</span>
+                </div>
+                <p className="text-xs text-gray-500 leading-relaxed">Track income, expenses and prepare for taxes.</p>
+                <Button variant="outline" size="sm" className="w-full h-9 gap-1.5" asChild
+                  onClick={() => handleBkTool('quickbooks')}>
+                  <a href="https://quickbooks.intuit.com" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="h-3.5 w-3.5 flex-shrink-0" />
+                    Open QuickBooks →
+                  </a>
+                </Button>
+              </div>
+
+              {/* Xero */}
+              <div className={`border rounded-xl p-5 space-y-3 min-h-[140px] shadow-sm transition-colors ${bkTool === 'xero' ? 'border-blue-400 bg-blue-50' : 'border-gray-200 bg-white'}`}>
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-semibold text-gray-900">Xero</p>
+                  <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">Digital</span>
+                </div>
+                <p className="text-xs text-gray-500 leading-relaxed">Modern accounting for online businesses and international founders.</p>
+                <Button variant="outline" size="sm" className="w-full h-9 gap-1.5" asChild
+                  onClick={() => handleBkTool('xero')}>
+                  <a href="https://xero.com" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="h-3.5 w-3.5 flex-shrink-0" />
+                    Open Xero →
+                  </a>
+                </Button>
+              </div>
+
+              {/* CPA Support */}
+              <div className={`border rounded-xl p-5 space-y-3 min-h-[140px] shadow-sm transition-colors ${bkTool === 'cpa' ? 'border-blue-400 bg-blue-50' : 'border-gray-200 bg-white'}`}>
+                <p className="text-sm font-semibold text-gray-900">CPA Support</p>
+                <p className="text-xs text-gray-500 leading-relaxed">Upload financial documents and let a professional handle accounting.</p>
+                <DocumentUpload companyId={company.id} initialDocs={documents} />
+                <Button variant="outline" size="sm" className="w-full h-9" disabled={bkSaving}
+                  onClick={() => handleBkTool('cpa')}>
+                  📤 Mark as Sent to CPA
+                </Button>
+              </div>
+            </div>
+
+            {/* Complete action */}
+            {bkStatus !== 'completed' && (
+              <div className="flex flex-wrap gap-3 pb-4 border-b">
+                <Button size="sm" className="h-9 bg-green-600 hover:bg-green-700 text-white" disabled={bkSaving}
+                  onClick={handleBkComplete}>
+                  ✅ Mark as Completed
+                </Button>
+              </div>
+            )}
+
+            {/* Notes */}
+            <div className="space-y-3 pt-4">
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">📝 Notes</p>
+              {bkNotes && (
+                <pre className="text-xs text-gray-700 bg-gray-50 rounded-lg p-3 whitespace-pre-wrap font-sans border border-gray-100">
+                  {bkNotes}
+                </pre>
+              )}
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={bkNote}
+                  onChange={e => setBkNote(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && handleBkNote()}
+                  placeholder="Add note…"
+                  className="flex-1 text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400"
+                />
+                <Button size="sm" className="h-9" onClick={handleBkNote} disabled={bkSaving || !bkNote.trim()}>
+                  Add
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
     </div>
-
-    {/* 8 — Accounting & Bookkeeping (only when EIN exists) */}
-    {company.ein && (
-      <Card className="mt-4">
-        <CardHeader className="pb-2">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-sm flex items-center gap-2">
-              <BookOpen className="h-4 w-4 text-gray-500" /> Accounting & Bookkeeping
-            </CardTitle>
-            <div className="flex items-center gap-2">
-              {bkFeedback && <span className="text-xs text-gray-400">{bkFeedback}</span>}
-              <Badge label={bkStatusLabel} color={bkStatusColor} />
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {/* 3-card grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {/* QuickBooks */}
-            <div className={`border rounded-lg p-3 space-y-2 transition-colors ${bkTool === 'quickbooks' ? 'border-blue-400 bg-blue-50' : 'border-gray-200'}`}>
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-semibold text-gray-900">QuickBooks</p>
-                <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-green-100 text-green-700">Popular</span>
-              </div>
-              <p className="text-xs text-gray-500">Track income, expenses and prepare for taxes.</p>
-              <Button variant="outline" size="sm" className="w-full gap-1.5" asChild
-                onClick={() => handleBkTool('quickbooks')}>
-                <a href="https://quickbooks.intuit.com" target="_blank" rel="noopener noreferrer">
-                  <ExternalLink className="h-3.5 w-3.5 flex-shrink-0" />
-                  Open QuickBooks →
-                </a>
-              </Button>
-            </div>
-
-            {/* Xero */}
-            <div className={`border rounded-lg p-3 space-y-2 transition-colors ${bkTool === 'xero' ? 'border-blue-400 bg-blue-50' : 'border-gray-200'}`}>
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-semibold text-gray-900">Xero</p>
-                <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">Digital</span>
-              </div>
-              <p className="text-xs text-gray-500">Modern accounting for online businesses and international founders.</p>
-              <Button variant="outline" size="sm" className="w-full gap-1.5" asChild
-                onClick={() => handleBkTool('xero')}>
-                <a href="https://xero.com" target="_blank" rel="noopener noreferrer">
-                  <ExternalLink className="h-3.5 w-3.5 flex-shrink-0" />
-                  Open Xero →
-                </a>
-              </Button>
-            </div>
-
-            {/* CPA Support */}
-            <div className={`border rounded-lg p-3 space-y-2 transition-colors ${bkTool === 'cpa' ? 'border-blue-400 bg-blue-50' : 'border-gray-200'}`}>
-              <p className="text-sm font-semibold text-gray-900">CPA Support</p>
-              <p className="text-xs text-gray-500">Upload financial documents and let a professional handle accounting.</p>
-              <DocumentUpload companyId={company.id} initialDocs={documents} />
-              <Button variant="outline" size="sm" className="w-full" disabled={bkSaving}
-                onClick={() => handleBkTool('cpa')}>
-                📤 Mark as Sent to CPA
-              </Button>
-            </div>
-          </div>
-
-          {/* Actions */}
-          <div className="flex flex-wrap gap-2 pt-1 border-t">
-            {bkStatus !== 'completed' && (
-              <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white" disabled={bkSaving}
-                onClick={handleBkComplete}>
-                ✅ Mark as Completed
-              </Button>
-            )}
-          </div>
-
-          {/* Notes */}
-          <div className="space-y-2 pt-1 border-t">
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">📝 Notes</p>
-            {bkNotes && (
-              <pre className="text-xs text-gray-700 bg-gray-50 rounded p-2 whitespace-pre-wrap font-sans border border-gray-100">
-                {bkNotes}
-              </pre>
-            )}
-            <div className="flex gap-2">
-              <input
-                type="text"
-                value={bkNote}
-                onChange={e => setBkNote(e.target.value)}
-                onKeyDown={e => e.key === 'Enter' && handleBkNote()}
-                placeholder="Add note…"
-                className="flex-1 text-xs border border-gray-200 rounded px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-400"
-              />
-              <Button size="sm" onClick={handleBkNote} disabled={bkSaving || !bkNote.trim()}>
-                Add
-              </Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    )}
-    </>
   )
 }

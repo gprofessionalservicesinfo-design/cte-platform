@@ -53,7 +53,7 @@ export function AdminSidebar({ userEmail }: AdminSidebarProps) {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-3 py-4 space-y-1 bg-slate-900">
+      <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1 bg-slate-900">
         {NAV_ITEMS.map((item) => {
           const active = isActive(item.href)
           return (
