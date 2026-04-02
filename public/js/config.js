@@ -93,55 +93,56 @@ window.CONFIG = {
   /* ── Plans definition ──────────────────────────────────────────
      Single source of truth for plan data across all pages.      */
   PLANS: {
-    starter: {
-      id:      "starter",
-      name:    "Plan Starter",
-      price:   299,
+    basic: {
+      id:      "basic",
+      name:    "Plan Basic",
+      price:   499,
       badge:   null,
       popular: false,
       features: [
         "Formación de LLC",
         "Articles of Organization",
         "Registered Agent (1 año)",
+        "EIN del IRS",
         "Documentos digitales",
         "Soporte por email"
       ],
       not_included: [
-        "EIN del IRS",
-        "Cuenta bancaria",
-        "Asesoría fiscal"
+        "Operating Agreement",
+        "Asesoría bancaria",
+        "Dirección virtual"
       ]
     },
-    professional: {
-      id:      "professional",
-      name:    "Plan Professional",
-      price:   499,
+    growth: {
+      id:      "growth",
+      name:    "Plan Growth",
+      price:   799,
       badge:   "Más popular",
       popular: true,
       features: [
-        "Todo lo del Starter",
-        "EIN del IRS",
-        "Operating Agreement",
-        "Guía de compliance",
+        "Todo lo del Basic",
+        "Operating Agreement completo",
+        "Asesoría bancaria",
+        "Recordatorios de compliance",
         "Soporte prioritario email"
       ],
       not_included: [
-        "Cuenta bancaria",
-        "Asesoría fiscal"
+        "Dirección virtual",
+        "ITIN"
       ]
     },
     premium: {
       id:      "premium",
       name:    "Plan Premium",
-      price:   799,
-      badge:   "Todo incluido",
+      price:   1200,
+      badge:   "Concierge",
       popular: false,
       features: [
-        "Todo lo del Professional",
-        "Apertura de cuenta bancaria",
-        "Dirección comercial USA",
-        "Sesión de asesoría fiscal",
-        "Soporte prioritario WhatsApp"
+        "Todo lo del Growth",
+        "Dirección virtual en EE.UU.",
+        "Recordatorios de compliance",
+        "Soporte prioritario WhatsApp",
+        "Atención concierge dedicada"
       ],
       not_included: []
     }
@@ -152,9 +153,9 @@ window.CONFIG = {
     general:      "Hola, me interesa abrir una empresa en EE.UU. ¿Me pueden asesorar?",
     llc:          "Hola, me interesa formar una LLC en EE.UU. desde {country}. ¿Cuáles son los pasos?",
     corporation:  "Hola, quiero información sobre cómo abrir una C-Corporation en EE.UU.",
-    starter:      "Hola, me interesa el Plan Starter ($299) para abrir mi LLC en EE.UU.",
-    professional: "Hola, me interesa el Plan Professional ($499) para LLC + EIN en EE.UU.",
-    premium:      "Hola, me interesa el Plan Premium ($799) con todo incluido para mi empresa en EE.UU.",
+    basic:        "Hola, me interesa el Plan Basic ($499) para abrir mi LLC en EE.UU.",
+    growth:       "Hola, me interesa el Plan Growth ($799) para LLC + EIN en EE.UU.",
+    premium:      "Hola, me interesa el Plan Premium ($1,200) con todo incluido para mi empresa en EE.UU.",
     state:        "Hola, quiero abrir una LLC en {state}. ¿Pueden asesorarme sobre este estado?",
     wizard:       "Hola, completé el formulario del asistente. Quiero una LLC en {state} con el {plan}."
   }

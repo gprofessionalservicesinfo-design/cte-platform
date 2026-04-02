@@ -79,17 +79,18 @@ window.PRICING_CONFIG = {
      serviceFee = the fee we charge (state fee is added separately)
      Plan total displayed = serviceFee + states[selectedState].fee    */
   plans: {
-    starter: {
-      id: 'starter', label: 'Starter', name: 'Plan Starter',
-      serviceFee: 237   /* EDIT: our service fee for Starter */
+    basic: {
+      id: 'basic', label: 'Basic', name: 'Plan Basic',
+      serviceFee: 499   /* EDIT: our service fee for Basic */
     },
-    professional: {
-      id: 'professional', label: 'Professional', name: 'Plan Professional',
-      serviceFee: 437   /* EDIT: our service fee for Professional */
+    growth: {
+      id: 'growth', label: 'Growth', name: 'Plan Growth',
+      serviceFee: 799,  /* EDIT: our service fee for Growth */
+      popular: true
     },
     premium: {
       id: 'premium', label: 'Premium', name: 'Plan Premium',
-      serviceFee: 737   /* EDIT: our service fee for Premium */
+      serviceFee: 1200  /* EDIT: our service fee for Premium */
     }
   },
 
@@ -98,11 +99,11 @@ window.PRICING_CONFIG = {
      automatically on page load (see initPricingConfig()).
      includedIn: plan IDs where this add-on is already included.     */
   addons: {
-    ein:          { price: 99,  period: '',     label: 'Tramitación de EIN',              includedIn: ['professional','premium'] },
+    ein:          { price: 99,  period: '',     label: 'Tramitación de EIN',              includedIn: ['basic','growth','premium'] },
     regAgent:     { price: 99,  period: '/año', label: 'Registered Agent (renovación)',   includedIn: [] },
-    opAgreement:  { price: 79,  period: '',     label: 'Operating Agreement completo',    includedIn: ['professional','premium'] },
+    opAgreement:  { price: 79,  period: '',     label: 'Operating Agreement completo',    includedIn: ['growth','premium'] },
     virtualAddr:  { price: 99,  period: '/año', label: 'Dirección virtual en EE.UU.',    includedIn: ['premium'] },
-    banking:      { price: 79,  period: '',     label: 'Asesoría bancaria',               includedIn: ['professional','premium'] },
+    banking:      { price: 79,  period: '',     label: 'Asesoría bancaria',               includedIn: ['growth','premium'] },
     certCopy:     { price: 49,  period: '',     label: 'Copia certificada',               includedIn: [] },
     goodStanding: { price: 49,  period: '',     label: 'Certificate of Good Standing',    includedIn: [] },
     compliance:   { price: 49,  period: '/año', label: 'Recordatorios de compliance',     includedIn: ['premium'] },
