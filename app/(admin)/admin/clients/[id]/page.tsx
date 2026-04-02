@@ -405,6 +405,9 @@ export default async function AdminClientDetailPage({ params }: PageProps) {
                   initialRenewalDate={(company as any).address_renewal_date ?? null}
                   initialNotes={(company as any).address_notes ?? null}
                   initialExternalId={(company as any).address_external_id ?? null}
+                  clientName={profile?.full_name ?? null}
+                  clientEmail={profile?.email ?? null}
+                  formationState={company.state ?? null}
                 />
               </CardContent>
             </Card>
