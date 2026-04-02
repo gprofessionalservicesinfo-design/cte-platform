@@ -320,12 +320,15 @@ export default async function AdminClientDetailPage({ params }: PageProps) {
             <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3 px-1">⚙️ Operations Hub</h2>
             <OperationsHub
               company={{
-                id:                    company.id,
-                company_name:          company.company_name,
-                state:                 company.state ?? null,
-                ein:                   company.ein ?? null,
-                address_status:        (company as any).address_status ?? null,
-                banking_setup_enabled: (company as any).banking_setup_enabled ?? null,
+                id:                        company.id,
+                company_name:              company.company_name,
+                state:                     company.state ?? null,
+                ein:                       company.ein ?? null,
+                address_status:            (company as any).address_status ?? null,
+                banking_setup_enabled:     (company as any).banking_setup_enabled ?? null,
+                bookkeeping_status:        (company as any).bookkeeping_status ?? null,
+                bookkeeping_tool_selected: (company as any).bookkeeping_tool_selected ?? null,
+                bookkeeping_notes:         (company as any).bookkeeping_notes ?? null,
               }}
               clientEmail={profile?.email ?? ''}
               clientName={profile?.full_name ?? 'Cliente'}

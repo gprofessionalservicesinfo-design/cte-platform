@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createAdminServerClient } from '@/lib/supabase/server'
 
 export async function POST(req: NextRequest) {
-  const { companyId, company_name, entity_type, state, formation_date, registered_agent, banking_setup_enabled, address_service_enabled, address_service_type, address_service_period } = await req.json()
+  const { companyId, company_name, entity_type, state, formation_date, registered_agent, banking_setup_enabled, address_service_enabled, address_service_type, address_service_period, bookkeeping_status, bookkeeping_tool_selected, bookkeeping_notes } = await req.json()
 
   if (!companyId) {
     return NextResponse.json({ error: 'Missing companyId' }, { status: 400 })
@@ -19,7 +19,10 @@ export async function POST(req: NextRequest) {
   if (banking_setup_enabled !== undefined)   update.banking_setup_enabled   = banking_setup_enabled
   if (address_service_enabled !== undefined) update.address_service_enabled = address_service_enabled
   if (address_service_type !== undefined)    update.address_service_type    = address_service_type || null
-  if (address_service_period !== undefined)  update.address_service_period  = address_service_period || null
+  if (address_service_period !== undefined)   update.address_service_period   = address_service_period || null
+  if (bookkeeping_status !== undefined)       update.bookkeeping_status       = bookkeeping_status
+  if (bookkeeping_tool_selected !== undefined) update.bookkeeping_tool_selected = bookkeeping_tool_selected
+  if (bookkeeping_notes !== undefined)        update.bookkeeping_notes        = bookkeeping_notes
 
   const { error } = await supabase
     .from('companies')
