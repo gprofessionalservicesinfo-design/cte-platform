@@ -137,30 +137,46 @@ export default async function DashboardPage() {
         </Card>
       )}
 
-      <Card>
-        <CardHeader><CardTitle className="text-base">💳 Configura tus pagos</CardTitle></CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-            {[
-              { name: 'Relay', desc: 'Cuenta bancaria para negocios. Sin tarifas mensuales.', href: 'https://relayfi.com', icon: '🏦' },
-              { name: 'Mercury', desc: 'Banca digital para startups y LLCs. 100% online.', href: 'https://mercury.com', icon: '🚀' },
-              { name: 'Wise Business', desc: 'Pagos internacionales con tasas bajas. Ideal para latinos.', href: 'https://wise.com/us/business/', icon: '🌎' },
-              { name: 'Stripe', desc: 'Acepta pagos online con tarjeta. Fácil de integrar.', href: 'https://stripe.com', icon: '💳' },
-              { name: 'Payoneer', desc: 'Cobra desde marketplaces y clientes internacionales.', href: 'https://www.payoneer.com', icon: '💸' },
-            ].map(s => (
-              <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"
-                className="flex items-start gap-3 p-4 rounded-lg border border-gray-100 hover:border-blue-200 hover:bg-blue-50 transition-colors">
-                <span className="text-2xl leading-none mt-0.5">{s.icon}</span>
-                <div>
-                  <p className="font-semibold text-gray-900 text-sm">{s.name}</p>
-                  <p className="text-gray-500 text-xs mt-0.5">{s.desc}</p>
-                </div>
+      {company.banking_setup_enabled ? (
+        <Card>
+          <CardHeader><CardTitle className="text-base">💳 Configura tus pagos</CardTitle></CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+              {[
+                { name: 'Relay', desc: 'Cuenta bancaria para negocios. Sin tarifas mensuales.', href: 'https://relayfi.com', icon: '🏦' },
+                { name: 'Mercury', desc: 'Banca digital para startups y LLCs. 100% online.', href: 'https://mercury.com', icon: '🚀' },
+                { name: 'Wise Business', desc: 'Pagos internacionales con tasas bajas. Ideal para latinos.', href: 'https://wise.com/us/business/', icon: '🌎' },
+                { name: 'Stripe', desc: 'Acepta pagos online con tarjeta. Fácil de integrar.', href: 'https://stripe.com', icon: '💳' },
+                { name: 'Payoneer', desc: 'Cobra desde marketplaces y clientes internacionales.', href: 'https://www.payoneer.com', icon: '💸' },
+              ].map(s => (
+                <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"
+                  className="flex items-start gap-3 p-4 rounded-lg border border-gray-100 hover:border-blue-200 hover:bg-blue-50 transition-colors">
+                  <span className="text-2xl leading-none mt-0.5">{s.icon}</span>
+                  <div>
+                    <p className="font-semibold text-gray-900 text-sm">{s.name}</p>
+                    <p className="text-gray-500 text-xs mt-0.5">{s.desc}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+            <p className="text-xs text-gray-400">Estos son servicios de terceros. CreaTuEmpresaUSA te guía pero no garantiza aprobación.</p>
+          </CardContent>
+        </Card>
+      ) : (
+        <Card>
+          <CardHeader><CardTitle className="text-base">Configuración de pagos</CardTitle></CardHeader>
+          <CardContent>
+            <div className="flex flex-col items-center text-center py-4 gap-3">
+              <span className="text-4xl">🔒</span>
+              <p className="text-sm text-gray-500 max-w-xs">Este servicio estará disponible una vez que tu asesor lo active. Contáctanos si tienes preguntas.</p>
+              <a href="https://wa.me/19046248859" target="_blank" rel="noopener noreferrer"
+                className="bg-green-500 text-white px-5 py-2 rounded-lg font-medium text-sm">
+                💬 Preguntar por WhatsApp
               </a>
-            ))}
-          </div>
-          <p className="text-xs text-gray-400">Estos son servicios de terceros. CreaTuEmpresaUSA te guía pero no garantiza aprobación.</p>
-        </CardContent>
-      </Card>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       <Card>
         <CardHeader><CardTitle className="text-base">Necesitas ayuda?</CardTitle></CardHeader>

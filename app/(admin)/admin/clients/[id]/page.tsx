@@ -15,6 +15,7 @@ import { CrmOpsPanel } from '@/components/admin/crm-ops-panel'
 import { SendEmailModal } from '@/components/admin/send-email-modal'
 import { CompanyEditor } from '@/components/admin/company-editor'
 import { ResendWelcomeBtn } from '@/components/admin/resend-welcome-btn'
+import { BankingSetupToggle } from '@/components/admin/banking-setup-toggle'
 import { MailItemsPanel } from '@/components/admin/mail-items-panel'
 import { ChevronLeft, Building2, User, Mail, CreditCard, ClipboardList, TrendingUp, MessageCircle, ExternalLink } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
@@ -218,6 +219,14 @@ export default async function AdminClientDetailPage({ params }: PageProps) {
               {/* EIN Editor */}
               <div className="pt-2 border-t">
                 <EINEditor companyId={company.id} currentEIN={company.ein} />
+              </div>
+
+              {/* Banking Setup Toggle */}
+              <div className="pt-2 border-t">
+                <BankingSetupToggle
+                  companyId={company.id}
+                  initialValue={!!(company as any).banking_setup_enabled}
+                />
               </div>
             </CardContent>
           </Card>
