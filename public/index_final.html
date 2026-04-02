@@ -719,13 +719,24 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
 .wiz-toggle::after{content:'';position:absolute;width:18px;height:18px;background:#fff;border-radius:50%;top:3px;left:3px;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
 .wiz-toggle.on{background:var(--accent)}
 .wiz-toggle.on::after{left:23px}
-/* Upsell row */
-.wiz-upsell-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--gray-100)}
-.wiz-upsell-row:last-child{border-bottom:none}
+/* Upsell row (step 7 hybrid sub-steps) */
+.wiz7-item-row{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--gray-100)}
+.wiz7-item-row:last-child{border-bottom:none}
 .wiz-upsell-info{flex:1;min-width:0}
-.wiz-upsell-name{font-weight:600;font-size:14px;color:var(--navy)}
-.wiz-upsell-desc{font-size:12px;color:var(--gray-500);margin-top:2px}
-.wiz-upsell-price{font-weight:700;font-size:15px;color:var(--navy);white-space:nowrap;text-align:right}
+.wiz-upsell-name{font-weight:600;font-size:14px;color:var(--navy);display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+.wiz-upsell-desc{font-size:12px;color:var(--gray-500);margin-top:3px;line-height:1.5}
+.wiz-upsell-price{font-weight:700;font-size:15px;color:var(--navy);white-space:nowrap;text-align:right;padding-top:2px}
+/* Badges */
+.wiz7-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;letter-spacing:.04em;text-transform:uppercase}
+.wiz7-badge-rec{background:#dbeafe;color:#1d4ed8}
+.wiz7-badge-pop{background:#fef3c7;color:#b45309}
+/* Sub-step progress */
+.wiz7-progress{font-size:11px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px}
+/* Sub-step nav */
+.wiz7-skip{background:none;border:none;font-size:13px;color:var(--gray-400);cursor:pointer;text-decoration:underline;padding:0}
+.wiz7-skip:hover{color:var(--navy)}
+/* Foreign alert */
+.wiz7-foreign-alert{padding:11px 14px;background:rgba(245,158,11,.08);border:1.5px solid rgba(245,158,11,.3);border-radius:var(--r);font-size:13px;color:#92400e;margin-bottom:18px;display:none}
 .wiz-plan-option{cursor:pointer;position:relative}
 .wiz-plan-option input[type="radio"]{position:absolute;opacity:0;width:0;height:0}
 .wiz-plan-popular{text-align:center;background:var(--accent);color:#fff;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:5px;border-radius:var(--r) var(--r) 0 0}
@@ -1939,14 +1950,62 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
         <div class="wiz-nav"><button class="btn btn-ghost" onclick="wizPrev(6)">← Anterior</button><button class="btn btn-primary" onclick="wizNext(6)">Siguiente → Extras →</button></div>
       </div>
 
-      <!-- STEP 7: Upsells (one at a time) -->
+      <!-- STEP 7: Upsells — 4 sub-steps -->
       <div class="wiz-panel" id="wizStep7">
-        <h2 class="wiz-title">Un paso más — ¿quieres agregar algo?</h2>
-        <p class="wiz-sub">Solo te mostramos lo que no está incluido en tu plan. Sin presión.</p>
-        <div id="wizUpsellContainer">
-          <!-- Populated by JS based on selected plan -->
+
+        <!-- 7A: Estructura legal -->
+        <div id="wiz7A">
+          <div class="wiz7-progress">Sección 1 de 4 — Estructura legal</div>
+          <h2 class="wiz-title">Define la estructura legal de tu empresa</h2>
+          <p class="wiz-sub">Estos servicios protegen y dan identidad a tu LLC desde el inicio.</p>
+          <div id="wiz7A-items"></div>
+          <div class="wiz-nav" style="margin-top:20px">
+            <button class="btn btn-ghost" onclick="wizGoTo(6)">← Anterior</button>
+            <button class="btn btn-primary" onclick="wiz7GoTo('B')">Continuar →</button>
+          </div>
+          <div style="text-align:center;margin-top:10px"><button class="wiz7-skip" onclick="wiz7GoTo('B')">Saltar esta sección →</button></div>
         </div>
-        <div class="wiz-nav"><button class="btn btn-ghost" onclick="wizPrev(7)">← Anterior</button><button class="btn btn-primary" onclick="wizRenderSummary();wizGoTo(8)">Ver mi resumen →</button></div>
+
+        <!-- 7B: Tax & Riesgo -->
+        <div id="wiz7B" style="display:none">
+          <div class="wiz7-progress">Sección 2 de 4 — Tax & Cumplimiento</div>
+          <div id="wiz7B-alert" class="wiz7-foreign-alert">⚠️ Importante para fundadores internacionales</div>
+          <h2 class="wiz-title">Prepárate para impuestos y cumplimiento fiscal</h2>
+          <p class="wiz-sub">El paso más importante para extranjeros que abren empresa en EE.UU.</p>
+          <div id="wiz7B-items"></div>
+          <div class="wiz-nav" style="margin-top:20px">
+            <button class="btn btn-ghost" onclick="wiz7GoTo('A')">← Anterior</button>
+            <button class="btn btn-primary" onclick="wiz7GoTo('C')">Continuar →</button>
+          </div>
+          <div style="text-align:center;margin-top:10px"><button class="wiz7-skip" onclick="wiz7GoTo('C')">Saltar esta sección →</button></div>
+        </div>
+
+        <!-- 7C: Operación -->
+        <div id="wiz7C" style="display:none">
+          <div class="wiz7-progress">Sección 3 de 4 — Operación</div>
+          <h2 class="wiz-title">Prepárate para operar desde el primer día</h2>
+          <p class="wiz-sub">Todo lo que necesitas para recibir pagos y presentarte profesionalmente.</p>
+          <div id="wiz7C-items"></div>
+          <div class="wiz-nav" style="margin-top:20px">
+            <button class="btn btn-ghost" onclick="wiz7GoTo('B')">← Anterior</button>
+            <button class="btn btn-primary" onclick="wiz7GoTo('D')">Continuar →</button>
+          </div>
+          <div style="text-align:center;margin-top:10px"><button class="wiz7-skip" onclick="wiz7GoTo('D')">Saltar esta sección →</button></div>
+        </div>
+
+        <!-- 7D: Futuro & Recurrente -->
+        <div id="wiz7D" style="display:none">
+          <div class="wiz7-progress">Sección 4 de 4 — Mantenimiento</div>
+          <h2 class="wiz-title">Mantén tu empresa activa y en crecimiento</h2>
+          <p class="wiz-sub">Servicios anuales que protegen el estatus de tu empresa a largo plazo.</p>
+          <div id="wiz7D-items"></div>
+          <div class="wiz-nav" style="margin-top:20px">
+            <button class="btn btn-ghost" onclick="wiz7GoTo('C')">← Anterior</button>
+            <button class="btn btn-primary" onclick="wizRenderSummary();wizGoTo(8)">Ver mi resumen final →</button>
+          </div>
+          <div style="text-align:center;margin-top:10px"><button class="wiz7-skip" onclick="wizRenderSummary();wizGoTo(8)">Saltar y ver resumen →</button></div>
+        </div>
+
       </div>
 
       <!-- STEP 8: Summary + CTA -->
@@ -2189,7 +2248,7 @@ function wizGetPlanData(planId, stateCode) {
 
 /* ── Wizard state object ─────────────────────────────────── */
 var WIZ = { currentStep:1, residentType:'foreign', type:'llc', state:'CO', stateName:'Colorado', plan:'growth', name:'', addons:{},
-  company_name:'', alternate_name_1:'', alternate_name_2:'', members_count:'1', business_activity:'' };
+  company_name:'', alternate_name_1:'', alternate_name_2:'', members_count:'1', business_activity:'', _upsellsInited:false };
 
 /* ── Step navigation ────────────────────────────────────── */
 function wizGoTo(step) {
@@ -2373,53 +2432,100 @@ function wizUpdateSidebar() {
 
 function wizRemoveUpsell(id) {
   delete WIZ.addons[id];
-  var toggle = document.querySelector('#wizUpsellContainer .wiz-toggle[data-uid="'+id+'"]');
+  var toggle = document.querySelector('#wizStep7 .wiz-toggle[data-uid="'+id+'"]');
   if (toggle) toggle.classList.remove('on');
   wizUpdateSidebar();
 }
 
-/* ── Upsell step (step 7) ─────────────────────────────────── */
+/* ── Upsell step 7 — 4 sub-steps ──────────────────────────── */
+var WIZ7_SECTIONS = {
+  A: [
+    { id:'opAgreement', label:'Operating Agreement',    price:99,  period:'',    badge:'Recomendado', desc:'Define reglas, propiedad y estructura de tu LLC. Requerido por muchos bancos.',  includedIn:['growth','premium'] },
+    { id:'dba',         label:'DBA / Nombre comercial', price:149, period:'',    badge:null,          desc:'Opera con un nombre de marca distinto a tu nombre legal de tu LLC.',             includedIn:[] },
+  ],
+  B: [
+    { id:'taxReady',    label:'Tax Ready System',    price:199, period:'',    badge:'Recomendado', desc:'Revisión de tu situación fiscal. Evita sorpresas al final del año.',                includedIn:[], foreignOnly:false },
+    { id:'itin',        label:'ITIN Evaluation',     price:149, period:'',    badge:null,          desc:'Evaluación personalizada de si necesitas ITIN para tu caso.',                      includedIn:[], foreignOnly:true },
+  ],
+  C: [
+    { id:'banking',     label:'Banking Assistance',           price:99,  period:'',    badge:'Popular', desc:'Guía para abrir cuenta bancaria de negocio en EE.UU. Paso a paso.',          includedIn:['growth','premium'] },
+    { id:'virtualAddr', label:'Dirección virtual USA',        price:19,  period:'/mes', badge:null,     desc:'Dirección comercial profesional para documentos y correspondencia.',          includedIn:['premium'] },
+    { id:'emailDomain', label:'Email + Dominio profesional',  price:79,  period:' setup', badge:null,  desc:'Email tipo hola@tuempresa.com. Imagen profesional desde el día uno.',          includedIn:[] },
+  ],
+  D: [
+    { id:'compliance',  label:'Compliance Plan',              price:99,  period:'/año', badge:'Recomendado', desc:'Recordatorios de deadlines, reportes anuales y seguimiento de cumplimiento.', includedIn:['premium'] },
+    { id:'bookkeeping', label:'Bookkeeping Setup',            price:149, period:'',     badge:null,          desc:'Organiza tus finanzas desde el inicio. Más fácil para taxes después.',         includedIn:[] },
+    { id:'waSupport',   label:'Premium Support WhatsApp',     price:49,  period:'/mes', badge:null,          desc:'Respuestas prioritarias y acompañamiento durante todo tu proceso.',            includedIn:[] },
+  ]
+};
+
 function wizBuildUpsells() {
-  var container = document.getElementById('wizUpsellContainer');
-  if (!container) return;
-  var upsells = [
-    { id:'ein',         label:'EIN / Tax ID',              price:99,  period:'',    desc:'Número de identificación fiscal del IRS. Requerido para cuentas bancarias.',     includedIn:['basic','growth','premium'] },
-    { id:'opAgreement', label:'Operating Agreement',        price:79,  period:'',    desc:'Documento legal personalizado que protege la estructura de tu LLC.',             includedIn:['growth','premium'] },
-    { id:'regAgent',    label:'Registered Agent (año 1)',   price:99,  period:'/año', desc:'Agente registrado requerido por ley. Incluye notificaciones legales.',          includedIn:[] },
-    { id:'dba',         label:'DBA / Trade Name',           price:99,  period:'',    desc:'Opera bajo un nombre comercial diferente al nombre legal de tu LLC.',            includedIn:[] },
-    { id:'itin',        label:'ITIN / Tax Readiness',       price:149, period:'',    desc:'Asistencia para obtener tu ITIN. Ideal para declarar impuestos federales.',     includedIn:[] },
-    { id:'banking',     label:'Banking Onboarding',         price:79,  period:'',    desc:'Asesoría para abrir tu cuenta bancaria en EE.UU. Guía paso a paso.',            includedIn:['growth','premium'] },
-    { id:'compliance',  label:'Compliance anual',           price:149, period:'/año', desc:'Recordatorios de vencimientos y seguimiento de obligaciones estatales.',       includedIn:['premium'] },
-    { id:'virtualAddr', label:'Dirección virtual',          price:99,  period:'/año', desc:'Dirección comercial en EE.UU. para recibir correo y aparentar presencia.',     includedIn:['premium'] },
-    { id:'waSupport',   label:'Premium Support WhatsApp',   price:49,  period:'/mes', desc:'Soporte prioritario vía WhatsApp con respuesta en menos de 2 horas.',         includedIn:[] },
-  ];
-  var visibleCount = 0;
-  var html = '';
-  upsells.forEach(function(u) {
-    if (u.includedIn.indexOf(WIZ.plan) !== -1) return;
-    visibleCount++;
-    var isOn = !!WIZ.addons[u.id];
-    html += '<div class="wiz-upsell-row">'
-      + '<button class="wiz-toggle'+(isOn?' on':'')+'" data-uid="'+u.id+'"'
-      + ' onclick="wizToggleUpsell(this,\''+u.id+'\','+u.price+',\''+u.label.replace(/'/g,"\\'")
-      + '\',\''+u.period+'\')" aria-label="Agregar '+u.label+'"></button>'
-      + '<div class="wiz-upsell-info">'
-      + '<div class="wiz-upsell-name">'+u.label+'</div>'
-      + '<div class="wiz-upsell-desc">'+u.desc+'</div>'
-      + '</div>'
-      + '<div class="wiz-upsell-price">$'+u.price+(u.period?'<span style="font-size:11px;font-weight:400;color:var(--gray-400)">'+u.period+'</span>':'')+'</div>'
-      + '</div>';
+  /* Apply recommended defaults on first entry this session */
+  if (!WIZ._upsellsInited) {
+    WIZ._upsellsInited = true;
+    var defaults = ['opAgreement','taxReady','compliance'];
+    Object.values(WIZ7_SECTIONS).forEach(function(items) {
+      items.forEach(function(u) {
+        if (defaults.indexOf(u.id) !== -1 && u.includedIn.indexOf(WIZ.plan) === -1 && !WIZ.addons[u.id]) {
+          WIZ.addons[u.id] = { price:u.price, label:u.label, period:u.period };
+        }
+      });
+    });
+  }
+  /* Build each sub-section's toggle rows */
+  ['A','B','C','D'].forEach(function(sec) {
+    var el = document.getElementById('wiz7'+sec+'-items');
+    if (!el) return;
+    var rows = '';
+    var count = 0;
+    WIZ7_SECTIONS[sec].forEach(function(u) {
+      if (u.includedIn.indexOf(WIZ.plan) !== -1) return;
+      if (u.foreignOnly && WIZ.residentType !== 'foreign') return;
+      count++;
+      var isOn = !!WIZ.addons[u.id];
+      var badgeHtml = u.badge
+        ? ' <span class="wiz7-badge wiz7-badge-'+(u.badge==='Recomendado'?'rec':'pop')+'">'+u.badge+'</span>'
+        : '';
+      rows += '<div class="wiz7-item-row">'
+        + '<button class="wiz-toggle'+(isOn?' on':'')+'" data-uid="'+u.id+'"'
+        + ' onclick="wizToggleUpsell(this,\''+u.id+'\','+u.price+',\''+u.label.replace(/'/g,"\\'")+'\',\''+u.period+'\')"'
+        + ' aria-pressed="'+(isOn?'true':'false')+'" aria-label="'+u.label+'"></button>'
+        + '<div class="wiz-upsell-info">'
+        + '<div class="wiz-upsell-name">'+u.label+badgeHtml+'</div>'
+        + '<div class="wiz-upsell-desc">'+u.desc+'</div>'
+        + '</div>'
+        + '<div class="wiz-upsell-price">$'+u.price
+        + (u.period ? '<span style="font-size:11px;font-weight:400;color:var(--gray-400)">'+u.period+'</span>' : '')
+        + '</div></div>';
+    });
+    if (!count) rows = '<div style="padding:14px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:var(--r);font-size:13px;color:var(--gray-700)">✅ Tu plan ya incluye estos servicios.</div>';
+    el.innerHTML = rows;
   });
-  if (!visibleCount) html = '<div style="text-align:center;padding:28px;color:var(--gray-500)">✅ Tu plan '+WIZ.plan+' ya incluye todos los servicios esenciales.</div>';
-  container.innerHTML = html;
+  /* Show foreign alert in 7B */
+  var alert7B = document.getElementById('wiz7B-alert');
+  if (alert7B) alert7B.style.display = WIZ.residentType === 'foreign' ? 'block' : 'none';
+  /* Start at sub-step A */
+  wiz7GoTo('A');
 }
+
+function wiz7GoTo(sub) {
+  ['A','B','C','D'].forEach(function(s) {
+    var p = document.getElementById('wiz7'+s);
+    if (p) p.style.display = s === sub ? 'block' : 'none';
+  });
+  wizUpdateSidebar();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
 function wizToggleUpsell(btn, id, price, label, period) {
   if (WIZ.addons[id]) {
     delete WIZ.addons[id];
     btn.classList.remove('on');
+    btn.setAttribute('aria-pressed','false');
   } else {
     WIZ.addons[id] = { price:price, label:label, period:period };
     btn.classList.add('on');
+    btn.setAttribute('aria-pressed','true');
   }
   wizUpdateSidebar();
 }
@@ -2724,7 +2830,7 @@ function wizRenderSummary() {
 
 function wizReset() {
   WIZ.currentStep=1; WIZ.residentType='foreign'; WIZ.type='llc'; WIZ.state='CO'; WIZ.stateName='Colorado';
-  WIZ.plan='growth'; WIZ.name=''; WIZ.addons={};
+  WIZ.plan='growth'; WIZ.name=''; WIZ.addons={}; WIZ._upsellsInited=false;
   WIZ.company_name=''; WIZ.alternate_name_1=''; WIZ.alternate_name_2=''; WIZ.members_count='1'; WIZ.business_activity='';
   ['wizCompanyName','wizAltName1','wizAltName2'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
   var nameCheck = document.getElementById('wizNameCheckResult'); if(nameCheck) nameCheck.style.display='none';
