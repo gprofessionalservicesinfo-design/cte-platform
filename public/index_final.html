@@ -1971,7 +1971,7 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
           <div class="wiz-cta-card"><div style="font-size:32px;margin-bottom:8px">📅</div><h3 style="font-size:16px;font-weight:700;margin-bottom:6px">Agendar llamada</h3><p style="font-size:13px;color:var(--gray-500);margin-bottom:14px">Habla con un asesor antes de decidir.</p><a href="#" class="btn btn-ghost" style="width:100%;justify-content:center">Agendar gratis →</a></div>
           <div class="wiz-cta-card"><div style="font-size:32px;margin-bottom:8px">💬</div><h3 style="font-size:16px;font-weight:700;margin-bottom:6px">WhatsApp directo</h3><p style="font-size:13px;color:var(--gray-500);margin-bottom:14px">Respuesta inmediata de nuestro equipo.</p><a href="#" class="btn btn-wa" style="width:100%;justify-content:center">💬 Hablar ahora</a></div>
         </div>
-        <div style="text-align:center;margin-top:24px"><button class="btn btn-ghost btn-sm" onclick="wizReset()">← Empezar de nuevo</button></div>
+        <div class="wiz-nav" style="margin-top:24px"><button class="btn btn-ghost" onclick="wizGoTo(7)">← Anterior</button><button class="btn btn-ghost btn-sm" onclick="wizReset()">Empezar de nuevo</button></div>
       </div>
 
     </div><!-- /wizard-main -->
@@ -2188,8 +2188,8 @@ function wizGoTo(step) {
   if (step === 7) wizBuildUpsells();
   var sidebar = document.getElementById('wizardSidebar');
   if (sidebar) sidebar.style.visibility = (step >= 4) ? 'visible' : 'hidden';
-  wizUpdateSidebar();
   window.scrollTo({top:0,behavior:'smooth'});
+  wizUpdateSidebar();
 }
 function wizNext(fromStep) {
   if (!wizValidate(fromStep)) return;
@@ -2284,6 +2284,7 @@ function wizUpdatePlanPrices() {
 
 function wizUpdateSidebar() {
   var step = WIZ.currentStep;
+  console.log('addons en sidebar:', JSON.parse(JSON.stringify(WIZ.addons)));
   var typeLabels = { llc:'LLC', corporation:'C-Corp', s_corporation:'S-Corp', non_profit:'Non-Profit', sole_proprietorship:'Sole Prop.' };
 
   /* ── Empresa + Estado (always shown when sidebar is visible) ── */
