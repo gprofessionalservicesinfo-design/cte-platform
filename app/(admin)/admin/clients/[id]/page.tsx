@@ -16,6 +16,7 @@ import { SendEmailModal } from '@/components/admin/send-email-modal'
 import { CompanyEditor } from '@/components/admin/company-editor'
 import { ResendWelcomeBtn } from '@/components/admin/resend-welcome-btn'
 import { BankingSetupToggle } from '@/components/admin/banking-setup-toggle'
+import { AddressServiceToggle } from '@/components/admin/address-service-toggle'
 import { MailItemsPanel } from '@/components/admin/mail-items-panel'
 import { ChevronLeft, Building2, User, Mail, CreditCard, ClipboardList, TrendingUp, MessageCircle, ExternalLink } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
@@ -226,6 +227,16 @@ export default async function AdminClientDetailPage({ params }: PageProps) {
                 <BankingSetupToggle
                   companyId={company.id}
                   initialValue={!!(company as any).banking_setup_enabled}
+                />
+              </div>
+
+              {/* Address Service Toggle */}
+              <div className="pt-2 border-t">
+                <AddressServiceToggle
+                  companyId={company.id}
+                  initialEnabled={!!(company as any).address_service_enabled}
+                  initialType={(company as any).address_service_type ?? null}
+                  initialPeriod={(company as any).address_service_period ?? null}
                 />
               </div>
             </CardContent>

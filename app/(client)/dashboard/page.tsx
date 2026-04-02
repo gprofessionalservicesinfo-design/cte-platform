@@ -178,6 +178,44 @@ export default async function DashboardPage() {
         </Card>
       )}
 
+      {(company as any).address_service_enabled ? (
+        <Card>
+          <CardHeader><CardTitle className="text-base">📬 Tu dirección comercial</CardTitle></CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-semibold uppercase tracking-wide text-green-700 bg-green-100 px-2.5 py-1 rounded-full">Activa</span>
+                <span className="text-sm font-medium text-gray-700 capitalize">
+                  {(company as any).address_service_type === 'vip' ? 'Corporate Address VIP' : 'Standard Business Address'}
+                </span>
+                <span className="text-xs text-gray-400">
+                  · {(company as any).address_service_period === 'annual' ? 'Plan anual' : 'Plan mensual'}
+                </span>
+              </div>
+              <p className="text-sm text-gray-500">Tu dirección comercial en EE.UU. está activa. Nuestro equipo gestionará tu correo entrante.</p>
+              <a href="https://wa.me/19046248859" target="_blank" rel="noopener noreferrer"
+                className="inline-block bg-blue-600 text-white px-5 py-2 rounded-lg font-medium text-sm">
+                Ver detalles →
+              </a>
+            </div>
+          </CardContent>
+        </Card>
+      ) : (
+        <Card>
+          <CardHeader><CardTitle className="text-base">📬 Tu dirección comercial</CardTitle></CardHeader>
+          <CardContent>
+            <div className="flex flex-col items-center text-center py-4 gap-3">
+              <span className="text-4xl">🔒</span>
+              <p className="text-sm text-gray-500 max-w-xs">Tu dirección comercial estará disponible una vez activada por tu asesor. Contáctanos si tienes preguntas.</p>
+              <a href="https://wa.me/19046248859" target="_blank" rel="noopener noreferrer"
+                className="bg-green-500 text-white px-5 py-2 rounded-lg font-medium text-sm">
+                💬 Preguntar por WhatsApp
+              </a>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       <Card>
         <CardHeader><CardTitle className="text-base">Necesitas ayuda?</CardTitle></CardHeader>
         <CardContent className="flex flex-wrap gap-3">
