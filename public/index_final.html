@@ -1948,15 +1948,6 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
         </div>
         <div id="wizSummaryFull"></div>
 
-        <!-- ORDER FLOW MVP READY marker -->
-        <div style="text-align:center;margin-bottom:10px;padding:7px 16px;background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.2);border-radius:8px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:.08em">ORDER FLOW MVP READY</div>
-
-        <!-- GOOGLE AUTH CONNECTED TO SUPABASE -->
-        <div style="text-align:center;margin-bottom:6px;padding:7px 16px;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.25);border-radius:8px;font-size:11px;font-weight:800;color:#15803d;letter-spacing:.08em">GOOGLE AUTH LIVE TEST READY</div>
-        <!-- GOOGLE CALLBACK HANDLER READY -->
-        <div style="text-align:center;margin-bottom:6px;padding:7px 16px;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.25);border-radius:8px;font-size:11px;font-weight:800;color:#15803d;letter-spacing:.08em">GOOGLE CALLBACK SAFE</div>
-        <!-- GOOGLE SESSION CHECK READY -->
-        <div style="text-align:center;margin-bottom:18px;padding:7px 16px;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.25);border-radius:8px;font-size:11px;font-weight:800;color:#15803d;letter-spacing:.08em">GOOGLE SESSION CHECK READY</div>
 
         <!-- Google Sign-In — reads from window.CONFIG.GOOGLE_AUTH_ENABLED -->
         <div id="wizGoogleAuthArea" style="margin-bottom:20px">
@@ -1968,7 +1959,7 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
           <div id="wizGoogleStatus" style="margin-top:8px;text-align:center;font-size:11.5px;color:var(--gray-400)"></div>
           <!-- GOOGLE SESSION CHECK READY — success banner shown by initGoogleSessionCheck() -->
           <div id="wizGoogleSuccessArea" style="display:none;margin-top:12px;padding:14px 16px;background:rgba(34,197,94,.09);border:1.5px solid rgba(34,197,94,.4);border-radius:var(--r-lg);text-align:center">
-            <div style="font-size:11px;font-weight:800;color:#15803d;letter-spacing:.08em;margin-bottom:6px">GOOGLE LOGIN SUCCESS DETECTED</div>
+            <div style="font-size:13px;font-weight:700;color:#15803d;margin-bottom:6px">✅ Sesión iniciada con Google</div>
             <div id="wizGoogleUserEmail" style="font-size:13px;color:var(--navy);font-weight:600"></div>
             <div style="font-size:11.5px;color:var(--gray-500);margin-top:4px">Sesión activa · Tu pedido está guardado</div>
           </div>
@@ -2053,11 +2044,6 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
     </aside>
   </div><!-- /wizard-layout -->
 
-  <!-- BUILD CHECK: CTE UPDATED | WIZARD ROUTE FIXED -->
-  <div style="margin-top:32px;padding:10px 18px;background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.15);border-radius:8px;font-size:12px;font-weight:700;color:var(--accent);text-align:center;letter-spacing:.05em;display:flex;justify-content:center;gap:24px;flex-wrap:wrap">
-    <span>BUILD CHECK: CTE UPDATED</span>
-    <span style="color:var(--red)">WIZARD ROUTE FIXED</span>
-  </div>
 
 </div><!-- /container -->
 </div><!-- /page-wizard -->
@@ -2378,9 +2364,10 @@ function wizBuildUpsells() {
   if (!container) return;
   var cfg = window.PRICING_CONFIG;
   var upsells = [
-    { id:'opAgreement', label:'Operating Agreement completo', price:79, period:'', desc:'Documento legal personalizado de tu LLC. Protege tu estructura societaria.', includedIn:['growth','premium'] },
-    { id:'regAgent',    label:'Registered Agent (año 2+)',    price:99, period:'/año', desc:'Agente registrado requerido por ley. Recibe notificaciones legales del estado.', includedIn:[] },
-    { id:'itin',        label:'ITIN / Tax Readiness',         price:149, period:'', desc:'Asistencia para obtener tu ITIN. Ideal si necesitas declarar impuestos federales.', includedIn:[] },
+    { id:'opAgreement', label:'Operating Agreement completo', price:79,  period:'',    desc:'Documento legal personalizado de tu LLC. Protege tu estructura societaria.',                           includedIn:['growth','premium'] },
+    { id:'regAgent',    label:'Registered Agent (renovación)',price:99,  period:'/año', desc:'Renovación del agente registrado a partir del año 2. Requerido por ley en todos los estados.',       includedIn:[] },
+    { id:'compliance',  label:'Compliance anual',             price:149, period:'/año', desc:'Recordatorios de obligaciones anuales, seguimiento de reportes y alertas de vencimiento. Nunca pierdas un plazo.', includedIn:['premium'] },
+    { id:'itin',        label:'ITIN / Tax Readiness',         price:149, period:'',    desc:'Asistencia para obtener tu ITIN. Ideal si necesitas declarar impuestos federales.',                  includedIn:[] },
   ];
   var html = '';
   upsells.forEach(function(u) {
@@ -2398,8 +2385,13 @@ function wizBuildUpsells() {
   });
   if (!html) html = '<div style="text-align:center;padding:28px;color:var(--gray-500)">✅ ¡Tu plan '+WIZ.plan+' ya incluye todo lo que necesitas!</div>';
   container.innerHTML = html;
-  // Add data-uid to each upsell for skip button
+  // Add data-uid to each upsell for skip/remove button
   container.querySelectorAll('[style*="margin-bottom:14px"]').forEach(function(el,i) { el.setAttribute('data-uid', i); });
+  // Hide cards for addons already selected in this session
+  Object.keys(WIZ.addons).forEach(function(id) {
+    var btn = container.querySelector('button[onclick*="wizAddUpsell(\''+id+'\'"]');
+    if (btn) { var card = btn.closest('[data-uid]'); if (card) card.style.display = 'none'; }
+  });
 }
 function wizAddUpsell(id, price, label, period) {
   WIZ.addons[id] = { price:price, label:label, period:period };
@@ -2700,12 +2692,7 @@ function wizRenderSummary() {
     + '<span style="font-size:14px;font-weight:700;color:rgba(255,255,255,.65)">Total a pagar hoy</span>'
     + '<span style="font-family:var(--display);font-size:28px;color:#fff;font-weight:800">$'+grand+' USD</span>'
     + '</div>'
-    + '<div style="padding:16px 20px;background:rgba(220,38,38,.02);border-top:1px solid rgba(220,38,38,.1)">'
-    + '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--red);opacity:.75;margin-bottom:10px">Obligaciones anuales futuras — no se cobran hoy</div>'
-    + '<div style="display:flex;justify-content:space-between;font-size:13px;padding:3px 0;color:var(--gray-500)"><span>Reporte anual estatal</span><span>'+arAmt+'</span></div>'
-    + '<div style="display:flex;justify-content:space-between;font-size:13px;padding:3px 0;color:var(--gray-500)"><span>Registered Agent (año 2+)</span><span>$99/año</span></div>'
-    + '<div style="display:flex;justify-content:space-between;font-size:13px;padding:3px 0;color:var(--gray-500)"><span>Impuesto estatal</span><span>'+taxNote+'</span></div>'
-    + '</div></div>'
+    + '</div>'
     + '<div style="background:rgba(34,197,94,.07);border:1.5px solid rgba(34,197,94,.2);border-radius:var(--r-lg);padding:14px 18px;margin-top:14px;font-size:13.5px;color:var(--navy);line-height:1.8">'
     + '📋 Revisa tu resumen y elige cómo continuar abajo.</div>';
   /* Save canonical payload to localStorage so checkout.html can read it */
@@ -2769,7 +2756,7 @@ function initWizardOnce() {
     r.addEventListener('change', function(){
       document.querySelectorAll('.wiz-plan-option').forEach(function(o){o.classList.remove('selected');});
       r.closest('.wiz-plan-option').classList.add('selected');
-      WIZ.plan = r.value; WIZ.addons = {};
+      if (WIZ.plan !== r.value) { WIZ.plan = r.value; WIZ.addons = {}; }
       wizRefreshAddons(); wizUpdateSidebar();
     });
   });
