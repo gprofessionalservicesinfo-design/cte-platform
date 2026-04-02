@@ -1610,8 +1610,6 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
           </div>
         </div>
         <div class="fgrp" style="margin-bottom:16px">
-          <label class="flbl" style="color:var(--navy)" for="wizStateSelect">Otro estado (50 disponibles)</label>
-        <div class="fgrp" style="margin-bottom:16px">
           <label class="flbl" style="color:var(--navy)" for="wizStateSelect">O buscar en los 50 estados</label>
           <select class="fsel" id="wizStateSelect" style="background:#fff;border-color:var(--gray-200);color:var(--navy)">
             <option value="">— Selecciona un estado —</option>
@@ -2170,11 +2168,11 @@ function wizPrev(fromStep) { wizGoTo(fromStep - 1); }
 function wizValidate(step) {
   if (step === 3) {
     var sel = document.getElementById('wizStateSelect');
-    if (!sel || !sel.value) {
+    if (!WIZ.state && (!sel || !sel.value)) {
       if (sel) sel.style.borderColor = 'var(--red)';
       return false;
     }
-    sel.style.borderColor = '';
+    if (sel) sel.style.borderColor = '';
   }
   if (step === 4) {
     var nameEl = document.getElementById('wizCompanyName');
