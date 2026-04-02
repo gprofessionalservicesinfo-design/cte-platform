@@ -1898,6 +1898,53 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
             <!-- Hidden field that holds the combined value for payload -->
             <input type="hidden" id="wizPhone">
           </div>
+
+          <!-- ── Address fields: foreign residents ──────────────────── -->
+          <div id="wizAddrForeign">
+            <div class="frow fgrp">
+              <div>
+                <label class="flbl" style="color:var(--navy)" for="wizPersonalCity">Ciudad / Estado de residencia</label>
+                <input class="finput" id="wizPersonalCity" type="text" placeholder="Ej: Ciudad de México, CDMX" style="background:#fff;border-color:var(--gray-200);color:var(--navy)">
+              </div>
+              <div>
+                <label class="flbl" style="color:var(--navy)" for="wizPersonalAddress">Dirección personal <span style="font-weight:400;color:var(--gray-400)">(opcional)</span></label>
+                <input class="finput" id="wizPersonalAddress" type="text" placeholder="Calle, número, colonia" style="background:#fff;border-color:var(--gray-200);color:var(--navy)">
+              </div>
+            </div>
+            <div style="padding:12px 16px;background:rgba(37,99,235,.05);border:1.5px solid rgba(37,99,235,.15);border-radius:var(--r);font-size:13px;color:var(--navy);margin-bottom:16px">
+              📬 Para tu empresa en EE.UU. puedes agregar una dirección comercial en el siguiente paso.
+            </div>
+          </div>
+
+          <!-- ── Address fields: US residents ──────────────────────── -->
+          <div id="wizAddrUS" style="display:none">
+            <div class="fgrp">
+              <label class="flbl" style="color:var(--navy)" for="wizUSAddress">Dirección en EE.UU. *</label>
+              <input class="finput" id="wizUSAddress" type="text" placeholder="123 Main St, Apt 4B" style="background:#fff;border-color:var(--gray-200);color:var(--navy)">
+            </div>
+            <div class="frow fgrp">
+              <div>
+                <label class="flbl" style="color:var(--navy)" for="wizUSCity">Ciudad *</label>
+                <input class="finput" id="wizUSCity" type="text" placeholder="Miami" style="background:#fff;border-color:var(--gray-200);color:var(--navy)">
+              </div>
+              <div>
+                <label class="flbl" style="color:var(--navy)" for="wizUSStateAddr">Estado</label>
+                <select class="fsel" id="wizUSStateAddr" style="background:#fff;border-color:var(--gray-200);color:var(--navy)">
+                  <option value="">Selecciona</option>
+                  <option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option><option>CO</option><option>CT</option><option>DE</option><option>FL</option><option>GA</option><option>HI</option><option>ID</option><option>IL</option><option>IN</option><option>IA</option><option>KS</option><option>KY</option><option>LA</option><option>ME</option><option>MD</option><option>MA</option><option>MI</option><option>MN</option><option>MS</option><option>MO</option><option>MT</option><option>NE</option><option>NV</option><option>NH</option><option>NJ</option><option>NM</option><option>NY</option><option>NC</option><option>ND</option><option>OH</option><option>OK</option><option>OR</option><option>PA</option><option>RI</option><option>SC</option><option>SD</option><option>TN</option><option>TX</option><option>UT</option><option>VT</option><option>VA</option><option>WA</option><option>WV</option><option>WI</option><option>WY</option>
+                </select>
+              </div>
+              <div>
+                <label class="flbl" style="color:var(--navy)" for="wizUSZip">ZIP Code *</label>
+                <input class="finput" id="wizUSZip" type="text" placeholder="33101" maxlength="10" style="background:#fff;border-color:var(--gray-200);color:var(--navy)">
+              </div>
+            </div>
+            <div class="fgrp" style="display:flex;align-items:center;gap:10px;padding:4px 0">
+              <input type="checkbox" id="wizUsePersonalAsCompany" style="width:16px;height:16px;accent-color:var(--accent);cursor:pointer;flex-shrink:0">
+              <label for="wizUsePersonalAsCompany" style="font-size:13px;color:var(--navy);cursor:pointer">Usar esta dirección también para mi empresa</label>
+            </div>
+          </div>
+
           <div class="wiz-nav">
             <button type="button" class="btn btn-ghost" onclick="wizPrev(5)">← Anterior</button>
             <button type="submit" class="btn btn-primary" id="wizSubmitBtn">Siguiente → Elige tu plan →</button>
@@ -2262,7 +2309,8 @@ function wizGetPlanData(planId, stateCode) {
 
 /* ── Wizard state object ─────────────────────────────────── */
 var WIZ = { currentStep:1, residentType:'foreign', type:'llc', state:'CO', stateName:'Colorado', plan:'growth', name:'', addons:{},
-  company_name:'', alternate_name_1:'', alternate_name_2:'', members_count:'1', business_activity:'', _upsellsInited:false };
+  company_name:'', alternate_name_1:'', alternate_name_2:'', members_count:'1', business_activity:'', _upsellsInited:false,
+  personal_city:'', personal_address:'', us_address:'', us_city:'', us_state:'', us_zip:'', use_personal_as_company:false, company_address:'' };
 
 /* ── Step navigation ────────────────────────────────────── */
 function wizGoTo(step) {
@@ -2275,6 +2323,7 @@ function wizGoTo(step) {
     s.classList.toggle('completed', n < step);
   });
   WIZ.currentStep = step;
+  if (step === 5) wizToggleAddrBlocks();
   if (step === 7) wizBuildUpsells();
   var sidebar = document.getElementById('wizardSidebar');
   if (sidebar) sidebar.style.visibility = (step >= 4) ? 'visible' : 'hidden';
@@ -2320,6 +2369,14 @@ function wizValidate(step) {
   return true;
 }
 
+function wizToggleAddrBlocks() {
+  var isForeign = WIZ.residentType !== 'us';
+  var fEl = document.getElementById('wizAddrForeign');
+  var uEl = document.getElementById('wizAddrUS');
+  if (fEl) fEl.style.display = isForeign ? 'block' : 'none';
+  if (uEl) uEl.style.display = isForeign ? 'none'  : 'block';
+}
+
 function wizCollect(step) {
   if (step === 1) {
     var rt = document.querySelector('#wizStep1 input[name="resident_type"]:checked');
@@ -2343,6 +2400,22 @@ function wizCollect(step) {
     WIZ.company_name     = nameEl ? nameEl.value.trim() : '';
     WIZ.alternate_name_1 = alt1   ? alt1.value.trim()   : '';
     WIZ.alternate_name_2 = alt2   ? alt2.value.trim()   : '';
+  }
+  if (step === 5) {
+    if (WIZ.residentType !== 'us') {
+      WIZ.personal_city    = (document.getElementById('wizPersonalCity')    || {value:''}).value.trim();
+      WIZ.personal_address = (document.getElementById('wizPersonalAddress') || {value:''}).value.trim();
+    } else {
+      WIZ.us_address = (document.getElementById('wizUSAddress')   || {value:''}).value.trim();
+      WIZ.us_city    = (document.getElementById('wizUSCity')      || {value:''}).value.trim();
+      WIZ.us_state   = (document.getElementById('wizUSStateAddr') || {value:''}).value;
+      WIZ.us_zip     = (document.getElementById('wizUSZip')       || {value:''}).value.trim();
+      var cb = document.getElementById('wizUsePersonalAsCompany');
+      WIZ.use_personal_as_company = !!(cb && cb.checked);
+      if (WIZ.use_personal_as_company) {
+        WIZ.company_address = [WIZ.us_address, WIZ.us_city, WIZ.us_state, WIZ.us_zip].filter(Boolean).join(', ');
+      }
+    }
   }
   if (step === 6) {
     var ch = document.querySelector('#wizStep6 input[name="plan"]:checked');
@@ -2808,6 +2881,14 @@ function wizBuildPayload() {
     alternate_name_2:  WIZ.alternate_name_2 || '',
     members_count:     WIZ.members_count    || '1',
     business_activity: WIZ.business_activity|| '',
+    personal_city:            WIZ.personal_city    || '',
+    personal_address:         WIZ.personal_address || '',
+    us_address:               WIZ.us_address       || '',
+    us_city:                  WIZ.us_city          || '',
+    us_state:                 WIZ.us_state         || '',
+    us_zip:                   WIZ.us_zip           || '',
+    use_personal_as_company:  WIZ.use_personal_as_company || false,
+    company_address:          WIZ.company_address  || '',
     customer: {
       full_name:     g('wizName').trim()    || WIZ.name || '',
       email:         g('wizEmail').trim(),
@@ -2992,6 +3073,7 @@ function wizReset() {
   WIZ.currentStep=1; WIZ.residentType='foreign'; WIZ.type='llc'; WIZ.state='CO'; WIZ.stateName='Colorado';
   WIZ.plan='growth'; WIZ.name=''; WIZ.addons={}; WIZ._upsellsInited=false;
   WIZ.company_name=''; WIZ.alternate_name_1=''; WIZ.alternate_name_2=''; WIZ.members_count='1'; WIZ.business_activity='';
+  WIZ.personal_city=''; WIZ.personal_address=''; WIZ.us_address=''; WIZ.us_city=''; WIZ.us_state=''; WIZ.us_zip=''; WIZ.use_personal_as_company=false; WIZ.company_address='';
   ['wizCompanyName','wizAltName1','wizAltName2'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
   var nameCheck = document.getElementById('wizNameCheckResult'); if(nameCheck) nameCheck.style.display='none';
   var el = document.getElementById('wizSummaryFull');
