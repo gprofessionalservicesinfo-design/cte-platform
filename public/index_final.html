@@ -1989,17 +1989,60 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
     <aside class="wizard-sidebar" id="wizardSidebar">
       <div class="wiz-sidebar-card">
         <h3 style="font-size:13px;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px">Tu selección</h3>
-        <div class="wiz-sidebar-row"><span class="wiz-sb-label">Empresa</span><span class="wiz-sb-val" id="sbTypeVal">—</span></div>
-        <div class="wiz-sidebar-row"><span class="wiz-sb-label">Estado</span><span class="wiz-sb-val" id="sbStateVal">—</span></div>
-        <div class="wiz-sidebar-row" id="sbPlanRow" style="display:none"><span class="wiz-sb-label">Paquete</span><span class="wiz-sb-val" id="sbPlanVal">—</span></div>
-        <div class="sb-breakdown" id="sbBreakdown" style="display:none">
-          <div class="sb-breakdown-row"><span>Honorarios de servicio</span><span id="sbServiceFee">—</span></div>
-          <div class="sb-breakdown-row"><span>Tarifa estatal</span><span id="sbStateFee">—</span></div>
-          <div class="sb-breakdown-row" id="sbAddonsRow" style="display:none"><span>Add-ons</span><span id="sbAddonsVal">—</span></div>
+
+        <!-- Section: Empresa + Estado (step 4+) -->
+        <div id="sbSectionBase" style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px">
+            <span class="wiz-sb-label">Empresa</span>
+            <button type="button" onclick="wizGoTo(2)" style="background:none;border:none;font-size:11px;color:var(--accent);cursor:pointer;padding:0;font-weight:600">✏️ Editar</button>
+          </div>
+          <div id="sbTypeVal" class="wiz-sb-val" style="margin-bottom:10px">—</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px">
+            <span class="wiz-sb-label">Estado</span>
+            <button type="button" onclick="wizGoTo(3)" style="background:none;border:none;font-size:11px;color:var(--accent);cursor:pointer;padding:0;font-weight:600">✏️ Editar</button>
+          </div>
+          <div id="sbStateVal" class="wiz-sb-val">—</div>
         </div>
-        <div class="wiz-sidebar-row" id="sbTotalRow" style="display:none;border-top:1px solid var(--gray-200);margin-top:12px;padding-top:12px">
-          <span class="wiz-sb-label" style="font-weight:700;color:var(--navy)">Total a pagar hoy</span>
-          <span class="wiz-sb-val" style="font-size:20px;font-weight:800;color:var(--navy)" id="sbPriceVal">—</span>
+
+        <!-- Section: Nombre empresa (step 5+) -->
+        <div id="sbSectionNombre" style="display:none;margin-bottom:14px;padding-top:12px;border-top:1px solid var(--gray-100)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px">
+            <span class="wiz-sb-label">Nombre empresa</span>
+            <button type="button" onclick="wizGoTo(4)" style="background:none;border:none;font-size:11px;color:var(--accent);cursor:pointer;padding:0;font-weight:600">✏️ Editar</button>
+          </div>
+          <div id="sbCompanyNameVal" class="wiz-sb-val">—</div>
+          <div id="sbAltName1Row" style="display:none;margin-top:4px">
+            <span class="wiz-sb-label" style="font-size:11px">Alt: </span><span id="sbAltName1Val" style="font-size:12px;color:var(--gray-500)"></span>
+          </div>
+        </div>
+
+        <!-- Section: Datos contacto (step 6+) -->
+        <div id="sbSectionContacto" style="display:none;margin-bottom:14px;padding-top:12px;border-top:1px solid var(--gray-100)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span class="wiz-sb-label">Contacto</span>
+            <button type="button" onclick="wizGoTo(5)" style="background:none;border:none;font-size:11px;color:var(--accent);cursor:pointer;padding:0;font-weight:600">✏️ Editar</button>
+          </div>
+          <div id="sbContactNameVal" style="font-size:13px;font-weight:600;color:var(--navy)">—</div>
+          <div id="sbContactEmailVal" style="font-size:12px;color:var(--gray-500);margin-top:2px;word-break:break-all">—</div>
+          <div id="sbContactPhoneVal" style="font-size:12px;color:var(--gray-500);margin-top:2px">—</div>
+        </div>
+
+        <!-- Section: Plan + precio (step 6+) -->
+        <div id="sbSectionPlan" style="display:none;padding-top:12px;border-top:1px solid var(--gray-100)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px">
+            <span class="wiz-sb-label">Paquete</span>
+            <button type="button" onclick="wizGoTo(6)" style="background:none;border:none;font-size:11px;color:var(--accent);cursor:pointer;padding:0;font-weight:600">✏️ Editar</button>
+          </div>
+          <div id="sbPlanVal" class="wiz-sb-val" style="margin-bottom:10px">—</div>
+          <div class="sb-breakdown" id="sbBreakdown">
+            <div class="sb-breakdown-row"><span>Honorarios de servicio</span><span id="sbServiceFee">—</span></div>
+            <div class="sb-breakdown-row"><span>Tarifa estatal</span><span id="sbStateFee">—</span></div>
+            <div class="sb-breakdown-row" id="sbAddonsRow" style="display:none"><span>Add-ons</span><span id="sbAddonsVal">—</span></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:10px;border-top:1px solid var(--gray-200)">
+            <span class="wiz-sb-label" style="font-weight:700;color:var(--navy)">Total a pagar hoy</span>
+            <span style="font-size:20px;font-weight:800;color:var(--navy)" id="sbPriceVal">—</span>
+          </div>
         </div>
 
       </div>
@@ -2250,33 +2293,56 @@ function wizUpdatePlanPrices() {
 }
 
 function wizUpdateSidebar() {
-  var planChosen = WIZ.currentStep >= 6;
-  var pd = wizGetPlanData(WIZ.plan, WIZ.state);
-  var addonTotal = Object.keys(WIZ.addons).reduce(function(s,k){ return s + WIZ.addons[k].price; }, 0);
-  var grand = pd.total + addonTotal;
-  var sbType     = document.getElementById('sbTypeVal');
-  var sbState    = document.getElementById('sbStateVal');
-  var sbPlan     = document.getElementById('sbPlanVal');
-  var sbPlanRow  = document.getElementById('sbPlanRow');
-  var sbBreakdown= document.getElementById('sbBreakdown');
-  var sbTotalRow = document.getElementById('sbTotalRow');
-  var sbSvc      = document.getElementById('sbServiceFee');
-  var sbSf       = document.getElementById('sbStateFee');
-  var sbTotal    = document.getElementById('sbPriceVal');
-  var sbAddR     = document.getElementById('sbAddonsRow');
-  var sbAddV     = document.getElementById('sbAddonsVal');
+  var step = WIZ.currentStep;
   var typeLabels = { llc:'LLC', corporation:'C-Corp', s_corporation:'S-Corp', non_profit:'Non-Profit', sole_proprietorship:'Sole Prop.' };
+
+  /* ── Empresa + Estado (always shown when sidebar is visible) ── */
+  var sbType  = document.getElementById('sbTypeVal');
+  var sbState = document.getElementById('sbStateVal');
   if (sbType)  sbType.textContent  = typeLabels[WIZ.type] || WIZ.type || '—';
   if (sbState) sbState.textContent = WIZ.stateName || '—';
-  /* Plan rows: only after step 6 */
-  if (sbPlanRow)   sbPlanRow.style.display   = planChosen ? 'flex' : 'none';
-  if (sbBreakdown) sbBreakdown.style.display = planChosen ? 'block' : 'none';
-  if (sbTotalRow)  sbTotalRow.style.display  = planChosen ? 'flex' : 'none';
-  if (planChosen) {
+
+  /* ── Nombre empresa (step 5+) ─────────────────────────────── */
+  var sbSectionNombre = document.getElementById('sbSectionNombre');
+  if (sbSectionNombre) sbSectionNombre.style.display = step >= 5 ? 'block' : 'none';
+  if (step >= 5) {
+    var sbCN = document.getElementById('sbCompanyNameVal');
+    var sbA1Row = document.getElementById('sbAltName1Row');
+    var sbA1Val = document.getElementById('sbAltName1Val');
+    if (sbCN) sbCN.textContent = WIZ.company_name || '—';
+    if (sbA1Row) sbA1Row.style.display = WIZ.alternate_name_1 ? 'block' : 'none';
+    if (sbA1Val) sbA1Val.textContent = WIZ.alternate_name_1 || '';
+  }
+
+  /* ── Contacto (step 6+) ───────────────────────────────────── */
+  var sbSectionContacto = document.getElementById('sbSectionContacto');
+  if (sbSectionContacto) sbSectionContacto.style.display = step >= 6 ? 'block' : 'none';
+  if (step >= 6) {
+    var sbCName  = document.getElementById('sbContactNameVal');
+    var sbCEmail = document.getElementById('sbContactEmailVal');
+    var sbCPhone = document.getElementById('sbContactPhoneVal');
+    if (sbCName)  sbCName.textContent  = WIZ.name  || '—';
+    if (sbCEmail) sbCEmail.textContent = WIZ.email || '—';
+    if (sbCPhone) sbCPhone.textContent = WIZ.phone || '';
+    if (sbCPhone) sbCPhone.style.display = WIZ.phone ? 'block' : 'none';
+  }
+
+  /* ── Plan + precio (step 6+) ──────────────────────────────── */
+  var sbSectionPlan = document.getElementById('sbSectionPlan');
+  if (sbSectionPlan) sbSectionPlan.style.display = step >= 6 ? 'block' : 'none';
+  if (step >= 6) {
+    var pd = wizGetPlanData(WIZ.plan, WIZ.state);
+    var addonTotal = Object.keys(WIZ.addons).reduce(function(s,k){ return s + WIZ.addons[k].price; }, 0);
+    var sbPlan  = document.getElementById('sbPlanVal');
+    var sbSvc   = document.getElementById('sbServiceFee');
+    var sbSf    = document.getElementById('sbStateFee');
+    var sbTotal = document.getElementById('sbPriceVal');
+    var sbAddR  = document.getElementById('sbAddonsRow');
+    var sbAddV  = document.getElementById('sbAddonsVal');
     if (sbPlan)  sbPlan.textContent  = pd.name;
     if (sbSvc)   sbSvc.textContent   = '$'+pd.service;
     if (sbSf)    sbSf.textContent    = '$'+pd.stateFee;
-    if (sbTotal) sbTotal.textContent = '$'+grand;
+    if (sbTotal) sbTotal.textContent = '$'+(pd.total + addonTotal);
     if (sbAddR)  sbAddR.style.display = addonTotal > 0 ? 'flex' : 'none';
     if (sbAddV)  sbAddV.textContent = '+$'+addonTotal;
   }
