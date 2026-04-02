@@ -1912,7 +1912,7 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
               </div>
             </div>
             <div style="padding:12px 16px;background:rgba(37,99,235,.05);border:1.5px solid rgba(37,99,235,.15);border-radius:var(--r);font-size:13px;color:var(--navy);margin-bottom:16px">
-              📬 Para tu empresa en EE.UU. puedes agregar una dirección comercial en el siguiente paso.
+              📬 No necesitas dirección en EE.UU. — puedes agregar una dirección comercial virtual en el siguiente paso.
             </div>
           </div>
 
@@ -1940,8 +1940,11 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
               </div>
             </div>
             <div class="fgrp" style="display:flex;align-items:center;gap:10px;padding:4px 0">
-              <input type="checkbox" id="wizUsePersonalAsCompany" style="width:16px;height:16px;accent-color:var(--accent);cursor:pointer;flex-shrink:0">
+              <input type="checkbox" id="wizUsePersonalAsCompany" checked style="width:16px;height:16px;accent-color:var(--accent);cursor:pointer;flex-shrink:0">
               <label for="wizUsePersonalAsCompany" style="font-size:13px;color:var(--navy);cursor:pointer">Usar esta dirección también para mi empresa</label>
+            </div>
+            <div id="wizStep5AddrError" style="display:none;padding:10px 14px;background:#fef2f2;border:1.5px solid #fca5a5;border-radius:var(--r);font-size:13px;color:#dc2626;margin-top:10px">
+              Por favor completa tu dirección en EE.UU. — la usaremos para los documentos de tu empresa.
             </div>
           </div>
 
@@ -2365,6 +2368,28 @@ function wizValidate(step) {
     if (!emailEl || !emailEl.value.trim() || !emailEl.value.includes('@')) { if (emailEl) emailEl.style.borderColor = 'var(--red)'; return false; }
     if (nameEl) nameEl.style.borderColor = '';
     if (emailEl) emailEl.style.borderColor = '';
+    if (WIZ.residentType === 'us') {
+      var addrEl  = document.getElementById('wizUSAddress');
+      var cityEl  = document.getElementById('wizUSCity');
+      var stateEl = document.getElementById('wizUSStateAddr');
+      var zipEl   = document.getElementById('wizUSZip');
+      var errEl   = document.getElementById('wizStep5AddrError');
+      var missing = !addrEl || !addrEl.value.trim() || !cityEl || !cityEl.value.trim() ||
+                    !stateEl || !stateEl.value || !zipEl || !zipEl.value.trim();
+      if (missing) {
+        if (addrEl)  addrEl.style.borderColor  = addrEl.value.trim()  ? '' : 'var(--red)';
+        if (cityEl)  cityEl.style.borderColor  = cityEl.value.trim()  ? '' : 'var(--red)';
+        if (stateEl) stateEl.style.borderColor = stateEl.value        ? '' : 'var(--red)';
+        if (zipEl)   zipEl.style.borderColor   = zipEl.value.trim()   ? '' : 'var(--red)';
+        if (errEl)   errEl.style.display = 'block';
+        return false;
+      }
+      if (addrEl)  addrEl.style.borderColor  = '';
+      if (cityEl)  cityEl.style.borderColor  = '';
+      if (stateEl) stateEl.style.borderColor = '';
+      if (zipEl)   zipEl.style.borderColor   = '';
+      if (errEl)   errEl.style.display = 'none';
+    }
   }
   return true;
 }
