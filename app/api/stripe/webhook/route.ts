@@ -198,6 +198,7 @@ export async function POST(request: NextRequest) {
       // ── Checkout completed ───────────────────────────────────────────────
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session
+        let promptVersionLabel: string | null = null
 
         // ── Idempotency gate ────────────────────────────────────────────────
         // Fast-path dedup: check for an existing completed or in-flight run.
@@ -221,6 +222,13 @@ export async function POST(request: NextRequest) {
               input_summary:  { stripe_session_id: session.id, reason: 'already_processed' },
               output_summary: { existing_run_id: existingRun.id },
             })
+            await supabase.from('audit_logs').insert({
+              entity_type: 'agent_run',
+              entity_id:   session.id,
+              action:      'duplicate_prevented',
+              actor:       'webhook',
+              metadata:    { stripe_session_id: session.id, existing_run_id: existingRun.id },
+            })
             break
           }
 
@@ -228,6 +236,15 @@ export async function POST(request: NextRequest) {
             console.warn('[webhook] Run in-flight for session — possible race condition:', session.id)
             break
           }
+
+          // Fetch active intake prompt for traceability (stored in agent_run)
+          const { data: promptVersion } = await supabase
+            .from('prompt_versions')
+            .select('version_label')
+            .eq('agent_id', 'intake')
+            .eq('is_active', true)
+            .maybeSingle()
+          promptVersionLabel = promptVersion?.version_label ?? null
 
           // Insert new run, or update failed/pending run back to 'running' and increment retry_count.
           const { data: runData, error: runInsertError } = await supabase
@@ -248,6 +265,7 @@ export async function POST(request: NextRequest) {
                 currency:          session.currency,
                 customer_email:    session.customer_details?.email ?? null,
               },
+              input_normalized_json: { prompt_version: promptVersionLabel },
             }, { onConflict: 'agent_id,source_ref_id' })
             .select('id')
             .single()
@@ -256,6 +274,13 @@ export async function POST(request: NextRequest) {
             console.error('[webhook] Failed to create agent_run — continuing anyway:', runInsertError)
           } else {
             agentRunId = runData.id
+            await supabase.from('audit_logs').insert({
+              entity_type: 'agent_run',
+              entity_id:   agentRunId,
+              action:      'intake_started',
+              actor:       'webhook',
+              metadata:    { stripe_session_id: session.id, prompt_version: promptVersionLabel },
+            })
           }
         }
         // ───────────────────────────────────────────────────────────────────
@@ -287,6 +312,19 @@ export async function POST(request: NextRequest) {
         } else {
           // New client from landing page: auto-create in CRM
           const email       = session.customer_details?.email ?? ''
+
+          // Audit: payment_received
+          await supabase.from('audit_logs').insert({
+            entity_type: 'payment',
+            entity_id:   session.id,
+            action:      'payment_received',
+            actor:       'webhook',
+            metadata: {
+              amount_total:   session.amount_total,
+              currency:       session.currency,
+              customer_email: email || null,
+            },
+          })
           const fullName    = session.customer_details?.name  ?? 'Cliente'
           const amountTotal = session.amount_total ?? 0
 
@@ -452,6 +490,15 @@ export async function POST(request: NextRequest) {
 
                 const caseRef = caseData?.id ?? null
 
+                // Audit: case_created
+                await supabase.from('audit_logs').insert({
+                  entity_type: 'case',
+                  entity_id:   caseRef,
+                  action:      'case_created',
+                  actor:       'webhook',
+                  metadata:    { stripe_session_id: session.id, prompt_version: promptVersionLabel },
+                })
+
                 // ── agent_tasks ───────────────────────────────────────────────
                 await supabase.from('agent_tasks').insert({
                   agent_id:  'intake',
@@ -468,6 +515,15 @@ export async function POST(request: NextRequest) {
                     customer_email:    email,
                     created_at:        new Date().toISOString(),
                   },
+                })
+
+                // Audit: task_created (process_new_client)
+                await supabase.from('audit_logs').insert({
+                  entity_type: 'task',
+                  entity_id:   caseRef,
+                  action:      'task_created',
+                  actor:       'webhook',
+                  metadata:    { task_type: 'process_new_client', priority: 1, case_id: caseRef },
                 })
 
                 // ── agent_logs ────────────────────────────────────────────────
