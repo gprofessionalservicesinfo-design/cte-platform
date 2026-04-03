@@ -1,960 +1,735 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light">
-  <title>Email Premium v3 — CreaTuEmpresaUSA</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: #E2EAF4;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, Helvetica, sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CreaTuEmpresaUSA - Bienvenida</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: #edf4fb;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #17324d;
+      }
+      .wrapper {
+        width: 100%;
+        padding: 26px 12px 40px;
+        box-sizing: border-box;
+      }
+      .email {
+        max-width: 680px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 28px;
+        overflow: hidden;
+        box-shadow: 0 18px 50px rgba(17, 35, 66, 0.10);
+      }
+      .topbar {
+        background: #133b6c;
+        color: #deebf8;
+        text-align: center;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+        padding: 12px 20px;
+      }
+      .hero {
+        background: radial-gradient(circle at top center, rgba(255,255,255,0.18), transparent 34%), linear-gradient(180deg, #275b96 0%, #1b4a82 58%, #163f71 100%);
+        padding: 34px 34px 28px;
+        position: relative;
+      }
+      .logo-lockup {
+        text-align: center;
+      }
+      .logo {
+        margin: 0;
+        font-size: 34px;
+        line-height: 1;
+        font-weight: 800;
+        color: #ffffff;
+        letter-spacing: -0.02em;
+      }
+      .logo .usa {
+        color: #ef5567;
+      }
+      .flagline {
+        width: 200px;
+        max-width: 100%;
+        margin: 13px auto 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .flag-stars {
+        width: 44px;
+        height: 14px;
+        border-radius: 999px;
+        background: rgba(12, 34, 66, 0.9);
+        border: 1px solid rgba(255,255,255,0.22);
+        position: relative;
+        overflow: hidden;
+      }
+      .flag-stars:before {
+        content: "";
+        position: absolute;
+        inset: 3px 5px;
+        background-image: radial-gradient(circle, #ffffff 0.9px, transparent 1px);
+        background-size: 6px 5px;
+        background-position: 0 0;
+      }
+      .flag-stripes {
+        flex: 1;
+        height: 4px;
+        border-radius: 999px;
+        background: linear-gradient(to right, #c6283e 0%, #c6283e 16%, #ffffff 16%, #ffffff 32%, #c6283e 32%, #c6283e 48%, #ffffff 48%, #ffffff 64%, #c6283e 64%, #c6283e 80%, #ffffff 80%, #ffffff 100%);
+        border: 1px solid rgba(255,255,255,0.18);
+      }
+      .hero-status {
+        width: fit-content;
+        margin: 22px auto 0;
+        background: rgba(20, 156, 121, 0.18);
+        border: 1px solid rgba(159, 241, 212, 0.34);
+        color: #e7fff6;
+        border-radius: 999px;
+        padding: 10px 16px;
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .hero-title {
+        margin: 22px auto 0;
+        max-width: 540px;
+        text-align: center;
+        color: #ffffff;
+        font-size: 42px;
+        line-height: 1.14;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+      }
+      .hero-sub {
+        margin: 16px auto 0;
+        max-width: 520px;
+        text-align: center;
+        color: #e3edf8;
+        font-size: 19px;
+        line-height: 1.68;
+      }
+      .trust {
+        background: #ffffff;
+        padding: 0 26px 24px;
+        margin-top: -1px;
+      }
+      .trust-inner {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .trust-card {
+        background: #ffffff;
+        border: 1px solid #e7eef7;
+        border-radius: 20px;
+        padding: 18px 14px;
+        text-align: center;
+        box-shadow: 0 8px 20px rgba(17, 35, 66, 0.04);
+      }
+      .trust-icon {
+        width: 52px;
+        height: 52px;
+        margin: 0 auto 12px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #ffffff;
+        border: 2px solid #ffffff;
+        box-shadow: 0 0 0 1px rgba(208, 220, 235, 0.9), 0 8px 18px rgba(17, 35, 66, 0.06);
+      }
+      .trust-title {
+        margin: 0;
+        color: #17324d;
+        font-size: 15px;
+        font-weight: 800;
+      }
+      .trust-text {
+        margin: 5px 0 0;
+        color: #748495;
+        font-size: 12px;
+        line-height: 1.45;
+      }
+      .section {
+        padding: 28px 34px 0;
+      }
+      .eyebrow {
+        margin: 0 0 14px;
+        color: #71839a;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+      }
+      .order-card {
+        border: 1px solid #e5edf6;
+        border-radius: 24px;
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 14px 30px rgba(17, 35, 66, 0.06);
+      }
+      .order-top {
+        background: linear-gradient(180deg, #2c5c96 0%, #1c467b 100%);
+        padding: 20px 22px;
+        color: #ffffff;
+      }
+      .order-name {
+        margin: 0;
+        font-size: 28px;
+        line-height: 1.1;
+        font-weight: 800;
+      }
+      .order-meta {
+        margin-top: 6px;
+        font-size: 13px;
+        line-height: 1.5;
+        color: #dce9f8;
+      }
+      .pill {
+        display: inline-block;
+        border-radius: 999px;
+        padding: 8px 12px;
+        font-size: 12px;
+        font-weight: 800;
+      }
+      .pill.processing { background: rgba(255, 205, 96, 0.18); color: #ffd67c; border: 1px solid rgba(255, 224, 150, 0.24); }
+      .pill.included { background: #ecfbf5; color: #169c79; border: 1px solid #ccf2e3; }
+      .order-body { padding: 4px 22px 8px; }
+      .row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 16px;
+        align-items: center;
+        padding: 18px 0;
+        border-bottom: 1px solid #edf2f7;
+      }
+      .row:last-child { border-bottom: none; }
+      .label {
+        color: #76879a;
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+      .value {
+        color: #17324d;
+        font-size: 18px;
+        font-weight: 800;
+        text-align: right;
+      }
+      .total-wrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 16px;
+        padding: 20px 0 6px;
+      }
+      .total-label {
+        color: #7a899a;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+      .total-note {
+        margin-top: 6px;
+        color: #8a96a3;
+        font-size: 12px;
+      }
+      .total-amount {
+        color: #0b2342;
+        font-size: 34px;
+        font-weight: 800;
+      }
+      .timeline {
+        margin-top: 8px;
+        border: 1px solid #e5edf6;
+        border-radius: 24px;
+        background: #ffffff;
+        padding: 8px 22px;
+        box-shadow: 0 14px 30px rgba(17, 35, 66, 0.04);
+      }
+      .step {
+        position: relative;
+        padding: 18px 0 18px 56px;
+        border-bottom: 1px solid #edf2f7;
+      }
+      .step:last-child { border-bottom: none; }
+      .step:before {
+        content: "";
+        position: absolute;
+        left: 17px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: #e5edf6;
+      }
+      .step:last-child:before { bottom: 28px; }
+      .dot {
+        position: absolute;
+        left: 0;
+        top: 19px;
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 800;
+        box-sizing: border-box;
+      }
+      .dot.done { background: #eafaf3; border: 2px solid #97dfbc; color: #14966f; }
+      .dot.active { background: #edf3ff; border: 2px solid #8fb0ea; color: #234d85; }
+      .dot.pending { background: #f8fafc; border: 2px solid #d9e3ee; color: #8e9baa; }
+      .step-title-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .step-title {
+        color: #17324d;
+        font-size: 19px;
+        font-weight: 800;
+      }
+      .step-text {
+        margin-top: 6px;
+        color: #7a8897;
+        font-size: 14px;
+        line-height: 1.55;
+      }
+      .tag {
+        border-radius: 999px;
+        padding: 7px 12px;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        white-space: nowrap;
+      }
+      .tag.done { background: #ecfbf5; color: #169c79; }
+      .tag.active { background: #eef3ff; color: #355da0; }
+      .tag.pending { background: #f3f6f9; color: #8b97a5; }
+      .assigned {
+        margin-top: 28px;
+        border: 1px solid #e5edf6;
+        border-radius: 24px;
+        background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+        padding: 24px;
+        box-shadow: 0 14px 30px rgba(17, 35, 66, 0.04);
+      }
+      .assigned-grid {
+        display: grid;
+        grid-template-columns: 74px 1fr;
+        gap: 18px;
+        align-items: center;
+      }
+      .avatar {
+        width: 74px;
+        height: 74px;
+        border-radius: 20px;
+        background: linear-gradient(180deg, #3b6caa 0%, #1d4f89 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+      }
+      .assigned-title {
+        margin: 0;
+        color: #17324d;
+        font-size: 24px;
+        font-weight: 800;
+      }
+      .assigned-text {
+        margin: 8px 0 0;
+        color: #607286;
+        font-size: 16px;
+        line-height: 1.65;
+      }
+      .mini-card {
+        margin-top: 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid #e5edf6;
+        border-radius: 16px;
+        background: #ffffff;
+        padding: 12px 14px;
+        box-shadow: 0 8px 18px rgba(17, 35, 66, 0.04);
+      }
+      .mini-text {
+        color: #607286;
+        font-size: 12px;
+        line-height: 1.4;
+      }
+      .mini-text strong {
+        display: block;
+        color: #17324d;
+        font-size: 14px;
+      }
+      .cta-section {
+        margin-top: 28px;
+        background: linear-gradient(180deg, #2b609c 0%, #1a487e 100%);
+        border-radius: 28px;
+        padding: 34px 26px;
+        text-align: center;
+      }
+      .cta-kicker {
+        color: #c3d8f0;
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+      }
+      .cta-title {
+        margin: 12px auto 0;
+        max-width: 470px;
+        color: #ffffff;
+        font-size: 36px;
+        line-height: 1.2;
+        font-weight: 800;
+      }
+      .cta-text {
+        margin: 12px auto 0;
+        max-width: 500px;
+        color: #e1ecf8;
+        font-size: 16px;
+        line-height: 1.65;
+      }
+      .button {
+        display: inline-block;
+        margin-top: 22px;
+        background: linear-gradient(180deg, #e85466 0%, #c6283e 100%);
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: 0.01em;
+        padding: 18px 34px;
+        border-radius: 16px;
+        box-shadow: 0 12px 24px rgba(198, 40, 62, 0.22);
+      }
+      .support {
+        padding: 28px 34px 34px;
+      }
+      .support-title {
+        margin: 0;
+        text-align: center;
+        color: #17324d;
+        font-size: 18px;
+        font-weight: 800;
+      }
+      .support-text {
+        margin: 10px auto 0;
+        max-width: 520px;
+        text-align: center;
+        color: #66788a;
+        font-size: 15px;
+        line-height: 1.65;
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        margin-top: 22px;
+      }
+      .contact-card {
+        border: 1px solid #e5edf6;
+        border-radius: 18px;
+        background: #ffffff;
+        padding: 18px 16px;
+        text-align: center;
+        box-shadow: 0 10px 20px rgba(17, 35, 66, 0.04);
+      }
+      .contact-icon-wrap {
+        width: 52px;
+        height: 52px;
+        margin: 0 auto;
+        border-radius: 16px;
+        background: #ffffff;
+        border: 2px solid #ffffff;
+        box-shadow: 0 0 0 1px rgba(208, 220, 235, 0.9), 0 8px 18px rgba(17, 35, 66, 0.06);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .contact-label {
+        margin-top: 10px;
+        color: #7b8897;
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+      }
+      .contact-value {
+        margin-top: 6px;
+        color: #17324d;
+        font-size: 15px;
+        font-weight: 800;
+        line-height: 1.5;
+      }
+      .footer {
+        background: #1c467b;
+        padding: 24px 20px 26px;
+        text-align: center;
+      }
+      .footer-logo {
+        color: #ffffff;
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+      .footer-logo .usa { color: #ef5567; }
+      .footer-links {
+        margin-top: 10px;
+        color: #e1ebf7;
+        font-size: 13px;
+      }
+      .footer-links span { margin: 0 8px; }
+      .footer-note {
+        margin-top: 10px;
+        color: #d0dff1;
+        font-size: 12px;
+        line-height: 1.55;
+      }
+      @media (max-width: 640px) {
+        .hero,
+        .section,
+        .support { padding-left: 20px; padding-right: 20px; }
+        .trust { padding-left: 20px; padding-right: 20px; }
+        .hero-title { font-size: 34px; }
+        .hero-sub { font-size: 17px; }
+        .trust-inner,
+        .contact-grid { grid-template-columns: 1fr; }
+        .assigned-grid { grid-template-columns: 1fr; text-align: center; }
+        .avatar { margin: 0 auto; }
+        .mini-card { justify-content: center; }
+        .cta-title { font-size: 30px; }
+        .row { grid-template-columns: 1fr; gap: 8px; }
+        .value { text-align: left; }
+        .step-title-row { flex-direction: column; align-items: flex-start; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="email">
+        <div class="topbar">Tu camino empresarial en EE.UU. comienza aquí</div>
 
-    @keyframes pulse-ring {
-      0%   { box-shadow: 0 0 0 0 rgba(59,130,246,0.55); }
-      65%  { box-shadow: 0 0 0 12px rgba(59,130,246,0); }
-      100% { box-shadow: 0 0 0 0 rgba(59,130,246,0); }
-    }
-    .step-active { animation: pulse-ring 2.5s ease-out infinite; }
-
-    @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    .spin-icon { animation: spin-slow 2.8s linear infinite; display: inline-block; }
-
-    @media (max-width: 640px) {
-      .outer-pad   { padding: 0 !important; }
-      .email-card  { border-radius: 0 !important; box-shadow: none !important; }
-      .hero-pad    { padding: 52px 24px 48px !important; }
-      .section-pad { padding-left: 24px !important; padding-right: 24px !important; }
-      .trust-cell  { display: block !important; width: 100% !important;
-                     border-left: none !important; border-top: 1px solid #DDE6F0 !important;
-                     padding: 20px 24px !important; }
-      .trust-cell:first-child { border-top: none !important; }
-      .cta-section { padding: 52px 24px !important; }
-      .cta-btn     { padding: 20px 24px !important; font-size: 16px !important; width: 100% !important; }
-      .contact-cols td { display: block !important; width: 100% !important;
-                         padding: 6px 0 !important; }
-      .footer-pad  { padding: 32px 24px !important; }
-      .support-inner td { display: block !important; width: 100% !important; }
-      .support-avatar-cell { padding-right: 0 !important; padding-bottom: 20px !important; }
-    }
-  </style>
-</head>
-<body>
-
-<!-- ─────────────────────────────────────────────────────────────────
-     OUTER WRAPPER
-──────────────────────────────────────────────────────────────────── -->
-<table width="100%" cellpadding="0" cellspacing="0" class="outer-pad"
-  style="background:#E2EAF4; padding:40px 16px">
-<tr><td align="center">
-
-<!-- EMAIL CARD -->
-<table cellpadding="0" cellspacing="0" class="email-card"
-  style="max-width:620px; width:100%; border-radius:24px; overflow:hidden;
-         box-shadow:0 12px 60px rgba(7,22,46,0.18), 0 3px 12px rgba(7,22,46,0.08)">
-
-
-<!-- ═══════════════════════════════════════════════════════════════
-     1. MICRO BAR
-═══════════════════════════════════════════════════════════════════ -->
-<tr>
-  <td style="background:#0D2E56; padding:10px 48px">
-    <table width="100%" cellpadding="0" cellspacing="0"><tr>
-      <td>
-        <span style="font-size:10px; color:#2D4A6A; letter-spacing:1.4px;
-                     font-weight:700; text-transform:uppercase">
-          CreaTuEmpresaUSA
-        </span>
-      </td>
-      <td style="text-align:right">
-        <span style="font-size:10px; color:#2D4A6A; letter-spacing:0.6px">
-          Ref. <span style="color:#3A5F87">[orderRef]</span>
-        </span>
-      </td>
-    </tr></table>
-  </td>
-</tr>
-
-
-<!-- ═══════════════════════════════════════════════════════════════
-     2. HERO
-═══════════════════════════════════════════════════════════════════ -->
-<tr>
-  <td class="hero-pad"
-    style="background:linear-gradient(155deg,#0D2E56 0%,#153C72 40%,#1C4D8C 75%,#123B6D 100%);
-           padding:68px 48px 60px; text-align:center; position:relative; overflow:hidden">
-
-    <!-- Background mesh dots -->
-    <div style="position:absolute;top:0;left:0;right:0;bottom:0;
-                background-image:radial-gradient(rgba(255,255,255,0.035) 1.5px, transparent 1.5px);
-                background-size:28px 28px; pointer-events:none; z-index:0"></div>
-
-    <!-- Top-right glow -->
-    <div style="position:absolute;top:-60px;right:-60px;width:240px;height:240px;
-                border-radius:50%;background:radial-gradient(circle,rgba(198,40,62,0.12) 0%,transparent 70%);
-                pointer-events:none; z-index:0"></div>
-
-    <!-- ── WORDMARK ── -->
-    <div style="margin-bottom:22px; position:relative; z-index:1">
-      <!-- Subtle letterpress shadow on text -->
-      <span style="font-family:Georgia,'Times New Roman',serif; font-size:40px;
-                   font-weight:700; color:#FFFFFF; letter-spacing:-1px; line-height:1;
-                   text-shadow:0 2px 12px rgba(0,0,0,0.3)">
-        CreaTuEmpresa</span><span
-           style="font-family:Georgia,'Times New Roman',serif; font-size:40px;
-                  font-weight:700; color:#C6283E; letter-spacing:-1px; line-height:1;
-                  text-shadow:0 2px 12px rgba(0,0,0,0.3)">USA</span>
-    </div>
-
-    <!-- ── FLAG STRIP — refined ── -->
-    <div style="margin:0 auto 38px; position:relative; z-index:1; display:inline-block">
-      <!-- US flag: 50 stars (9 rows alternating 6/5) + 7 stripes -->
-      <svg width="280" height="22" viewBox="0 0 280 22"
-           xmlns="http://www.w3.org/2000/svg" style="display:block; filter:drop-shadow(0 1px 6px rgba(0,0,0,0.30))">
-        <defs>
-          <clipPath id="flag-clip">
-            <rect width="280" height="22" rx="3"/>
-          </clipPath>
-        </defs>
-        <g clip-path="url(#flag-clip)">
-          <!-- Canton -->
-          <rect x="0" y="0" width="76" height="22" fill="#102E58"/>
-
-          <!-- 50 STARS — 9 alternating rows (6/5/6/5/6/5/6/5/6)
-               Row centers y: 1.2, 3.6, 6.1, 8.5, 11.0, 13.4, 15.9, 18.3, 20.8
-               6-star x:  5.5 16.6 27.7 38.8 49.9 61.0
-               5-star x: 11.1 22.2 33.3 44.4 55.5 -->
-          <!-- Row 1 — 6 stars -->
-          <circle cx="5.5"  cy="1.2"  r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="16.6" cy="1.2"  r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="27.7" cy="1.2"  r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="38.8" cy="1.2"  r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="49.9" cy="1.2"  r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="61.0" cy="1.2"  r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <!-- Row 2 — 5 stars -->
-          <circle cx="11.1" cy="3.6"  r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="22.2" cy="3.6"  r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="33.3" cy="3.6"  r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="44.4" cy="3.6"  r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="55.5" cy="3.6"  r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <!-- Row 3 — 6 stars -->
-          <circle cx="5.5"  cy="6.1"  r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="16.6" cy="6.1"  r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="27.7" cy="6.1"  r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="38.8" cy="6.1"  r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="49.9" cy="6.1"  r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="61.0" cy="6.1"  r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <!-- Row 4 — 5 stars -->
-          <circle cx="11.1" cy="8.5"  r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="22.2" cy="8.5"  r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="33.3" cy="8.5"  r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="44.4" cy="8.5"  r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="55.5" cy="8.5"  r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <!-- Row 5 — 6 stars -->
-          <circle cx="5.5"  cy="11.0" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="16.6" cy="11.0" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="27.7" cy="11.0" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="38.8" cy="11.0" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="49.9" cy="11.0" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="61.0" cy="11.0" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <!-- Row 6 — 5 stars -->
-          <circle cx="11.1" cy="13.4" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="22.2" cy="13.4" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="33.3" cy="13.4" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="44.4" cy="13.4" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="55.5" cy="13.4" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <!-- Row 7 — 6 stars -->
-          <circle cx="5.5"  cy="15.9" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="16.6" cy="15.9" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="27.7" cy="15.9" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="38.8" cy="15.9" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="49.9" cy="15.9" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="61.0" cy="15.9" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <!-- Row 8 — 5 stars -->
-          <circle cx="11.1" cy="18.3" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="22.2" cy="18.3" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="33.3" cy="18.3" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="44.4" cy="18.3" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="55.5" cy="18.3" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <!-- Row 9 — 6 stars -->
-          <circle cx="5.5"  cy="20.8" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="16.6" cy="20.8" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="27.7" cy="20.8" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="38.8" cy="20.8" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="49.9" cy="20.8" r="0.95" fill="rgba(255,255,255,0.88)"/>
-          <circle cx="61.0" cy="20.8" r="0.95" fill="rgba(255,255,255,0.88)"/>
-
-          <!-- 7 STRIPES (start at x=78, width=202) -->
-          <rect x="78" y="0"    width="202" height="3.14" fill="#C6283E"/>
-          <rect x="78" y="3.14" width="202" height="3.14" fill="rgba(255,255,255,0.90)"/>
-          <rect x="78" y="6.28" width="202" height="3.14" fill="#C6283E"/>
-          <rect x="78" y="9.43" width="202" height="3.14" fill="rgba(255,255,255,0.90)"/>
-          <rect x="78" y="12.6" width="202" height="3.14" fill="#C6283E"/>
-          <rect x="78" y="15.7" width="202" height="3.14" fill="rgba(255,255,255,0.90)"/>
-          <rect x="78" y="18.9" width="202" height="3.14" fill="#C6283E"/>
-
-          <!-- Subtle border -->
-          <rect width="280" height="22" rx="3" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-        </g>
-      </svg>
-    </div>
-
-    <!-- ── ORDER STATUS BADGE ── -->
-    <div style="margin-bottom:30px; position:relative; z-index:1">
-      <span style="display:inline-flex; align-items:center; gap:8px;
-                   background:rgba(5,150,105,0.15); border:1px solid rgba(5,150,105,0.30);
-                   border-radius:28px; padding:8px 20px">
-        <!-- Green dot -->
-        <svg width="8" height="8" viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg"
-             style="display:inline-block; flex-shrink:0">
-          <circle cx="4" cy="4" r="4" fill="#34D399"/>
-        </svg>
-        <span style="font-size:12px; color:#6EE7B7; font-weight:600; letter-spacing:0.3px">
-          Orden procesada y confirmada
-        </span>
-      </span>
-    </div>
-
-    <!-- ── HEADLINE ── -->
-    <h1 style="margin:0 0 20px; font-size:32px; font-weight:800; color:#FFFFFF;
-               line-height:1.2; letter-spacing:-0.6px; position:relative; z-index:1">
-      Tu empresa en EE.UU. está<br>
-      en marcha, <span style="color:#93C5FD">[Nombre]</span>.
-    </h1>
-
-    <!-- ── SUBHEADLINE ── -->
-    <p style="margin:0; font-size:16px; color:#7EA8CC; line-height:1.75;
-              max-width:420px; margin-left:auto; margin-right:auto; position:relative; z-index:1">
-      Hemos recibido tu orden para
-      <strong style="color:#FFFFFF; font-weight:600">[companyName]</strong>
-      en el estado de
-      <strong style="color:#FFFFFF; font-weight:600">[stateName]</strong>.
-      Nuestro equipo ya está trabajando en tu caso.
-    </p>
-
-  </td>
-</tr>
-
-
-<!-- ═══════════════════════════════════════════════════════════════
-     3. TRUST BAR — Premium icons
-═══════════════════════════════════════════════════════════════════ -->
-<tr>
-  <td style="background:#FFFFFF; border-bottom:2px solid #EEF4FB">
-    <table width="100%" cellpadding="0" cellspacing="0">
-      <tr>
-
-        <!-- Pago confirmado -->
-        <td class="trust-cell" width="33.33%" valign="top"
-          style="padding:28px 20px; text-align:center; border-right:1px solid #EEF4FB">
-          <!-- Icon: Card + check -->
-          <div style="margin:0 auto 14px; width:52px; height:52px; border-radius:14px;
-                      background:linear-gradient(135deg,#059669 0%,#10B981 100%);
-                      box-shadow:0 4px 14px rgba(5,150,105,0.35);
-                      display:flex; align-items:center; justify-content:center; line-height:52px; text-align:center">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                 xmlns="http://www.w3.org/2000/svg" style="display:inline-block; vertical-align:middle">
-              <!-- Credit card shape -->
-              <rect x="1" y="4" width="22" height="16" rx="3" stroke="rgba(255,255,255,0.30)" stroke-width="1.5" fill="rgba(255,255,255,0.10)"/>
-              <line x1="1" y1="9" x2="23" y2="9" stroke="rgba(255,255,255,0.40)" stroke-width="1.5"/>
-              <!-- Checkmark -->
-              <circle cx="16" cy="16" r="5" fill="#059669"/>
-              <circle cx="16" cy="16" r="5" fill="white" fill-opacity="0.2"/>
-              <path d="M13.5 16L15 17.5L18.5 14" stroke="white" stroke-width="1.8"
-                    stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+        <div class="hero">
+          <div class="logo-lockup">
+            <h1 class="logo">CreaTuEmpresa<span class="usa">USA</span></h1>
+            <div class="flagline">
+              <div class="flag-stars"></div>
+              <div class="flag-stripes"></div>
+            </div>
           </div>
-          <p style="margin:0 0 3px; font-size:13px; font-weight:700; color:#0B2342; letter-spacing:-0.1px">
-            Pago confirmado
-          </p>
-          <p style="margin:0; font-size:11px; color:#94A3B8; line-height:1.4">
-            Transacción segura
-          </p>
-        </td>
 
-        <!-- Datos protegidos -->
-        <td class="trust-cell" width="33.33%" valign="top"
-          style="padding:28px 20px; text-align:center; border-right:1px solid #EEF4FB">
-          <div style="margin:0 auto 14px; width:52px; height:52px; border-radius:14px;
-                      background:linear-gradient(135deg,#0B2342 0%,#1A4D8F 100%);
-                      box-shadow:0 4px 14px rgba(11,35,66,0.30);
-                      display:flex; align-items:center; justify-content:center; line-height:52px; text-align:center">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                 xmlns="http://www.w3.org/2000/svg" style="display:inline-block; vertical-align:middle">
-              <!-- Shield outline -->
-              <path d="M12 2L4 6V12C4 16.5 7.5 20.5 12 22C16.5 20.5 20 16.5 20 12V6L12 2Z"
-                    stroke="rgba(255,255,255,0.25)" stroke-width="1.5" fill="rgba(255,255,255,0.08)"/>
-              <!-- Lock body -->
-              <rect x="9" y="11" width="6" height="5" rx="1" fill="rgba(255,255,255,0.90)"/>
-              <!-- Lock shackle -->
-              <path d="M10 11V9.5a2 2 0 0 1 4 0V11" stroke="white" stroke-width="1.8"
-                    stroke-linecap="round" fill="none"/>
-              <!-- Keyhole -->
-              <circle cx="12" cy="13.5" r="0.8" fill="#1A4D8F"/>
-            </svg>
+          <div class="hero-status">● Orden procesada y confirmada</div>
+          <div class="hero-title">Tu empresa en EE.UU. está en marcha, [Nombre].</div>
+          <div class="hero-sub">
+            Hemos recibido tu orden para <strong style="color:#ffffff;">[companyName]</strong> en el estado de
+            <strong style="color:#ffffff;">[stateName]</strong>. Nuestro equipo ya está trabajando en tu caso.
           </div>
-          <p style="margin:0 0 3px; font-size:13px; font-weight:700; color:#0B2342; letter-spacing:-0.1px">
-            Datos protegidos
-          </p>
-          <p style="margin:0; font-size:11px; color:#94A3B8; line-height:1.4">
-            Cifrado SSL 256-bit
-          </p>
-        </td>
+        </div>
 
-        <!-- 100% legal -->
-        <td class="trust-cell" width="33.33%" valign="top"
-          style="padding:28px 20px; text-align:center">
-          <div style="margin:0 auto 14px; width:52px; height:52px; border-radius:14px;
-                      background:linear-gradient(135deg,#991B2A 0%,#C6283E 100%);
-                      box-shadow:0 4px 14px rgba(198,40,62,0.35);
-                      display:flex; align-items:center; justify-content:center; line-height:52px; text-align:center">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                 xmlns="http://www.w3.org/2000/svg" style="display:inline-block; vertical-align:middle">
-              <!-- Building / courthouse columns -->
-              <rect x="3" y="18" width="18" height="2" rx="1" fill="rgba(255,255,255,0.85)"/>
-              <rect x="5" y="10" width="2" height="8" fill="rgba(255,255,255,0.70)"/>
-              <rect x="9" y="10" width="2" height="8" fill="rgba(255,255,255,0.70)"/>
-              <rect x="13" y="10" width="2" height="8" fill="rgba(255,255,255,0.70)"/>
-              <rect x="17" y="10" width="2" height="8" fill="rgba(255,255,255,0.70)"/>
-              <!-- Pediment -->
-              <path d="M2 10L12 4L22 10H2Z" fill="rgba(255,255,255,0.90)"/>
-              <!-- Star accent -->
-              <polygon points="12,5.5 12.6,7.3 14.5,7.3 13,8.4 13.5,10.2 12,9.1 10.5,10.2 11,8.4 9.5,7.3 11.4,7.3"
-                       fill="#C6283E" stroke="rgba(255,255,255,0.6)" stroke-width="0.3"/>
-            </svg>
-          </div>
-          <p style="margin:0 0 3px; font-size:13px; font-weight:700; color:#0B2342; letter-spacing:-0.1px">
-            100% legal
-          </p>
-          <p style="margin:0; font-size:11px; color:#94A3B8; line-height:1.4">
-            Cumplimiento estatal EE.UU.
-          </p>
-        </td>
-
-      </tr>
-    </table>
-  </td>
-</tr>
-
-
-<!-- ═══════════════════════════════════════════════════════════════
-     4. RESUMEN DE ORDEN — Dashboard card
-═══════════════════════════════════════════════════════════════════ -->
-<tr>
-  <td class="section-pad"
-    style="background:#F4F8FE; padding:44px 48px; border-top:none">
-
-    <p style="margin:0 0 20px; font-size:10px; font-weight:700; color:#94A3B8;
-              text-transform:uppercase; letter-spacing:2.2px">
-      Resumen de tu orden
-    </p>
-
-    <!-- Card container -->
-    <table width="100%" cellpadding="0" cellspacing="0"
-      style="background:#FFFFFF; border:1px solid #DDE6F0; border-radius:18px; overflow:hidden;
-             box-shadow:0 4px 24px rgba(11,35,66,0.08), 0 1px 4px rgba(11,35,66,0.04)">
-
-      <!-- ── Card header ── -->
-      <tr>
-        <td style="background:linear-gradient(95deg,#0F3060 0%,#163B78 60%,#123B6D 100%);
-                   padding:20px 28px; border-radius:18px 18px 0 0">
-          <table width="100%" cellpadding="0" cellspacing="0"><tr>
-            <td>
-              <p style="margin:0 0 3px; font-size:16px; font-weight:700; color:#FFFFFF;
-                         letter-spacing:-0.3px">
-                [companyName]
-              </p>
-              <p style="margin:0; font-size:11px; color:#4A6A8A; letter-spacing:0.5px">
-                Ref. [orderRef] &nbsp;·&nbsp; [stateName]
-              </p>
-            </td>
-            <td style="text-align:right; vertical-align:middle">
-              <!-- Animated status badge -->
-              <span style="display:inline-flex; align-items:center; gap:7px;
-                           background:rgba(251,191,36,0.12); border:1px solid rgba(251,191,36,0.25);
-                           border-radius:20px; padding:6px 14px">
-                <svg width="7" height="7" viewBox="0 0 7 7" style="display:inline-block;flex-shrink:0">
-                  <circle cx="3.5" cy="3.5" r="3.5" fill="#FBBF24"/>
+        <div class="trust">
+          <div class="trust-inner">
+            <div class="trust-card">
+              <div class="trust-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 7L10 17L5 12" stroke="#169C79" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <span style="font-size:11px; color:#FDE68A; font-weight:700; letter-spacing:0.3px">
-                  Procesando
-                </span>
-              </span>
-            </td>
-          </tr></table>
-        </td>
-      </tr>
-
-      <!-- ── Row: Estado ── -->
-      <tr>
-        <td style="padding:20px 28px; border-bottom:1px solid #F1F5F9">
-          <table width="100%" cellpadding="0" cellspacing="0"><tr>
-            <td style="vertical-align:middle">
-              <div style="display:flex; align-items:center; gap:10px">
-                <!-- Map pin icon -->
-                <div style="width:32px; height:32px; border-radius:8px; background:#EEF4FB;
-                            display:flex; align-items:center; justify-content:center; flex-shrink:0;
-                            line-height:32px; text-align:center">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                       xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
-                          fill="#123B6D" fill-opacity="0.9"/>
-                    <circle cx="12" cy="9" r="2.5" fill="white"/>
-                  </svg>
-                </div>
-                <span style="font-size:12px; color:#94A3B8; font-weight:600;
-                              text-transform:uppercase; letter-spacing:0.8px">
-                  Estado de formación
-                </span>
               </div>
-            </td>
-            <td style="text-align:right">
-              <span style="font-size:15px; font-weight:700; color:#0B2342">[stateName]</span>
-            </td>
-          </tr></table>
-        </td>
-      </tr>
-
-      <!-- ── Row: Paquete ── -->
-      <tr>
-        <td style="padding:20px 28px; border-bottom:1px solid #F1F5F9; background:#FAFCFF">
-          <table width="100%" cellpadding="0" cellspacing="0"><tr>
-            <td style="vertical-align:middle">
-              <div style="display:flex; align-items:center; gap:10px">
-                <div style="width:32px; height:32px; border-radius:8px; background:#EEF4FB;
-                            display:flex; align-items:center; justify-content:center; flex-shrink:0;
-                            line-height:32px; text-align:center">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                       xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle">
-                    <path d="M12 2L2 7l10 5 10-5-10-5z" fill="#123B6D" fill-opacity="0.85"/>
-                    <path d="M2 17l10 5 10-5" stroke="#123B6D" stroke-width="2"
-                          stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                    <path d="M2 12l10 5 10-5" stroke="#123B6D" stroke-width="2"
-                          stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-opacity="0.5"/>
-                  </svg>
-                </div>
-                <span style="font-size:12px; color:#94A3B8; font-weight:600;
-                              text-transform:uppercase; letter-spacing:0.8px">
-                  Paquete
-                </span>
+              <p class="trust-title">Pago confirmado</p>
+              <p class="trust-text">Transacción validada correctamente.</p>
+            </div>
+            <div class="trust-card">
+              <div class="trust-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 3L18 6V11C18 15 15.5 18.2 12 19C8.5 18.2 6 15 6 11V6L12 3Z" stroke="#234D85" stroke-width="2.1"/>
+                  <path d="M10.5 11.5L12 13L14.8 10.2" stroke="#234D85" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
-            </td>
-            <td style="text-align:right">
-              <span style="font-size:15px; font-weight:700; color:#0B2342">[packageName]</span>
-            </td>
-          </tr></table>
-        </td>
-      </tr>
-
-      <!-- ── Row: EIN ── -->
-      <tr>
-        <td style="padding:20px 28px; border-bottom:1px solid #F1F5F9">
-          <table width="100%" cellpadding="0" cellspacing="0"><tr>
-            <td style="vertical-align:middle">
-              <div style="display:flex; align-items:center; gap:10px">
-                <div style="width:32px; height:32px; border-radius:8px; background:#ECFDF5;
-                            display:flex; align-items:center; justify-content:center; flex-shrink:0;
-                            line-height:32px; text-align:center">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                       xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle">
-                    <rect x="3" y="3" width="18" height="18" rx="3" stroke="#059669" stroke-width="1.8" fill="none"/>
-                    <path d="M7 8h10M7 12h10M7 16h6" stroke="#059669" stroke-width="1.8"
-                          stroke-linecap="round"/>
-                  </svg>
-                </div>
-                <span style="font-size:12px; color:#94A3B8; font-weight:600;
-                              text-transform:uppercase; letter-spacing:0.8px">
-                  EIN Federal
-                </span>
+              <p class="trust-title">Datos protegidos</p>
+              <p class="trust-text">Información resguardada en cada etapa.</p>
+            </div>
+            <div class="trust-card">
+              <div class="trust-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 20H20" stroke="#C6283E" stroke-width="2.1" stroke-linecap="round"/>
+                  <path d="M6 20V10M10 20V10M14 20V10M18 20V10" stroke="#C6283E" stroke-width="2.1" stroke-linecap="round"/>
+                  <path d="M3 10L12 4L21 10" stroke="#C6283E" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
-            </td>
-            <td style="text-align:right">
-              <span style="display:inline-block; background:#ECFDF5; border:1px solid #6EE7B7;
-                           border-radius:20px; padding:5px 14px; font-size:11px; color:#059669;
-                           font-weight:700; letter-spacing:0.2px">
-                ✓ Incluido
-              </span>
-            </td>
-          </tr></table>
-        </td>
-      </tr>
-
-      <!-- ── Row: Total — featured ── -->
-      <tr>
-        <td style="padding:22px 28px; background:linear-gradient(90deg,#F6FAFF 0%,#EEF4FB 100%);
-                   border-radius:0 0 18px 18px">
-          <table width="100%" cellpadding="0" cellspacing="0"><tr>
-            <td style="vertical-align:middle">
-              <p style="margin:0 0 2px; font-size:11px; color:#94A3B8; font-weight:600;
-                         text-transform:uppercase; letter-spacing:0.8px">
-                Total pagado
-              </p>
-              <p style="margin:0; font-size:11px; color:#B0BEC5">
-                Procesado por Stripe · Cifrado TLS
-              </p>
-            </td>
-            <td style="text-align:right">
-              <span style="font-size:26px; font-weight:800; color:#0B2342; letter-spacing:-0.8px">
-                $[amount]
-              </span>
-            </td>
-          </tr></table>
-        </td>
-      </tr>
-
-    </table>
-  </td>
-</tr>
-
-
-<!-- ═══════════════════════════════════════════════════════════════
-     5. TIMELINE — Próximos pasos
-═══════════════════════════════════════════════════════════════════ -->
-<tr>
-  <td class="section-pad"
-    style="background:#FFFFFF; padding:44px 48px; border-top:2px solid #EEF4FB">
-
-    <p style="margin:0 0 32px; font-size:10px; font-weight:700; color:#94A3B8;
-              text-transform:uppercase; letter-spacing:2.2px">
-      Tu proceso · 5 pasos
-    </p>
-
-    <!-- ── STEP 1: DONE ── -->
-    <table width="100%" cellpadding="0" cellspacing="0">
-      <tr>
-        <td width="48" valign="top" style="text-align:center">
-          <!-- Circle with gradient -->
-          <div style="width:40px; height:40px; border-radius:50%; margin:0 auto;
-                      background:linear-gradient(135deg,#059669 0%,#10B981 100%);
-                      box-shadow:0 4px 16px rgba(5,150,105,0.35);
-                      text-align:center; line-height:40px">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                 xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle">
-              <path d="M4 12.5L9 17.5L20 7" stroke="white" stroke-width="2.5"
-                    stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <!-- Connector -->
-          <div style="width:2px; height:40px; background:linear-gradient(#10B981,#DDE6F0);
-                      margin:0 auto"></div>
-        </td>
-        <td style="padding:6px 0 0 16px; vertical-align:top">
-          <table width="100%" cellpadding="0" cellspacing="0"><tr>
-            <td>
-              <p style="margin:0 0 4px; font-size:15px; font-weight:700; color:#059669">
-                Pago recibido
-              </p>
-              <p style="margin:0 0 32px; font-size:12px; color:#94A3B8; line-height:1.55">
-                Tu pago fue procesado y verificado correctamente
-              </p>
-            </td>
-            <td valign="top" style="text-align:right; padding-top:4px; white-space:nowrap">
-              <span style="display:inline-block; background:#ECFDF5; border:1px solid #6EE7B7;
-                           border-radius:20px; padding:4px 12px; font-size:10px; font-weight:700;
-                           color:#059669; letter-spacing:0.3px">
-                ✓ Completado
-              </span>
-            </td>
-          </tr></table>
-        </td>
-      </tr>
-    </table>
-
-    <!-- ── STEP 2: ACTIVE ── -->
-    <table width="100%" cellpadding="0" cellspacing="0">
-      <tr>
-        <td width="48" valign="top" style="text-align:center">
-          <div class="step-active"
-            style="width:40px; height:40px; border-radius:50%; margin:0 auto;
-                   background:linear-gradient(135deg,#163B78 0%,#1A5CB8 100%);
-                   border:2px solid #3B82F6; text-align:center; line-height:38px">
-            <!-- Clock/in-progress icon -->
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                 xmlns="http://www.w3.org/2000/svg"
-                 class="spin-icon" style="display:inline-block;vertical-align:middle">
-              <circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,0.25)" stroke-width="2"/>
-              <path d="M12 3C7.03 3 3 7.03 3 12" stroke="white" stroke-width="2.5"
-                    stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div style="width:2px; height:40px; background:#DDE6F0; margin:0 auto"></div>
-        </td>
-        <td style="padding:6px 0 0 16px; vertical-align:top">
-          <table width="100%" cellpadding="0" cellspacing="0"><tr>
-            <td>
-              <p style="margin:0 0 4px; font-size:15px; font-weight:700; color:#123B6D">
-                Revisión de documentos
-              </p>
-              <p style="margin:0 0 32px; font-size:12px; color:#94A3B8; line-height:1.55">
-                Nuestro equipo está preparando tu expediente de incorporación
-              </p>
-            </td>
-            <td valign="top" style="text-align:right; padding-top:4px; white-space:nowrap">
-              <span style="display:inline-block; background:#DBEAFE; border:1px solid #93C5FD;
-                           border-radius:20px; padding:4px 12px; font-size:10px; font-weight:700;
-                           color:#1D4ED8; letter-spacing:0.3px">
-                En proceso
-              </span>
-            </td>
-          </tr></table>
-        </td>
-      </tr>
-    </table>
-
-    <!-- STEPS 3, 4, 5 — Pending (shared style) -->
-
-    <!-- Step 3 -->
-    <table width="100%" cellpadding="0" cellspacing="0">
-      <tr>
-        <td width="48" valign="top" style="text-align:center">
-          <div style="width:40px; height:40px; border-radius:50%; margin:0 auto;
-                      background:#F8FAFC; border:1.5px solid #E2E8F0;
-                      text-align:center; line-height:37px">
-            <span style="font-size:13px; font-weight:700; color:#CBD5E1">3</span>
-          </div>
-          <div style="width:2px; height:40px; background:#F1F5F9; margin:0 auto"></div>
-        </td>
-        <td style="padding:8px 0 0 16px; vertical-align:top">
-          <p style="margin:0 0 4px; font-size:14px; font-weight:600; color:#CBD5E1">
-            Filing estatal
-          </p>
-          <p style="margin:0 0 32px; font-size:12px; color:#E2E8F0; line-height:1.55">
-            Presentación de artículos de formación en [stateName]
-          </p>
-        </td>
-      </tr>
-    </table>
-
-    <!-- Step 4 -->
-    <table width="100%" cellpadding="0" cellspacing="0">
-      <tr>
-        <td width="48" valign="top" style="text-align:center">
-          <div style="width:40px; height:40px; border-radius:50%; margin:0 auto;
-                      background:#F8FAFC; border:1.5px solid #E2E8F0;
-                      text-align:center; line-height:37px">
-            <span style="font-size:13px; font-weight:700; color:#CBD5E1">4</span>
-          </div>
-          <div style="width:2px; height:40px; background:#F1F5F9; margin:0 auto"></div>
-        </td>
-        <td style="padding:8px 0 0 16px; vertical-align:top">
-          <p style="margin:0 0 4px; font-size:14px; font-weight:600; color:#CBD5E1">
-            Obtención de EIN
-          </p>
-          <p style="margin:0 0 32px; font-size:12px; color:#E2E8F0; line-height:1.55">
-            Número de identificación fiscal emitido por el IRS
-          </p>
-        </td>
-      </tr>
-    </table>
-
-    <!-- Step 5 — last, no connector -->
-    <table width="100%" cellpadding="0" cellspacing="0">
-      <tr>
-        <td width="48" valign="top" style="text-align:center">
-          <div style="width:40px; height:40px; border-radius:50%; margin:0 auto;
-                      background:#F8FAFC; border:1.5px solid #E2E8F0;
-                      text-align:center; line-height:37px">
-            <span style="font-size:13px; font-weight:700; color:#CBD5E1">5</span>
-          </div>
-        </td>
-        <td style="padding:8px 0 0 16px; vertical-align:top">
-          <p style="margin:0 0 4px; font-size:14px; font-weight:600; color:#CBD5E1">
-            Entrega de documentos oficiales
-          </p>
-          <p style="margin:0; font-size:12px; color:#E2E8F0; line-height:1.55">
-            Articles of Organization, Operating Agreement y EIN Letter
-          </p>
-        </td>
-      </tr>
-    </table>
-
-  </td>
-</tr>
-
-
-<!-- ═══════════════════════════════════════════════════════════════
-     6. SOPORTE — Team / human block
-═══════════════════════════════════════════════════════════════════ -->
-<tr>
-  <td class="section-pad"
-    style="background:linear-gradient(135deg,#EAF1FB 0%,#F4F8FE 100%);
-           padding:44px 48px; border-top:2px solid #EEF4FB">
-
-    <table width="100%" cellpadding="0" cellspacing="0" class="support-inner">
-      <tr>
-
-        <!-- Avatar illustration -->
-        <td class="support-avatar-cell" width="88" valign="middle" style="padding-right:24px">
-          <div style="width:72px; height:72px; border-radius:18px;
-                      background:linear-gradient(140deg,#153C72 0%,#1A5CB8 100%);
-                      box-shadow:0 6px 24px rgba(10,39,72,0.28);
-                      text-align:center; line-height:72px; position:relative; overflow:hidden">
-            <!-- Person SVG illustration -->
-            <svg width="72" height="72" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg"
-                 style="display:block">
-              <!-- Body / shirt -->
-              <ellipse cx="36" cy="62" rx="22" ry="14" fill="rgba(255,255,255,0.12)"/>
-              <rect x="20" y="46" width="32" height="20" rx="6" fill="rgba(255,255,255,0.15)"/>
-              <!-- Tie/badge accent -->
-              <rect x="33" y="46" width="6" height="14" rx="2" fill="rgba(198,40,62,0.55)"/>
-              <!-- Head -->
-              <circle cx="36" cy="32" r="14" fill="rgba(255,255,255,0.18)"/>
-              <!-- Face highlight -->
-              <ellipse cx="34" cy="30" rx="5" ry="6" fill="rgba(255,255,255,0.08)"/>
-              <!-- Eyes -->
-              <circle cx="31" cy="30" r="1.5" fill="rgba(255,255,255,0.70)"/>
-              <circle cx="41" cy="30" r="1.5" fill="rgba(255,255,255,0.70)"/>
-              <!-- Smile -->
-              <path d="M31 35 Q36 39 41 35" stroke="rgba(255,255,255,0.60)" stroke-width="1.5"
-                    fill="none" stroke-linecap="round"/>
-              <!-- Stars top-right corner of card -->
-              <circle cx="60" cy="12" r="2" fill="rgba(255,255,255,0.20)"/>
-              <circle cx="54" cy="8"  r="1.2" fill="rgba(255,255,255,0.15)"/>
-              <circle cx="65" cy="18" r="1" fill="rgba(255,255,255,0.15)"/>
-            </svg>
-          </div>
-        </td>
-
-        <!-- Message -->
-        <td valign="middle">
-          <p style="margin:0 0 6px; font-size:16px; font-weight:700; color:#0B2342; line-height:1.3">
-            Ya tienes un especialista asignado
-          </p>
-          <p style="margin:0 0 16px; font-size:13px; color:#475569; line-height:1.65">
-            Revisaremos tu expediente en las próximas
-            <strong style="color:#0B2342">24 horas hábiles</strong>
-            y te mantendremos informado por email y WhatsApp.
-          </p>
-
-          <!-- Team badge -->
-          <div style="display:inline-flex; align-items:center; gap:10px; padding:10px 16px;
-                      background:#FFFFFF; border:1px solid #DDE6F0; border-radius:12px;
-                      box-shadow:0 2px 8px rgba(11,35,66,0.07)">
-            <!-- Mini flag -->
-            <svg width="22" height="15" viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"
-                 style="display:block; border-radius:2px; flex-shrink:0">
-              <rect width="22" height="15" rx="2" fill="#F1F5F9"/>
-              <rect width="8" height="15" rx="2" fill="#102E58"/>
-              <circle cx="2.5" cy="5"  r="0.9" fill="rgba(255,255,255,0.75)"/>
-              <circle cx="5.5" cy="5"  r="0.9" fill="rgba(255,255,255,0.75)"/>
-              <circle cx="2.5" cy="10" r="0.9" fill="rgba(255,255,255,0.75)"/>
-              <circle cx="5.5" cy="10" r="0.9" fill="rgba(255,255,255,0.75)"/>
-              <rect x="9" y="0"    width="13" height="2.14" fill="#C6283E"/>
-              <rect x="9" y="2.14" width="13" height="2.14" fill="white"/>
-              <rect x="9" y="4.28" width="13" height="2.14" fill="#C6283E"/>
-              <rect x="9" y="6.42" width="13" height="2.14" fill="white"/>
-              <rect x="9" y="8.57" width="13" height="2.14" fill="#C6283E"/>
-              <rect x="9" y="10.7" width="13" height="2.14" fill="white"/>
-              <rect x="9" y="12.8" width="13" height="2.14" fill="#C6283E"/>
-            </svg>
-            <div>
-              <p style="margin:0; font-size:12px; font-weight:700; color:#0B2342; line-height:1.2">
-                Equipo de Incorporaciones
-              </p>
-              <p style="margin:0; font-size:10px; color:#94A3B8; letter-spacing:0.3px">
-                CreaTuEmpresaUSA · L–V 9am–6pm EST
-              </p>
+              <p class="trust-title">Proceso estructurado en EE.UU.</p>
+              <p class="trust-text">Seguimiento claro para cada fase de tu incorporación.</p>
             </div>
           </div>
-        </td>
+        </div>
 
-      </tr>
-    </table>
-  </td>
-</tr>
-
-
-<!-- ═══════════════════════════════════════════════════════════════
-     7. CTA
-═══════════════════════════════════════════════════════════════════ -->
-<tr>
-  <td class="cta-section"
-    style="background:linear-gradient(155deg,#0D2E56 0%,#153C72 50%,#1C4D8C 100%);
-           padding:60px 48px; text-align:center; position:relative; overflow:hidden">
-
-    <!-- Radial glow left -->
-    <div style="position:absolute;bottom:-80px;left:-80px;width:300px;height:300px;
-                border-radius:50%;background:radial-gradient(circle,rgba(198,40,62,0.10) 0%,transparent 70%);
-                pointer-events:none"></div>
-
-    <!-- Dot grid -->
-    <div style="position:absolute;top:0;left:0;right:0;bottom:0;
-                background-image:radial-gradient(rgba(255,255,255,0.03) 1.5px,transparent 1.5px);
-                background-size:24px 24px; pointer-events:none"></div>
-
-    <!-- Eyebrow -->
-    <p style="margin:0 0 10px; font-size:10px; font-weight:700; color:#3B6DAA;
-              text-transform:uppercase; letter-spacing:2.2px; position:relative; z-index:1">
-      Tu portal está activo
-    </p>
-
-    <!-- Heading -->
-    <p style="margin:0 0 32px; font-size:22px; font-weight:700; color:#FFFFFF;
-              line-height:1.4; max-width:360px; margin-left:auto; margin-right:auto;
-              position:relative; z-index:1; letter-spacing:-0.3px">
-      Accede para ver el estado de tu caso en tiempo real
-    </p>
-
-    <!-- CTA Button -->
-    <a href="https://creatuempresausa.com/dashboard" class="cta-btn"
-       style="display:inline-block; background:linear-gradient(135deg,#B91C2F 0%,#C6283E 100%);
-              color:#FFFFFF; padding:22px 60px; border-radius:14px; font-size:17px; font-weight:700;
-              text-decoration:none; letter-spacing:0.2px; position:relative; z-index:1;
-              box-shadow:0 8px 32px rgba(198,40,62,0.50), 0 2px 8px rgba(0,0,0,0.20);
-              border:1px solid rgba(255,255,255,0.10)">
-      Acceder a mi portal &nbsp;→
-    </a>
-
-    <!-- Sub-note -->
-    <p style="margin:20px 0 0; font-size:11px; color:#2D4A6A; position:relative; z-index:1;
-              letter-spacing:0.3px">
-      creatuempresausa.com/dashboard
-    </p>
-
-  </td>
-</tr>
-
-
-<!-- ═══════════════════════════════════════════════════════════════
-     8. CONTACTO
-═══════════════════════════════════════════════════════════════════ -->
-<tr>
-  <td class="section-pad contact-pad"
-    style="background:#FFFFFF; padding:40px 48px; text-align:center;
-           border-top:2px solid #EEF4FB">
-
-    <p style="margin:0 0 24px; font-size:13px; color:#64748B; line-height:1.6">
-      ¿Tienes preguntas sobre tu proceso?<br>
-      <strong style="color:#0B2342">Nuestro equipo está aquí para ayudarte.</strong>
-    </p>
-
-    <table width="100%" cellpadding="0" cellspacing="0" class="contact-cols">
-      <tr>
-        <!-- Email -->
-        <td width="50%" style="padding:0 8px 0 0; vertical-align:top">
-          <a href="mailto:soporte@creatuempresausa.com"
-             style="display:block; padding:16px 20px; background:#F6FAFF;
-                    border:1.5px solid #DDE6F0; border-radius:14px; text-decoration:none;
-                    transition:all 0.2s">
-            <!-- Mail icon -->
-            <div style="margin:0 auto 10px; width:40px; height:40px; border-radius:10px;
-                        background:linear-gradient(135deg,#0B2342 0%,#123B6D 100%);
-                        text-align:center; line-height:40px">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                   xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle">
-                <rect x="2" y="4" width="20" height="16" rx="3" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" fill="rgba(255,255,255,0.10)"/>
-                <path d="M2 7L12 13L22 7" stroke="rgba(255,255,255,0.85)" stroke-width="1.8"
-                      stroke-linecap="round" fill="none"/>
-              </svg>
+        <div class="section">
+          <p class="eyebrow">Resumen de tu orden</p>
+          <div class="order-card">
+            <div class="order-top">
+              <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap;">
+                <div>
+                  <p class="order-name">[companyName]</p>
+                  <div class="order-meta">Ref. [orderRef] &nbsp; · &nbsp; [stateName]</div>
+                </div>
+                <div class="pill processing">● Procesando</div>
+              </div>
             </div>
-            <p style="margin:0 0 2px; font-size:10px; color:#94A3B8; font-weight:700;
-                       text-transform:uppercase; letter-spacing:1px">
-              Email
-            </p>
-            <p style="margin:0; font-size:12px; font-weight:700; color:#123B6D; line-height:1.3">
-              soporte@creatuempresausa.com
-            </p>
-          </a>
-        </td>
-        <!-- WhatsApp -->
-        <td width="50%" style="padding:0 0 0 8px; vertical-align:top">
-          <a href="https://wa.me/19493461806"
-             style="display:block; padding:16px 20px; background:#F6FAFF;
-                    border:1.5px solid #DDE6F0; border-radius:14px; text-decoration:none">
-            <!-- WhatsApp-style icon -->
-            <div style="margin:0 auto 10px; width:40px; height:40px; border-radius:10px;
-                        background:linear-gradient(135deg,#059669 0%,#10B981 100%);
-                        text-align:center; line-height:40px">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                   xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle">
-                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"
-                      stroke="rgba(255,255,255,0.85)" stroke-width="1.8" stroke-linecap="round"
-                      stroke-linejoin="round" fill="rgba(255,255,255,0.12)"/>
-              </svg>
+            <div class="order-body">
+              <div class="row">
+                <div class="label">Estado de formación</div>
+                <div class="value">[stateName]</div>
+              </div>
+              <div class="row">
+                <div class="label">Paquete</div>
+                <div class="value">[packageName]</div>
+              </div>
+              <div class="row">
+                <div class="label">EIN federal</div>
+                <div class="value"><span class="pill included">✓ Incluido</span></div>
+              </div>
+              <div class="total-wrap">
+                <div>
+                  <div class="total-label">Total pagado</div>
+                  <div class="total-note">Pago procesado de forma segura.</div>
+                </div>
+                <div class="total-amount">$[amount]</div>
+              </div>
             </div>
-            <p style="margin:0 0 2px; font-size:10px; color:#94A3B8; font-weight:700;
-                       text-transform:uppercase; letter-spacing:1px">
-              WhatsApp
-            </p>
-            <p style="margin:0; font-size:12px; font-weight:700; color:#059669; line-height:1.3">
-              +1 (949) 346-1806
-            </p>
-          </a>
-        </td>
-      </tr>
-    </table>
+          </div>
+        </div>
 
-  </td>
-</tr>
+        <div class="section">
+          <p class="eyebrow">Tu proceso · 5 pasos</p>
+          <div class="timeline">
+            <div class="step">
+              <div class="dot done">✓</div>
+              <div class="step-title-row">
+                <div class="step-title">Pago recibido</div>
+                <div class="tag done">Completado</div>
+              </div>
+              <div class="step-text">Tu pago fue procesado y verificado correctamente.</div>
+            </div>
+            <div class="step">
+              <div class="dot active">2</div>
+              <div class="step-title-row">
+                <div class="step-title">Revisión de documentos</div>
+                <div class="tag active">En proceso</div>
+              </div>
+              <div class="step-text">Nuestro equipo está preparando tu expediente de incorporación.</div>
+            </div>
+            <div class="step">
+              <div class="dot pending">3</div>
+              <div class="step-title-row">
+                <div class="step-title">Filing estatal</div>
+                <div class="tag pending">Pendiente</div>
+              </div>
+              <div class="step-text">Presentaremos tu formación oficialmente en el estado de [stateName].</div>
+            </div>
+            <div class="step">
+              <div class="dot pending">4</div>
+              <div class="step-title-row">
+                <div class="step-title">Obtención de EIN</div>
+                <div class="tag pending">Pendiente</div>
+              </div>
+              <div class="step-text">Gestionaremos tu número de identificación fiscal federal cuando corresponda.</div>
+            </div>
+            <div class="step">
+              <div class="dot pending">5</div>
+              <div class="step-title-row">
+                <div class="step-title">Entrega de documentos finales</div>
+                <div class="tag pending">Pendiente</div>
+              </div>
+              <div class="step-text">Recibirás tus documentos oficiales y próximos pasos para operar con confianza.</div>
+            </div>
+          </div>
+        </div>
 
+        <div class="section">
+          <div class="assigned">
+            <div class="assigned-grid">
+              <div class="avatar">
+                <svg width="38" height="38" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                  <circle cx="24" cy="16" r="8" fill="#DCE9FA"/>
+                  <path d="M12 37C12 30.9249 16.9249 26 23 26H25C31.0751 26 36 30.9249 36 37V39H12V37Z" fill="#9EBBE3"/>
+                  <path d="M18 10H30" stroke="#F3F8FF" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div>
+                <p class="assigned-title">Ya tienes un especialista asignado</p>
+                <p class="assigned-text">
+                  Revisaremos tu expediente en las próximas <strong style="color:#17324d;">24 horas hábiles</strong>
+                  y te mantendremos informado por email y WhatsApp.
+                </p>
+                <div class="mini-card">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 2L20 6V12C20 17 16.5 20.5 12 22C7.5 20.5 4 17 4 12V6L12 2Z" fill="#F7FAFF" stroke="#123B6D" stroke-width="1.8"/>
+                    <path d="M10 11.5L11.7 13.2L14.8 10.1" stroke="#123B6D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <div class="mini-text">
+                    <strong>Equipo de Incorporaciones</strong>
+                    CreaTuEmpresaUSA · L–V 9am–6pm EST
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-<!-- ═══════════════════════════════════════════════════════════════
-     9. FOOTER
-═══════════════════════════════════════════════════════════════════ -->
-<tr>
-  <td class="footer-pad"
-    style="background:#0D2E56; padding:36px 48px; text-align:center;
-           border-radius:0 0 24px 24px; border-top:1px solid #0B1E35">
+          <div class="cta-section">
+            <div class="cta-kicker">Tu portal está activo</div>
+            <div class="cta-title">Accede para ver el estado de tu caso en tiempo real</div>
+            <div class="cta-text">
+              Desde tu portal podrás revisar avances, próximos pasos y actualizaciones de tu proceso en un solo lugar.
+            </div>
+            <a href="https://creatuempresausa.com/dashboard" class="button">Acceder a mi portal →</a>
+          </div>
+        </div>
 
-    <!-- Wordmark -->
-    <p style="margin:0 0 16px; font-family:Georgia,'Times New Roman',serif;
-              font-size:17px; font-weight:700; color:#FFFFFF; letter-spacing:-0.4px">
-      CreaTuEmpresa<span style="color:#C6283E">USA</span>
-    </p>
+        <div class="support">
+          <p class="support-title">¿Tienes preguntas sobre tu proceso?</p>
+          <p class="support-text">Nuestro equipo está aquí para ayudarte con una experiencia clara, rápida y profesional.</p>
+          <div class="contact-grid">
+            <div class="contact-card">
+              <div class="contact-icon-wrap">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.8" fill="#EEF4FF" stroke="#1B4A82" stroke-width="1.8"/>
+                  <path d="M6 8L12 12.8L18 8" stroke="#1B4A82" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="contact-label">Email</div>
+              <div class="contact-value">soporte@creatuempresausa.com</div>
+            </div>
+            <div class="contact-card">
+              <div class="contact-icon-wrap">
+                <svg width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                  <circle cx="16" cy="16" r="13" fill="#EAF9F0" stroke="#169C79" stroke-width="1.8"/>
+                  <path d="M12.2 10.9C12.5 10.5 12.9 10.4 13.3 10.6L14.9 11.3C15.3 11.5 15.5 11.9 15.4 12.3L15 14C14.9 14.4 15 14.7 15.3 15C16.2 15.9 17.2 16.8 18.3 17.4C18.6 17.6 18.9 17.6 19.2 17.4L20.6 16.6C21 16.4 21.4 16.4 21.8 16.7L23.1 17.9C23.4 18.2 23.5 18.7 23.2 19.1C22.5 20.1 21.5 20.7 20.3 20.7C18.7 20.7 16.8 19.8 14.7 18C12.5 16.1 11.1 13.9 11.1 12.1C11.1 11.6 11.5 11.2 12.2 10.9Z" fill="#169C79"/>
+                </svg>
+              </div>
+              <div class="contact-label">WhatsApp</div>
+              <div class="contact-value">+1 (949) 346-1806</div>
+            </div>
+          </div>
+        </div>
 
-    <!-- Mini flag strip -->
-    <div style="margin:0 auto 20px; width:80px">
-      <svg width="80" height="5" viewBox="0 0 80 5" xmlns="http://www.w3.org/2000/svg">
-        <rect width="80" height="5" rx="2.5" fill="#0B1E35"/>
-        <rect x="0"  y="0" width="80" height="0.71" fill="#C6283E" fill-opacity="0.7"/>
-        <rect x="0" y="0.71" width="80" height="0.71" fill="rgba(255,255,255,0.25)"/>
-        <rect x="0" y="1.42" width="80" height="0.71" fill="#C6283E" fill-opacity="0.7"/>
-        <rect x="0" y="2.14" width="80" height="0.71" fill="rgba(255,255,255,0.25)"/>
-        <rect x="0" y="2.85" width="80" height="0.71" fill="#C6283E" fill-opacity="0.7"/>
-        <rect x="0" y="3.57" width="80" height="0.71" fill="rgba(255,255,255,0.25)"/>
-        <rect x="0" y="4.28" width="80" height="0.71" fill="#C6283E" fill-opacity="0.7"/>
-      </svg>
+        <div class="footer">
+          <div class="footer-logo">CreaTuEmpresa<span class="usa">USA</span></div>
+          <div class="footer-links">Guía <span>|</span> Preguntas frecuentes <span>|</span> Contacto</div>
+          <div class="footer-note">La forma más clara, moderna y confiable para crear y operar un negocio en Estados Unidos.</div>
+        </div>
+      </div>
     </div>
-
-    <!-- Links -->
-    <p style="margin:0 0 16px">
-      <a href="#" style="font-size:12px; color:#3B6DAA; text-decoration:none; margin:0 10px">Guía</a>
-      <span style="color:#0B1E35; font-size:14px">·</span>
-      <a href="#" style="font-size:12px; color:#3B6DAA; text-decoration:none; margin:0 10px">FAQ</a>
-      <span style="color:#0B1E35; font-size:14px">·</span>
-      <a href="mailto:soporte@creatuempresausa.com"
-         style="font-size:12px; color:#3B6DAA; text-decoration:none; margin:0 10px">Contacto</a>
-    </p>
-
-    <!-- Divider -->
-    <div style="width:36px; height:1px; background:#0F2440; margin:0 auto 16px"></div>
-
-    <!-- Copyright -->
-    <p style="margin:0 0 8px; font-size:11px; color:#1E3A5F">
-      © 2026 CreaTuEmpresaUSA · Todos los derechos reservados
-    </p>
-
-    <!-- Disclaimer -->
-    <p style="margin:0; font-size:10px; color:#132334; line-height:1.7;
-              max-width:400px; margin-left:auto; margin-right:auto">
-      Este mensaje fue enviado a <span style="color:#1E3A5F">[customerEmail]</span>
-      porque realizaste una compra en CreaTuEmpresaUSA.
-      Si crees que lo recibiste por error, contáctanos en soporte@creatuempresausa.com
-    </p>
-
-  </td>
-</tr>
-
-
-</table>
-<!-- END EMAIL CARD -->
-
-</td></tr>
-</table>
-<!-- END OUTER WRAPPER -->
-
-</body>
+  </body>
 </html>
