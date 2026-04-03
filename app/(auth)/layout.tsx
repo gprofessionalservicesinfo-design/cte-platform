@@ -1,5 +1,3 @@
-import { Building2 } from 'lucide-react'
-
 export default function AuthLayout({
   children,
 }: {
@@ -7,14 +5,6 @@ export default function AuthLayout({
 }) {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex items-center justify-center gap-2 mb-6">
-          <div className="bg-primary rounded-lg p-2">
-            <Building2 className="h-6 w-6 text-white" />
-          </div>
-          <span className="text-2xl font-bold text-gray-900">CTE Platform</span>
-        </div>
-      </div>
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow-sm rounded-lg sm:px-10 border border-gray-100">
           {children}

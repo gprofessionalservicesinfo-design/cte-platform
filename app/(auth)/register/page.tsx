@@ -81,8 +81,8 @@ export default function RegisterPage() {
 
   return (
     <>
-      <div className="flex justify-center mb-8">
-        <img src="/assets/logo.svg" alt="CreaTuEmpresaUSA" style={{ height: '40px', width: 'auto', maxWidth: '200px', objectFit: 'contain' }} />
+      <div className="flex justify-center mb-6">
+        <Logo height={36} />
       </div>
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-gray-900">Create your account</h2>
