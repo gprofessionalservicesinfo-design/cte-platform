@@ -747,51 +747,45 @@ document.addEventListener('DOMContentLoaded', function() {
     persistStatus.textContent = STATUS_LABELS[key] || '';
   }
 
-  /* Helper: perform Stripe redirect (or contact fallback) */
-  function doStripeRedirect() {
-    /* ── STRIPE PAYMENT LINKS ──────────────────────────────────────
-       Configure these in /js/config.js → STRIPE_PAYMENT_LINK_*
-       Set success_url in your Stripe Payment Link settings to:
-         https://www.creatuempresausa.com/success.html?session_id={CHECKOUT_SESSION_ID}
-       The {CHECKOUT_SESSION_ID} placeholder is filled by Stripe automatically.
-       success.html reads ?session_id= and stores it for backend verification.
-       ─────────────────────────────────────────────────────────── */
+  /* Helper: perform Stripe Checkout Session via API then redirect */
+  async function doStripeRedirect() {
     var cfg   = window.CONFIG || {};
-    var links = {
-      basic:   cfg.STRIPE_PAYMENT_LINK_STARTER || '',
-      growth:  cfg.STRIPE_PAYMENT_LINK_PRO     || '',
-      premium: cfg.STRIPE_PAYMENT_LINK_PREMIUM  || ''
-    };
-    var link  = links[order.package] || '';
-    var valid = link && !link.includes('YOUR_STRIPE') && link.trim() !== '';
-    var email = order.customer && order.customer.email ? order.customer.email : '';
+    var appUrl = cfg.APP_URL || 'https://creatuempresausa.com';
 
-    if (valid) {
-      var sep = link.indexOf('?') >= 0 ? '&' : '?';
-      var stripeUrl = link;
-      if (email) { stripeUrl += sep + 'prefilled_email=' + encodeURIComponent(email); sep = '&'; }
-      var refParts = [];
-      var taTs  = localStorage.getItem('cte_terms_accepted');
-      var phone = order && order.customer && order.customer.phone ? order.customer.phone.trim() : '';
-      console.log('[checkout] order.customer:', order && order.customer ? JSON.stringify(order.customer) : '(null)');
-      console.log('[checkout] taTs:', taTs || '(none)');
-      console.log('[checkout] phone:', phone || '(empty — WhatsApp will be skipped)');
-      if (taTs)  refParts.push('ta_'  + taTs);
-      if (phone) refParts.push('ph_' + phone);
-      var clientRefId = refParts.length ? refParts.join('||') : '';
-      if (clientRefId) { stripeUrl += sep + 'client_reference_id=' + encodeURIComponent(clientRefId); }
-      console.log('[checkout] client_reference_id being sent to Stripe:', clientRefId || '(none)');
-      console.log('[checkout] final Stripe URL:', stripeUrl);
-      window.location.href = stripeUrl;
-    } else {
-      /* Fallback — no Stripe link configured */
-      var p = new URLSearchParams({
-        plan:  order.package      || '',
-        state: order.state_code   || '',
-        type:  order.entity_type  || '',
-        total: order.total_due_today || ''
+    var taTs  = localStorage.getItem('cte_terms_accepted');
+    var phone = order && order.customer && order.customer.phone ? order.customer.phone.trim() : '';
+    console.log('[checkout] order.customer:', order && order.customer ? JSON.stringify(order.customer) : '(null)');
+    console.log('[checkout] taTs:', taTs || '(none)');
+    console.log('[checkout] phone:', phone || '(empty — WhatsApp will be skipped)');
+
+    var payload = {
+      plan:               order.package       || 'growth',
+      state_code:         order.state_code    || 'WY',
+      customer_email:     order.customer && order.customer.email ? order.customer.email : '',
+      phone:              phone,
+      company_name:       order.company_name  || '',
+      terms_accepted_at:  taTs               || '',
+      addons_total:       order.addons_total  || 0,
+    };
+    console.log('[checkout] posting to create-checkout-public:', JSON.stringify(payload));
+
+    try {
+      var resp = await fetch(appUrl + '/api/stripe/create-checkout-public', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(payload),
       });
-      window.location.href = 'contacto.html?' + p.toString();
+      var data = await resp.json();
+      if (data.url) {
+        console.log('[checkout] Stripe session URL received, redirecting…');
+        window.location.href = data.url;
+      } else {
+        console.error('[checkout] No URL in response:', data);
+        if (payBtn) { payBtn.disabled = false; payBtn.textContent = 'Error — intenta de nuevo'; }
+      }
+    } catch (err) {
+      console.error('[checkout] fetch error:', err);
+      if (payBtn) { payBtn.disabled = false; payBtn.textContent = 'Error — intenta de nuevo'; }
     }
   }
 
@@ -839,7 +833,7 @@ document.addEventListener('DOMContentLoaded', function() {
          local_only → 300ms (no webhook to wait for anyway)
          registered/sync_failed → 800ms (user sees the status) */
       var delay = result.result_status === 'local_only' ? 300 : 800;
-      setTimeout(doStripeRedirect, delay);
+      setTimeout(function() { doStripeRedirect(); }, delay);
     });
   }
 
