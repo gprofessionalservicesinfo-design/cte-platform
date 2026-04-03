@@ -190,12 +190,75 @@ export async function POST(request: NextRequest) {
 
   const supabase = adminClient()
 
+  let agentRunId: string | null = null
+
   try {
     switch (event.type) {
 
       // ── Checkout completed ───────────────────────────────────────────────
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session
+
+        // ── Idempotency gate ────────────────────────────────────────────────
+        // Fast-path dedup: check for an existing completed or in-flight run.
+        // The UNIQUE (agent_id, source_ref_id) constraint on agent_runs is the
+        // final race-condition guard at the DB level.
+        {
+          const { data: existingRun } = await supabase
+            .from('agent_runs')
+            .select('id, status, retry_count')
+            .eq('agent_id', 'intake')
+            .eq('source_ref_id', session.id)
+            .maybeSingle()
+
+          if (existingRun?.status === 'completed') {
+            console.log('[webhook] Session already processed — skipping:', session.id)
+            await supabase.from('agent_logs').insert({
+              agent_id:           'intake',
+              action:             'checkout_session_skipped_duplicate',
+              status:             'success',
+              human_review_level: 'H1',
+              input_summary:  { stripe_session_id: session.id, reason: 'already_processed' },
+              output_summary: { existing_run_id: existingRun.id },
+            })
+            break
+          }
+
+          if (existingRun?.status === 'running') {
+            console.warn('[webhook] Run in-flight for session — possible race condition:', session.id)
+            break
+          }
+
+          // Insert new run, or update failed/pending run back to 'running' and increment retry_count.
+          const { data: runData, error: runInsertError } = await supabase
+            .from('agent_runs')
+            .upsert({
+              ...(existingRun ? { id: existingRun.id } : {}),
+              agent_id:       'intake',
+              version:        '2.0',
+              status:         'running',
+              trigger_type:   'webhook',
+              source_ref_id:  session.id,
+              retry_count:    existingRun ? existingRun.retry_count + 1 : 0,
+              started_at:     new Date().toISOString(),
+              input_raw_json: {
+                stripe_session_id: session.id,
+                payment_intent:    session.payment_intent ?? null,
+                amount_total:      session.amount_total,
+                currency:          session.currency,
+                customer_email:    session.customer_details?.email ?? null,
+              },
+            }, { onConflict: 'agent_id,source_ref_id' })
+            .select('id')
+            .single()
+
+          if (runInsertError) {
+            console.error('[webhook] Failed to create agent_run — continuing anyway:', runInsertError)
+          } else {
+            agentRunId = runData.id
+          }
+        }
+        // ───────────────────────────────────────────────────────────────────
 
         if (session.customer && session.metadata?.company_id) {
           // Existing client: link Stripe customer to company
@@ -413,6 +476,33 @@ export async function POST(request: NextRequest) {
                 })
                 console.log('[webhook] Agent intake task + log creados para case:', companyData.id)
 
+                // ── contacts: one record per session (upsert = idempotent) ───
+                await supabase.from('contacts').insert({
+                  company_id:         companyData.id,
+                  client_id:          clientData.id,
+                  full_name:          fullName,
+                  email,
+                  phone:              session.customer_details?.phone ?? '',
+                  country:            session.customer_details?.address?.country ?? '',
+                  stripe_customer_id: typeof session.customer === 'string' ? session.customer : '',
+                  stripe_session_id:  session.id,
+                })
+
+                // ── cases: formal case record for agent system ────────────────
+                await supabase.from('cases').insert({
+                  company_id: companyData.id,
+                  agent_id:   'intake',
+                  status:     'pending',
+                })
+
+                // ── mark agent_run completed ──────────────────────────────────
+                if (agentRunId) {
+                  await supabase.from('agent_runs').update({
+                    status:       'completed',
+                    completed_at: new Date().toISOString(),
+                  }).eq('id', agentRunId)
+                }
+
                 }
               }
             }
@@ -480,6 +570,13 @@ export async function POST(request: NextRequest) {
         break
     }
   } catch (err) {
+    if (agentRunId) {
+      await supabase.from('agent_runs').update({
+        status:        'failed',
+        completed_at:  new Date().toISOString(),
+        error_message: err instanceof Error ? err.message : String(err),
+      }).eq('id', agentRunId)
+    }
     console.error('Webhook processing error:', err)
     return NextResponse.json({ error: 'Webhook processing failed' }, { status: 500 })
   }
