@@ -201,7 +201,7 @@ async function sendWhatsApp(opts: {
     `Hola ${opts.customerName}! 🎉 Bienvenido a CreaTuEmpresaUSA.\n\n` +
     `Tu orden para *${opts.companyName}* en *${opts.stateName}* ha sido recibida exitosamente.\n\n` +
     `Nuestro equipo comenzará a procesar tu caso en las próximas 24 horas.\n\n` +
-    `Accede a tu portal: https://creatuempresausa.com/login\n\n` +
+    `Accede a tu portal: https://creatuempresausa.com/dashboard\n\n` +
     `¿Tienes alguna pregunta? Estamos aquí para ayudarte.\n\n` +
     `— Equipo CreaTuEmpresaUSA`
 
@@ -580,7 +580,7 @@ export async function POST(request: NextRequest) {
                     phone,
                     customerName: fullName,
                     companyName:  companyData?.id ? (fullName + ' LLC') : fullName,
-                    stateName:    session.metadata?.state_name || 'USA',
+                    stateName:    wizardStateName || session.metadata?.state_name || session.metadata?.state_code || 'EE.UU.',
                   })
                   // Persist WhatsApp result to mail_items for visibility in admin
                   if (companyData?.id) {
