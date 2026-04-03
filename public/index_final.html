@@ -2016,60 +2016,57 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
         <div class="wiz-nav"><button class="btn btn-ghost" onclick="wizPrev(6)">← Anterior</button><button class="btn btn-primary" onclick="wizNext(6)">Siguiente → Extras →</button></div>
       </div>
 
-      <!-- STEP 7: Upsells — 4 sub-steps -->
+      <!-- STEP 7: Upsells — dynamic sub-steps (5 for foreign, 3 for US) -->
       <div class="wiz-panel" id="wizStep7">
 
-        <!-- 7A: Estructura legal -->
+        <!-- 7A -->
         <div id="wiz7A">
-          <div class="wiz7-progress">Sección 1 de 4 — Estructura legal</div>
-          <h2 class="wiz-title">Define la estructura legal de tu empresa</h2>
-          <p class="wiz-sub">Estos servicios protegen y dan identidad a tu LLC desde el inicio.</p>
+          <div id="wiz7A-progress" class="wiz7-progress"></div>
+          <h2 id="wiz7A-title" class="wiz-title"></h2>
+          <p id="wiz7A-sub" class="wiz-sub"></p>
           <div id="wiz7A-items"></div>
-          <div class="wiz-nav" style="margin-top:20px">
-            <button class="btn btn-ghost" onclick="wizGoTo(6)">← Anterior</button>
-            <button class="btn btn-primary" onclick="wiz7GoTo('B')">Continuar →</button>
-          </div>
-          <div style="text-align:center;margin-top:10px"><button class="wiz7-skip" onclick="wiz7GoTo('B')">Saltar esta sección →</button></div>
+          <div id="wiz7A-nav" class="wiz-nav" style="margin-top:20px"></div>
+          <div id="wiz7A-skip" style="text-align:center;margin-top:10px"></div>
         </div>
 
-        <!-- 7B: Tax & Riesgo -->
+        <!-- 7B -->
         <div id="wiz7B" style="display:none">
-          <div class="wiz7-progress">Sección 2 de 4 — Tax & Cumplimiento</div>
-          <div id="wiz7B-alert" class="wiz7-foreign-alert">⚠️ Importante para fundadores internacionales</div>
-          <h2 class="wiz-title">Prepárate para impuestos y cumplimiento fiscal</h2>
-          <p class="wiz-sub">El paso más importante para extranjeros que abren empresa en EE.UU.</p>
+          <div id="wiz7B-progress" class="wiz7-progress"></div>
+          <h2 id="wiz7B-title" class="wiz-title"></h2>
+          <p id="wiz7B-sub" class="wiz-sub"></p>
           <div id="wiz7B-items"></div>
-          <div class="wiz-nav" style="margin-top:20px">
-            <button class="btn btn-ghost" onclick="wiz7GoTo('A')">← Anterior</button>
-            <button class="btn btn-primary" onclick="wiz7GoTo('C')">Continuar →</button>
-          </div>
-          <div style="text-align:center;margin-top:10px"><button class="wiz7-skip" onclick="wiz7GoTo('C')">Saltar esta sección →</button></div>
+          <div id="wiz7B-nav" class="wiz-nav" style="margin-top:20px"></div>
+          <div id="wiz7B-skip" style="text-align:center;margin-top:10px"></div>
         </div>
 
-        <!-- 7C: Operación -->
+        <!-- 7C -->
         <div id="wiz7C" style="display:none">
-          <div class="wiz7-progress">Sección 3 de 4 — Operación</div>
-          <h2 class="wiz-title">Prepárate para operar desde el primer día</h2>
-          <p class="wiz-sub">Todo lo que necesitas para recibir pagos y presentarte profesionalmente.</p>
+          <div id="wiz7C-progress" class="wiz7-progress"></div>
+          <h2 id="wiz7C-title" class="wiz-title"></h2>
+          <p id="wiz7C-sub" class="wiz-sub"></p>
           <div id="wiz7C-items"></div>
-          <div class="wiz-nav" style="margin-top:20px">
-            <button class="btn btn-ghost" onclick="wiz7GoTo('B')">← Anterior</button>
-            <button class="btn btn-primary" onclick="wiz7GoTo('D')">Continuar →</button>
-          </div>
-          <div style="text-align:center;margin-top:10px"><button class="wiz7-skip" onclick="wiz7GoTo('D')">Saltar esta sección →</button></div>
+          <div id="wiz7C-nav" class="wiz-nav" style="margin-top:20px"></div>
+          <div id="wiz7C-skip" style="text-align:center;margin-top:10px"></div>
         </div>
 
-        <!-- 7D: Futuro & Recurrente -->
+        <!-- 7D (foreign only) -->
         <div id="wiz7D" style="display:none">
-          <div class="wiz7-progress">Sección 4 de 4 — Mantenimiento</div>
-          <h2 class="wiz-title">Mantén tu empresa activa y en crecimiento</h2>
-          <p class="wiz-sub">Servicios anuales que protegen el estatus de tu empresa a largo plazo.</p>
+          <div id="wiz7D-progress" class="wiz7-progress"></div>
+          <h2 id="wiz7D-title" class="wiz-title"></h2>
+          <p id="wiz7D-sub" class="wiz-sub"></p>
           <div id="wiz7D-items"></div>
-          <div class="wiz-nav" style="margin-top:20px">
-            <button class="btn btn-ghost" onclick="wiz7GoTo('C')">← Anterior</button>
-            <button class="btn btn-primary" onclick="wizRenderSummary();wizGoTo(8)">Ver mi resumen final →</button>
-          </div>
-          <div style="text-align:center;margin-top:10px"><button class="wiz7-skip" onclick="wizRenderSummary();wizGoTo(8)">Saltar y ver resumen →</button></div>
+          <div id="wiz7D-nav" class="wiz-nav" style="margin-top:20px"></div>
+          <div id="wiz7D-skip" style="text-align:center;margin-top:10px"></div>
+        </div>
+
+        <!-- 7E (foreign only) -->
+        <div id="wiz7E" style="display:none">
+          <div id="wiz7E-progress" class="wiz7-progress"></div>
+          <h2 id="wiz7E-title" class="wiz-title"></h2>
+          <p id="wiz7E-sub" class="wiz-sub"></p>
+          <div id="wiz7E-items"></div>
+          <div id="wiz7E-nav" class="wiz-nav" style="margin-top:20px"></div>
+          <div id="wiz7E-skip" style="text-align:center;margin-top:10px"></div>
         </div>
 
       </div>
@@ -2629,92 +2626,126 @@ function wiz7ToggleBank(id, otherId, price, label) {
   wizUpdateSidebar();
 }
 
-/* ── Upsell step 7 — 4 sub-steps ──────────────────────────── */
-var WIZ7_SECTIONS = {
-  A: [
-    { id:'opAgreement', label:'Operating Agreement',    price:99,  period:'',    badge:'Recomendado', desc:'Define reglas, propiedad y estructura de tu LLC. Requerido por muchos bancos.',  includedIn:['growth','premium'] },
-    { id:'dba',         label:'DBA / Nombre comercial', price:149, period:'',    badge:null,          desc:'Opera con un nombre de marca distinto a tu nombre legal de tu LLC.',             includedIn:[] },
+/* ── Upsell step 7 — dynamic sub-steps per resident type ───── */
+var WIZ7_ITEMS = {
+  opAgreement: { id:'opAgreement', label:'Operating Agreement',       price:99,  period:'',      badge:'Recomendado', desc:'Define reglas, propiedad y estructura de tu LLC. Requerido por muchos bancos.',    includedIn:['growth','premium'] },
+  dba:         { id:'dba',         label:'DBA / Nombre comercial',    price:149, period:'',      badge:null,          desc:'Opera con un nombre de marca distinto a tu nombre legal de tu LLC.',              includedIn:[] },
+  taxReady:    { id:'taxReady',    label:'Tax Ready System',          price:199, period:'',      badge:'Recomendado', desc:'Revisión de tu situación fiscal. Evita sorpresas al final del año.',               includedIn:[] },
+  itin:        { id:'itin',        label:'ITIN Evaluation',           price:149, period:'',      badge:null,          desc:'Evaluación personalizada de si necesitas ITIN para tu caso.',                     includedIn:[], foreignOnly:true },
+  emailDomain: { id:'emailDomain', label:'Email + Dominio profesional', price:79, period:' setup', badge:null,        desc:'Email tipo hola@tuempresa.com. Imagen profesional desde el día uno.',             includedIn:[] },
+  compliance:  { id:'compliance',  label:'Compliance Plan',           price:99,  period:'/año',  badge:'Recomendado', desc:'Recordatorios de deadlines, reportes anuales y seguimiento de cumplimiento.',      includedIn:['premium'] },
+  bookkeeping: { id:'bookkeeping', label:'Bookkeeping Setup',         price:149, period:'',      badge:null,          desc:'Organiza tus finanzas desde el inicio. Más fácil para taxes después.',            includedIn:[] },
+  waSupport:   { id:'waSupport',   label:'Premium Support WhatsApp',  price:49,  period:'/mes',  badge:null,          desc:'Respuestas prioritarias y acompañamiento durante todo tu proceso.',               includedIn:[] },
+};
+
+/* Layout config per resident type. special: 'addr'=address block, 'banking'=banking block, 'email_banking'=emailDomain+banking */
+var WIZ7_CONFIG = {
+  foreign: [
+    { id:'A', n:1, total:5, progress:'Dirección comercial',      title:'Establece tu dirección comercial en EE.UU.',     sub:'Una dirección real con manejo de correo es el primer paso operativo para tu empresa.',         special:'addr',         items:[], prevFn:"wizGoTo(6)", nextFn:"wiz7GoTo('B')" },
+    { id:'B', n:2, total:5, progress:'Estructura legal',         title:'Define la estructura legal de tu empresa',       sub:'Estos servicios protegen y dan identidad a tu LLC desde el inicio.',                          special:null,           items:['opAgreement','dba'], prevFn:"wiz7GoTo('A')", nextFn:"wiz7GoTo('C')" },
+    { id:'C', n:3, total:5, progress:'Tax & Cumplimiento fiscal', title:'Prepárate para impuestos y cumplimiento fiscal', sub:'El paso más importante para extranjeros que abren empresa en EE.UU.',                         special:'foreign_alert', items:['taxReady','itin'], prevFn:"wiz7GoTo('B')", nextFn:"wiz7GoTo('D')" },
+    { id:'D', n:4, total:5, progress:'Apertura bancaria',         title:'Abre tu cuenta bancaria en EE.UU.',             sub:'El paso esencial para operar financieramente como empresa americana.',                         special:'banking',      items:[], prevFn:"wiz7GoTo('C')", nextFn:"wiz7GoTo('E')" },
+    { id:'E', n:5, total:5, progress:'Mantenimiento',             title:'Mantén tu empresa activa y en crecimiento',     sub:'Servicios anuales que protegen el estatus de tu empresa a largo plazo.',                       special:null,           items:['compliance','bookkeeping','waSupport'], prevFn:"wiz7GoTo('D')", nextFn:"wizRenderSummary();wizGoTo(8)" },
   ],
-  B: [
-    { id:'taxReady',    label:'Tax Ready System',    price:199, period:'',    badge:'Recomendado', desc:'Revisión de tu situación fiscal. Evita sorpresas al final del año.',                includedIn:[], foreignOnly:false },
-    { id:'itin',        label:'ITIN Evaluation',     price:149, period:'',    badge:null,          desc:'Evaluación personalizada de si necesitas ITIN para tu caso.',                      includedIn:[], foreignOnly:true },
-  ],
-  C: [
-    { id:'emailDomain', label:'Email + Dominio profesional',  price:79,  period:' setup', badge:null,  desc:'Email tipo hola@tuempresa.com. Imagen profesional desde el día uno.',          includedIn:[] },
-  ],
-  D: [
-    { id:'compliance',  label:'Compliance Plan',              price:99,  period:'/año', badge:'Recomendado', desc:'Recordatorios de deadlines, reportes anuales y seguimiento de cumplimiento.', includedIn:['premium'] },
-    { id:'bookkeeping', label:'Bookkeeping Setup',            price:149, period:'',     badge:null,          desc:'Organiza tus finanzas desde el inicio. Más fácil para taxes después.',         includedIn:[] },
-    { id:'waSupport',   label:'Premium Support WhatsApp',     price:49,  period:'/mes', badge:null,          desc:'Respuestas prioritarias y acompañamiento durante todo tu proceso.',            includedIn:[] },
+  us: [
+    { id:'A', n:1, total:3, progress:'Estructura legal',          title:'Define la estructura legal de tu empresa',       sub:'Estos servicios protegen y dan identidad a tu LLC desde el inicio.',                          special:null,           items:['opAgreement','dba'], prevFn:"wizGoTo(6)", nextFn:"wiz7GoTo('B')" },
+    { id:'B', n:2, total:3, progress:'Compliance & Contabilidad', title:'Compliance y contabilidad desde el inicio',      sub:'Mantén tu empresa en orden y evita problemas con el IRS.',                                    special:null,           items:['compliance','bookkeeping','waSupport'], prevFn:"wiz7GoTo('A')", nextFn:"wiz7GoTo('C')" },
+    { id:'C', n:3, total:3, progress:'Operación digital y bancaria', title:'Prepárate para operar desde el primer día',  sub:'Todo lo que necesitas para recibir pagos y presentarte profesionalmente.',                     special:'email_banking', items:['emailDomain'], prevFn:"wiz7GoTo('B')", nextFn:"wizRenderSummary();wizGoTo(8)" },
   ]
 };
 
 function wizBuildUpsells() {
+  var isForeign = WIZ.residentType !== 'us';
+  var config = isForeign ? WIZ7_CONFIG.foreign : WIZ7_CONFIG.us;
+
   /* Apply recommended defaults on first entry this session */
   if (!WIZ._upsellsInited) {
     WIZ._upsellsInited = true;
     var defaults = ['opAgreement','taxReady','compliance'];
-    Object.values(WIZ7_SECTIONS).forEach(function(items) {
-      items.forEach(function(u) {
-        if (defaults.indexOf(u.id) !== -1 && u.includedIn.indexOf(WIZ.plan) === -1 && !WIZ.addons[u.id]) {
-          WIZ.addons[u.id] = { price:u.price, label:u.label, period:u.period };
-        }
-      });
+    Object.keys(WIZ7_ITEMS).forEach(function(k) {
+      var u = WIZ7_ITEMS[k];
+      if (defaults.indexOf(u.id) !== -1 && u.includedIn.indexOf(WIZ.plan) === -1 && !WIZ.addons[u.id]) {
+        WIZ.addons[u.id] = { price:u.price, label:u.label, period:u.period };
+      }
     });
   }
-  /* Build each sub-section's toggle rows */
-  ['A','B','C','D'].forEach(function(sec) {
-    var el = document.getElementById('wiz7'+sec+'-items');
+
+  /* Active panel ids for this resident type */
+  var activeIds = config.map(function(s){ return s.id; });
+
+  config.forEach(function(sec) {
+    /* Update progress label, title, sub */
+    var progressEl = document.getElementById('wiz7'+sec.id+'-progress');
+    if (progressEl) progressEl.textContent = 'Sección ' + sec.n + ' de ' + sec.total + ' — ' + sec.progress;
+    var titleEl = document.getElementById('wiz7'+sec.id+'-title');
+    if (titleEl) titleEl.textContent = sec.title;
+    var subEl = document.getElementById('wiz7'+sec.id+'-sub');
+    if (subEl) subEl.textContent = sec.sub;
+
+    /* Update nav buttons */
+    var isLast = sec.n === sec.total;
+    var navEl = document.getElementById('wiz7'+sec.id+'-nav');
+    if (navEl) navEl.innerHTML =
+      '<button class="btn btn-ghost" onclick="'+sec.prevFn+'">← Anterior</button>'
+      + '<button class="btn btn-primary" onclick="'+sec.nextFn+'">'+(isLast ? 'Ver mi resumen final →' : 'Continuar →')+'</button>';
+    var skipEl = document.getElementById('wiz7'+sec.id+'-skip');
+    if (skipEl) skipEl.innerHTML = '<button class="wiz7-skip" onclick="'+sec.nextFn+'">'+(isLast ? 'Saltar y ver resumen →' : 'Saltar esta sección →')+'</button>';
+
+    /* Build items HTML */
+    var el = document.getElementById('wiz7'+sec.id+'-items');
     if (!el) return;
     var rows = '';
     var count = 0;
-    /* Section C: Address block first, then Banking */
-    if (sec === 'C') {
-      /* 1 — Address 2-card block */
+
+    /* Foreign alert banner (tax section for foreigners) */
+    if (sec.special === 'foreign_alert') {
+      rows += '<div style="padding:11px 14px;background:rgba(245,158,11,.08);border:1.5px solid rgba(245,158,11,.3);border-radius:var(--r);font-size:13px;color:#92400e;margin-bottom:18px">⚠️ Importante para fundadores internacionales</div>';
+    }
+
+    /* Address block */
+    if (sec.special === 'addr' || sec.special === 'email_banking') {
       var addrIncluded = WIZ.plan === 'premium';
       if (addrIncluded) {
         rows += '<div style="padding:14px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:var(--r);font-size:13px;color:var(--gray-700);margin-bottom:16px">✅ Tu plan Premium incluye Business Address Standard (12 meses).</div>';
         count++;
       } else {
-      var addrStdSel = !!WIZ.addons['addrStd'] ? ' selected' : '';
-      var addrVipSel = !!WIZ.addons['addrVip'] ? ' selected' : '';
-      /* Restore saved period labels for display */
-      var addrStdMonthly = !WIZ.addons['addrStd'] || WIZ.addons['addrStd'].period === '/mes';
-      var addrVipMonthly = !WIZ.addons['addrVip'] || WIZ.addons['addrVip'].period === '/mes';
-      rows += '<div style="margin-bottom:20px">'
-        + '<div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px">📬 Dirección comercial en EE.UU.</div>'
-        + '<div style="font-size:12px;color:var(--gray-500);margin-bottom:12px">Agrega una dirección real con manejo de correo en lugar de opciones riesgosas.</div>'
-        + '<div class="wiz7-addr-grid">'
-        /* Standard card */
-        + '<div class="wiz7-addr-card'+addrStdSel+'" id="addrCardStd" onclick="wiz7ToggleAddr(\'addrStd\',\'addrVip\',\'Business Address Standard\')">'
-        + '<div style="margin-bottom:8px"><span class="wiz7-bk-badge-rec">Recomendado para extranjeros</span></div>'
-        + '<div style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px">Standard Business Address</div>'
-        + '<div style="font-size:11.5px;color:var(--gray-500);margin-bottom:10px;flex:1">'
-        + '✅ Presencia profesional en EE.UU.<br>✅ Escaneo y manejo de correo<br>✅ Mejor configuración para fundadores remotos'
-        + '</div>'
-        + '<div style="display:flex;gap:6px;margin-bottom:10px">'
-        + '<button class="wiz7-period-btn'+(addrStdMonthly?' active':'')+'" id="addrStd-btnM" onclick="event.stopPropagation();wiz7AddrPeriod(\'addrStd\',\'monthly\')">Mensual</button>'
-        + '<button class="wiz7-period-btn'+(!addrStdMonthly?' active':'')+'" id="addrStd-btnY" onclick="event.stopPropagation();wiz7AddrPeriod(\'addrStd\',\'annual\')">Anual <span style="font-size:10px;background:#fef9c3;color:#a16207;padding:1px 5px;border-radius:10px;font-weight:700">Mejor valor</span></button>'
-        + '</div>'
-        + '<div style="font-size:20px;font-weight:800;color:var(--navy)"><span id="addr-addrStd-price">$'+(addrStdMonthly?'39':'390')+'</span><span id="addr-addrStd-period" style="font-size:12px;font-weight:400;color:var(--gray-400)">'+(addrStdMonthly?'/mes':'/año')+'</span></div>'
-        + '</div>'
-        /* VIP card */
-        + '<div class="wiz7-addr-card'+addrVipSel+'" id="addrCardVip" onclick="wiz7ToggleAddr(\'addrVip\',\'addrStd\',\'Business Address VIP\')">'
-        + '<div style="margin-bottom:8px"><span class="wiz7-bk-badge-vip">VIP / Premium</span></div>'
-        + '<div style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px">Corporate Address <span style="color:var(--accent)">VIP</span></div>'
-        + '<div style="font-size:11.5px;color:var(--gray-500);margin-bottom:10px;flex:1">Para fundadores que quieren imagen de mayor nivel. Incluye todo lo Standard + número de suite dedicado.</div>'
-        + '<div style="display:flex;gap:6px;margin-bottom:10px">'
-        + '<button class="wiz7-period-btn'+(addrVipMonthly?' active':'')+'" id="addrVip-btnM" onclick="event.stopPropagation();wiz7AddrPeriod(\'addrVip\',\'monthly\')">Mensual</button>'
-        + '<button class="wiz7-period-btn'+(!addrVipMonthly?' active':'')+'" id="addrVip-btnY" onclick="event.stopPropagation();wiz7AddrPeriod(\'addrVip\',\'annual\')">Anual <span style="font-size:10px;background:#fef9c3;color:#a16207;padding:1px 5px;border-radius:10px;font-weight:700">Mejor valor</span></button>'
-        + '</div>'
-        + '<div style="font-size:20px;font-weight:800;color:var(--accent)"><span id="addr-addrVip-price">$'+(addrVipMonthly?'99':'990')+'</span><span id="addr-addrVip-period" style="font-size:12px;font-weight:400;color:var(--gray-400)">'+(addrVipMonthly?'/mes':'/año')+'</span></div>'
-        + '</div>'
-        + '</div>'
-        + '<div style="font-size:11px;color:var(--gray-400);margin-top:2px">Selecciona una opción o ninguna. Puedes cancelar en cualquier momento.</div>'
-        + '</div>';
-      count++;
-      } /* end else (addr not included) */
-      /* 2 — Banking 2-card block */
+        var addrStdSel = !!WIZ.addons['addrStd'] ? ' selected' : '';
+        var addrVipSel = !!WIZ.addons['addrVip'] ? ' selected' : '';
+        var addrStdMonthly = !WIZ.addons['addrStd'] || WIZ.addons['addrStd'].period === '/mes';
+        var addrVipMonthly = !WIZ.addons['addrVip'] || WIZ.addons['addrVip'].period === '/mes';
+        rows += '<div style="margin-bottom:20px">'
+          + '<div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px">📬 Dirección comercial en EE.UU.</div>'
+          + '<div style="font-size:12px;color:var(--gray-500);margin-bottom:12px">Agrega una dirección real con manejo de correo en lugar de opciones riesgosas.</div>'
+          + '<div class="wiz7-addr-grid">'
+          + '<div class="wiz7-addr-card'+addrStdSel+'" id="addrCardStd" onclick="wiz7ToggleAddr(\'addrStd\',\'addrVip\',\'Business Address Standard\')">'
+          + '<div style="margin-bottom:8px"><span class="wiz7-bk-badge-rec">Recomendado para extranjeros</span></div>'
+          + '<div style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px">Standard Business Address</div>'
+          + '<div style="font-size:11.5px;color:var(--gray-500);margin-bottom:10px;flex:1">✅ Presencia profesional en EE.UU.<br>✅ Escaneo y manejo de correo<br>✅ Mejor configuración para fundadores remotos</div>'
+          + '<div style="display:flex;gap:6px;margin-bottom:10px">'
+          + '<button class="wiz7-period-btn'+(addrStdMonthly?' active':'')+'" id="addrStd-btnM" onclick="event.stopPropagation();wiz7AddrPeriod(\'addrStd\',\'monthly\')">Mensual</button>'
+          + '<button class="wiz7-period-btn'+(!addrStdMonthly?' active':'')+'" id="addrStd-btnY" onclick="event.stopPropagation();wiz7AddrPeriod(\'addrStd\',\'annual\')">Anual <span style="font-size:10px;background:#fef9c3;color:#a16207;padding:1px 5px;border-radius:10px;font-weight:700">Mejor valor</span></button>'
+          + '</div>'
+          + '<div style="font-size:20px;font-weight:800;color:var(--navy)"><span id="addr-addrStd-price">$'+(addrStdMonthly?'39':'390')+'</span><span id="addr-addrStd-period" style="font-size:12px;font-weight:400;color:var(--gray-400)">'+(addrStdMonthly?'/mes':'/año')+'</span></div>'
+          + '</div>'
+          + '<div class="wiz7-addr-card'+addrVipSel+'" id="addrCardVip" onclick="wiz7ToggleAddr(\'addrVip\',\'addrStd\',\'Business Address VIP\')">'
+          + '<div style="margin-bottom:8px"><span class="wiz7-bk-badge-vip">VIP / Premium</span></div>'
+          + '<div style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px">Corporate Address <span style="color:var(--accent)">VIP</span></div>'
+          + '<div style="font-size:11.5px;color:var(--gray-500);margin-bottom:10px;flex:1">Para fundadores que quieren imagen de mayor nivel. Incluye todo lo Standard + número de suite dedicado.</div>'
+          + '<div style="display:flex;gap:6px;margin-bottom:10px">'
+          + '<button class="wiz7-period-btn'+(addrVipMonthly?' active':'')+'" id="addrVip-btnM" onclick="event.stopPropagation();wiz7AddrPeriod(\'addrVip\',\'monthly\')">Mensual</button>'
+          + '<button class="wiz7-period-btn'+(!addrVipMonthly?' active':'')+'" id="addrVip-btnY" onclick="event.stopPropagation();wiz7AddrPeriod(\'addrVip\',\'annual\')">Anual <span style="font-size:10px;background:#fef9c3;color:#a16207;padding:1px 5px;border-radius:10px;font-weight:700">Mejor valor</span></button>'
+          + '</div>'
+          + '<div style="font-size:20px;font-weight:800;color:var(--accent)"><span id="addr-addrVip-price">$'+(addrVipMonthly?'99':'990')+'</span><span id="addr-addrVip-period" style="font-size:12px;font-weight:400;color:var(--gray-400)">'+(addrVipMonthly?'/mes':'/año')+'</span></div>'
+          + '</div>'
+          + '</div>'
+          + '<div style="font-size:11px;color:var(--gray-400);margin-top:2px">Selecciona una opción o ninguna. Puedes cancelar en cualquier momento.</div>'
+          + '</div>';
+        count++;
+      }
+    }
+
+    /* Banking block */
+    if (sec.special === 'banking' || sec.special === 'email_banking') {
       var bkIncluded = ['growth','premium'].indexOf(WIZ.plan) !== -1;
       if (bkIncluded) {
         rows += '<div style="padding:14px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:var(--r);font-size:13px;color:var(--gray-700);margin-bottom:16px">✅ Tu plan incluye Banking Assistance.</div>';
@@ -2741,10 +2772,15 @@ function wizBuildUpsells() {
           + '<div style="font-size:11px;color:var(--gray-400);margin-top:2px">Selecciona una opción o ninguna.</div>'
           + '</div>';
       }
+      count++;
     }
-    WIZ7_SECTIONS[sec].forEach(function(u) {
+
+    /* Regular toggle items */
+    sec.items.forEach(function(itemId) {
+      var u = WIZ7_ITEMS[itemId];
+      if (!u) return;
       if (u.includedIn.indexOf(WIZ.plan) !== -1) return;
-      if (u.foreignOnly && WIZ.residentType !== 'foreign') return;
+      if (u.foreignOnly && !isForeign) return;
       count++;
       var isOn = !!WIZ.addons[u.id];
       var badgeHtml = u.badge
@@ -2762,18 +2798,17 @@ function wizBuildUpsells() {
         + (u.period ? '<span style="font-size:11px;font-weight:400;color:var(--gray-400)">'+u.period+'</span>' : '')
         + '</div></div>';
     });
+
     if (!count) rows = '<div style="padding:14px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:var(--r);font-size:13px;color:var(--gray-700)">✅ Tu plan ya incluye estos servicios.</div>';
     el.innerHTML = rows;
   });
-  /* Show foreign alert in 7B */
-  var alert7B = document.getElementById('wiz7B-alert');
-  if (alert7B) alert7B.style.display = WIZ.residentType === 'foreign' ? 'block' : 'none';
+
   /* Start at sub-step A */
   wiz7GoTo('A');
 }
 
 function wiz7GoTo(sub) {
-  ['A','B','C','D'].forEach(function(s) {
+  ['A','B','C','D','E'].forEach(function(s) {
     var p = document.getElementById('wiz7'+s);
     if (p) p.style.display = s === sub ? 'block' : 'none';
   });
