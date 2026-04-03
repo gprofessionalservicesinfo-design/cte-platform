@@ -1,8 +1,9 @@
+import { randomUUID } from 'crypto'
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminServerClient } from '@/lib/supabase/server'
 
 export async function POST(request: NextRequest) {
-  let body: { agent_id?: string; status?: string; raw_response?: string }
+  let body: { agent_id?: string; status?: string; raw_response?: string; case_id?: string }
   try {
     body = await request.json()
   } catch {
@@ -23,7 +24,7 @@ export async function POST(request: NextRequest) {
 
     const { data, error } = await supabase
       .from('cases')
-      .insert({ agent_id, status, raw_response })
+      .insert({ case_id: body.case_id ?? randomUUID(), agent_id, status, raw_response })
       .select('id')
       .single()
 
