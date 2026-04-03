@@ -91,7 +91,7 @@ export async function POST(req: Request) {
         state_code:    stateCode,
         phone:         phone         || '',
       },
-      success_url: `${baseUrl}/success.html?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url:  `${baseUrl}/checkout.html`,
     })
 
