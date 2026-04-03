@@ -18,138 +18,302 @@ function buildWelcomeEmailHtml(opts: {
   portalUrl: string
   addons?: { label: string; price: number }[]
 }): string {
-  const year = new Date().getFullYear()
-  const addonsHtml = opts.addons && opts.addons.length > 0
-    ? opts.addons.map(a =>
-        `<tr>
-          <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;color:#64748b">+ ${a.label}</td>
-          <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;font-weight:700;color:#0A2540;text-align:right">$${a.price} USD</td>
-        </tr>`
-      ).join('')
-    : ''
-
   return `<!DOCTYPE html>
 <html lang="es">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#f1f5f9;font-family:Arial,Helvetica,sans-serif">
-<table width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f9;padding:40px 20px">
-<tr><td align="center">
-<table cellpadding="0" cellspacing="0" style="max-width:600px;width:100%">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CreaTuEmpresaUSA - Bienvenida</title>
+    <style>
+      body{margin:0;padding:0;background:#edf4fb;font-family:Arial,Helvetica,sans-serif;color:#17324d}
+      .wrapper{width:100%;padding:26px 12px 40px;box-sizing:border-box}
+      .email{max-width:680px;margin:0 auto;background:#ffffff;border-radius:28px;overflow:hidden;box-shadow:0 18px 50px rgba(17,35,66,0.10)}
+      .topbar{background:#133b6c;color:#deebf8;text-align:center;font-size:11px;font-weight:700;letter-spacing:0.11em;text-transform:uppercase;padding:12px 20px}
+      .hero{background:radial-gradient(circle at top center,rgba(255,255,255,0.18),transparent 34%),linear-gradient(180deg,#275b96 0%,#1b4a82 58%,#163f71 100%);padding:34px 34px 28px;position:relative}
+      .logo-lockup{text-align:center}
+      .logo{margin:0;font-size:34px;line-height:1;font-weight:800;color:#ffffff;letter-spacing:-0.02em}
+      .logo .usa{color:#ef5567}
+      .hero-status{width:fit-content;margin:22px auto 0;background:rgba(20,156,121,0.18);border:1px solid rgba(159,241,212,0.34);color:#e7fff6;border-radius:999px;padding:10px 16px;font-size:14px;font-weight:700}
+      .hero-title{margin:22px auto 0;max-width:540px;text-align:center;color:#ffffff;font-size:42px;line-height:1.14;font-weight:800;letter-spacing:-0.03em}
+      .hero-sub{margin:16px auto 0;max-width:520px;text-align:center;color:#e3edf8;font-size:19px;line-height:1.68}
+      .trust{background:#ffffff;padding:0 26px 24px;margin-top:-1px}
+      .trust-inner{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+      .trust-card{background:#ffffff;border:1px solid #e7eef7;border-radius:20px;padding:18px 14px;text-align:center;box-shadow:0 8px 20px rgba(17,35,66,0.04)}
+      .trust-icon{width:52px;height:52px;margin:0 auto 12px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:#ffffff;border:2px solid #ffffff;box-shadow:0 0 0 1px rgba(208,220,235,0.9),0 8px 18px rgba(17,35,66,0.06)}
+      .trust-title{margin:0;color:#17324d;font-size:15px;font-weight:800}
+      .trust-text{margin:5px 0 0;color:#748495;font-size:12px;line-height:1.45}
+      .section{padding:28px 34px 0}
+      .eyebrow{margin:0 0 14px;color:#71839a;font-size:11px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase}
+      .order-card{border:1px solid #e5edf6;border-radius:24px;overflow:hidden;background:#ffffff;box-shadow:0 14px 30px rgba(17,35,66,0.06)}
+      .order-top{background:linear-gradient(180deg,#2c5c96 0%,#1c467b 100%);padding:20px 22px;color:#ffffff}
+      .order-name{margin:0;font-size:28px;line-height:1.1;font-weight:800}
+      .order-meta{margin-top:6px;font-size:13px;line-height:1.5;color:#dce9f8}
+      .pill{display:inline-block;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800}
+      .pill.processing{background:rgba(255,205,96,0.18);color:#ffd67c;border:1px solid rgba(255,224,150,0.24)}
+      .pill.included{background:#ecfbf5;color:#169c79;border:1px solid #ccf2e3}
+      .order-body{padding:4px 22px 8px}
+      .row{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;padding:18px 0;border-bottom:1px solid #edf2f7}
+      .row:last-child{border-bottom:none}
+      .label{color:#76879a;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;font-weight:800}
+      .value{color:#17324d;font-size:18px;font-weight:800;text-align:right}
+      .total-wrap{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding:20px 0 6px}
+      .total-label{color:#7a899a;font-size:12px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase}
+      .total-note{margin-top:6px;color:#8a96a3;font-size:12px}
+      .total-amount{color:#0b2342;font-size:34px;font-weight:800}
+      .timeline{margin-top:8px;border:1px solid #e5edf6;border-radius:24px;background:#ffffff;padding:8px 22px;box-shadow:0 14px 30px rgba(17,35,66,0.04)}
+      .step{position:relative;padding:18px 0 18px 56px;border-bottom:1px solid #edf2f7}
+      .step:last-child{border-bottom:none}
+      .step:before{content:"";position:absolute;left:17px;top:0;bottom:0;width:2px;background:#e5edf6}
+      .step:last-child:before{bottom:28px}
+      .dot{position:absolute;left:0;top:19px;width:34px;height:34px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;box-sizing:border-box}
+      .dot.done{background:#eafaf3;border:2px solid #97dfbc;color:#14966f}
+      .dot.active{background:#edf3ff;border:2px solid #8fb0ea;color:#234d85}
+      .dot.pending{background:#f8fafc;border:2px solid #d9e3ee;color:#8e9baa}
+      .step-title-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+      .step-title{color:#17324d;font-size:19px;font-weight:800}
+      .step-text{margin-top:6px;color:#7a8897;font-size:14px;line-height:1.55}
+      .tag{border-radius:999px;padding:7px 12px;font-size:11px;font-weight:800;letter-spacing:0.04em;white-space:nowrap}
+      .tag.done{background:#ecfbf5;color:#169c79}
+      .tag.active{background:#eef3ff;color:#355da0}
+      .tag.pending{background:#f3f6f9;color:#8b97a5}
+      .assigned{margin-top:28px;border:1px solid #e5edf6;border-radius:24px;background:linear-gradient(180deg,#ffffff 0%,#fbfdff 100%);padding:24px;box-shadow:0 14px 30px rgba(17,35,66,0.04)}
+      .assigned-grid{display:grid;grid-template-columns:74px 1fr;gap:18px;align-items:center}
+      .avatar{width:74px;height:74px;border-radius:20px;background:linear-gradient(180deg,#3b6caa 0%,#1d4f89 100%);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1px 0 rgba(255,255,255,0.2)}
+      .assigned-title{margin:0;color:#17324d;font-size:24px;font-weight:800}
+      .assigned-text{margin:8px 0 0;color:#607286;font-size:16px;line-height:1.65}
+      .mini-card{margin-top:14px;display:inline-flex;align-items:center;gap:10px;border:1px solid #e5edf6;border-radius:16px;background:#ffffff;padding:12px 14px;box-shadow:0 8px 18px rgba(17,35,66,0.04)}
+      .mini-text{color:#607286;font-size:12px;line-height:1.4}
+      .mini-text strong{display:block;color:#17324d;font-size:14px}
+      .cta-section{margin-top:28px;background:linear-gradient(180deg,#2b609c 0%,#1a487e 100%);border-radius:28px;padding:34px 26px;text-align:center}
+      .cta-kicker{color:#c3d8f0;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.22em}
+      .cta-title{margin:12px auto 0;max-width:470px;color:#ffffff;font-size:36px;line-height:1.2;font-weight:800}
+      .cta-text{margin:12px auto 0;max-width:500px;color:#e1ecf8;font-size:16px;line-height:1.65}
+      .button{display:inline-block;margin-top:22px;background:linear-gradient(180deg,#e85466 0%,#c6283e 100%);color:#ffffff;text-decoration:none;font-size:18px;font-weight:800;letter-spacing:0.01em;padding:18px 34px;border-radius:16px;box-shadow:0 12px 24px rgba(198,40,62,0.22)}
+      .support{padding:28px 34px 34px}
+      .support-title{margin:0;text-align:center;color:#17324d;font-size:18px;font-weight:800}
+      .support-text{margin:10px auto 0;max-width:520px;text-align:center;color:#66788a;font-size:15px;line-height:1.65}
+      .contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px}
+      .contact-card{border:1px solid #e5edf6;border-radius:18px;background:#ffffff;padding:18px 16px;text-align:center;box-shadow:0 10px 20px rgba(17,35,66,0.04)}
+      .contact-icon-wrap{width:52px;height:52px;margin:0 auto;border-radius:16px;background:#ffffff;border:2px solid #ffffff;box-shadow:0 0 0 1px rgba(208,220,235,0.9),0 8px 18px rgba(17,35,66,0.06);display:flex;align-items:center;justify-content:center}
+      .contact-label{margin-top:10px;color:#7b8897;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.16em}
+      .contact-value{margin-top:6px;color:#17324d;font-size:15px;font-weight:800;line-height:1.5}
+      .footer{background:#1c467b;padding:24px 20px 26px;text-align:center}
+      .footer-logo{color:#ffffff;font-size:24px;font-weight:800;letter-spacing:-0.02em}
+      .footer-logo .usa{color:#ef5567}
+      .footer-links{margin-top:10px;color:#e1ebf7;font-size:13px}
+      .footer-links span{margin:0 8px}
+      .footer-note{margin-top:10px;color:#d0dff1;font-size:12px;line-height:1.55}
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="email">
+        <div class="topbar">Tu camino empresarial en EE.UU. comienza aquí</div>
 
-  <!-- HEADER -->
-  <tr><td style="background:#0A2540;border-radius:12px 12px 0 0;padding:36px 40px;text-align:center">
-    <div style="font-family:Georgia,serif;font-size:22px;font-weight:700;color:#ffffff;letter-spacing:-0.5px;margin-bottom:20px">
-      CreaTuEmpresa<span style="color:#EF4444;">USA</span>
+        <div class="hero">
+          <div class="logo-lockup">
+            <h1 class="logo">CreaTuEmpresa<span class="usa">USA</span></h1>
+          </div>
+          <div class="hero-status">● Orden procesada y confirmada</div>
+          <div class="hero-title">Tu empresa en EE.UU. está en marcha, ${opts.customerName}.</div>
+          <div class="hero-sub">
+            Hemos recibido tu orden para <strong style="color:#ffffff">${opts.companyName}</strong> en el estado de
+            <strong style="color:#ffffff">${opts.stateName}</strong>. Nuestro equipo ya está trabajando en tu caso.
+          </div>
+        </div>
+
+        <div class="trust">
+          <div class="trust-inner">
+            <div class="trust-card">
+              <div class="trust-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M20 7L10 17L5 12" stroke="#169C79" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <p class="trust-title">Pago confirmado</p>
+              <p class="trust-text">Transacción validada correctamente.</p>
+            </div>
+            <div class="trust-card">
+              <div class="trust-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 3L18 6V11C18 15 15.5 18.2 12 19C8.5 18.2 6 15 6 11V6L12 3Z" stroke="#234D85" stroke-width="2.1"/>
+                  <path d="M10.5 11.5L12 13L14.8 10.2" stroke="#234D85" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <p class="trust-title">Datos protegidos</p>
+              <p class="trust-text">Información resguardada en cada etapa.</p>
+            </div>
+            <div class="trust-card">
+              <div class="trust-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20H20" stroke="#C6283E" stroke-width="2.1" stroke-linecap="round"/>
+                  <path d="M6 20V10M10 20V10M14 20V10M18 20V10" stroke="#C6283E" stroke-width="2.1" stroke-linecap="round"/>
+                  <path d="M3 10L12 4L21 10" stroke="#C6283E" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <p class="trust-title">Proceso estructurado en EE.UU.</p>
+              <p class="trust-text">Seguimiento claro para cada fase de tu incorporación.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <p class="eyebrow">Resumen de tu orden</p>
+          <div class="order-card">
+            <div class="order-top">
+              <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap">
+                <div>
+                  <p class="order-name">${opts.companyName}</p>
+                  <div class="order-meta">Ref. ${opts.orderRef} &nbsp;·&nbsp; ${opts.stateName}</div>
+                </div>
+                <div class="pill processing">● Procesando</div>
+              </div>
+            </div>
+            <div class="order-body">
+              <div class="row">
+                <div class="label">Estado de formación</div>
+                <div class="value">${opts.stateName}</div>
+              </div>
+              <div class="row">
+                <div class="label">Paquete</div>
+                <div class="value">${opts.packageName}</div>
+              </div>
+              <div class="row">
+                <div class="label">EIN federal</div>
+                <div class="value"><span class="pill included">✓ Incluido</span></div>
+              </div>
+              <div class="total-wrap">
+                <div>
+                  <div class="total-label">Total pagado</div>
+                  <div class="total-note">Pago procesado de forma segura.</div>
+                </div>
+                <div class="total-amount">$${opts.amountTotal} USD</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <p class="eyebrow">Tu proceso · 5 pasos</p>
+          <div class="timeline">
+            <div class="step">
+              <div class="dot done">✓</div>
+              <div class="step-title-row">
+                <div class="step-title">Pago recibido</div>
+                <div class="tag done">Completado</div>
+              </div>
+              <div class="step-text">Tu pago fue procesado y verificado correctamente.</div>
+            </div>
+            <div class="step">
+              <div class="dot active">2</div>
+              <div class="step-title-row">
+                <div class="step-title">Revisión de documentos</div>
+                <div class="tag active">En proceso</div>
+              </div>
+              <div class="step-text">Nuestro equipo está preparando tu expediente de incorporación.</div>
+            </div>
+            <div class="step">
+              <div class="dot pending">3</div>
+              <div class="step-title-row">
+                <div class="step-title">Filing estatal</div>
+                <div class="tag pending">Pendiente</div>
+              </div>
+              <div class="step-text">Presentaremos tu formación oficialmente en el estado de ${opts.stateName}.</div>
+            </div>
+            <div class="step">
+              <div class="dot pending">4</div>
+              <div class="step-title-row">
+                <div class="step-title">Obtención de EIN</div>
+                <div class="tag pending">Pendiente</div>
+              </div>
+              <div class="step-text">Gestionaremos tu número de identificación fiscal federal cuando corresponda.</div>
+            </div>
+            <div class="step">
+              <div class="dot pending">5</div>
+              <div class="step-title-row">
+                <div class="step-title">Entrega de documentos finales</div>
+                <div class="tag pending">Pendiente</div>
+              </div>
+              <div class="step-text">Recibirás tus documentos oficiales y próximos pasos para operar con confianza.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="assigned">
+            <div class="assigned-grid">
+              <div class="avatar">
+                <svg width="38" height="38" viewBox="0 0 48 48" fill="none">
+                  <circle cx="24" cy="16" r="8" fill="#DCE9FA"/>
+                  <path d="M12 37C12 30.9249 16.9249 26 23 26H25C31.0751 26 36 30.9249 36 37V39H12V37Z" fill="#9EBBE3"/>
+                  <path d="M18 10H30" stroke="#F3F8FF" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div>
+                <p class="assigned-title">Ya tienes un especialista asignado</p>
+                <p class="assigned-text">
+                  Revisaremos tu expediente en las próximas <strong style="color:#17324d">24 horas hábiles</strong>
+                  y te mantendremos informado por email y WhatsApp.
+                </p>
+                <div class="mini-card">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2L20 6V12C20 17 16.5 20.5 12 22C7.5 20.5 4 17 4 12V6L12 2Z" fill="#F7FAFF" stroke="#123B6D" stroke-width="1.8"/>
+                    <path d="M10 11.5L11.7 13.2L14.8 10.1" stroke="#123B6D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <div class="mini-text">
+                    <strong>Equipo de Incorporaciones</strong>
+                    CreaTuEmpresaUSA · L–V 9am–6pm EST
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cta-section">
+            <div class="cta-kicker">Tu portal está activo</div>
+            <div class="cta-title">Accede para ver el estado de tu caso en tiempo real</div>
+            <div class="cta-text">
+              Desde tu portal podrás revisar avances, próximos pasos y actualizaciones de tu proceso en un solo lugar.
+            </div>
+            <a href="${opts.portalUrl}" class="button">Acceder a mi portal →</a>
+          </div>
+        </div>
+
+        <div class="support">
+          <p class="support-title">¿Tienes preguntas sobre tu proceso?</p>
+          <p class="support-text">Nuestro equipo está aquí para ayudarte con una experiencia clara, rápida y profesional.</p>
+          <div class="contact-grid">
+            <div class="contact-card">
+              <div class="contact-icon-wrap">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+                  <rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.8" fill="#EEF4FF" stroke="#1B4A82" stroke-width="1.8"/>
+                  <path d="M6 8L12 12.8L18 8" stroke="#1B4A82" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="contact-label">Email</div>
+              <div class="contact-value">soporte@creatuempresausa.com</div>
+            </div>
+            <div class="contact-card">
+              <div class="contact-icon-wrap">
+                <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
+                  <circle cx="16" cy="16" r="13" fill="#EAF9F0" stroke="#169C79" stroke-width="1.8"/>
+                  <path d="M12.2 10.9C12.5 10.5 12.9 10.4 13.3 10.6L14.9 11.3C15.3 11.5 15.5 11.9 15.4 12.3L15 14C14.9 14.4 15 14.7 15.3 15C16.2 15.9 17.2 16.8 18.3 17.4C18.6 17.6 18.9 17.6 19.2 17.4L20.6 16.6C21 16.4 21.4 16.4 21.8 16.7L23.1 17.9C23.4 18.2 23.5 18.7 23.2 19.1C22.5 20.1 21.5 20.7 20.3 20.7C18.7 20.7 16.8 19.8 14.7 18C12.5 16.1 11.1 13.9 11.1 12.1C11.1 11.6 11.5 11.2 12.2 10.9Z" fill="#169C79"/>
+                </svg>
+              </div>
+              <div class="contact-label">WhatsApp</div>
+              <div class="contact-value">+1 (949) 346-1806</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <div class="footer-logo">CreaTuEmpresa<span class="usa">USA</span></div>
+          <div class="footer-links">Guía <span>|</span> Preguntas frecuentes <span>|</span> Contacto</div>
+          <div class="footer-note">La forma más clara, moderna y confiable para crear y operar un negocio en Estados Unidos.</div>
+        </div>
+      </div>
     </div>
-    <h1 style="margin:0 0 8px;font-size:28px;font-weight:800;color:#ffffff;line-height:1.2">¡Hola ${opts.customerName}! 🎉</h1>
-    <p style="margin:0;font-size:16px;color:#93c5fd;font-weight:500">Tu empresa en EE.UU. está en camino</p>
-  </td></tr>
-
-  <!-- TRUST BAR -->
-  <tr><td style="background:#1e3a5f;padding:14px 40px;text-align:center">
-    <p style="margin:0;font-size:13px;color:#bfdbfe;font-weight:500;letter-spacing:0.3px">✅ Empresa verificada &nbsp;·&nbsp; 🔒 Datos seguros &nbsp;·&nbsp; 🇺🇸 100% legal en EE.UU.</p>
-  </td></tr>
-
-  <!-- ORDER SUMMARY -->
-  <tr><td style="background:#ffffff;padding:32px 40px;border-left:1px solid #e2e8f0;border-right:1px solid #e2e8f0">
-    <p style="margin:0 0 20px;font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1.5px">Resumen del pedido</p>
-    <table width="100%" cellpadding="0" cellspacing="0">
-      <tr>
-        <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;color:#64748b">Empresa</td>
-        <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;font-weight:700;color:#0A2540;text-align:right">${opts.companyName}</td>
-      </tr>
-      <tr>
-        <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;color:#64748b">Estado de formación</td>
-        <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;font-weight:700;color:#0A2540;text-align:right">${opts.stateName}</td>
-      </tr>
-      <tr>
-        <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;color:#64748b">Paquete</td>
-        <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;font-weight:700;color:#0A2540;text-align:right">${opts.packageName}</td>
-      </tr>
-      ${addonsHtml}
-      <tr>
-        <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;color:#64748b">Número de orden</td>
-        <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;font-weight:700;color:#2563eb;text-align:right">${opts.orderRef}</td>
-      </tr>
-      <tr>
-        <td style="padding:14px 0 0;font-size:14px;color:#64748b;font-weight:600">Total pagado</td>
-        <td style="padding:14px 0 0;font-size:20px;font-weight:800;color:#0A2540;text-align:right">$${opts.amountTotal} USD</td>
-      </tr>
-    </table>
-  </td></tr>
-
-  <!-- NEXT STEPS -->
-  <tr><td style="background:#f8fafc;padding:32px 40px;border:1px solid #e2e8f0;border-top:none">
-    <p style="margin:0 0 20px;font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1.5px">Próximos pasos</p>
-    <table width="100%" cellpadding="0" cellspacing="0">
-      <tr><td style="padding:8px 0">
-        <table cellpadding="0" cellspacing="0"><tr>
-          <td style="font-size:20px;padding-right:12px;vertical-align:middle">✅</td>
-          <td style="vertical-align:middle"><span style="font-size:14px;font-weight:700;color:#16a34a">Pago recibido</span>&nbsp;&nbsp;<span style="font-size:11px;background:#dcfce7;color:#16a34a;padding:3px 10px;border-radius:20px;font-weight:700">Completado</span></td>
-        </tr></table>
-      </td></tr>
-      <tr><td style="padding:8px 0">
-        <table cellpadding="0" cellspacing="0"><tr>
-          <td style="font-size:20px;padding-right:12px;vertical-align:middle">📋</td>
-          <td style="vertical-align:middle"><span style="font-size:14px;font-weight:600;color:#0A2540">Revisión de documentos</span>&nbsp;&nbsp;<span style="font-size:11px;background:#fef3c7;color:#d97706;padding:3px 10px;border-radius:20px;font-weight:700">En proceso</span></td>
-        </tr></table>
-      </td></tr>
-      <tr><td style="padding:8px 0">
-        <table cellpadding="0" cellspacing="0"><tr>
-          <td style="font-size:20px;padding-right:12px;vertical-align:middle">📤</td>
-          <td style="vertical-align:middle"><span style="font-size:14px;color:#64748b">Filing estatal</span>&nbsp;&nbsp;<span style="font-size:11px;background:#f1f5f9;color:#94a3b8;padding:3px 10px;border-radius:20px;font-weight:700">Pendiente</span></td>
-        </tr></table>
-      </td></tr>
-      <tr><td style="padding:8px 0">
-        <table cellpadding="0" cellspacing="0"><tr>
-          <td style="font-size:20px;padding-right:12px;vertical-align:middle">🔢</td>
-          <td style="vertical-align:middle"><span style="font-size:14px;color:#64748b">Obtención de EIN</span>&nbsp;&nbsp;<span style="font-size:11px;background:#f1f5f9;color:#94a3b8;padding:3px 10px;border-radius:20px;font-weight:700">Pendiente</span></td>
-        </tr></table>
-      </td></tr>
-      <tr><td style="padding:8px 0">
-        <table cellpadding="0" cellspacing="0"><tr>
-          <td style="font-size:20px;padding-right:12px;vertical-align:middle">📦</td>
-          <td style="vertical-align:middle"><span style="font-size:14px;color:#64748b">Entrega de documentos</span>&nbsp;&nbsp;<span style="font-size:11px;background:#f1f5f9;color:#94a3b8;padding:3px 10px;border-radius:20px;font-weight:700">Pendiente</span></td>
-        </tr></table>
-      </td></tr>
-    </table>
-  </td></tr>
-
-  <!-- TEAM READY -->
-  <tr><td style="background:#eff6ff;padding:24px 40px;border:1px solid #bfdbfe;border-top:none;text-align:center">
-    <p style="margin:0;font-size:15px;color:#1e40af;line-height:1.6">
-      👥 <strong>Tu equipo está listo</strong><br>
-      Nuestro equipo de especialistas comenzará a procesar tu caso en las próximas <strong>24 horas hábiles</strong>.<br>
-      Recibirás actualizaciones por email y WhatsApp.
-    </p>
-  </td></tr>
-
-  <!-- CTA -->
-  <tr><td style="background:#ffffff;padding:40px 40px;text-align:center;border:1px solid #e2e8f0;border-top:none">
-    <a href="${opts.portalUrl}" style="display:inline-block;background:#2563eb;color:#ffffff;padding:16px 40px;border-radius:8px;font-size:18px;font-weight:700;text-decoration:none;letter-spacing:0.3px">Acceder a mi portal →</a>
-  </td></tr>
-
-  <!-- CONTACT -->
-  <tr><td style="background:#f8fafc;padding:28px 40px;text-align:center;border:1px solid #e2e8f0;border-top:none">
-    <p style="margin:0 0 14px;font-size:14px;font-weight:600;color:#0A2540">¿Tienes dudas? Escríbenos directamente:</p>
-    <p style="margin:0 0 8px;font-size:14px;color:#64748b">
-      📧 <a href="mailto:soporte@creatuempresausa.com" style="color:#2563eb;text-decoration:none;font-weight:600">soporte@creatuempresausa.com</a>
-    </p>
-    <p style="margin:0;font-size:14px;color:#64748b">
-      💬 <a href="https://wa.me/19493461806" style="color:#16a34a;text-decoration:none;font-weight:600">WhatsApp: +1 (949) 346-1806</a>
-    </p>
-  </td></tr>
-
-  <!-- FOOTER -->
-  <tr><td style="background:#0A2540;border-radius:0 0 12px 12px;padding:24px 40px;text-align:center">
-    <p style="margin:0 0 4px;font-size:12px;color:#94a3b8">© ${year} CreaTuEmpresaUSA · Todos los derechos reservados</p>
-    <p style="margin:0;font-size:11px;color:#475569">Este email fue enviado a ${opts.customerEmail} por haber realizado una compra en CreaTuEmpresaUSA.</p>
-  </td></tr>
-
-</table>
-</td></tr>
-</table>
-</body>
+  </body>
 </html>`
 }
 
