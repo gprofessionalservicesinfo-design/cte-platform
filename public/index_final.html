@@ -804,12 +804,8 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
 <nav id="nav">
   <div class="container">
     <div class="nav-inner">
-      <a class="nav-logo" href="#" onclick="goTo('home');return false">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 224 28" aria-label="CreaTuEmpresaUSA" role="img">
-          <text x="0" y="26" font-family="Georgia,'Times New Roman',serif" font-size="24" font-weight="700" letter-spacing="-0.3">
-            <tspan fill="#0A2540">CreaTuEmpresa</tspan><tspan fill="#DC2626">USA</tspan>
-          </text>
-        </svg>
+      <a href="#" onclick="goTo('home');return false" style="text-decoration:none;display:flex;align-items:center;gap:0;white-space:nowrap;flex-shrink:0;">
+        <span style="font-family:Georgia,serif;font-size:18px;font-weight:700;color:#0A2540;letter-spacing:-0.5px;">CreaTuEmpresa</span><span style="font-family:Georgia,serif;font-size:18px;font-weight:700;color:#DC2626;">USA</span>
       </a>
       <nav class="nav-links" id="navLinks" aria-label="Menú principal">
         <span class="nav-link active" data-page="home" onclick="goTo('home')" role="button" tabindex="0">Inicio</span>
