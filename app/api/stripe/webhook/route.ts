@@ -16,7 +16,18 @@ function buildWelcomeEmailHtml(opts: {
   amountTotal: number
   orderRef: string
   portalUrl: string
+  addons?: { label: string; price: number }[]
 }): string {
+  const year = new Date().getFullYear()
+  const addonsHtml = opts.addons && opts.addons.length > 0
+    ? opts.addons.map(a =>
+        `<tr>
+          <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;color:#64748b">+ ${a.label}</td>
+          <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;font-weight:700;color:#0A2540;text-align:right">$${a.price} USD</td>
+        </tr>`
+      ).join('')
+    : ''
+
   return `<!DOCTYPE html>
 <html lang="es">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
@@ -27,9 +38,16 @@ function buildWelcomeEmailHtml(opts: {
 
   <!-- HEADER -->
   <tr><td style="background:#0A2540;border-radius:12px 12px 0 0;padding:36px 40px;text-align:center">
-    <p style="margin:0 0 16px;font-size:12px;font-weight:700;letter-spacing:3px;color:#93c5fd;text-transform:uppercase">CreaTuEmpresaUSA</p>
+    <div style="font-family:Georgia,serif;font-size:22px;font-weight:700;color:#ffffff;letter-spacing:-0.5px;margin-bottom:20px">
+      CreaTuEmpresa<span style="color:#EF4444;">USA</span>
+    </div>
     <h1 style="margin:0 0 8px;font-size:28px;font-weight:800;color:#ffffff;line-height:1.2">¡Hola ${opts.customerName}! 🎉</h1>
     <p style="margin:0;font-size:16px;color:#93c5fd;font-weight:500">Tu empresa en EE.UU. está en camino</p>
+  </td></tr>
+
+  <!-- TRUST BAR -->
+  <tr><td style="background:#1e3a5f;padding:14px 40px;text-align:center">
+    <p style="margin:0;font-size:13px;color:#bfdbfe;font-weight:500;letter-spacing:0.3px">✅ Empresa verificada &nbsp;·&nbsp; 🔒 Datos seguros &nbsp;·&nbsp; 🇺🇸 100% legal en EE.UU.</p>
   </td></tr>
 
   <!-- ORDER SUMMARY -->
@@ -48,13 +66,14 @@ function buildWelcomeEmailHtml(opts: {
         <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;color:#64748b">Paquete</td>
         <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;font-weight:700;color:#0A2540;text-align:right">${opts.packageName}</td>
       </tr>
+      ${addonsHtml}
       <tr>
         <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;color:#64748b">Número de orden</td>
         <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:14px;font-weight:700;color:#2563eb;text-align:right">${opts.orderRef}</td>
       </tr>
       <tr>
-        <td style="padding:11px 0;font-size:14px;color:#64748b">Total pagado</td>
-        <td style="padding:11px 0;font-size:18px;font-weight:800;color:#0A2540;text-align:right">$${opts.amountTotal} USD</td>
+        <td style="padding:14px 0 0;font-size:14px;color:#64748b;font-weight:600">Total pagado</td>
+        <td style="padding:14px 0 0;font-size:20px;font-weight:800;color:#0A2540;text-align:right">$${opts.amountTotal} USD</td>
       </tr>
     </table>
   </td></tr>
@@ -96,21 +115,35 @@ function buildWelcomeEmailHtml(opts: {
     </table>
   </td></tr>
 
+  <!-- TEAM READY -->
+  <tr><td style="background:#eff6ff;padding:24px 40px;border:1px solid #bfdbfe;border-top:none;text-align:center">
+    <p style="margin:0;font-size:15px;color:#1e40af;line-height:1.6">
+      👥 <strong>Tu equipo está listo</strong><br>
+      Nuestro equipo de especialistas comenzará a procesar tu caso en las próximas <strong>24 horas hábiles</strong>.<br>
+      Recibirás actualizaciones por email y WhatsApp.
+    </p>
+  </td></tr>
+
   <!-- CTA -->
-  <tr><td style="background:#ffffff;padding:36px 40px;text-align:center;border:1px solid #e2e8f0;border-top:none">
-    <a href="${opts.portalUrl}" style="display:inline-block;background:#2563eb;color:#ffffff;padding:16px 44px;border-radius:8px;font-size:16px;font-weight:700;text-decoration:none;letter-spacing:0.3px">Acceder a mi portal →</a>
-    <p style="margin:28px 0 6px;font-size:13px;color:#64748b">¿Tienes preguntas? Estamos aquí para ayudarte:</p>
-    <p style="margin:0;font-size:13px">
-      <a href="mailto:soporte@creatuempresausa.com" style="color:#2563eb;text-decoration:none;font-weight:600">soporte@creatuempresausa.com</a>
-      &nbsp;&nbsp;·&nbsp;&nbsp;
-      <a href="https://wa.me/19046248859" style="color:#16a34a;text-decoration:none;font-weight:700">💬 WhatsApp</a>
+  <tr><td style="background:#ffffff;padding:40px 40px;text-align:center;border:1px solid #e2e8f0;border-top:none">
+    <a href="${opts.portalUrl}" style="display:inline-block;background:#2563eb;color:#ffffff;padding:16px 40px;border-radius:8px;font-size:18px;font-weight:700;text-decoration:none;letter-spacing:0.3px">Acceder a mi portal →</a>
+  </td></tr>
+
+  <!-- CONTACT -->
+  <tr><td style="background:#f8fafc;padding:28px 40px;text-align:center;border:1px solid #e2e8f0;border-top:none">
+    <p style="margin:0 0 14px;font-size:14px;font-weight:600;color:#0A2540">¿Tienes dudas? Escríbenos directamente:</p>
+    <p style="margin:0 0 8px;font-size:14px;color:#64748b">
+      📧 <a href="mailto:soporte@creatuempresausa.com" style="color:#2563eb;text-decoration:none;font-weight:600">soporte@creatuempresausa.com</a>
+    </p>
+    <p style="margin:0;font-size:14px;color:#64748b">
+      💬 <a href="https://wa.me/19493461806" style="color:#16a34a;text-decoration:none;font-weight:600">WhatsApp: +1 (949) 346-1806</a>
     </p>
   </td></tr>
 
   <!-- FOOTER -->
   <tr><td style="background:#0A2540;border-radius:0 0 12px 12px;padding:24px 40px;text-align:center">
-    <p style="margin:0 0 4px;font-size:12px;color:#64748b">© 2026 CreaTuEmpresaUSA · Todos los derechos reservados</p>
-    <p style="margin:0;font-size:11px;color:#334155">Este email fue enviado a ${opts.customerEmail} por haber realizado una compra en CreaTuEmpresaUSA.</p>
+    <p style="margin:0 0 4px;font-size:12px;color:#94a3b8">© ${year} CreaTuEmpresaUSA · Todos los derechos reservados</p>
+    <p style="margin:0;font-size:11px;color:#475569">Este email fue enviado a ${opts.customerEmail} por haber realizado una compra en CreaTuEmpresaUSA.</p>
   </td></tr>
 
 </table>
@@ -128,6 +161,7 @@ async function sendWelcomeEmail(opts: {
   packageName: string
   amountTotal: number
   orderRef: string
+  addons?: { label: string; price: number }[]
 }) {
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://creatuempresausa.com'
   try {
@@ -144,7 +178,8 @@ async function sendWelcomeEmail(opts: {
         packageName:  opts.packageName,
         amountTotal:  opts.amountTotal,
         orderRef:     opts.orderRef,
-        portalUrl:    appUrl + '/login',
+        portalUrl:    appUrl + '/dashboard',
+        addons:       opts.addons,
       }),
     })
     if (error) console.error('[webhook] Resend error:', error)
@@ -491,6 +526,7 @@ export async function POST(request: NextRequest) {
                 // Pull wizard data from pending_orders and enrich company record
                 let wizardCompanyName: string | undefined
                 let wizardStateName: string | undefined
+                let wizardAddons: { label: string; price: number }[] | undefined
                 if (companyData?.id) {
                   const { data: pendingOrder } = await supabase
                     .from('pending_orders')
@@ -534,6 +570,11 @@ export async function POST(request: NextRequest) {
                     // Capture for welcome email
                     wizardCompanyName = p.company_name
                     wizardStateName   = p.state_name ?? p.state_code
+                    if (p.addons && typeof p.addons === 'object') {
+                      wizardAddons = Object.values(p.addons as Record<string, any>)
+                        .filter((a: any) => a?.label && a?.price)
+                        .map((a: any) => ({ label: a.label, price: a.price }))
+                    }
                     // Mark order as claimed
                     await supabase
                       .from('pending_orders')
@@ -556,6 +597,7 @@ export async function POST(request: NextRequest) {
                   packageName:   pkgNames[pkg] ?? pkg,
                   amountTotal:   amountTotal / 100,
                   orderRef,
+                  addons:        wizardAddons,
                 })
 
                 // Save welcome email to mail_items for client portal visibility
