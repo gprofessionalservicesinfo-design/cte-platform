@@ -690,8 +690,6 @@ export async function POST(request: NextRequest) {
 
                 // ── contacts: one record per session (upsert = idempotent) ───
                 await supabase.from('contacts').insert({
-                  company_id:         companyData.id,
-                  client_id:          clientData.id,
                   full_name:          fullName,
                   email,
                   phone:              session.customer_details?.phone ?? '',
@@ -702,9 +700,8 @@ export async function POST(request: NextRequest) {
 
                 // ── cases: formal case record for agent system ────────────────
                 await supabase.from('cases').insert({
-                  company_id: companyData.id,
-                  agent_id:   'intake',
-                  status:     'pending',
+                  agent_id: 'intake',
+                  status:   'pending',
                 })
 
                 // ── mark agent_run completed ──────────────────────────────────
