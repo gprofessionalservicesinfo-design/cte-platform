@@ -45,11 +45,8 @@ export function AdminSidebar({ userEmail }: AdminSidebarProps) {
   const SidebarContent = () => (
     <div className="flex h-full flex-col">
       {/* Logo */}
-      <div className="flex items-center gap-2 px-6 py-5 border-b bg-slate-900">
-        <div className="bg-blue-500 rounded-lg p-1.5">
-          <Shield className="h-5 w-5 text-white" />
-        </div>
-        <span className="text-lg font-bold text-white">CTE Admin</span>
+      <div className="flex items-center px-6 py-5 border-b bg-slate-900">
+        <img src="/assets/logo.svg" alt="CreaTuEmpresaUSA" style={{ height: '32px', width: 'auto', filter: 'brightness(0) invert(1)' }} />
       </div>
 
       {/* Navigation */}

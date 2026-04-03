@@ -52,11 +52,8 @@ export function ClientSidebar({ companyName, userEmail }: SidebarProps) {
   const SidebarContent = () => (
     <div className="flex h-full flex-col">
       {/* Logo */}
-      <div className="flex items-center gap-2 px-6 py-5 border-b">
-        <div className="bg-primary rounded-lg p-1.5">
-          <Building2 className="h-5 w-5 text-white" />
-        </div>
-        <span className="text-lg font-bold text-gray-900">CTE Platform</span>
+      <div className="flex items-center px-6 py-5 border-b">
+        <img src="/assets/logo.svg" alt="CreaTuEmpresaUSA" style={{ height: '32px', width: 'auto' }} />
       </div>
 
       {/* Company Name */}
