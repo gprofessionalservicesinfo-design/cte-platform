@@ -429,6 +429,7 @@ export async function POST(request: NextRequest) {
 
             if (existingUsers && existingUsers.length > 0) {
               userId = existingUsers[0].id
+              console.log('[webhook] existing user flow - userId:', userId)
             } else {
               // Create auth user and send password setup email
               const { data: authData } = await supabase.auth.admin.createUser({
@@ -462,6 +463,7 @@ export async function POST(request: NextRequest) {
                 .select('id')
                 .single()
 
+              console.log('[webhook] client upsert result:', clientData?.id, clientError?.message)
               if (clientData?.id) {
                 // 3. Create company record
                 const orderRef = 'CTE-' + Date.now().toString(36).toUpperCase()
@@ -480,6 +482,7 @@ export async function POST(request: NextRequest) {
                   .select('id')
                   .single()
 
+                console.log('[webhook] company insert result:', companyData?.id, companyError?.message)
                 if (companyError) {
                   console.error('[webhook] Company insert error:', companyError)
                 } else {
@@ -569,6 +572,7 @@ export async function POST(request: NextRequest) {
 
                 // Send WhatsApp notification — prefer phone from client_reference_id (wizard), fallback to Stripe
                 const phone = phoneFromRef || session.metadata?.phone || session.customer_details?.phone || ''
+                console.log('[webhook] REACHING WHATSAPP SECTION - phone:', phone || '(empty)')
                 console.log('[webhook] phone sources — ref:', phoneFromRef, '| metadata:', session.metadata?.phone, '| details:', session.customer_details?.phone)
                 console.log('[webhook] final phone for WhatsApp:', phone || '(none — skipping)')
                 if (phone) {
