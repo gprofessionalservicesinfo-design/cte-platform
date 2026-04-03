@@ -13,7 +13,7 @@
 CREATE TABLE IF NOT EXISTS cases (
   id           uuid         PRIMARY KEY DEFAULT gen_random_uuid(),
   case_id      uuid         NOT NULL UNIQUE DEFAULT gen_random_uuid(),
-  company_id   uuid         REFERENCES companies(id) ON DELETE SET NULL,
+  company_id   uuid,
   agent_id     text         NOT NULL DEFAULT 'intake',
   status       text         NOT NULL DEFAULT 'pending'
                             CHECK (status IN ('pending','in_progress','completed','failed','cancelled')),
@@ -43,8 +43,8 @@ CREATE TRIGGER trg_cases_updated_at
 -- ============================================================
 CREATE TABLE IF NOT EXISTS contacts (
   id                 uuid         PRIMARY KEY DEFAULT gen_random_uuid(),
-  company_id         uuid         REFERENCES companies(id) ON DELETE SET NULL,
-  client_id          uuid         REFERENCES clients(id)   ON DELETE SET NULL,
+  company_id         uuid,
+  client_id          uuid,
   full_name          text,
   email              text,
   phone              text,
