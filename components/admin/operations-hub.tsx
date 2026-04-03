@@ -337,8 +337,7 @@ export function OperationsHub({ company, clientEmail, clientName, documents }: P
               {/* CPA Support */}
               <div className={`border rounded-xl p-5 space-y-3 min-h-[140px] shadow-sm transition-colors ${bkTool === 'cpa' ? 'border-blue-400 bg-blue-50' : 'border-gray-200 bg-white'}`}>
                 <p className="text-sm font-semibold text-gray-900">CPA Support</p>
-                <p className="text-xs text-gray-500 leading-relaxed">Upload financial documents and let a professional handle accounting.</p>
-                <DocumentUpload companyId={company.id} initialDocs={documents} />
+                <p className="text-xs text-gray-500 leading-relaxed">Upload docs in the Taxes section below, then mark as sent to your CPA.</p>
                 <Button variant="outline" size="sm" className="w-full h-9" disabled={bkSaving}
                   onClick={() => handleBkTool('cpa')}>
                   📤 Mark as Sent to CPA
