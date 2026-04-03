@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
+import { Logo } from '@/components/logo'
 import {
   LayoutDashboard,
   FileText,
@@ -53,7 +54,7 @@ export function ClientSidebar({ companyName, userEmail }: SidebarProps) {
     <div className="flex h-full flex-col">
       {/* Logo */}
       <div className="flex items-center px-6 py-5 border-b">
-        <img src="/assets/logo.svg" alt="CreaTuEmpresaUSA" style={{ height: '32px', width: 'auto' }} />
+        <Logo height={32} />
       </div>
 
       {/* Company Name */}

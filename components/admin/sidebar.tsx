@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { Users, FileText, Activity, CreditCard, Shield, LogOut, Menu, X, ShoppingBag, Mail, Wrench, LayoutDashboard } from 'lucide-react'
+import { Logo } from '@/components/logo'
 import { cn } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
@@ -46,7 +47,7 @@ export function AdminSidebar({ userEmail }: AdminSidebarProps) {
     <div className="flex h-full flex-col">
       {/* Logo */}
       <div className="flex items-center px-6 py-5 border-b bg-slate-900">
-        <img src="/assets/logo.svg" alt="CreaTuEmpresaUSA" style={{ height: '32px', width: 'auto', filter: 'brightness(0) invert(1)' }} />
+        <Logo height={32} invert />
       </div>
 
       {/* Navigation */}

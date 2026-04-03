@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Loader2, CheckCircle2 } from 'lucide-react'
+import { Logo } from '@/components/logo'
 
 export default function RegisterPage() {
   const [fullName, setFullName] = useState('')
@@ -81,7 +82,7 @@ export default function RegisterPage() {
   return (
     <>
       <div className="flex justify-center mb-8">
-        <img src="/assets/logo.svg" alt="CreaTuEmpresaUSA" style={{ height: '40px', width: 'auto' }} />
+        <Logo height={40} />
       </div>
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-gray-900">Create your account</h2>

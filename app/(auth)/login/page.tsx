@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Loader2 } from 'lucide-react'
+import { Logo } from '@/components/logo'
 
 export default function LoginPage() {
   const [email, setEmail]       = useState('')
@@ -65,7 +66,7 @@ export default function LoginPage() {
   return (
     <div>
       <div className="flex justify-center mb-8">
-        <img src="/assets/logo.svg" alt="CreaTuEmpresaUSA" style={{ height: '40px', width: 'auto' }} />
+        <Logo height={40} />
       </div>
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900 mb-1">Iniciar sesión</h1>
