@@ -443,15 +443,24 @@ export async function POST(request: NextRequest) {
                   })
                 }
 
-                // ── Agent System: registrar tarea y log para el agente intake ──
+                // ── cases: insert first to capture cases.id for downstream refs ──
+                const { data: caseData } = await supabase
+                  .from('cases')
+                  .insert({ agent_id: 'intake', status: 'pending' })
+                  .select('id')
+                  .single()
+
+                const caseRef = caseData?.id ?? null
+
+                // ── agent_tasks ───────────────────────────────────────────────
                 await supabase.from('agent_tasks').insert({
                   agent_id:  'intake',
-                  case_id:   companyData.id,
+                  case_id:   caseRef,
                   task_type: 'process_new_client',
                   status:    'pending',
                   priority:  1,
                   payload: {
-                    case_id:           companyData.id,
+                    case_id:           caseRef,
                     client_id:         clientData.id,
                     stripe_session_id: session.id,
                     amount:            amountTotal / 100,
@@ -461,9 +470,10 @@ export async function POST(request: NextRequest) {
                   },
                 })
 
+                // ── agent_logs ────────────────────────────────────────────────
                 await supabase.from('agent_logs').insert({
                   agent_id:           'intake',
-                  case_id:            companyData.id,
+                  case_id:            caseRef,
                   action:             'new_client_detected',
                   status:             'pending_review',
                   human_review_level: 'H1',
@@ -474,23 +484,17 @@ export async function POST(request: NextRequest) {
                   },
                   output_summary: {},
                 })
-                console.log('[webhook] Agent intake task + log creados para case:', companyData.id)
+                console.log('[webhook] Agent intake task + log creados para case:', caseRef)
 
-                // ── contacts: one record per session (upsert = idempotent) ───
-                await supabase.from('contacts').insert({
+                // ── contacts: upsert = idempotent on stripe_session_id ────────
+                await supabase.from('contacts').upsert({
                   full_name:          fullName,
                   email,
                   phone:              session.customer_details?.phone ?? '',
                   country:            session.customer_details?.address?.country ?? '',
                   stripe_customer_id: typeof session.customer === 'string' ? session.customer : '',
                   stripe_session_id:  session.id,
-                })
-
-                // ── cases: formal case record for agent system ────────────────
-                await supabase.from('cases').insert({
-                  agent_id: 'intake',
-                  status:   'pending',
-                })
+                }, { onConflict: 'stripe_session_id', ignoreDuplicates: true })
 
                 // ── mark agent_run completed ──────────────────────────────────
                 if (agentRunId) {
