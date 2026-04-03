@@ -61,7 +61,7 @@
      1. MICRO BAR
 ═══════════════════════════════════════════════════════════════════ -->
 <tr>
-  <td style="background:#060F1C; padding:10px 48px">
+  <td style="background:#0D2E56; padding:10px 48px">
     <table width="100%" cellpadding="0" cellspacing="0"><tr>
       <td>
         <span style="font-size:10px; color:#2D4A6A; letter-spacing:1.4px;
@@ -84,7 +84,7 @@
 ═══════════════════════════════════════════════════════════════════ -->
 <tr>
   <td class="hero-pad"
-    style="background:linear-gradient(155deg,#060F1C 0%,#0A2748 40%,#0F3668 75%,#123B6D 100%);
+    style="background:linear-gradient(155deg,#0D2E56 0%,#153C72 40%,#1C4D8C 75%,#123B6D 100%);
            padding:68px 48px 60px; text-align:center; position:relative; overflow:hidden">
 
     <!-- Background mesh dots -->
@@ -111,35 +111,93 @@
 
     <!-- ── FLAG STRIP — refined ── -->
     <div style="margin:0 auto 38px; position:relative; z-index:1; display:inline-block">
-      <svg width="260" height="16" viewBox="0 0 260 16"
-           xmlns="http://www.w3.org/2000/svg" style="display:block; filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25))">
+      <!-- US flag: 50 stars (9 rows alternating 6/5) + 7 stripes -->
+      <svg width="280" height="22" viewBox="0 0 280 22"
+           xmlns="http://www.w3.org/2000/svg" style="display:block; filter:drop-shadow(0 1px 6px rgba(0,0,0,0.30))">
         <defs>
           <clipPath id="flag-clip">
-            <rect width="260" height="16" rx="3"/>
+            <rect width="280" height="22" rx="3"/>
           </clipPath>
         </defs>
         <g clip-path="url(#flag-clip)">
           <!-- Canton -->
-          <rect x="0" y="0" width="64" height="16" fill="#0A1E38"/>
-          <!-- Stars: 3×2 grid -->
-          <circle cx="13" cy="5"  r="1.5" fill="rgba(255,255,255,0.80)"/>
-          <circle cx="27" cy="5"  r="1.5" fill="rgba(255,255,255,0.80)"/>
-          <circle cx="41" cy="5"  r="1.5" fill="rgba(255,255,255,0.80)"/>
-          <circle cx="55" cy="5"  r="1.5" fill="rgba(255,255,255,0.80)"/>
-          <circle cx="13" cy="11" r="1.5" fill="rgba(255,255,255,0.80)"/>
-          <circle cx="27" cy="11" r="1.5" fill="rgba(255,255,255,0.80)"/>
-          <circle cx="41" cy="11" r="1.5" fill="rgba(255,255,255,0.80)"/>
-          <circle cx="55" cy="11" r="1.5" fill="rgba(255,255,255,0.80)"/>
-          <!-- 7 stripes -->
-          <rect x="66" y="0"    width="194" height="2.28" fill="#C6283E"/>
-          <rect x="66" y="2.28" width="194" height="2.28" fill="rgba(255,255,255,0.88)"/>
-          <rect x="66" y="4.57" width="194" height="2.28" fill="#C6283E"/>
-          <rect x="66" y="6.85" width="194" height="2.28" fill="rgba(255,255,255,0.88)"/>
-          <rect x="66" y="9.14" width="194" height="2.28" fill="#C6283E"/>
-          <rect x="66" y="11.4" width="194" height="2.28" fill="rgba(255,255,255,0.88)"/>
-          <rect x="66" y="13.7" width="194" height="2.28" fill="#C6283E"/>
-          <!-- Border overlay -->
-          <rect width="260" height="16" rx="3" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+          <rect x="0" y="0" width="76" height="22" fill="#102E58"/>
+
+          <!-- 50 STARS — 9 alternating rows (6/5/6/5/6/5/6/5/6)
+               Row centers y: 1.2, 3.6, 6.1, 8.5, 11.0, 13.4, 15.9, 18.3, 20.8
+               6-star x:  5.5 16.6 27.7 38.8 49.9 61.0
+               5-star x: 11.1 22.2 33.3 44.4 55.5 -->
+          <!-- Row 1 — 6 stars -->
+          <circle cx="5.5"  cy="1.2"  r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="16.6" cy="1.2"  r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="27.7" cy="1.2"  r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="38.8" cy="1.2"  r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="49.9" cy="1.2"  r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="61.0" cy="1.2"  r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <!-- Row 2 — 5 stars -->
+          <circle cx="11.1" cy="3.6"  r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="22.2" cy="3.6"  r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="33.3" cy="3.6"  r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="44.4" cy="3.6"  r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="55.5" cy="3.6"  r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <!-- Row 3 — 6 stars -->
+          <circle cx="5.5"  cy="6.1"  r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="16.6" cy="6.1"  r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="27.7" cy="6.1"  r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="38.8" cy="6.1"  r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="49.9" cy="6.1"  r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="61.0" cy="6.1"  r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <!-- Row 4 — 5 stars -->
+          <circle cx="11.1" cy="8.5"  r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="22.2" cy="8.5"  r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="33.3" cy="8.5"  r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="44.4" cy="8.5"  r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="55.5" cy="8.5"  r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <!-- Row 5 — 6 stars -->
+          <circle cx="5.5"  cy="11.0" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="16.6" cy="11.0" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="27.7" cy="11.0" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="38.8" cy="11.0" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="49.9" cy="11.0" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="61.0" cy="11.0" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <!-- Row 6 — 5 stars -->
+          <circle cx="11.1" cy="13.4" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="22.2" cy="13.4" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="33.3" cy="13.4" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="44.4" cy="13.4" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="55.5" cy="13.4" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <!-- Row 7 — 6 stars -->
+          <circle cx="5.5"  cy="15.9" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="16.6" cy="15.9" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="27.7" cy="15.9" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="38.8" cy="15.9" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="49.9" cy="15.9" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="61.0" cy="15.9" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <!-- Row 8 — 5 stars -->
+          <circle cx="11.1" cy="18.3" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="22.2" cy="18.3" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="33.3" cy="18.3" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="44.4" cy="18.3" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="55.5" cy="18.3" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <!-- Row 9 — 6 stars -->
+          <circle cx="5.5"  cy="20.8" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="16.6" cy="20.8" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="27.7" cy="20.8" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="38.8" cy="20.8" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="49.9" cy="20.8" r="0.95" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="61.0" cy="20.8" r="0.95" fill="rgba(255,255,255,0.88)"/>
+
+          <!-- 7 STRIPES (start at x=78, width=202) -->
+          <rect x="78" y="0"    width="202" height="3.14" fill="#C6283E"/>
+          <rect x="78" y="3.14" width="202" height="3.14" fill="rgba(255,255,255,0.90)"/>
+          <rect x="78" y="6.28" width="202" height="3.14" fill="#C6283E"/>
+          <rect x="78" y="9.43" width="202" height="3.14" fill="rgba(255,255,255,0.90)"/>
+          <rect x="78" y="12.6" width="202" height="3.14" fill="#C6283E"/>
+          <rect x="78" y="15.7" width="202" height="3.14" fill="rgba(255,255,255,0.90)"/>
+          <rect x="78" y="18.9" width="202" height="3.14" fill="#C6283E"/>
+
+          <!-- Subtle border -->
+          <rect width="280" height="22" rx="3" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
         </g>
       </svg>
     </div>
@@ -301,7 +359,7 @@
 
       <!-- ── Card header ── -->
       <tr>
-        <td style="background:linear-gradient(95deg,#071929 0%,#0D3060 60%,#123B6D 100%);
+        <td style="background:linear-gradient(95deg,#0F3060 0%,#163B78 60%,#123B6D 100%);
                    padding:20px 28px; border-radius:18px 18px 0 0">
           <table width="100%" cellpadding="0" cellspacing="0"><tr>
             <td>
@@ -511,7 +569,7 @@
         <td width="48" valign="top" style="text-align:center">
           <div class="step-active"
             style="width:40px; height:40px; border-radius:50%; margin:0 auto;
-                   background:linear-gradient(135deg,#0D3060 0%,#1A5CB8 100%);
+                   background:linear-gradient(135deg,#163B78 0%,#1A5CB8 100%);
                    border:2px solid #3B82F6; text-align:center; line-height:38px">
             <!-- Clock/in-progress icon -->
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
@@ -631,7 +689,7 @@
         <!-- Avatar illustration -->
         <td class="support-avatar-cell" width="88" valign="middle" style="padding-right:24px">
           <div style="width:72px; height:72px; border-radius:18px;
-                      background:linear-gradient(140deg,#0A2748 0%,#1A5CB8 100%);
+                      background:linear-gradient(140deg,#153C72 0%,#1A5CB8 100%);
                       box-shadow:0 6px 24px rgba(10,39,72,0.28);
                       text-align:center; line-height:72px; position:relative; overflow:hidden">
             <!-- Person SVG illustration -->
@@ -679,7 +737,7 @@
             <svg width="22" height="15" viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"
                  style="display:block; border-radius:2px; flex-shrink:0">
               <rect width="22" height="15" rx="2" fill="#F1F5F9"/>
-              <rect width="8" height="15" rx="2" fill="#0A1E38"/>
+              <rect width="8" height="15" rx="2" fill="#102E58"/>
               <circle cx="2.5" cy="5"  r="0.9" fill="rgba(255,255,255,0.75)"/>
               <circle cx="5.5" cy="5"  r="0.9" fill="rgba(255,255,255,0.75)"/>
               <circle cx="2.5" cy="10" r="0.9" fill="rgba(255,255,255,0.75)"/>
@@ -714,7 +772,7 @@
 ═══════════════════════════════════════════════════════════════════ -->
 <tr>
   <td class="cta-section"
-    style="background:linear-gradient(155deg,#060F1C 0%,#0A2748 50%,#0F3668 100%);
+    style="background:linear-gradient(155deg,#0D2E56 0%,#153C72 50%,#1C4D8C 100%);
            padding:60px 48px; text-align:center; position:relative; overflow:hidden">
 
     <!-- Radial glow left -->
@@ -838,7 +896,7 @@
 ═══════════════════════════════════════════════════════════════════ -->
 <tr>
   <td class="footer-pad"
-    style="background:#060F1C; padding:36px 48px; text-align:center;
+    style="background:#0D2E56; padding:36px 48px; text-align:center;
            border-radius:0 0 24px 24px; border-top:1px solid #0B1E35">
 
     <!-- Wordmark -->
