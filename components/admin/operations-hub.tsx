@@ -287,9 +287,8 @@ export function OperationsHub({ company, clientEmail, clientName, documents }: P
         </CardContent>
       </Card>
 
-      {/* 8 — Accounting & Bookkeeping (only when EIN exists) */}
-      {company.ein && (
-        <Card className="shadow-sm">
+      {/* 8 — Accounting & Bookkeeping */}
+      <Card className="shadow-sm">
           <CardContent className="pt-5 pb-5">
             <SectionHeader icon={BookOpen} title="Accounting & Bookkeeping"
               badge={
@@ -379,7 +378,6 @@ export function OperationsHub({ company, clientEmail, clientName, documents }: P
             </div>
           </CardContent>
         </Card>
-      )}
 
     </div>
   )
