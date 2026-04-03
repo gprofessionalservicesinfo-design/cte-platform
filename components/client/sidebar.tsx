@@ -54,7 +54,7 @@ export function ClientSidebar({ companyName, userEmail }: SidebarProps) {
     <div className="flex h-full flex-col">
       {/* Logo */}
       <div className="flex items-center px-6 py-5 border-b">
-        <Logo height={32} />
+        <img src="/assets/logo.svg" alt="CreaTuEmpresaUSA" style={{ height: '28px', width: 'auto', maxWidth: '160px', objectFit: 'contain' }} />
       </div>
 
       {/* Company Name */}

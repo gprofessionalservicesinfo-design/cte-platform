@@ -66,7 +66,7 @@ export default function LoginPage() {
   return (
     <div>
       <div className="flex justify-center mb-8">
-        <Logo height={40} />
+        <img src="/assets/logo.svg" alt="CreaTuEmpresaUSA" style={{ height: '40px', width: 'auto', maxWidth: '200px', objectFit: 'contain' }} />
       </div>
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900 mb-1">Iniciar sesión</h1>
