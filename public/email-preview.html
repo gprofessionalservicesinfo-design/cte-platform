@@ -4,755 +4,891 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <title>Email Premium v2 — CreaTuEmpresaUSA</title>
+  <title>Email Premium v3 — CreaTuEmpresaUSA</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: #E8EFF7;
+      background: #E2EAF4;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, Helvetica, sans-serif;
       -webkit-font-smoothing: antialiased;
     }
 
     @keyframes pulse-ring {
-      0%   { box-shadow: 0 0 0 0 rgba(18, 59, 109, 0.50); }
-      65%  { box-shadow: 0 0 0 10px rgba(18, 59, 109, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(18, 59, 109, 0); }
+      0%   { box-shadow: 0 0 0 0 rgba(59,130,246,0.55); }
+      65%  { box-shadow: 0 0 0 12px rgba(59,130,246,0); }
+      100% { box-shadow: 0 0 0 0 rgba(59,130,246,0); }
     }
-    .step-active { animation: pulse-ring 2.4s ease-out infinite; }
+    .step-active { animation: pulse-ring 2.5s ease-out infinite; }
 
-    @keyframes spin-slow {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
-    }
-    .spin { display: inline-block; animation: spin-slow 3s linear infinite; }
+    @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .spin-icon { animation: spin-slow 2.8s linear infinite; display: inline-block; }
 
     @media (max-width: 640px) {
       .outer-pad   { padding: 0 !important; }
       .email-card  { border-radius: 0 !important; box-shadow: none !important; }
       .hero-pad    { padding: 52px 24px 48px !important; }
       .section-pad { padding-left: 24px !important; padding-right: 24px !important; }
-      .trust-row   { display: block !important; }
-      .trust-cell  { display: block !important; width: 100% !important; border-left: none !important;
-                     border-top: 1px solid #DDE6F0 !important; padding: 16px 24px !important; }
+      .trust-cell  { display: block !important; width: 100% !important;
+                     border-left: none !important; border-top: 1px solid #DDE6F0 !important;
+                     padding: 20px 24px !important; }
       .trust-cell:first-child { border-top: none !important; }
-      .order-row-pad { padding: 17px 20px !important; }
-      .cta-section  { padding: 48px 24px !important; }
-      .cta-btn      { padding: 18px 28px !important; font-size: 16px !important; }
-      .contact-pad  { padding: 32px 24px !important; }
-      .footer-pad   { padding: 28px 24px !important; }
-      .timeline-pad { padding: 40px 24px !important; }
-      .support-pad  { padding: 36px 24px !important; }
+      .cta-section { padding: 52px 24px !important; }
+      .cta-btn     { padding: 20px 24px !important; font-size: 16px !important; width: 100% !important; }
+      .contact-cols td { display: block !important; width: 100% !important;
+                         padding: 6px 0 !important; }
+      .footer-pad  { padding: 32px 24px !important; }
+      .support-inner td { display: block !important; width: 100% !important; }
+      .support-avatar-cell { padding-right: 0 !important; padding-bottom: 20px !important; }
     }
   </style>
 </head>
 <body>
 
-<!-- OUTER WRAPPER -->
+<!-- ─────────────────────────────────────────────────────────────────
+     OUTER WRAPPER
+──────────────────────────────────────────────────────────────────── -->
 <table width="100%" cellpadding="0" cellspacing="0" class="outer-pad"
-  style="background:#E8EFF7; padding:36px 16px">
+  style="background:#E2EAF4; padding:40px 16px">
 <tr><td align="center">
 
 <!-- EMAIL CARD -->
 <table cellpadding="0" cellspacing="0" class="email-card"
-  style="max-width:620px; width:100%; border-radius:20px; overflow:hidden;
-         box-shadow:0 8px 48px rgba(8,28,58,0.14), 0 2px 8px rgba(8,28,58,0.06)">
+  style="max-width:620px; width:100%; border-radius:24px; overflow:hidden;
+         box-shadow:0 12px 60px rgba(7,22,46,0.18), 0 3px 12px rgba(7,22,46,0.08)">
 
 
-  <!-- ══════════════════════════════════════════════════════════
-       1. MICRO BAR — Order reference strip
-  ════════════════════════════════════════════════════════════ -->
-  <tr>
-    <td style="background:#071929; padding:11px 48px; text-align:center">
-      <table width="100%" cellpadding="0" cellspacing="0"><tr>
-        <td style="text-align:left">
-          <span style="font-size:10px; color:#4A6A8A; letter-spacing:1.2px; font-weight:600; text-transform:uppercase">
-            CreaTuEmpresaUSA
-          </span>
-        </td>
-        <td style="text-align:right">
-          <span style="font-size:10px; color:#4A6A8A; letter-spacing:0.8px">
-            Ref. [orderRef]
-          </span>
-        </td>
-      </tr></table>
-    </td>
-  </tr>
-
-
-  <!-- ══════════════════════════════════════════════════════════
-       2. HERO
-  ════════════════════════════════════════════════════════════ -->
-  <tr>
-    <td class="hero-pad"
-      style="background:linear-gradient(150deg,#071929 0%,#0D3060 45%,#123B6D 100%);
-             padding:64px 48px 56px; text-align:center; position:relative">
-
-      <!-- Subtle grid overlay -->
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;
-                  background-image:radial-gradient(circle,rgba(255,255,255,0.04) 1px,transparent 1px);
-                  background-size:24px 24px; pointer-events:none"></div>
-
-      <!-- ── WORDMARK ── -->
-      <div style="margin-bottom:20px; position:relative">
-        <span style="font-family:Georgia,'Times New Roman',serif; font-size:38px;
-                     font-weight:700; color:#FFFFFF; letter-spacing:-0.8px; line-height:1">
-          CreaTuEmpresa
-        </span><span style="font-family:Georgia,'Times New Roman',serif; font-size:38px;
-                            font-weight:700; color:#C6283E; letter-spacing:-0.8px; line-height:1">
-          USA
+<!-- ═══════════════════════════════════════════════════════════════
+     1. MICRO BAR
+═══════════════════════════════════════════════════════════════════ -->
+<tr>
+  <td style="background:#060F1C; padding:10px 48px">
+    <table width="100%" cellpadding="0" cellspacing="0"><tr>
+      <td>
+        <span style="font-size:10px; color:#2D4A6A; letter-spacing:1.4px;
+                     font-weight:700; text-transform:uppercase">
+          CreaTuEmpresaUSA
         </span>
-      </div>
+      </td>
+      <td style="text-align:right">
+        <span style="font-size:10px; color:#2D4A6A; letter-spacing:0.6px">
+          Ref. <span style="color:#3A5F87">[orderRef]</span>
+        </span>
+      </td>
+    </tr></table>
+  </td>
+</tr>
 
-      <!-- ── FLAG ACCENT STRIP ── -->
-      <!-- Stars + 7 stripes, subtle and precise -->
-      <div style="margin:0 auto 36px; width:240px; position:relative">
-        <svg width="240" height="14" viewBox="0 0 240 14"
-             xmlns="http://www.w3.org/2000/svg" style="display:block; margin:0 auto">
-          <!-- Canton (stars) -->
-          <rect x="0" y="0" width="58" height="14" fill="#071929" rx="2" ry="2"/>
-          <!-- Star dots — 2 rows × 3 cols -->
-          <circle cx="14" cy="4"  r="1.4" fill="rgba(255,255,255,0.75)"/>
-          <circle cx="28" cy="4"  r="1.4" fill="rgba(255,255,255,0.75)"/>
-          <circle cx="42" cy="4"  r="1.4" fill="rgba(255,255,255,0.75)"/>
-          <circle cx="14" cy="10" r="1.4" fill="rgba(255,255,255,0.75)"/>
-          <circle cx="28" cy="10" r="1.4" fill="rgba(255,255,255,0.75)"/>
-          <circle cx="42" cy="10" r="1.4" fill="rgba(255,255,255,0.75)"/>
-          <!-- Stripes — 7 equal, start/end red -->
-          <rect x="60" y="0"  width="180" height="2"   fill="#C6283E"/>
-          <rect x="60" y="2"  width="180" height="2"   fill="rgba(255,255,255,0.82)"/>
-          <rect x="60" y="4"  width="180" height="2"   fill="#C6283E"/>
-          <rect x="60" y="6"  width="180" height="2"   fill="rgba(255,255,255,0.82)"/>
-          <rect x="60" y="8"  width="180" height="2"   fill="#C6283E"/>
-          <rect x="60" y="10" width="180" height="2"   fill="rgba(255,255,255,0.82)"/>
-          <rect x="60" y="12" width="180" height="2"   fill="#C6283E"/>
-          <!-- Cap corner on right -->
-          <rect x="236" y="0" width="4" height="14" fill="transparent" rx="2" ry="2"/>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     2. HERO
+═══════════════════════════════════════════════════════════════════ -->
+<tr>
+  <td class="hero-pad"
+    style="background:linear-gradient(155deg,#060F1C 0%,#0A2748 40%,#0F3668 75%,#123B6D 100%);
+           padding:68px 48px 60px; text-align:center; position:relative; overflow:hidden">
+
+    <!-- Background mesh dots -->
+    <div style="position:absolute;top:0;left:0;right:0;bottom:0;
+                background-image:radial-gradient(rgba(255,255,255,0.035) 1.5px, transparent 1.5px);
+                background-size:28px 28px; pointer-events:none; z-index:0"></div>
+
+    <!-- Top-right glow -->
+    <div style="position:absolute;top:-60px;right:-60px;width:240px;height:240px;
+                border-radius:50%;background:radial-gradient(circle,rgba(198,40,62,0.12) 0%,transparent 70%);
+                pointer-events:none; z-index:0"></div>
+
+    <!-- ── WORDMARK ── -->
+    <div style="margin-bottom:22px; position:relative; z-index:1">
+      <!-- Subtle letterpress shadow on text -->
+      <span style="font-family:Georgia,'Times New Roman',serif; font-size:40px;
+                   font-weight:700; color:#FFFFFF; letter-spacing:-1px; line-height:1;
+                   text-shadow:0 2px 12px rgba(0,0,0,0.3)">
+        CreaTuEmpresa</span><span
+           style="font-family:Georgia,'Times New Roman',serif; font-size:40px;
+                  font-weight:700; color:#C6283E; letter-spacing:-1px; line-height:1;
+                  text-shadow:0 2px 12px rgba(0,0,0,0.3)">USA</span>
+    </div>
+
+    <!-- ── FLAG STRIP — refined ── -->
+    <div style="margin:0 auto 38px; position:relative; z-index:1; display:inline-block">
+      <svg width="260" height="16" viewBox="0 0 260 16"
+           xmlns="http://www.w3.org/2000/svg" style="display:block; filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25))">
+        <defs>
+          <clipPath id="flag-clip">
+            <rect width="260" height="16" rx="3"/>
+          </clipPath>
+        </defs>
+        <g clip-path="url(#flag-clip)">
+          <!-- Canton -->
+          <rect x="0" y="0" width="64" height="16" fill="#0A1E38"/>
+          <!-- Stars: 3×2 grid -->
+          <circle cx="13" cy="5"  r="1.5" fill="rgba(255,255,255,0.80)"/>
+          <circle cx="27" cy="5"  r="1.5" fill="rgba(255,255,255,0.80)"/>
+          <circle cx="41" cy="5"  r="1.5" fill="rgba(255,255,255,0.80)"/>
+          <circle cx="55" cy="5"  r="1.5" fill="rgba(255,255,255,0.80)"/>
+          <circle cx="13" cy="11" r="1.5" fill="rgba(255,255,255,0.80)"/>
+          <circle cx="27" cy="11" r="1.5" fill="rgba(255,255,255,0.80)"/>
+          <circle cx="41" cy="11" r="1.5" fill="rgba(255,255,255,0.80)"/>
+          <circle cx="55" cy="11" r="1.5" fill="rgba(255,255,255,0.80)"/>
+          <!-- 7 stripes -->
+          <rect x="66" y="0"    width="194" height="2.28" fill="#C6283E"/>
+          <rect x="66" y="2.28" width="194" height="2.28" fill="rgba(255,255,255,0.88)"/>
+          <rect x="66" y="4.57" width="194" height="2.28" fill="#C6283E"/>
+          <rect x="66" y="6.85" width="194" height="2.28" fill="rgba(255,255,255,0.88)"/>
+          <rect x="66" y="9.14" width="194" height="2.28" fill="#C6283E"/>
+          <rect x="66" y="11.4" width="194" height="2.28" fill="rgba(255,255,255,0.88)"/>
+          <rect x="66" y="13.7" width="194" height="2.28" fill="#C6283E"/>
+          <!-- Border overlay -->
+          <rect width="260" height="16" rx="3" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- ── ORDER STATUS BADGE ── -->
+    <div style="margin-bottom:30px; position:relative; z-index:1">
+      <span style="display:inline-flex; align-items:center; gap:8px;
+                   background:rgba(5,150,105,0.15); border:1px solid rgba(5,150,105,0.30);
+                   border-radius:28px; padding:8px 20px">
+        <!-- Green dot -->
+        <svg width="8" height="8" viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg"
+             style="display:inline-block; flex-shrink:0">
+          <circle cx="4" cy="4" r="4" fill="#34D399"/>
         </svg>
-      </div>
-
-      <!-- ── STATUS PILL ── -->
-      <div style="margin-bottom:28px">
-        <span style="display:inline-block; background:rgba(255,255,255,0.10);
-                     border:1px solid rgba(255,255,255,0.18); border-radius:24px;
-                     padding:7px 20px; font-size:12px; color:#93C5FD; font-weight:600;
-                     letter-spacing:0.4px">
-          ● &nbsp;Orden procesada y confirmada
+        <span style="font-size:12px; color:#6EE7B7; font-weight:600; letter-spacing:0.3px">
+          Orden procesada y confirmada
         </span>
-      </div>
+      </span>
+    </div>
 
-      <!-- ── HEADLINE ── -->
-      <h1 style="margin:0 0 18px; font-size:32px; font-weight:800; color:#FFFFFF;
-                 line-height:1.2; letter-spacing:-0.5px; position:relative">
-        Tu empresa en EE.UU. está<br>en marcha, <span style="color:#93C5FD">[Nombre]</span>.
-      </h1>
+    <!-- ── HEADLINE ── -->
+    <h1 style="margin:0 0 20px; font-size:32px; font-weight:800; color:#FFFFFF;
+               line-height:1.2; letter-spacing:-0.6px; position:relative; z-index:1">
+      Tu empresa en EE.UU. está<br>
+      en marcha, <span style="color:#93C5FD">[Nombre]</span>.
+    </h1>
 
-      <!-- ── SUBHEADLINE ── -->
-      <p style="margin:0; font-size:16px; color:#93C5FD; line-height:1.7;
-                max-width:420px; margin-left:auto; margin-right:auto; position:relative;
-                font-weight:400">
-        Hemos recibido tu orden para <strong style="color:#FFFFFF; font-weight:600">[companyName]</strong>
-        en el estado de <strong style="color:#FFFFFF; font-weight:600">[stateName]</strong>.
-        Nuestro equipo ya está trabajando en tu caso.
-      </p>
+    <!-- ── SUBHEADLINE ── -->
+    <p style="margin:0; font-size:16px; color:#7EA8CC; line-height:1.75;
+              max-width:420px; margin-left:auto; margin-right:auto; position:relative; z-index:1">
+      Hemos recibido tu orden para
+      <strong style="color:#FFFFFF; font-weight:600">[companyName]</strong>
+      en el estado de
+      <strong style="color:#FFFFFF; font-weight:600">[stateName]</strong>.
+      Nuestro equipo ya está trabajando en tu caso.
+    </p>
 
-    </td>
-  </tr>
-
-
-  <!-- ══════════════════════════════════════════════════════════
-       3. TRUST BAR
-  ════════════════════════════════════════════════════════════ -->
-  <tr>
-    <td style="background:#FFFFFF; border-bottom:1px solid #DDE6F0">
-      <table width="100%" cellpadding="0" cellspacing="0" class="trust-row">
-        <tr>
-
-          <!-- Item 1 -->
-          <td class="trust-cell" width="33.33%" valign="top"
-            style="padding:24px 20px; text-align:center; border-right:1px solid #EAF1F8">
-            <!-- Icon -->
-            <div style="margin:0 auto 12px; width:40px; height:40px; border-radius:50%;
-                        background:#ECFDF5; display:flex; align-items:center;
-                        justify-content:center; line-height:40px; text-align:center">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                   xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle">
-                <circle cx="10" cy="10" r="10" fill="#0F9D79" fill-opacity="0.12"/>
-                <path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="#0F9D79" stroke-width="2"
-                      stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <p class="trust-label"
-               style="margin:0 0 3px; font-size:13px; font-weight:700; color:#0B2342">
-              Pago confirmado
-            </p>
-            <p style="margin:0; font-size:11px; color:#94A3B8; line-height:1.4">
-              Transacción segura
-            </p>
-          </td>
-
-          <!-- Item 2 -->
-          <td class="trust-cell" width="33.33%" valign="top"
-            style="padding:24px 20px; text-align:center; border-right:1px solid #EAF1F8">
-            <div style="margin:0 auto 12px; width:40px; height:40px; border-radius:50%;
-                        background:#EFF6FF; display:flex; align-items:center;
-                        justify-content:center; line-height:40px; text-align:center">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                   xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle">
-                <circle cx="10" cy="10" r="10" fill="#123B6D" fill-opacity="0.10"/>
-                <rect x="6" y="9" width="8" height="6" rx="1" stroke="#123B6D" stroke-width="1.6"/>
-                <path d="M8 9V7a2 2 0 0 1 4 0v2" stroke="#123B6D" stroke-width="1.6"
-                      stroke-linecap="round"/>
-              </svg>
-            </div>
-            <p class="trust-label"
-               style="margin:0 0 3px; font-size:13px; font-weight:700; color:#0B2342">
-              Datos protegidos
-            </p>
-            <p style="margin:0; font-size:11px; color:#94A3B8; line-height:1.4">
-              Cifrado SSL 256-bit
-            </p>
-          </td>
-
-          <!-- Item 3 -->
-          <td class="trust-cell" width="33.33%" valign="top"
-            style="padding:24px 20px; text-align:center">
-            <div style="margin:0 auto 12px; width:40px; height:40px; border-radius:50%;
-                        background:#FFF5F5; display:flex; align-items:center;
-                        justify-content:center; line-height:40px; text-align:center">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                   xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle">
-                <circle cx="10" cy="10" r="10" fill="#C6283E" fill-opacity="0.10"/>
-                <path d="M10 4L12 8H16L13 11L14 15L10 12.5L6 15L7 11L4 8H8L10 4Z"
-                      stroke="#C6283E" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
-              </svg>
-            </div>
-            <p class="trust-label"
-               style="margin:0 0 3px; font-size:13px; font-weight:700; color:#0B2342">
-              100% legal
-            </p>
-            <p style="margin:0; font-size:11px; color:#94A3B8; line-height:1.4">
-              Cumplimiento estatal EE.UU.
-            </p>
-          </td>
-
-        </tr>
-      </table>
-    </td>
-  </tr>
+  </td>
+</tr>
 
 
-  <!-- ══════════════════════════════════════════════════════════
-       4. RESUMEN DE ORDEN — Dashboard card style
-  ════════════════════════════════════════════════════════════ -->
-  <tr>
-    <td class="section-pad"
-      style="background:#F6FAFF; padding:40px 48px; border-top:1px solid #DDE6F0">
+<!-- ═══════════════════════════════════════════════════════════════
+     3. TRUST BAR — Premium icons
+═══════════════════════════════════════════════════════════════════ -->
+<tr>
+  <td style="background:#FFFFFF; border-bottom:2px solid #EEF4FB">
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
 
-      <!-- Section label -->
-      <p style="margin:0 0 20px; font-size:10px; font-weight:700; color:#94A3B8;
-                text-transform:uppercase; letter-spacing:2px">
-        Resumen de tu orden
-      </p>
+        <!-- Pago confirmado -->
+        <td class="trust-cell" width="33.33%" valign="top"
+          style="padding:28px 20px; text-align:center; border-right:1px solid #EEF4FB">
+          <!-- Icon: Card + check -->
+          <div style="margin:0 auto 14px; width:52px; height:52px; border-radius:14px;
+                      background:linear-gradient(135deg,#059669 0%,#10B981 100%);
+                      box-shadow:0 4px 14px rgba(5,150,105,0.35);
+                      display:flex; align-items:center; justify-content:center; line-height:52px; text-align:center">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
+                 xmlns="http://www.w3.org/2000/svg" style="display:inline-block; vertical-align:middle">
+              <!-- Credit card shape -->
+              <rect x="1" y="4" width="22" height="16" rx="3" stroke="rgba(255,255,255,0.30)" stroke-width="1.5" fill="rgba(255,255,255,0.10)"/>
+              <line x1="1" y1="9" x2="23" y2="9" stroke="rgba(255,255,255,0.40)" stroke-width="1.5"/>
+              <!-- Checkmark -->
+              <circle cx="16" cy="16" r="5" fill="#059669"/>
+              <circle cx="16" cy="16" r="5" fill="white" fill-opacity="0.2"/>
+              <path d="M13.5 16L15 17.5L18.5 14" stroke="white" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <p style="margin:0 0 3px; font-size:13px; font-weight:700; color:#0B2342; letter-spacing:-0.1px">
+            Pago confirmado
+          </p>
+          <p style="margin:0; font-size:11px; color:#94A3B8; line-height:1.4">
+            Transacción segura
+          </p>
+        </td>
 
-      <!-- Card -->
-      <table width="100%" cellpadding="0" cellspacing="0"
-        style="background:#FFFFFF; border:1px solid #DDE6F0; border-radius:16px; overflow:hidden;
-               box-shadow:0 2px 12px rgba(11,35,66,0.06)">
+        <!-- Datos protegidos -->
+        <td class="trust-cell" width="33.33%" valign="top"
+          style="padding:28px 20px; text-align:center; border-right:1px solid #EEF4FB">
+          <div style="margin:0 auto 14px; width:52px; height:52px; border-radius:14px;
+                      background:linear-gradient(135deg,#0B2342 0%,#1A4D8F 100%);
+                      box-shadow:0 4px 14px rgba(11,35,66,0.30);
+                      display:flex; align-items:center; justify-content:center; line-height:52px; text-align:center">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
+                 xmlns="http://www.w3.org/2000/svg" style="display:inline-block; vertical-align:middle">
+              <!-- Shield outline -->
+              <path d="M12 2L4 6V12C4 16.5 7.5 20.5 12 22C16.5 20.5 20 16.5 20 12V6L12 2Z"
+                    stroke="rgba(255,255,255,0.25)" stroke-width="1.5" fill="rgba(255,255,255,0.08)"/>
+              <!-- Lock body -->
+              <rect x="9" y="11" width="6" height="5" rx="1" fill="rgba(255,255,255,0.90)"/>
+              <!-- Lock shackle -->
+              <path d="M10 11V9.5a2 2 0 0 1 4 0V11" stroke="white" stroke-width="1.8"
+                    stroke-linecap="round" fill="none"/>
+              <!-- Keyhole -->
+              <circle cx="12" cy="13.5" r="0.8" fill="#1A4D8F"/>
+            </svg>
+          </div>
+          <p style="margin:0 0 3px; font-size:13px; font-weight:700; color:#0B2342; letter-spacing:-0.1px">
+            Datos protegidos
+          </p>
+          <p style="margin:0; font-size:11px; color:#94A3B8; line-height:1.4">
+            Cifrado SSL 256-bit
+          </p>
+        </td>
 
-        <!-- Card header: colored stripe with status -->
-        <tr>
-          <td style="background:linear-gradient(90deg,#0B2342 0%,#123B6D 100%);
-                     padding:16px 24px; border-radius:16px 16px 0 0">
-            <table width="100%" cellpadding="0" cellspacing="0"><tr>
-              <td>
-                <p style="margin:0; font-size:12px; font-weight:700; color:#93C5FD;
-                           letter-spacing:0.3px">
-                  [companyName]
-                </p>
-                <p style="margin:2px 0 0; font-size:10px; color:#4A6A8A; letter-spacing:0.5px">
-                  Orden · [orderRef]
-                </p>
-              </td>
-              <td style="text-align:right">
-                <span style="display:inline-block; background:rgba(198,40,62,0.18);
-                             border:1px solid rgba(198,40,62,0.35); border-radius:20px;
-                             padding:5px 14px; font-size:11px; color:#FCA5A5; font-weight:700;
-                             letter-spacing:0.3px">
+        <!-- 100% legal -->
+        <td class="trust-cell" width="33.33%" valign="top"
+          style="padding:28px 20px; text-align:center">
+          <div style="margin:0 auto 14px; width:52px; height:52px; border-radius:14px;
+                      background:linear-gradient(135deg,#991B2A 0%,#C6283E 100%);
+                      box-shadow:0 4px 14px rgba(198,40,62,0.35);
+                      display:flex; align-items:center; justify-content:center; line-height:52px; text-align:center">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
+                 xmlns="http://www.w3.org/2000/svg" style="display:inline-block; vertical-align:middle">
+              <!-- Building / courthouse columns -->
+              <rect x="3" y="18" width="18" height="2" rx="1" fill="rgba(255,255,255,0.85)"/>
+              <rect x="5" y="10" width="2" height="8" fill="rgba(255,255,255,0.70)"/>
+              <rect x="9" y="10" width="2" height="8" fill="rgba(255,255,255,0.70)"/>
+              <rect x="13" y="10" width="2" height="8" fill="rgba(255,255,255,0.70)"/>
+              <rect x="17" y="10" width="2" height="8" fill="rgba(255,255,255,0.70)"/>
+              <!-- Pediment -->
+              <path d="M2 10L12 4L22 10H2Z" fill="rgba(255,255,255,0.90)"/>
+              <!-- Star accent -->
+              <polygon points="12,5.5 12.6,7.3 14.5,7.3 13,8.4 13.5,10.2 12,9.1 10.5,10.2 11,8.4 9.5,7.3 11.4,7.3"
+                       fill="#C6283E" stroke="rgba(255,255,255,0.6)" stroke-width="0.3"/>
+            </svg>
+          </div>
+          <p style="margin:0 0 3px; font-size:13px; font-weight:700; color:#0B2342; letter-spacing:-0.1px">
+            100% legal
+          </p>
+          <p style="margin:0; font-size:11px; color:#94A3B8; line-height:1.4">
+            Cumplimiento estatal EE.UU.
+          </p>
+        </td>
+
+      </tr>
+    </table>
+  </td>
+</tr>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     4. RESUMEN DE ORDEN — Dashboard card
+═══════════════════════════════════════════════════════════════════ -->
+<tr>
+  <td class="section-pad"
+    style="background:#F4F8FE; padding:44px 48px; border-top:none">
+
+    <p style="margin:0 0 20px; font-size:10px; font-weight:700; color:#94A3B8;
+              text-transform:uppercase; letter-spacing:2.2px">
+      Resumen de tu orden
+    </p>
+
+    <!-- Card container -->
+    <table width="100%" cellpadding="0" cellspacing="0"
+      style="background:#FFFFFF; border:1px solid #DDE6F0; border-radius:18px; overflow:hidden;
+             box-shadow:0 4px 24px rgba(11,35,66,0.08), 0 1px 4px rgba(11,35,66,0.04)">
+
+      <!-- ── Card header ── -->
+      <tr>
+        <td style="background:linear-gradient(95deg,#071929 0%,#0D3060 60%,#123B6D 100%);
+                   padding:20px 28px; border-radius:18px 18px 0 0">
+          <table width="100%" cellpadding="0" cellspacing="0"><tr>
+            <td>
+              <p style="margin:0 0 3px; font-size:16px; font-weight:700; color:#FFFFFF;
+                         letter-spacing:-0.3px">
+                [companyName]
+              </p>
+              <p style="margin:0; font-size:11px; color:#4A6A8A; letter-spacing:0.5px">
+                Ref. [orderRef] &nbsp;·&nbsp; [stateName]
+              </p>
+            </td>
+            <td style="text-align:right; vertical-align:middle">
+              <!-- Animated status badge -->
+              <span style="display:inline-flex; align-items:center; gap:7px;
+                           background:rgba(251,191,36,0.12); border:1px solid rgba(251,191,36,0.25);
+                           border-radius:20px; padding:6px 14px">
+                <svg width="7" height="7" viewBox="0 0 7 7" style="display:inline-block;flex-shrink:0">
+                  <circle cx="3.5" cy="3.5" r="3.5" fill="#FBBF24"/>
+                </svg>
+                <span style="font-size:11px; color:#FDE68A; font-weight:700; letter-spacing:0.3px">
                   Procesando
                 </span>
-              </td>
-            </tr></table>
-          </td>
-        </tr>
+              </span>
+            </td>
+          </tr></table>
+        </td>
+      </tr>
 
-        <!-- Row: Estado -->
-        <tr>
-          <td class="order-row-pad"
-            style="padding:18px 24px; border-bottom:1px solid #F1F5F9">
-            <table width="100%" cellpadding="0" cellspacing="0"><tr>
-              <td>
-                <p style="margin:0; font-size:11px; color:#94A3B8; font-weight:600;
-                           text-transform:uppercase; letter-spacing:0.8px">
+      <!-- ── Row: Estado ── -->
+      <tr>
+        <td style="padding:20px 28px; border-bottom:1px solid #F1F5F9">
+          <table width="100%" cellpadding="0" cellspacing="0"><tr>
+            <td style="vertical-align:middle">
+              <div style="display:flex; align-items:center; gap:10px">
+                <!-- Map pin icon -->
+                <div style="width:32px; height:32px; border-radius:8px; background:#EEF4FB;
+                            display:flex; align-items:center; justify-content:center; flex-shrink:0;
+                            line-height:32px; text-align:center">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                       xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
+                          fill="#123B6D" fill-opacity="0.9"/>
+                    <circle cx="12" cy="9" r="2.5" fill="white"/>
+                  </svg>
+                </div>
+                <span style="font-size:12px; color:#94A3B8; font-weight:600;
+                              text-transform:uppercase; letter-spacing:0.8px">
                   Estado de formación
-                </p>
-              </td>
-              <td style="text-align:right">
-                <p style="margin:0; font-size:14px; font-weight:700; color:#0B2342">
-                  [stateName]
-                </p>
-              </td>
-            </tr></table>
-          </td>
-        </tr>
-
-        <!-- Row: Paquete -->
-        <tr>
-          <td class="order-row-pad"
-            style="padding:18px 24px; border-bottom:1px solid #F1F5F9; background:#FAFCFF">
-            <table width="100%" cellpadding="0" cellspacing="0"><tr>
-              <td>
-                <p style="margin:0; font-size:11px; color:#94A3B8; font-weight:600;
-                           text-transform:uppercase; letter-spacing:0.8px">
-                  Paquete
-                </p>
-              </td>
-              <td style="text-align:right">
-                <p style="margin:0; font-size:14px; font-weight:700; color:#0B2342">
-                  [packageName]
-                </p>
-              </td>
-            </tr></table>
-          </td>
-        </tr>
-
-        <!-- Row: EIN -->
-        <tr>
-          <td class="order-row-pad"
-            style="padding:18px 24px; border-bottom:1px solid #F1F5F9">
-            <table width="100%" cellpadding="0" cellspacing="0"><tr>
-              <td>
-                <p style="margin:0; font-size:11px; color:#94A3B8; font-weight:600;
-                           text-transform:uppercase; letter-spacing:0.8px">
-                  EIN Federal
-                </p>
-              </td>
-              <td style="text-align:right">
-                <span style="display:inline-block; background:#ECFDF5; border:1px solid #A7F3D0;
-                             border-radius:20px; padding:4px 12px; font-size:11px; color:#059669;
-                             font-weight:700">
-                  Incluido
                 </span>
-              </td>
-            </tr></table>
-          </td>
-        </tr>
+              </div>
+            </td>
+            <td style="text-align:right">
+              <span style="font-size:15px; font-weight:700; color:#0B2342">[stateName]</span>
+            </td>
+          </tr></table>
+        </td>
+      </tr>
 
-        <!-- Row: Total — highlighted -->
-        <tr>
-          <td class="order-row-pad"
-            style="padding:20px 24px; background:#F6FAFF; border-radius:0 0 16px 16px">
-            <table width="100%" cellpadding="0" cellspacing="0"><tr>
-              <td>
-                <p style="margin:0; font-size:11px; color:#94A3B8; font-weight:600;
-                           text-transform:uppercase; letter-spacing:0.8px">
-                  Total pagado
-                </p>
-              </td>
-              <td style="text-align:right">
-                <p style="margin:0; font-size:22px; font-weight:800; color:#0B2342;
-                           letter-spacing:-0.5px">
-                  $[amount]
-                </p>
-              </td>
-            </tr></table>
-          </td>
-        </tr>
+      <!-- ── Row: Paquete ── -->
+      <tr>
+        <td style="padding:20px 28px; border-bottom:1px solid #F1F5F9; background:#FAFCFF">
+          <table width="100%" cellpadding="0" cellspacing="0"><tr>
+            <td style="vertical-align:middle">
+              <div style="display:flex; align-items:center; gap:10px">
+                <div style="width:32px; height:32px; border-radius:8px; background:#EEF4FB;
+                            display:flex; align-items:center; justify-content:center; flex-shrink:0;
+                            line-height:32px; text-align:center">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                       xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z" fill="#123B6D" fill-opacity="0.85"/>
+                    <path d="M2 17l10 5 10-5" stroke="#123B6D" stroke-width="2"
+                          stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    <path d="M2 12l10 5 10-5" stroke="#123B6D" stroke-width="2"
+                          stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-opacity="0.5"/>
+                  </svg>
+                </div>
+                <span style="font-size:12px; color:#94A3B8; font-weight:600;
+                              text-transform:uppercase; letter-spacing:0.8px">
+                  Paquete
+                </span>
+              </div>
+            </td>
+            <td style="text-align:right">
+              <span style="font-size:15px; font-weight:700; color:#0B2342">[packageName]</span>
+            </td>
+          </tr></table>
+        </td>
+      </tr>
 
-      </table>
-    </td>
-  </tr>
+      <!-- ── Row: EIN ── -->
+      <tr>
+        <td style="padding:20px 28px; border-bottom:1px solid #F1F5F9">
+          <table width="100%" cellpadding="0" cellspacing="0"><tr>
+            <td style="vertical-align:middle">
+              <div style="display:flex; align-items:center; gap:10px">
+                <div style="width:32px; height:32px; border-radius:8px; background:#ECFDF5;
+                            display:flex; align-items:center; justify-content:center; flex-shrink:0;
+                            line-height:32px; text-align:center">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                       xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle">
+                    <rect x="3" y="3" width="18" height="18" rx="3" stroke="#059669" stroke-width="1.8" fill="none"/>
+                    <path d="M7 8h10M7 12h10M7 16h6" stroke="#059669" stroke-width="1.8"
+                          stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <span style="font-size:12px; color:#94A3B8; font-weight:600;
+                              text-transform:uppercase; letter-spacing:0.8px">
+                  EIN Federal
+                </span>
+              </div>
+            </td>
+            <td style="text-align:right">
+              <span style="display:inline-block; background:#ECFDF5; border:1px solid #6EE7B7;
+                           border-radius:20px; padding:5px 14px; font-size:11px; color:#059669;
+                           font-weight:700; letter-spacing:0.2px">
+                ✓ Incluido
+              </span>
+            </td>
+          </tr></table>
+        </td>
+      </tr>
+
+      <!-- ── Row: Total — featured ── -->
+      <tr>
+        <td style="padding:22px 28px; background:linear-gradient(90deg,#F6FAFF 0%,#EEF4FB 100%);
+                   border-radius:0 0 18px 18px">
+          <table width="100%" cellpadding="0" cellspacing="0"><tr>
+            <td style="vertical-align:middle">
+              <p style="margin:0 0 2px; font-size:11px; color:#94A3B8; font-weight:600;
+                         text-transform:uppercase; letter-spacing:0.8px">
+                Total pagado
+              </p>
+              <p style="margin:0; font-size:11px; color:#B0BEC5">
+                Procesado por Stripe · Cifrado TLS
+              </p>
+            </td>
+            <td style="text-align:right">
+              <span style="font-size:26px; font-weight:800; color:#0B2342; letter-spacing:-0.8px">
+                $[amount]
+              </span>
+            </td>
+          </tr></table>
+        </td>
+      </tr>
+
+    </table>
+  </td>
+</tr>
 
 
-  <!-- ══════════════════════════════════════════════════════════
-       5. TIMELINE — Próximos pasos
-  ════════════════════════════════════════════════════════════ -->
-  <tr>
-    <td class="timeline-pad section-pad"
-      style="background:#FFFFFF; padding:40px 48px; border-top:1px solid #DDE6F0">
+<!-- ═══════════════════════════════════════════════════════════════
+     5. TIMELINE — Próximos pasos
+═══════════════════════════════════════════════════════════════════ -->
+<tr>
+  <td class="section-pad"
+    style="background:#FFFFFF; padding:44px 48px; border-top:2px solid #EEF4FB">
 
-      <p style="margin:0 0 28px; font-size:10px; font-weight:700; color:#94A3B8;
-                text-transform:uppercase; letter-spacing:2px">
-        Tu proceso en 5 pasos
-      </p>
+    <p style="margin:0 0 32px; font-size:10px; font-weight:700; color:#94A3B8;
+              text-transform:uppercase; letter-spacing:2.2px">
+      Tu proceso · 5 pasos
+    </p>
 
-      <!-- ── Step 1: DONE ── -->
-      <table width="100%" cellpadding="0" cellspacing="0">
-        <tr>
+    <!-- ── STEP 1: DONE ── -->
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="48" valign="top" style="text-align:center">
+          <!-- Circle with gradient -->
+          <div style="width:40px; height:40px; border-radius:50%; margin:0 auto;
+                      background:linear-gradient(135deg,#059669 0%,#10B981 100%);
+                      box-shadow:0 4px 16px rgba(5,150,105,0.35);
+                      text-align:center; line-height:40px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                 xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle">
+              <path d="M4 12.5L9 17.5L20 7" stroke="white" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <!-- Connector -->
+          <div style="width:2px; height:40px; background:linear-gradient(#10B981,#DDE6F0);
+                      margin:0 auto"></div>
+        </td>
+        <td style="padding:6px 0 0 16px; vertical-align:top">
+          <table width="100%" cellpadding="0" cellspacing="0"><tr>
+            <td>
+              <p style="margin:0 0 4px; font-size:15px; font-weight:700; color:#059669">
+                Pago recibido
+              </p>
+              <p style="margin:0 0 32px; font-size:12px; color:#94A3B8; line-height:1.55">
+                Tu pago fue procesado y verificado correctamente
+              </p>
+            </td>
+            <td valign="top" style="text-align:right; padding-top:4px; white-space:nowrap">
+              <span style="display:inline-block; background:#ECFDF5; border:1px solid #6EE7B7;
+                           border-radius:20px; padding:4px 12px; font-size:10px; font-weight:700;
+                           color:#059669; letter-spacing:0.3px">
+                ✓ Completado
+              </span>
+            </td>
+          </tr></table>
+        </td>
+      </tr>
+    </table>
 
-          <!-- Circle + connector -->
-          <td width="44" valign="top" style="text-align:center; padding-right:4px">
-            <!-- Green circle -->
-            <div style="width:36px; height:36px; border-radius:50%; background:#059669;
-                        margin:0 auto; text-align:center; line-height:36px;
-                        box-shadow:0 2px 8px rgba(5,150,105,0.30)">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                   xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-top:-1px">
-                <path d="M3 8.5L6.5 12L13 5" stroke="#fff" stroke-width="2.2"
-                      stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- ── STEP 2: ACTIVE ── -->
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="48" valign="top" style="text-align:center">
+          <div class="step-active"
+            style="width:40px; height:40px; border-radius:50%; margin:0 auto;
+                   background:linear-gradient(135deg,#0D3060 0%,#1A5CB8 100%);
+                   border:2px solid #3B82F6; text-align:center; line-height:38px">
+            <!-- Clock/in-progress icon -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                 xmlns="http://www.w3.org/2000/svg"
+                 class="spin-icon" style="display:inline-block;vertical-align:middle">
+              <circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,0.25)" stroke-width="2"/>
+              <path d="M12 3C7.03 3 3 7.03 3 12" stroke="white" stroke-width="2.5"
+                    stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div style="width:2px; height:40px; background:#DDE6F0; margin:0 auto"></div>
+        </td>
+        <td style="padding:6px 0 0 16px; vertical-align:top">
+          <table width="100%" cellpadding="0" cellspacing="0"><tr>
+            <td>
+              <p style="margin:0 0 4px; font-size:15px; font-weight:700; color:#123B6D">
+                Revisión de documentos
+              </p>
+              <p style="margin:0 0 32px; font-size:12px; color:#94A3B8; line-height:1.55">
+                Nuestro equipo está preparando tu expediente de incorporación
+              </p>
+            </td>
+            <td valign="top" style="text-align:right; padding-top:4px; white-space:nowrap">
+              <span style="display:inline-block; background:#DBEAFE; border:1px solid #93C5FD;
+                           border-radius:20px; padding:4px 12px; font-size:10px; font-weight:700;
+                           color:#1D4ED8; letter-spacing:0.3px">
+                En proceso
+              </span>
+            </td>
+          </tr></table>
+        </td>
+      </tr>
+    </table>
+
+    <!-- STEPS 3, 4, 5 — Pending (shared style) -->
+
+    <!-- Step 3 -->
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="48" valign="top" style="text-align:center">
+          <div style="width:40px; height:40px; border-radius:50%; margin:0 auto;
+                      background:#F8FAFC; border:1.5px solid #E2E8F0;
+                      text-align:center; line-height:37px">
+            <span style="font-size:13px; font-weight:700; color:#CBD5E1">3</span>
+          </div>
+          <div style="width:2px; height:40px; background:#F1F5F9; margin:0 auto"></div>
+        </td>
+        <td style="padding:8px 0 0 16px; vertical-align:top">
+          <p style="margin:0 0 4px; font-size:14px; font-weight:600; color:#CBD5E1">
+            Filing estatal
+          </p>
+          <p style="margin:0 0 32px; font-size:12px; color:#E2E8F0; line-height:1.55">
+            Presentación de artículos de formación en [stateName]
+          </p>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Step 4 -->
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="48" valign="top" style="text-align:center">
+          <div style="width:40px; height:40px; border-radius:50%; margin:0 auto;
+                      background:#F8FAFC; border:1.5px solid #E2E8F0;
+                      text-align:center; line-height:37px">
+            <span style="font-size:13px; font-weight:700; color:#CBD5E1">4</span>
+          </div>
+          <div style="width:2px; height:40px; background:#F1F5F9; margin:0 auto"></div>
+        </td>
+        <td style="padding:8px 0 0 16px; vertical-align:top">
+          <p style="margin:0 0 4px; font-size:14px; font-weight:600; color:#CBD5E1">
+            Obtención de EIN
+          </p>
+          <p style="margin:0 0 32px; font-size:12px; color:#E2E8F0; line-height:1.55">
+            Número de identificación fiscal emitido por el IRS
+          </p>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Step 5 — last, no connector -->
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="48" valign="top" style="text-align:center">
+          <div style="width:40px; height:40px; border-radius:50%; margin:0 auto;
+                      background:#F8FAFC; border:1.5px solid #E2E8F0;
+                      text-align:center; line-height:37px">
+            <span style="font-size:13px; font-weight:700; color:#CBD5E1">5</span>
+          </div>
+        </td>
+        <td style="padding:8px 0 0 16px; vertical-align:top">
+          <p style="margin:0 0 4px; font-size:14px; font-weight:600; color:#CBD5E1">
+            Entrega de documentos oficiales
+          </p>
+          <p style="margin:0; font-size:12px; color:#E2E8F0; line-height:1.55">
+            Articles of Organization, Operating Agreement y EIN Letter
+          </p>
+        </td>
+      </tr>
+    </table>
+
+  </td>
+</tr>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     6. SOPORTE — Team / human block
+═══════════════════════════════════════════════════════════════════ -->
+<tr>
+  <td class="section-pad"
+    style="background:linear-gradient(135deg,#EAF1FB 0%,#F4F8FE 100%);
+           padding:44px 48px; border-top:2px solid #EEF4FB">
+
+    <table width="100%" cellpadding="0" cellspacing="0" class="support-inner">
+      <tr>
+
+        <!-- Avatar illustration -->
+        <td class="support-avatar-cell" width="88" valign="middle" style="padding-right:24px">
+          <div style="width:72px; height:72px; border-radius:18px;
+                      background:linear-gradient(140deg,#0A2748 0%,#1A5CB8 100%);
+                      box-shadow:0 6px 24px rgba(10,39,72,0.28);
+                      text-align:center; line-height:72px; position:relative; overflow:hidden">
+            <!-- Person SVG illustration -->
+            <svg width="72" height="72" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg"
+                 style="display:block">
+              <!-- Body / shirt -->
+              <ellipse cx="36" cy="62" rx="22" ry="14" fill="rgba(255,255,255,0.12)"/>
+              <rect x="20" y="46" width="32" height="20" rx="6" fill="rgba(255,255,255,0.15)"/>
+              <!-- Tie/badge accent -->
+              <rect x="33" y="46" width="6" height="14" rx="2" fill="rgba(198,40,62,0.55)"/>
+              <!-- Head -->
+              <circle cx="36" cy="32" r="14" fill="rgba(255,255,255,0.18)"/>
+              <!-- Face highlight -->
+              <ellipse cx="34" cy="30" rx="5" ry="6" fill="rgba(255,255,255,0.08)"/>
+              <!-- Eyes -->
+              <circle cx="31" cy="30" r="1.5" fill="rgba(255,255,255,0.70)"/>
+              <circle cx="41" cy="30" r="1.5" fill="rgba(255,255,255,0.70)"/>
+              <!-- Smile -->
+              <path d="M31 35 Q36 39 41 35" stroke="rgba(255,255,255,0.60)" stroke-width="1.5"
+                    fill="none" stroke-linecap="round"/>
+              <!-- Stars top-right corner of card -->
+              <circle cx="60" cy="12" r="2" fill="rgba(255,255,255,0.20)"/>
+              <circle cx="54" cy="8"  r="1.2" fill="rgba(255,255,255,0.15)"/>
+              <circle cx="65" cy="18" r="1" fill="rgba(255,255,255,0.15)"/>
+            </svg>
+          </div>
+        </td>
+
+        <!-- Message -->
+        <td valign="middle">
+          <p style="margin:0 0 6px; font-size:16px; font-weight:700; color:#0B2342; line-height:1.3">
+            Ya tienes un especialista asignado
+          </p>
+          <p style="margin:0 0 16px; font-size:13px; color:#475569; line-height:1.65">
+            Revisaremos tu expediente en las próximas
+            <strong style="color:#0B2342">24 horas hábiles</strong>
+            y te mantendremos informado por email y WhatsApp.
+          </p>
+
+          <!-- Team badge -->
+          <div style="display:inline-flex; align-items:center; gap:10px; padding:10px 16px;
+                      background:#FFFFFF; border:1px solid #DDE6F0; border-radius:12px;
+                      box-shadow:0 2px 8px rgba(11,35,66,0.07)">
+            <!-- Mini flag -->
+            <svg width="22" height="15" viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"
+                 style="display:block; border-radius:2px; flex-shrink:0">
+              <rect width="22" height="15" rx="2" fill="#F1F5F9"/>
+              <rect width="8" height="15" rx="2" fill="#0A1E38"/>
+              <circle cx="2.5" cy="5"  r="0.9" fill="rgba(255,255,255,0.75)"/>
+              <circle cx="5.5" cy="5"  r="0.9" fill="rgba(255,255,255,0.75)"/>
+              <circle cx="2.5" cy="10" r="0.9" fill="rgba(255,255,255,0.75)"/>
+              <circle cx="5.5" cy="10" r="0.9" fill="rgba(255,255,255,0.75)"/>
+              <rect x="9" y="0"    width="13" height="2.14" fill="#C6283E"/>
+              <rect x="9" y="2.14" width="13" height="2.14" fill="white"/>
+              <rect x="9" y="4.28" width="13" height="2.14" fill="#C6283E"/>
+              <rect x="9" y="6.42" width="13" height="2.14" fill="white"/>
+              <rect x="9" y="8.57" width="13" height="2.14" fill="#C6283E"/>
+              <rect x="9" y="10.7" width="13" height="2.14" fill="white"/>
+              <rect x="9" y="12.8" width="13" height="2.14" fill="#C6283E"/>
+            </svg>
+            <div>
+              <p style="margin:0; font-size:12px; font-weight:700; color:#0B2342; line-height:1.2">
+                Equipo de Incorporaciones
+              </p>
+              <p style="margin:0; font-size:10px; color:#94A3B8; letter-spacing:0.3px">
+                CreaTuEmpresaUSA · L–V 9am–6pm EST
+              </p>
+            </div>
+          </div>
+        </td>
+
+      </tr>
+    </table>
+  </td>
+</tr>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     7. CTA
+═══════════════════════════════════════════════════════════════════ -->
+<tr>
+  <td class="cta-section"
+    style="background:linear-gradient(155deg,#060F1C 0%,#0A2748 50%,#0F3668 100%);
+           padding:60px 48px; text-align:center; position:relative; overflow:hidden">
+
+    <!-- Radial glow left -->
+    <div style="position:absolute;bottom:-80px;left:-80px;width:300px;height:300px;
+                border-radius:50%;background:radial-gradient(circle,rgba(198,40,62,0.10) 0%,transparent 70%);
+                pointer-events:none"></div>
+
+    <!-- Dot grid -->
+    <div style="position:absolute;top:0;left:0;right:0;bottom:0;
+                background-image:radial-gradient(rgba(255,255,255,0.03) 1.5px,transparent 1.5px);
+                background-size:24px 24px; pointer-events:none"></div>
+
+    <!-- Eyebrow -->
+    <p style="margin:0 0 10px; font-size:10px; font-weight:700; color:#3B6DAA;
+              text-transform:uppercase; letter-spacing:2.2px; position:relative; z-index:1">
+      Tu portal está activo
+    </p>
+
+    <!-- Heading -->
+    <p style="margin:0 0 32px; font-size:22px; font-weight:700; color:#FFFFFF;
+              line-height:1.4; max-width:360px; margin-left:auto; margin-right:auto;
+              position:relative; z-index:1; letter-spacing:-0.3px">
+      Accede para ver el estado de tu caso en tiempo real
+    </p>
+
+    <!-- CTA Button -->
+    <a href="https://creatuempresausa.com/dashboard" class="cta-btn"
+       style="display:inline-block; background:linear-gradient(135deg,#B91C2F 0%,#C6283E 100%);
+              color:#FFFFFF; padding:22px 60px; border-radius:14px; font-size:17px; font-weight:700;
+              text-decoration:none; letter-spacing:0.2px; position:relative; z-index:1;
+              box-shadow:0 8px 32px rgba(198,40,62,0.50), 0 2px 8px rgba(0,0,0,0.20);
+              border:1px solid rgba(255,255,255,0.10)">
+      Acceder a mi portal &nbsp;→
+    </a>
+
+    <!-- Sub-note -->
+    <p style="margin:20px 0 0; font-size:11px; color:#2D4A6A; position:relative; z-index:1;
+              letter-spacing:0.3px">
+      creatuempresausa.com/dashboard
+    </p>
+
+  </td>
+</tr>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     8. CONTACTO
+═══════════════════════════════════════════════════════════════════ -->
+<tr>
+  <td class="section-pad contact-pad"
+    style="background:#FFFFFF; padding:40px 48px; text-align:center;
+           border-top:2px solid #EEF4FB">
+
+    <p style="margin:0 0 24px; font-size:13px; color:#64748B; line-height:1.6">
+      ¿Tienes preguntas sobre tu proceso?<br>
+      <strong style="color:#0B2342">Nuestro equipo está aquí para ayudarte.</strong>
+    </p>
+
+    <table width="100%" cellpadding="0" cellspacing="0" class="contact-cols">
+      <tr>
+        <!-- Email -->
+        <td width="50%" style="padding:0 8px 0 0; vertical-align:top">
+          <a href="mailto:soporte@creatuempresausa.com"
+             style="display:block; padding:16px 20px; background:#F6FAFF;
+                    border:1.5px solid #DDE6F0; border-radius:14px; text-decoration:none;
+                    transition:all 0.2s">
+            <!-- Mail icon -->
+            <div style="margin:0 auto 10px; width:40px; height:40px; border-radius:10px;
+                        background:linear-gradient(135deg,#0B2342 0%,#123B6D 100%);
+                        text-align:center; line-height:40px">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                   xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle">
+                <rect x="2" y="4" width="20" height="16" rx="3" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" fill="rgba(255,255,255,0.10)"/>
+                <path d="M2 7L12 13L22 7" stroke="rgba(255,255,255,0.85)" stroke-width="1.8"
+                      stroke-linecap="round" fill="none"/>
               </svg>
             </div>
-            <!-- Connector -->
-            <div style="width:2px; height:36px; background:linear-gradient(#059669,#DDE6F0);
-                        margin:0 auto"></div>
-          </td>
-
-          <!-- Content -->
-          <td style="padding:4px 0 0 12px; vertical-align:top">
-            <table width="100%" cellpadding="0" cellspacing="0"><tr>
-              <td>
-                <p style="margin:0 0 3px; font-size:14px; font-weight:700; color:#059669">
-                  Pago recibido
-                </p>
-                <p style="margin:0 0 28px; font-size:12px; color:#94A3B8; line-height:1.5">
-                  Tu pago fue procesado y verificado correctamente
-                </p>
-              </td>
-              <td valign="top" style="text-align:right; padding-top:2px">
-                <span style="display:inline-block; background:#ECFDF5; border-radius:20px;
-                             padding:3px 11px; font-size:10px; font-weight:700; color:#059669;
-                             letter-spacing:0.3px; white-space:nowrap">
-                  ✓ Completado
-                </span>
-              </td>
-            </tr></table>
-          </td>
-
-        </tr>
-      </table>
-
-      <!-- ── Step 2: ACTIVE ── -->
-      <table width="100%" cellpadding="0" cellspacing="0">
-        <tr>
-
-          <td width="44" valign="top" style="text-align:center; padding-right:4px">
-            <!-- Navy circle, pulsing -->
-            <div class="step-active"
-              style="width:36px; height:36px; border-radius:50%; background:#123B6D;
-                     margin:0 auto; text-align:center; line-height:36px; border:2px solid #3B82F6">
-              <!-- Spinner feel: rotating arc via emoji -->
-              <span class="spin" style="display:inline-block; font-size:14px; color:#ffffff;
-                                        vertical-align:middle; margin-top:-1px">⟳</span>
+            <p style="margin:0 0 2px; font-size:10px; color:#94A3B8; font-weight:700;
+                       text-transform:uppercase; letter-spacing:1px">
+              Email
+            </p>
+            <p style="margin:0; font-size:12px; font-weight:700; color:#123B6D; line-height:1.3">
+              soporte@creatuempresausa.com
+            </p>
+          </a>
+        </td>
+        <!-- WhatsApp -->
+        <td width="50%" style="padding:0 0 0 8px; vertical-align:top">
+          <a href="https://wa.me/19493461806"
+             style="display:block; padding:16px 20px; background:#F6FAFF;
+                    border:1.5px solid #DDE6F0; border-radius:14px; text-decoration:none">
+            <!-- WhatsApp-style icon -->
+            <div style="margin:0 auto 10px; width:40px; height:40px; border-radius:10px;
+                        background:linear-gradient(135deg,#059669 0%,#10B981 100%);
+                        text-align:center; line-height:40px">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                   xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"
+                      stroke="rgba(255,255,255,0.85)" stroke-width="1.8" stroke-linecap="round"
+                      stroke-linejoin="round" fill="rgba(255,255,255,0.12)"/>
+              </svg>
             </div>
-            <div style="width:2px; height:36px; background:#DDE6F0; margin:0 auto"></div>
-          </td>
-
-          <td style="padding:4px 0 0 12px; vertical-align:top">
-            <table width="100%" cellpadding="0" cellspacing="0"><tr>
-              <td>
-                <p style="margin:0 0 3px; font-size:14px; font-weight:700; color:#123B6D">
-                  Revisión de documentos
-                </p>
-                <p style="margin:0 0 28px; font-size:12px; color:#94A3B8; line-height:1.5">
-                  Nuestro equipo está preparando tu expediente
-                </p>
-              </td>
-              <td valign="top" style="text-align:right; padding-top:2px">
-                <span style="display:inline-block; background:#DBEAFE; border-radius:20px;
-                             padding:3px 11px; font-size:10px; font-weight:700; color:#1D4ED8;
-                             letter-spacing:0.3px; white-space:nowrap">
-                  En proceso
-                </span>
-              </td>
-            </tr></table>
-          </td>
-
-        </tr>
-      </table>
-
-      <!-- ── Step 3: PENDING ── -->
-      <table width="100%" cellpadding="0" cellspacing="0">
-        <tr>
-
-          <td width="44" valign="top" style="text-align:center; padding-right:4px">
-            <div style="width:36px; height:36px; border-radius:50%; background:#F8FAFC;
-                        border:2px solid #E2E8F0; margin:0 auto; text-align:center; line-height:32px">
-              <span style="font-size:12px; font-weight:700; color:#CBD5E1">3</span>
-            </div>
-            <div style="width:2px; height:36px; background:#EEF2F7; margin:0 auto"></div>
-          </td>
-
-          <td style="padding:4px 0 0 12px; vertical-align:top">
-            <p style="margin:0 0 3px; font-size:14px; font-weight:600; color:#CBD5E1">
-              Filing estatal
+            <p style="margin:0 0 2px; font-size:10px; color:#94A3B8; font-weight:700;
+                       text-transform:uppercase; letter-spacing:1px">
+              WhatsApp
             </p>
-            <p style="margin:0 0 28px; font-size:12px; color:#CBD5E1; line-height:1.5">
-              Presentación de artículos de formación en [stateName]
+            <p style="margin:0; font-size:12px; font-weight:700; color:#059669; line-height:1.3">
+              +1 (949) 346-1806
             </p>
-          </td>
+          </a>
+        </td>
+      </tr>
+    </table>
 
-        </tr>
-      </table>
-
-      <!-- ── Step 4: PENDING ── -->
-      <table width="100%" cellpadding="0" cellspacing="0">
-        <tr>
-
-          <td width="44" valign="top" style="text-align:center; padding-right:4px">
-            <div style="width:36px; height:36px; border-radius:50%; background:#F8FAFC;
-                        border:2px solid #E2E8F0; margin:0 auto; text-align:center; line-height:32px">
-              <span style="font-size:12px; font-weight:700; color:#CBD5E1">4</span>
-            </div>
-            <div style="width:2px; height:36px; background:#EEF2F7; margin:0 auto"></div>
-          </td>
-
-          <td style="padding:4px 0 0 12px; vertical-align:top">
-            <p style="margin:0 0 3px; font-size:14px; font-weight:600; color:#CBD5E1">
-              Obtención de EIN
-            </p>
-            <p style="margin:0 0 28px; font-size:12px; color:#CBD5E1; line-height:1.5">
-              Número de identificación fiscal del IRS
-            </p>
-          </td>
-
-        </tr>
-      </table>
-
-      <!-- ── Step 5: PENDING — last, no connector ── -->
-      <table width="100%" cellpadding="0" cellspacing="0">
-        <tr>
-
-          <td width="44" valign="top" style="text-align:center; padding-right:4px">
-            <div style="width:36px; height:36px; border-radius:50%; background:#F8FAFC;
-                        border:2px solid #E2E8F0; margin:0 auto; text-align:center; line-height:32px">
-              <span style="font-size:12px; font-weight:700; color:#CBD5E1">5</span>
-            </div>
-          </td>
-
-          <td style="padding:4px 0 0 12px; vertical-align:top">
-            <p style="margin:0 0 3px; font-size:14px; font-weight:600; color:#CBD5E1">
-              Entrega de documentos oficiales
-            </p>
-            <p style="margin:0; font-size:12px; color:#CBD5E1; line-height:1.5">
-              Articles of Organization, Operating Agreement y EIN Letter
-            </p>
-          </td>
-
-        </tr>
-      </table>
-
-    </td>
-  </tr>
+  </td>
+</tr>
 
 
-  <!-- ══════════════════════════════════════════════════════════
-       6. SOPORTE — Human / team block
-  ════════════════════════════════════════════════════════════ -->
-  <tr>
-    <td class="support-pad section-pad"
-      style="background:linear-gradient(135deg,#EAF1F8 0%,#F6FAFF 100%);
-             padding:40px 48px; border-top:1px solid #DDE6F0">
+<!-- ═══════════════════════════════════════════════════════════════
+     9. FOOTER
+═══════════════════════════════════════════════════════════════════ -->
+<tr>
+  <td class="footer-pad"
+    style="background:#060F1C; padding:36px 48px; text-align:center;
+           border-radius:0 0 24px 24px; border-top:1px solid #0B1E35">
 
-      <table width="100%" cellpadding="0" cellspacing="0">
-        <tr>
+    <!-- Wordmark -->
+    <p style="margin:0 0 16px; font-family:Georgia,'Times New Roman',serif;
+              font-size:17px; font-weight:700; color:#FFFFFF; letter-spacing:-0.4px">
+      CreaTuEmpresa<span style="color:#C6283E">USA</span>
+    </p>
 
-          <!-- Avatar / team icon -->
-          <td width="64" valign="middle" style="padding-right:20px">
-            <div style="width:56px; height:56px; border-radius:14px; background:#123B6D;
-                        text-align:center; line-height:56px; font-size:22px;
-                        box-shadow:0 4px 16px rgba(18,59,109,0.25)">
-              🧑‍💼
-            </div>
-          </td>
+    <!-- Mini flag strip -->
+    <div style="margin:0 auto 20px; width:80px">
+      <svg width="80" height="5" viewBox="0 0 80 5" xmlns="http://www.w3.org/2000/svg">
+        <rect width="80" height="5" rx="2.5" fill="#0B1E35"/>
+        <rect x="0"  y="0" width="80" height="0.71" fill="#C6283E" fill-opacity="0.7"/>
+        <rect x="0" y="0.71" width="80" height="0.71" fill="rgba(255,255,255,0.25)"/>
+        <rect x="0" y="1.42" width="80" height="0.71" fill="#C6283E" fill-opacity="0.7"/>
+        <rect x="0" y="2.14" width="80" height="0.71" fill="rgba(255,255,255,0.25)"/>
+        <rect x="0" y="2.85" width="80" height="0.71" fill="#C6283E" fill-opacity="0.7"/>
+        <rect x="0" y="3.57" width="80" height="0.71" fill="rgba(255,255,255,0.25)"/>
+        <rect x="0" y="4.28" width="80" height="0.71" fill="#C6283E" fill-opacity="0.7"/>
+      </svg>
+    </div>
 
-          <!-- Message -->
-          <td valign="middle">
-            <p style="margin:0 0 5px; font-size:15px; font-weight:700; color:#0B2342;
-                       line-height:1.4">
-              Ya tienes un especialista asignado
-            </p>
-            <p style="margin:0; font-size:13px; color:#475569; line-height:1.6">
-              Revisaremos tu expediente en las próximas
-              <strong style="color:#0B2342">24 horas hábiles</strong>
-              y te mantendremos informado por email y WhatsApp.
-            </p>
-          </td>
+    <!-- Links -->
+    <p style="margin:0 0 16px">
+      <a href="#" style="font-size:12px; color:#3B6DAA; text-decoration:none; margin:0 10px">Guía</a>
+      <span style="color:#0B1E35; font-size:14px">·</span>
+      <a href="#" style="font-size:12px; color:#3B6DAA; text-decoration:none; margin:0 10px">FAQ</a>
+      <span style="color:#0B1E35; font-size:14px">·</span>
+      <a href="mailto:soporte@creatuempresausa.com"
+         style="font-size:12px; color:#3B6DAA; text-decoration:none; margin:0 10px">Contacto</a>
+    </p>
 
-        </tr>
-      </table>
+    <!-- Divider -->
+    <div style="width:36px; height:1px; background:#0F2440; margin:0 auto 16px"></div>
 
-      <!-- Team badge -->
-      <div style="margin-top:20px; padding:12px 20px; background:#FFFFFF;
-                  border:1px solid #DDE6F0; border-radius:12px;
-                  box-shadow:0 1px 4px rgba(11,35,66,0.06)">
-        <table width="100%" cellpadding="0" cellspacing="0"><tr>
-          <td>
-            <p style="margin:0; font-size:12px; font-weight:700; color:#0B2342">
-              Equipo de Incorporaciones
-            </p>
-            <p style="margin:2px 0 0; font-size:11px; color:#94A3B8">
-              CreaTuEmpresaUSA · Disponible L-V 9am–6pm EST
-            </p>
-          </td>
-          <td style="text-align:right">
-            <!-- Small flag inline SVG as brand accent -->
-            <svg width="28" height="18" viewBox="0 0 28 18" xmlns="http://www.w3.org/2000/svg">
-              <rect x="0" y="0" width="28" height="18" rx="3" fill="#F1F5F9"/>
-              <rect x="0" y="0" width="11" height="18" rx="3" fill="#0B2342"/>
-              <circle cx="5.5" cy="7" r="1" fill="rgba(255,255,255,0.7)"/>
-              <circle cx="8.5" cy="7" r="1" fill="rgba(255,255,255,0.7)"/>
-              <circle cx="5.5" cy="11" r="1" fill="rgba(255,255,255,0.7)"/>
-              <circle cx="8.5" cy="11" r="1" fill="rgba(255,255,255,0.7)"/>
-              <rect x="12" y="0"  width="16" height="2.57" fill="#C6283E" rx="1"/>
-              <rect x="12" y="2.57" width="16" height="2.57" fill="#FFFFFF"/>
-              <rect x="12" y="5.14" width="16" height="2.57" fill="#C6283E"/>
-              <rect x="12" y="7.71" width="16" height="2.57" fill="#FFFFFF"/>
-              <rect x="12" y="10.28" width="16" height="2.57" fill="#C6283E"/>
-              <rect x="12" y="12.85" width="16" height="2.57" fill="#FFFFFF"/>
-              <rect x="12" y="15.42" width="16" height="2.57" fill="#C6283E" rx="1"/>
-            </svg>
-          </td>
-        </tr></table>
-      </div>
+    <!-- Copyright -->
+    <p style="margin:0 0 8px; font-size:11px; color:#1E3A5F">
+      © 2026 CreaTuEmpresaUSA · Todos los derechos reservados
+    </p>
 
-    </td>
-  </tr>
+    <!-- Disclaimer -->
+    <p style="margin:0; font-size:10px; color:#132334; line-height:1.7;
+              max-width:400px; margin-left:auto; margin-right:auto">
+      Este mensaje fue enviado a <span style="color:#1E3A5F">[customerEmail]</span>
+      porque realizaste una compra en CreaTuEmpresaUSA.
+      Si crees que lo recibiste por error, contáctanos en soporte@creatuempresausa.com
+    </p>
 
-
-  <!-- ══════════════════════════════════════════════════════════
-       7. CTA — Main call to action
-  ════════════════════════════════════════════════════════════ -->
-  <tr>
-    <td class="cta-section"
-      style="background:linear-gradient(155deg,#071929 0%,#0D3060 55%,#123B6D 100%);
-             padding:56px 48px; text-align:center; border-top:1px solid #071929;
-             position:relative">
-
-      <!-- Dot grid -->
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;
-                  background-image:radial-gradient(circle,rgba(255,255,255,0.04) 1px,transparent 1px);
-                  background-size:20px 20px; pointer-events:none"></div>
-
-      <!-- Eyebrow -->
-      <p style="margin:0 0 10px; font-size:11px; font-weight:700; color:#4A7ABF;
-                text-transform:uppercase; letter-spacing:2px; position:relative">
-        Tu portal está activo
-      </p>
-
-      <!-- Heading -->
-      <p style="margin:0 0 28px; font-size:20px; font-weight:700; color:#FFFFFF;
-                line-height:1.4; max-width:380px; margin-left:auto; margin-right:auto;
-                position:relative">
-        Accede ahora para ver el estado de tu caso en tiempo real
-      </p>
-
-      <!-- CTA button -->
-      <a href="https://creatuempresausa.com/dashboard" class="cta-btn"
-         style="display:inline-block; background:#C6283E; color:#FFFFFF;
-                padding:20px 56px; border-radius:12px; font-size:17px; font-weight:700;
-                text-decoration:none; letter-spacing:0.3px; position:relative;
-                box-shadow:0 6px 28px rgba(198,40,62,0.45), 0 2px 8px rgba(198,40,62,0.30)">
-        Acceder a mi portal →
-      </a>
-
-      <!-- Sub-note -->
-      <p style="margin:20px 0 0; font-size:12px; color:#4A6A8A; position:relative">
-        creatuempresausa.com/dashboard
-      </p>
-
-    </td>
-  </tr>
-
-
-  <!-- ══════════════════════════════════════════════════════════
-       8. CONTACTO
-  ════════════════════════════════════════════════════════════ -->
-  <tr>
-    <td class="contact-pad section-pad"
-      style="background:#FFFFFF; padding:36px 48px; text-align:center;
-             border-top:1px solid #DDE6F0">
-
-      <p style="margin:0 0 20px; font-size:13px; font-weight:600; color:#475569">
-        ¿Tienes alguna pregunta? Escríbenos directamente.
-      </p>
-
-      <table width="100%" cellpadding="0" cellspacing="0">
-        <tr>
-          <td width="50%" style="text-align:center; padding:0 8px">
-            <a href="mailto:soporte@creatuempresausa.com"
-               style="display:inline-block; padding:12px 20px; background:#F6FAFF;
-                      border:1px solid #DDE6F0; border-radius:10px; text-decoration:none;
-                      width:100%">
-              <p style="margin:0 0 2px; font-size:11px; color:#94A3B8; font-weight:600;
-                         text-transform:uppercase; letter-spacing:0.8px">
-                Email
-              </p>
-              <p style="margin:0; font-size:13px; font-weight:700; color:#123B6D">
-                soporte@creatuempresausa.com
-              </p>
-            </a>
-          </td>
-          <td width="50%" style="text-align:center; padding:0 8px">
-            <a href="https://wa.me/19493461806"
-               style="display:inline-block; padding:12px 20px; background:#F6FAFF;
-                      border:1px solid #DDE6F0; border-radius:10px; text-decoration:none;
-                      width:100%">
-              <p style="margin:0 0 2px; font-size:11px; color:#94A3B8; font-weight:600;
-                         text-transform:uppercase; letter-spacing:0.8px">
-                WhatsApp
-              </p>
-              <p style="margin:0; font-size:13px; font-weight:700; color:#059669">
-                +1 (949) 346-1806
-              </p>
-            </a>
-          </td>
-        </tr>
-      </table>
-
-    </td>
-  </tr>
-
-
-  <!-- ══════════════════════════════════════════════════════════
-       9. FOOTER
-  ════════════════════════════════════════════════════════════ -->
-  <tr>
-    <td class="footer-pad"
-      style="background:#071929; padding:32px 48px; text-align:center;
-             border-radius:0 0 20px 20px">
-
-      <!-- Wordmark -->
-      <p style="margin:0 0 14px; font-family:Georgia,'Times New Roman',serif;
-                font-size:16px; font-weight:700; color:#FFFFFF; letter-spacing:-0.3px">
-        CreaTuEmpresa<span style="color:#C6283E">USA</span>
-      </p>
-
-      <!-- Nav links -->
-      <p style="margin:0 0 16px">
-        <a href="#" style="font-size:12px; color:#4A6A8A; text-decoration:none; margin:0 10px">Guía</a>
-        <span style="color:#1E3A5F">·</span>
-        <a href="#" style="font-size:12px; color:#4A6A8A; text-decoration:none; margin:0 10px">FAQ</a>
-        <span style="color:#1E3A5F">·</span>
-        <a href="mailto:soporte@creatuempresausa.com"
-           style="font-size:12px; color:#4A6A8A; text-decoration:none; margin:0 10px">Contacto</a>
-      </p>
-
-      <!-- Divider -->
-      <div style="width:40px; height:1px; background:#1E3A5F; margin:0 auto 16px"></div>
-
-      <!-- Copyright -->
-      <p style="margin:0 0 8px; font-size:11px; color:#2D4A6A">
-        © 2026 CreaTuEmpresaUSA · Todos los derechos reservados
-      </p>
-
-      <!-- Disclaimer -->
-      <p style="margin:0; font-size:10px; color:#1E3A5F; line-height:1.6; max-width:440px; margin-left:auto; margin-right:auto">
-        Este mensaje fue enviado a <span style="color:#2D4A6A">[customerEmail]</span>
-        porque realizaste una compra en CreaTuEmpresaUSA.
-        Si crees que lo recibiste por error, contáctanos.
-      </p>
-
-    </td>
-  </tr>
+  </td>
+</tr>
 
 
 </table>
