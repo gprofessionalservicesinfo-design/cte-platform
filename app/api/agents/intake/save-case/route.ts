@@ -1,15 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminServerClient } from '@/lib/supabase/server'
 
-const INTERNAL_API_KEY = process.env.INTERNAL_API_KEY
-
 export async function POST(request: NextRequest) {
-  // Verificar API key interna de n8n
-  const apiKey = request.headers.get('x-api-key')
-  if (!INTERNAL_API_KEY || apiKey !== INTERNAL_API_KEY) {
-    return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 })
-  }
-
   let body: { agent_id?: string; status?: string; raw_response?: string }
   try {
     body = await request.json()
@@ -19,9 +11,9 @@ export async function POST(request: NextRequest) {
 
   const { agent_id, status, raw_response } = body
 
-  if (!agent_id || !status || !raw_response) {
+  if (!agent_id) {
     return NextResponse.json(
-      { success: false, error: 'Missing required fields: agent_id, status, raw_response' },
+      { success: false, error: 'Missing required field: agent_id' },
       { status: 400 }
     )
   }
