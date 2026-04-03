@@ -758,9 +758,9 @@ document.addEventListener('DOMContentLoaded', function() {
        ─────────────────────────────────────────────────────────── */
     var cfg   = window.CONFIG || {};
     var links = {
-      starter:      cfg.STRIPE_PAYMENT_LINK_STARTER || '',
-      professional: cfg.STRIPE_PAYMENT_LINK_PRO     || '',
-      premium:      cfg.STRIPE_PAYMENT_LINK_PREMIUM  || ''
+      basic:   cfg.STRIPE_PAYMENT_LINK_STARTER || '',
+      growth:  cfg.STRIPE_PAYMENT_LINK_PRO     || '',
+      premium: cfg.STRIPE_PAYMENT_LINK_PREMIUM  || ''
     };
     var link  = links[order.package] || '';
     var valid = link && !link.includes('YOUR_STRIPE') && link.trim() !== '';
