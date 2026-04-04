@@ -163,32 +163,41 @@
       padding: 0;
       text-align: center;
     }
-    .hero .container-lg {
-      max-width: 1400px;
-      padding: 56px 24px 40px;
+    .hero-inner {
+      max-width: 1222px;
+      margin: 0 auto;
+      padding: 56px 24px 36px;
+      text-align: center;
     }
     .hero-eyebrow {
       font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
       color: rgba(255,255,255,.5); margin-bottom: 10px;
     }
-    .hero h1 {
-      color: #fff;
+    .hero-title {
+      width: 1222px;
+      max-width: calc(100vw - 48px);
+      margin: 0 auto;
       font-family: var(--font-head);
-      font-size: 76px;
-      font-weight: 800; line-height: 0.96; letter-spacing: -0.045em;
-      max-width: 1222px; margin: 0 auto;
+      font-size: 82px;
+      line-height: 0.94;
+      letter-spacing: -0.045em;
+      font-weight: 800;
       text-wrap: balance;
+      color: #fff;
     }
-    .hero h1 span { color: var(--red); }
-    .hero-sub {
-      font-size: 18px; color: rgba(255,255,255,.72);
-      max-width: 760px; line-height: 1.45; margin: 14px auto 0;
+    .hero-title span { color: var(--red); }
+    .hero-subtitle {
+      max-width: 760px;
+      margin: 14px auto 0;
+      font-size: 18px;
+      line-height: 1.45;
+      color: rgba(255,255,255,.72);
     }
-    .hero-cta {
+    .hero-actions {
       display: flex; justify-content: center; gap: 12px;
       flex-wrap: wrap; margin-top: 20px;
     }
-    .hero-chips {
+    .hero-trust {
       display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
       margin-top: 16px;
     }
@@ -197,6 +206,19 @@
       background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.16);
       border-radius: var(--r-pill); padding: 5px 13px;
       font-size: 12px; color: rgba(255,255,255,.8); font-weight: 500;
+    }
+    @media (max-width: 1280px) {
+      .hero-title { width: 100%; max-width: 1100px; font-size: 72px; }
+      .hero-inner  { max-width: 1100px; }
+    }
+    @media (max-width: 1024px) {
+      .hero-title { max-width: 100%; font-size: 58px; line-height: 0.96; }
+      .hero-inner  { max-width: 100%; }
+    }
+    @media (max-width: 640px) {
+      .hero-inner  { padding: 40px 20px 28px; }
+      .hero-title  { width: 100%; max-width: 100%; font-size: 40px; line-height: 1; letter-spacing: -0.035em; }
+      .hero-subtitle { font-size: 16px; }
     }
 
     /* ── SECTION HEADER ─────────────────────── */
@@ -538,9 +560,6 @@
       .section { padding: 48px 0; }
       .section-sm { padding: 32px 0; }
       .above-fold { min-height: unset; }
-      .hero .container-lg { padding: 32px 20px 28px; }
-      .hero h1 { font-size: 56px; }
-      .hero-sub { font-size: 16px; }
       .hero-chips { gap: 6px; }
       .hero-chip { font-size: 11px; padding: 3px 9px; }
       .pricing-grid { grid-template-columns: 1fr; gap: 16px; }
@@ -576,8 +595,6 @@
       .wa-float-btn { padding: 14px; border-radius: 50%; }
     }
     @media (max-width: 480px) {
-      .hero h1 { font-size: 38px; line-height: 1.0; max-width: 92%; }
-      .hero-sub { font-size: 15px; }
       .footer-grid { grid-template-columns: 1fr; }
       .trust-grid { grid-template-columns: 1fr; }
     }
@@ -627,14 +644,14 @@
 
 <!-- ════ HERO ════ -->
 <section class="hero">
-  <div class="container-lg">
+  <div class="hero-inner">
     <div class="hero-eyebrow">Servicio disponible para toda Latinoamérica</div>
-    <h1>Crea Tu Empresa en <span>Estados Unidos</span><br>Desde Cualquier País</h1>
-    <p class="hero-sub">Abre tu LLC o Corporation de forma rápida, segura y 100% remota. Sin visas, sin viajes, sin complicaciones.</p>
-    <div class="hero-cta">
+    <h1 class="hero-title">Crea Tu Empresa en <span>Estados Unidos</span><br>Desde Cualquier País</h1>
+    <p class="hero-subtitle">Abre tu LLC o Corporation de forma rápida, segura y 100% remota. Sin visas, sin viajes, sin complicaciones.</p>
+    <div class="hero-actions">
       <a href="/index_final.html" class="btn btn-red" style="border: 2px solid rgba(255,255,255,0.7);">🚀 Crear mi empresa</a>
     </div>
-    <div class="hero-chips">
+    <div class="hero-trust">
       <span class="hero-chip">🌎 100% Remoto</span>
       <span class="hero-chip">🤝 Clientes internacionales</span>
       <span class="hero-chip">🧭 Proceso guiado</span>
