@@ -66,6 +66,7 @@
 
     /* ── LAYOUT ─────────────────────────────── */
     .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    .container-lg { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
     .section    { padding: 64px 0; }
     .section-sm { padding: 44px 0; }
 
@@ -121,20 +122,20 @@
     .hero {
       background: linear-gradient(160deg, #0A2540 0%, #0f3060 55%, #0c2a52 100%);
       color: #fff;
-      padding: 80px 0 72px;
+      padding: 44px 0 40px;
       text-align: center;
     }
     .hero h1 {
-      color: #fff; margin-bottom: 14px;
+      color: #fff; margin-bottom: 12px;
       font-family: 'Times New Roman', Times, serif;
-      font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
       font-weight: 700; line-height: 1.2; letter-spacing: -.01em;
       max-width: 760px; margin-left: auto; margin-right: auto;
     }
     .hero h1 span { color: #f87171; }
     .hero-sub {
-      font-size: .92rem; color: rgba(255,255,255,.72);
-      max-width: 580px; line-height: 1.7; margin: 0 auto 24px;
+      font-size: .88rem; color: rgba(255,255,255,.72);
+      max-width: 560px; line-height: 1.65; margin: 0 auto 20px;
     }
     .hero-cta { display: flex; justify-content: center; }
 
@@ -151,11 +152,11 @@
     .pricing-section {
       background: var(--white);
       border-top: 1px solid var(--gray100);
-      padding: 20px 0 52px;
+      padding: 16px 0 24px;
     }
-    .pricing-section .sec-header { margin-bottom: 20px; }
-    .pricing-section .sec-header h2 { font-size: clamp(1.15rem, 2vw, 1.5rem); }
-    .pricing-section .sec-header p  { font-size: .88rem; }
+    .pricing-section .sec-header { margin-bottom: 14px; }
+    .pricing-section .sec-header h2 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
+    .pricing-section .sec-header p  { font-size: .84rem; }
     .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
 
     .plan-card {
@@ -173,16 +174,20 @@
     .plan-card.featured {
       border-color: var(--navy);
       border-width: 2px;
-      box-shadow: 0 4px 20px rgba(10,37,64,.1);
+      box-shadow: 0 8px 32px rgba(10,37,64,.16);
+      transform: translateY(-6px);
+    }
+    .plan-card.featured:hover {
+      transform: translateY(-10px);
     }
     .plan-card.featured::before {
       content: '';
       display: block;
-      height: 3px;
-      background: var(--navy);
+      height: 4px;
+      background: linear-gradient(90deg, var(--navy) 0%, #2563eb 100%);
     }
 
-    .plan-header { padding: 22px 24px 18px; background: var(--gray50); border-bottom: 1px solid var(--gray100); }
+    .plan-header { padding: 18px 26px 14px; background: var(--gray50); border-bottom: 1px solid var(--gray100); }
     .plan-card.featured .plan-header { background: #f0f5ff; }
 
     .plan-badge-wrap { min-height: 22px; margin-bottom: 8px; }
@@ -194,20 +199,20 @@
     }
     .plan-name {
       font-family: var(--font-head);
-      font-size: 1.05rem; font-weight: 800; margin-bottom: 6px; color: var(--navy);
+      font-size: 1.1rem; font-weight: 800; margin-bottom: 6px; color: var(--navy);
     }
     .plan-price {
       font-family: var(--font-head);
-      font-size: 2.6rem; font-weight: 800; color: var(--navy); line-height: 1;
+      font-size: 2.4rem; font-weight: 800; color: var(--navy); line-height: 1;
     }
     .plan-price sub { font-size: .9rem; font-weight: 500; color: var(--gray400); vertical-align: baseline; }
-    .plan-state-note { font-size: 11px; color: var(--gray400); margin-top: 5px; }
+    .plan-state-note { font-size: 11px; color: var(--gray400); margin-top: 4px; }
 
-    .plan-body { padding: 16px 24px 22px; }
-    .plan-features { margin-bottom: 18px; }
+    .plan-body { padding: 12px 26px 18px; }
+    .plan-features { margin-bottom: 14px; }
     .plan-features li {
       display: flex; align-items: flex-start; gap: 10px;
-      font-size: 13.5px; color: var(--gray700); padding: 7px 0;
+      font-size: 13.5px; color: var(--gray700); padding: 5px 0;
       border-bottom: 1px solid var(--gray100);
     }
     .plan-features li:last-child { border-bottom: none; }
@@ -215,8 +220,8 @@
     .plan-features li .chk-bold { color: var(--navy); font-weight: 800; }
 
     .state-note-bar {
-      text-align: center; font-size: 13px; color: var(--gray400);
-      margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--gray100);
+      text-align: center; font-size: 12.5px; color: var(--gray400);
+      margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--gray100);
     }
 
     /* ── TRUST BAR ───────────────────────────── */
@@ -563,7 +568,7 @@
 
 <!-- ════ PRICING ════ -->
 <section class="pricing-section" id="precios">
-  <div class="container">
+  <div class="container-lg">
     <div class="sec-header">
       <div class="sec-eyebrow">Planes y precios</div>
       <h2>Elige el plan que mejor se adapta a ti</h2>
