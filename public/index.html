@@ -164,28 +164,31 @@
       text-align: center;
     }
     .hero-inner {
-      max-width: 1222px;
-      margin: 0 auto;
-      padding: 56px 24px 36px;
+      max-width: 1222px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding: 56px 24px 36px !important;
       text-align: center;
     }
     .hero-eyebrow {
       font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
       color: rgba(255,255,255,.5); margin-bottom: 10px;
     }
-    .hero-title {
-      width: 1222px;
-      max-width: calc(100vw - 48px);
-      margin: 0 auto;
-      font-family: var(--font-head);
-      font-size: 82px;
-      line-height: 0.94;
-      letter-spacing: -0.045em;
-      font-weight: 800;
+    h1.hero-title {
+      font-size: 82px !important;
+      line-height: 0.94 !important;
+      letter-spacing: -0.045em !important;
+      font-weight: 800 !important;
+      width: 1222px !important;
+      max-width: calc(100vw - 48px) !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      text-align: center !important;
       text-wrap: balance;
       color: #fff;
+      font-family: var(--font-head);
     }
-    .hero-title span { color: var(--red); }
+    h1.hero-title span { color: var(--red); }
     .hero-subtitle {
       max-width: 760px;
       margin: 14px auto 0;
@@ -208,16 +211,16 @@
       font-size: 12px; color: rgba(255,255,255,.8); font-weight: 500;
     }
     @media (max-width: 1280px) {
-      .hero-title { width: 100%; max-width: 1100px; font-size: 72px; }
-      .hero-inner  { max-width: 1100px; }
+      h1.hero-title { width: 100% !important; max-width: 1100px !important; font-size: 72px !important; }
+      .hero-inner   { max-width: 1100px !important; }
     }
     @media (max-width: 1024px) {
-      .hero-title { max-width: 100%; font-size: 58px; line-height: 0.96; }
-      .hero-inner  { max-width: 100%; }
+      h1.hero-title { max-width: 100% !important; font-size: 58px !important; line-height: 0.96 !important; }
+      .hero-inner   { max-width: 100% !important; }
     }
     @media (max-width: 640px) {
-      .hero-inner  { padding: 40px 20px 28px; }
-      .hero-title  { width: 100%; max-width: 100%; font-size: 40px; line-height: 1; letter-spacing: -0.035em; }
+      .hero-inner   { padding: 40px 20px 28px !important; }
+      h1.hero-title { width: 100% !important; max-width: 100% !important; font-size: 40px !important; line-height: 1 !important; letter-spacing: -0.035em !important; }
       .hero-subtitle { font-size: 16px; }
     }
 
