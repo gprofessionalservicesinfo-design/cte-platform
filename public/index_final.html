@@ -488,6 +488,34 @@ ul,ol{list-style:none}
 }
 .wa-float:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(37,211,102,.48)}
 .wa-float svg{width:21px;height:21px;flex-shrink:0}
+/* Wizard WA float — only shown when wizard is active */
+#wiz-wa-float{
+  position:fixed;bottom:80px;right:24px;z-index:300;
+  display:none;align-items:center;gap:9px;
+  background:#25D366;color:#fff;border-radius:var(--r-pill);
+  padding:12px 18px;box-shadow:0 4px 18px rgba(37,211,102,.42);
+  font-weight:700;font-size:13px;font-family:var(--font);
+  text-decoration:none;transition:all .25s var(--spring);
+  border:none;cursor:pointer;
+}
+#wiz-wa-float:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(37,211,102,.52)}
+#wiz-wa-float svg{width:19px;height:19px;flex-shrink:0}
+/* Draft resume banner */
+#wiz-draft-banner{
+  display:none;position:fixed;top:0;left:0;right:0;z-index:400;
+  background:#1b4a82;color:#fff;padding:12px 20px;
+  font-size:13.5px;font-weight:600;text-align:center;
+  box-shadow:0 2px 12px rgba(0,0,0,.18);
+}
+#wiz-draft-banner button{
+  margin-left:12px;padding:5px 14px;
+  background:#fff;color:#1b4a82;border:none;
+  border-radius:20px;font-size:12.5px;font-weight:700;cursor:pointer;
+}
+#wiz-draft-banner .wiz-draft-dismiss{
+  margin-left:10px;background:transparent;color:rgba(255,255,255,.7);
+  font-size:12px;font-weight:400;padding:4px 8px;
+}
 
 /* ── FOOTER ── */
 footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36px}
@@ -2198,6 +2226,19 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
 </div><!-- /container -->
 </div><!-- /page-wizard -->
 
+<!-- ════ WIZARD WA FLOAT (visible solo en wizard) ════ -->
+<a id="wiz-wa-float" href="https://wa.me/19046248859?text=Hola%2C%20tengo%20una%20pregunta%20sobre%20crear%20mi%20empresa%20en%20EE.UU." target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+  💬 ¿Dudas? Escríbenos
+</a>
+
+<!-- ════ DRAFT RESUME BANNER ════ -->
+<div id="wiz-draft-banner">
+  📋 Tienes una solicitud en proceso — ¿quieres continuar donde lo dejaste?
+  <button onclick="wizResumeDraft()">Continuar →</button>
+  <button class="wiz-draft-dismiss" onclick="wizDismissDraft()">✕ Descartar</button>
+</div>
+
 <!-- ════ FOOTER ════ -->
 <footer>
   <div class="container">
@@ -2346,6 +2387,7 @@ function wizGoTo(step) {
   if (sidebar) sidebar.style.visibility = (step >= 4) ? 'visible' : 'hidden';
   window.scrollTo({top:0,behavior:'smooth'});
   wizUpdateSidebar();
+  wizSaveDraft();
 }
 function wizNext(fromStep) {
   if (!wizValidate(fromStep)) return;
@@ -3160,7 +3202,7 @@ function wizReset() {
   if (defGrowth) { document.querySelectorAll('.wiz-plan-option').forEach(function(o){o.classList.remove('selected');}); defGrowth.checked=true; defGrowth.closest('.wiz-plan-option').classList.add('selected'); }
   var defLLC = document.getElementById('typeLLC');
   if (defLLC) { document.querySelectorAll('.wiz-option').forEach(function(o){o.classList.remove('selected');}); defLLC.checked=true; defLLC.closest('.wiz-option').classList.add('selected'); }
-  wizRefreshAddons(); wizUpdatePlanPrices(); wizUpdateSidebar(); wizGoTo(1);
+  wizClearDraft(); wizRefreshAddons(); wizUpdatePlanPrices(); wizUpdateSidebar(); wizGoTo(1);
 }
 
 /* ── One-time initialization ──────────────────────────────── */
@@ -3255,6 +3297,9 @@ function goTo(page) {
   window.scrollTo({top:0, behavior:'smooth'});
   setTimeout(initReveal, 120);
   if (page === 'wizard') initWizardOnce();
+  /* Show/hide wizard WA float */
+  var wizWa = document.getElementById('wiz-wa-float');
+  if (wizWa) wizWa.style.display = page === 'wizard' ? 'flex' : 'none';
 }
 
 // ── MOBILE NAV ──────────────────────────
@@ -3393,6 +3438,98 @@ document.querySelectorAll('.nav-link[role="button"]').forEach(el => {
   el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') el.click(); });
 });
 
+/* ── Draft save / restore / abandonment ─────────────────── */
+var WIZ_DRAFT_KEY = 'cte_wiz_draft';
+
+function wizSaveDraft() {
+  if (WIZ.currentStep < 2) return; // don't save on step 1
+  try {
+    localStorage.setItem(WIZ_DRAFT_KEY, JSON.stringify({
+      step:          WIZ.currentStep,
+      residentType:  WIZ.residentType,
+      type:          WIZ.type,
+      state:         WIZ.state,
+      stateName:     WIZ.stateName,
+      plan:          WIZ.plan,
+      company_name:  WIZ.company_name,
+      name:          WIZ.name,
+      email:         WIZ.email || '',
+      phone:         WIZ.phone || '',
+      addons:        WIZ.addons,
+      savedAt:       Date.now()
+    }));
+  } catch(e) {}
+}
+
+function wizClearDraft() {
+  try { localStorage.removeItem(WIZ_DRAFT_KEY); } catch(e) {}
+}
+
+function wizResumeDraft() {
+  var banner = document.getElementById('wiz-draft-banner');
+  if (banner) banner.style.display = 'none';
+  try {
+    var raw = localStorage.getItem(WIZ_DRAFT_KEY);
+    if (!raw) return;
+    var d = JSON.parse(raw);
+    WIZ.residentType  = d.residentType  || 'foreign';
+    WIZ.type          = d.type          || 'llc';
+    WIZ.state         = d.state         || 'CO';
+    WIZ.stateName     = d.stateName     || 'Colorado';
+    WIZ.plan          = d.plan          || 'growth';
+    WIZ.company_name  = d.company_name  || '';
+    WIZ.name          = d.name          || '';
+    WIZ.email         = d.email         || '';
+    WIZ.phone         = d.phone         || '';
+    WIZ.addons        = d.addons        || {};
+    goTo('wizard');
+    /* Restore UI radio selections */
+    var rtInput = document.querySelector('#wizStep1 input[name="resident_type"][value="'+WIZ.residentType+'"]');
+    if (rtInput) { rtInput.checked = true; rtInput.closest('.wiz-option') && rtInput.closest('.wiz-option').classList.add('selected'); }
+    var typeInput = document.querySelector('#wizStep2 input[name="company_type"][value="'+WIZ.type+'"]');
+    if (typeInput) { typeInput.checked = true; typeInput.closest('.wiz-option') && typeInput.closest('.wiz-option').classList.add('selected'); }
+    var stateEl = document.getElementById('wizStateSelect');
+    if (stateEl) stateEl.value = WIZ.state;
+    var nameEl = document.getElementById('wizCompanyName');
+    if (nameEl) nameEl.value = WIZ.company_name;
+    wizUpdateSidebar();
+    wizGoTo(Math.min(d.step, 7)); // resume at saved step (cap at 7 to avoid empty summary)
+  } catch(e) { goTo('wizard'); }
+}
+
+function wizDismissDraft() {
+  var banner = document.getElementById('wiz-draft-banner');
+  if (banner) banner.style.display = 'none';
+  wizClearDraft();
+}
+
+function wizCheckDraftOnLoad() {
+  try {
+    var raw = localStorage.getItem(WIZ_DRAFT_KEY);
+    if (!raw) return;
+    var d = JSON.parse(raw);
+    /* Only show if draft is less than 7 days old and was past step 2 */
+    var age = Date.now() - (d.savedAt || 0);
+    if (d.step >= 3 && age < 7 * 24 * 60 * 60 * 1000) {
+      var banner = document.getElementById('wiz-draft-banner');
+      if (banner) banner.style.display = 'block';
+    } else {
+      wizClearDraft();
+    }
+  } catch(e) {}
+}
+
+/* Abandonment detection — only if user reached step 3+ */
+window.addEventListener('beforeunload', function(e) {
+  if (WIZ.currentStep >= 3) {
+    wizSaveDraft();
+    var msg = '¿Seguro que quieres salir? Tu progreso se guardará.';
+    e.preventDefault();
+    e.returnValue = msg;
+    return msg;
+  }
+});
+
 // ── INIT ─────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   /* ?page= URL param — lets external pages link back into the SPA.
@@ -3408,6 +3545,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initReveal();
   const ci = document.getElementById('mainChatInput');
   if (ci) ci.addEventListener('keypress', e => { if (e.key === 'Enter') sendChat(); });
+
+  /* Check for incomplete draft on page load */
+  wizCheckDraftOnLoad();
 
   /* <!-- GOOGLE SESSION CHECK READY -->
      Check for a Supabase session on every load.
