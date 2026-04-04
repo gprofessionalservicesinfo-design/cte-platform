@@ -121,38 +121,22 @@
     .hero {
       background: linear-gradient(160deg, #0A2540 0%, #0f3060 55%, #0c2a52 100%);
       color: #fff;
-      padding: 88px 0 80px;
+      padding: 52px 0 48px;
       text-align: center;
     }
-    .hero-eyebrow {
-      font-size: 9.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
-      color: rgba(255,255,255,.42); margin-bottom: 8px;
-    }
     .hero h1 {
-      color: #fff; margin-bottom: 10px;
+      color: #fff; margin-bottom: 14px;
       font-family: 'Times New Roman', Times, serif;
-      font-size: clamp(1.6rem, 3vw, 2.1rem);
-      font-weight: 700; letter-spacing: -.01em;
-      max-width: 720px; margin-left: auto; margin-right: auto;
+      font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+      font-weight: 700; line-height: 1.2; letter-spacing: -.01em;
+      max-width: 760px; margin-left: auto; margin-right: auto;
     }
     .hero h1 span { color: #f87171; }
     .hero-sub {
-      font-size: .85rem; color: rgba(255,255,255,.68);
-      max-width: 540px; line-height: 1.65; margin: 0 auto 14px;
+      font-size: .92rem; color: rgba(255,255,255,.72);
+      max-width: 580px; line-height: 1.7; margin: 0 auto 24px;
     }
-    .hero-ctas {
-      display: flex; justify-content: center; gap: 8px;
-      flex-wrap: wrap; margin-bottom: 12px;
-    }
-    .hero-trust {
-      display: flex; justify-content: center; flex-wrap: nowrap;
-      gap: 20px; overflow-x: auto;
-    }
-    .trust-badge {
-      display: flex; align-items: center; gap: 4px;
-      font-size: 10.5px; font-weight: 500; color: rgba(255,255,255,.6);
-      white-space: nowrap;
-    }
+    .hero-cta { display: flex; justify-content: center; }
 
     /* ── SECTION HEADER ─────────────────────── */
     .sec-header { text-align: center; margin-bottom: 16px; }
@@ -167,12 +151,12 @@
     .pricing-section {
       background: var(--white);
       border-top: 1px solid var(--gray100);
-      padding: 12px 0 40px;
+      padding: 20px 0 52px;
     }
-    .pricing-section .sec-header { margin-bottom: 14px; }
-    .pricing-section .sec-header h2 { font-size: clamp(1.05rem, 1.8vw, 1.28rem); }
-    .pricing-section .sec-header p  { font-size: .82rem; }
-    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; align-items: start; max-width: 1036px; margin: 0 auto; }
+    .pricing-section .sec-header { margin-bottom: 20px; }
+    .pricing-section .sec-header h2 { font-size: clamp(1.15rem, 2vw, 1.5rem); }
+    .pricing-section .sec-header p  { font-size: .88rem; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
 
     .plan-card {
       background: var(--white);
@@ -198,36 +182,36 @@
       background: var(--navy);
     }
 
-    .plan-header { padding: 16px 20px 13px; background: var(--gray50); border-bottom: 1px solid var(--gray100); }
+    .plan-header { padding: 22px 24px 18px; background: var(--gray50); border-bottom: 1px solid var(--gray100); }
     .plan-card.featured .plan-header { background: #f0f5ff; }
 
-    .plan-badge-wrap { min-height: 18px; margin-bottom: 4px; }
+    .plan-badge-wrap { min-height: 22px; margin-bottom: 8px; }
     .plan-badge {
-      display: inline-flex; align-items: center; gap: 4px;
+      display: inline-flex; align-items: center; gap: 5px;
       background: var(--navy); color: #fff;
-      font-size: 9.5px; font-weight: 700; padding: 3px 11px; border-radius: var(--r-pill);
-      letter-spacing: .06em; text-transform: uppercase;
+      font-size: 10px; font-weight: 700; padding: 4px 13px; border-radius: var(--r-pill);
+      letter-spacing: .07em; text-transform: uppercase;
     }
     .plan-name {
       font-family: var(--font-head);
-      font-size: .95rem; font-weight: 800; margin-bottom: 3px; color: var(--navy);
+      font-size: 1.05rem; font-weight: 800; margin-bottom: 6px; color: var(--navy);
     }
     .plan-price {
       font-family: var(--font-head);
-      font-size: 2rem; font-weight: 800; color: var(--navy); line-height: 1;
+      font-size: 2.6rem; font-weight: 800; color: var(--navy); line-height: 1;
     }
-    .plan-price sub { font-size: .8rem; font-weight: 500; color: var(--gray400); vertical-align: baseline; }
-    .plan-state-note { font-size: 10.5px; color: var(--gray400); margin-top: 3px; }
+    .plan-price sub { font-size: .9rem; font-weight: 500; color: var(--gray400); vertical-align: baseline; }
+    .plan-state-note { font-size: 11px; color: var(--gray400); margin-top: 5px; }
 
-    .plan-body { padding: 12px 20px 18px; }
-    .plan-features { margin-bottom: 13px; }
+    .plan-body { padding: 16px 24px 22px; }
+    .plan-features { margin-bottom: 18px; }
     .plan-features li {
-      display: flex; align-items: flex-start; gap: 8px;
-      font-size: 12.5px; color: var(--gray700); padding: 5px 0;
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 13.5px; color: var(--gray700); padding: 7px 0;
       border-bottom: 1px solid var(--gray100);
     }
     .plan-features li:last-child { border-bottom: none; }
-    .plan-features li .chk { color: #16a34a; font-weight: 700; flex-shrink: 0; width: 14px; margin-top: 1px; font-size: 11.5px; }
+    .plan-features li .chk { color: #16a34a; font-weight: 700; flex-shrink: 0; width: 15px; margin-top: 2px; font-size: 12px; }
     .plan-features li .chk-bold { color: var(--navy); font-weight: 800; }
 
     .state-note-bar {
@@ -487,10 +471,10 @@
     @media (max-width: 768px) {
       .section { padding: 48px 0; }
       .section-sm { padding: 32px 0; }
-      .hero { padding: 24px 0 20px; }
-      .hero h1 { font-size: 1.4rem; }
-      .hero-sub { font-size: .82rem; }
-      .hero-trust { flex-wrap: wrap; gap: 6px 14px; overflow: visible; justify-content: center; }
+      .hero { padding: 32px 0 28px; }
+      .hero h1 { font-size: 1.5rem; }
+      .hero-sub { font-size: .88rem; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 16px; }
 
       .pricing-grid { grid-template-columns: 1fr; gap: 16px; }
 
@@ -570,17 +554,10 @@
 <!-- ════ HERO ════ -->
 <section class="hero">
   <div class="container">
-    <div class="hero-eyebrow">Servicio disponible para toda Latinoamérica</div>
     <h1>Crea tu empresa en <span>Estados Unidos</span><br>desde cualquier país</h1>
-    <p class="hero-sub">LLC o Corporation, EIN y Registered Agent incluidos. Proceso rápido, seguro y 100% remoto.</p>
-    <div class="hero-ctas">
-      <a href="/index_final.html" class="btn btn-red btn-sm">🚀 Crear mi empresa</a>
-    </div>
-    <div class="hero-trust">
-      <div class="trust-badge">🌎 100% Remoto</div>
-      <div class="trust-badge">🤝 Clientes internacionales</div>
-      <div class="trust-badge">🧭 Proceso guiado</div>
-      <div class="trust-badge">✅ Sin visa ni SSN</div>
+    <p class="hero-sub">Abre tu LLC o Corporation de forma rápida, segura y 100% remota.<br>Sin visas, sin viajes, sin complicaciones.</p>
+    <div class="hero-cta">
+      <a href="/index_final.html" class="btn btn-red">🚀 Crear mi empresa</a>
     </div>
   </div>
 </section>
@@ -611,7 +588,7 @@
             <li><span class="chk">✓</span> Registered Agent (1 año)</li>
             <li><span class="chk">✓</span> Soporte por email en español</li>
           </ul>
-          <a href="/index_final.html" class="btn btn-outline btn-xs" style="width:100%">Elegir Starter →</a>
+          <a href="/index_final.html" class="btn btn-outline" style="width:100%">Elegir Starter →</a>
         </div>
       </div>
 
@@ -632,7 +609,7 @@
             <li><span class="chk">✓</span> Asesoría bancaria incluida</li>
             <li><span class="chk">✓</span> Soporte prioritario por WhatsApp</li>
           </ul>
-          <a href="/index_final.html" class="btn btn-primary btn-xs" style="width:100%">Elegir Pro →</a>
+          <a href="/index_final.html" class="btn btn-primary" style="width:100%">Elegir Pro →</a>
         </div>
       </div>
 
@@ -651,7 +628,7 @@
             <li><span class="chk">✓</span> Business Address (12 meses)</li>
             <li><span class="chk">✓</span> Asesoría fiscal + Form 5472</li>
           </ul>
-          <a href="/index_final.html" class="btn btn-outline btn-xs" style="width:100%">Elegir Premium →</a>
+          <a href="/index_final.html" class="btn btn-outline" style="width:100%">Elegir Premium →</a>
         </div>
       </div>
 
