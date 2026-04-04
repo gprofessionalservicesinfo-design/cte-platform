@@ -121,28 +121,32 @@
     .hero {
       background: linear-gradient(160deg, #0A2540 0%, #0f3060 55%, #0c2a52 100%);
       color: #fff;
-      padding: 8px 0 8px;
+      padding: 4px 0 6px;
+    }
+    .hero-eyebrow {
+      font-size: 9.5px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase;
+      color: rgba(255,255,255,.45); margin-bottom: 2px;
     }
     .hero h1 {
-      color: #fff; margin-bottom: 5px;
-      /* no max-width — let text use the full container width, reducing line breaks */
-      font-size: clamp(1.35rem, 2.6vw, 1.8rem);
+      color: #fff; margin-bottom: 4px;
+      /* full container width — headline spans the layout, fewer line breaks = less height */
+      font-size: clamp(1.5rem, 3vw, 2rem);
     }
     .hero h1 span { color: #f87171; }
     /* sub + CTAs share one horizontal row */
     .hero-row {
       display: flex; align-items: center; justify-content: space-between;
-      gap: 14px; flex-wrap: wrap; margin-bottom: 6px;
+      gap: 16px; flex-wrap: wrap; margin-bottom: 5px;
     }
     .hero-sub {
       font-size: .78rem; color: rgba(255,255,255,.65);
-      max-width: 480px; line-height: 1.5; margin: 0;
+      max-width: 520px; line-height: 1.5; margin: 0;
     }
     .hero-ctas { display: flex; flex-wrap: nowrap; gap: 6px; flex-shrink: 0; }
-    .hero-trust { display: flex; flex-wrap: nowrap; gap: 14px; overflow-x: auto; }
+    .hero-trust { display: flex; flex-wrap: nowrap; gap: 16px; overflow-x: auto; }
     .trust-badge {
       display: flex; align-items: center; gap: 4px;
-      font-size: 10px; font-weight: 500; color: rgba(255,255,255,.6);
+      font-size: 10px; font-weight: 500; color: rgba(255,255,255,.58);
       white-space: nowrap;
     }
 
@@ -565,19 +569,20 @@
 <!-- ════ HERO ════ -->
 <section class="hero">
   <div class="container">
-    <h1>Forma tu empresa en <span>EE.UU.</span> sin visa ni SSN, en español</h1>
+    <div class="hero-eyebrow">Servicio disponible para toda Latinoamérica</div>
+    <h1>Crea tu empresa en <span>Estados Unidos</span> desde cualquier país</h1>
     <div class="hero-row">
-      <p class="hero-sub">LLC, EIN y Registered Agent incluidos. 100% remoto, desde cualquier país.</p>
+      <p class="hero-sub">Abre tu LLC o Corporation de forma rápida, segura y 100% remota. Sin visas, sin viajes, sin complicaciones.</p>
       <div class="hero-ctas">
-        <a href="/index_final.html" class="btn btn-red btn-sm">🚀 Comenzar</a>
-        <a href="#precios" class="btn btn-sm" style="color:#fff;border:1.5px solid rgba(255,255,255,.3);background:transparent">Ver precios →</a>
+        <a href="/index_final.html" class="btn btn-red btn-sm">🚀 Crear mi empresa</a>
+        <a href="https://wa.me/19046248859?text=Hola%2C%20quiero%20crear%20mi%20empresa%20en%20EE.UU." target="_blank" rel="noopener" class="btn btn-wa btn-sm">💬 Hablar por WhatsApp</a>
       </div>
     </div>
     <div class="hero-trust">
+      <div class="trust-badge">🌎 100% Remoto</div>
+      <div class="trust-badge">🤝 Clientes internacionales</div>
+      <div class="trust-badge">🧭 Proceso guiado</div>
       <div class="trust-badge">✅ Sin visa ni SSN</div>
-      <div class="trust-badge">🌎 100% remoto</div>
-      <div class="trust-badge">🇺🇸 Empresa legal EE.UU.</div>
-      <div class="trust-badge">🗣️ En español</div>
     </div>
   </div>
 </section>
