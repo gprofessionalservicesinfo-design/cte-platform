@@ -244,6 +244,108 @@
     .step-title { font-family: var(--font-head); font-size: 14.5px; font-weight: 700; color: var(--navy); margin-bottom: 7px; }
     .step-desc  { font-size: 13px; color: var(--gray500); line-height: 1.6; }
 
+    /* ── STRUCTURE COMPARISON ───────────────── */
+    .struct-section { background: var(--gray50); }
+    .struct-tabs {
+      display: flex; gap: 6px;
+      background: var(--white); border: 1.5px solid var(--gray200);
+      border-radius: var(--r-xl); padding: 5px;
+      max-width: 460px; margin: 0 auto 28px;
+    }
+    .struct-tab {
+      flex: 1; padding: 11px 16px; border-radius: var(--r-lg); border: none;
+      cursor: pointer; font-size: 14px; font-weight: 700; color: var(--gray500);
+      background: transparent; font-family: var(--font-head); transition: all .18s;
+      white-space: nowrap;
+    }
+    .struct-tab.active { background: var(--navy); color: #fff; box-shadow: 0 2px 8px rgba(10,37,64,.18); }
+    .struct-tab:hover:not(.active) { background: var(--gray100); color: var(--navy); }
+
+    .struct-panel {
+      background: var(--white); border-radius: var(--r-xl);
+      border: 1.5px solid var(--gray200); overflow: hidden;
+      box-shadow: 0 2px 14px rgba(10,37,64,.06);
+    }
+    .struct-panel-inner {
+      display: grid; grid-template-columns: 1fr 240px; gap: 0;
+    }
+    .struct-main { padding: 32px 36px; border-right: 1px solid var(--gray100); }
+    .struct-what { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 26px; }
+    .struct-ico { font-size: 2.4rem; flex-shrink: 0; line-height: 1; }
+    .struct-what h3 {
+      font-family: var(--font-head); font-size: 1.3rem; font-weight: 800;
+      color: var(--navy); margin-bottom: 5px;
+    }
+    .struct-what > div > p { font-size: .975rem; color: var(--gray500); }
+    .struct-foreign-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe;
+      font-size: 11.5px; font-weight: 700; padding: 4px 12px;
+      border-radius: var(--r-pill); margin-top: 10px;
+    }
+    .struct-dba-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #fef9c3; color: #854d0e; border: 1px solid #fde68a;
+      font-size: 11.5px; font-weight: 700; padding: 4px 12px;
+      border-radius: var(--r-pill); margin-top: 10px;
+    }
+    .struct-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 20px; }
+    .struct-col-head { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 10px; }
+    .struct-col-head.green { color: #15803d; }
+    .struct-col-head.blue  { color: #1d4ed8; }
+    .struct-col-head.amber { color: #b45309; }
+    .struct-list { }
+    .struct-list li {
+      display: flex; align-items: flex-start; gap: 8px;
+      font-size: 13px; color: var(--gray700); padding: 5px 0;
+      border-bottom: 1px solid var(--gray100);
+    }
+    .struct-list li:last-child { border-bottom: none; }
+    .struct-list li::before { content: "✓"; color: #16a34a; font-weight: 800; flex-shrink: 0; margin-top: 1px; font-size: 12px; }
+    .struct-consider {
+      background: var(--gray50); border-left: 3px solid var(--gray300);
+      border-radius: 0 var(--r) var(--r) 0; padding: 12px 14px; margin-bottom: 16px;
+    }
+    .struct-consider-head { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--gray400); margin-bottom: 5px; }
+    .struct-consider p { font-size: 13px; color: var(--gray500); }
+    .struct-foreign-note {
+      background: #f0f9ff; border: 1px solid #bae6fd;
+      border-radius: var(--r); padding: 11px 14px;
+      font-size: 13px; color: #0369a1; line-height: 1.6;
+    }
+    .struct-dba-note {
+      background: #fefce8; border: 1px solid #fde68a;
+      border-radius: var(--r); padding: 11px 14px;
+      font-size: 13px; color: #854d0e; line-height: 1.6;
+    }
+
+    .struct-cta-col {
+      padding: 32px 24px; background: var(--gray50);
+      display: flex; flex-direction: column; align-items: center;
+      gap: 16px; text-align: center;
+    }
+    .struct-cta-price {
+      font-family: var(--font-head); font-size: 2rem; font-weight: 800; color: var(--navy);
+    }
+    .struct-cta-price span { font-size: .9rem; font-weight: 500; color: var(--gray400); }
+    .struct-cta-name { font-family: var(--font-head); font-size: 1rem; font-weight: 700; color: var(--navy); }
+    .struct-cta-inc {
+      width: 100%; background: var(--white); border: 1px solid var(--gray200);
+      border-radius: var(--r); padding: 12px 14px; text-align: left;
+    }
+    .struct-cta-inc li { font-size: 12.5px; color: var(--gray700); padding: 4px 0; display: flex; align-items: flex-start; gap: 7px; }
+    .struct-cta-inc li::before { content: "✓"; color: #16a34a; font-weight: 800; flex-shrink: 0; font-size: 11px; margin-top: 2px; }
+    .struct-cta-sub { font-size: 11.5px; color: var(--gray400); }
+
+    .struct-help {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      background: var(--white); border: 1.5px solid var(--gray200);
+      border-radius: var(--r-xl); padding: 18px 24px; margin-top: 16px; flex-wrap: wrap;
+    }
+    .struct-help-text strong { font-family: var(--font-head); color: var(--navy); font-size: 14.5px; display: block; margin-bottom: 3px; }
+    .struct-help-text span { font-size: 13px; color: var(--gray500); }
+    .struct-help-btns { display: flex; gap: 8px; flex-shrink: 0; }
+
     /* ── FOREIGNERS ──────────────────────────── */
     .foreigners-section { background: linear-gradient(135deg, #0c2d52 0%, #1a4070 100%); }
     .foreigners-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: center; }
@@ -374,6 +476,16 @@
       .hero-sub { font-size: .95rem; }
 
       .pricing-grid { grid-template-columns: 1fr; gap: 16px; }
+
+      .struct-panel-inner { grid-template-columns: 1fr; }
+      .struct-main { border-right: none; border-bottom: 1px solid var(--gray100); padding: 24px 20px; }
+      .struct-cta-col { padding: 24px 20px; }
+      .struct-2col { grid-template-columns: 1fr; gap: 12px; }
+      .struct-tabs { max-width: 100%; }
+      .struct-tab { font-size: 13px; padding: 10px 10px; }
+      .struct-help { flex-direction: column; align-items: flex-start; }
+      .struct-help-btns { width: 100%; }
+      .struct-help-btns .btn { flex: 1; justify-content: center; }
 
       .trust-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
 
@@ -602,6 +714,197 @@
     </div>
     <div style="text-align:center;margin-top:40px">
       <a href="/index_final.html" class="btn btn-primary btn-lg">Iniciar el proceso →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ STRUCTURE COMPARISON ════ -->
+<section class="section struct-section" id="estructuras">
+  <div class="container">
+    <div class="sec-header">
+      <div class="sec-eyebrow">Elige tu estructura</div>
+      <h2>Elige la estructura correcta para<br>tu negocio en EE.UU.</h2>
+      <p>Te explicamos de forma simple cuál opción se adapta mejor a tu negocio y cuándo conviene usar cada una.</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="struct-tabs" role="tablist">
+      <button class="struct-tab active" role="tab" aria-selected="true" data-key="llc" onclick="showStruct('llc')">🏛️ LLC</button>
+      <button class="struct-tab" role="tab" aria-selected="false" data-key="corp" onclick="showStruct('corp')">🏢 Corporation</button>
+      <button class="struct-tab" role="tab" aria-selected="false" data-key="dba" onclick="showStruct('dba')">🏷️ DBA</button>
+    </div>
+
+    <!-- LLC Panel -->
+    <div class="struct-panel" id="panel-llc">
+      <div class="struct-panel-inner">
+        <div class="struct-main">
+          <div class="struct-what">
+            <div class="struct-ico">🏛️</div>
+            <div>
+              <h3>LLC — Limited Liability Company</h3>
+              <p>Una estructura flexible y muy popular para operar un negocio en EE.UU.</p>
+              <span class="struct-foreign-tag">⭐ La opción más elegida por fundadores extranjeros</span>
+            </div>
+          </div>
+          <div class="struct-2col">
+            <div>
+              <div class="struct-col-head green">Ideal para</div>
+              <ul class="struct-list">
+                <li>Negocios internacionales y e-commerce</li>
+                <li>Servicios y consultoría</li>
+                <li>Small business owners</li>
+                <li>Fundadores que quieren empezar rápido</li>
+              </ul>
+            </div>
+            <div>
+              <div class="struct-col-head blue">Ventajas</div>
+              <ul class="struct-list">
+                <li>Protección de responsabilidad personal</li>
+                <li>Estructura flexible y fácil de operar</li>
+                <li>Sin doble tributación en muchos casos</li>
+                <li>Proceso de formación ágil</li>
+              </ul>
+            </div>
+          </div>
+          <div class="struct-consider">
+            <div class="struct-consider-head">A tener en cuenta</div>
+            <p>Puede requerir reportes anuales según el estado. No es la opción ideal si buscas emitir acciones o atraer inversión institucional.</p>
+          </div>
+          <div class="struct-foreign-note">
+            🌎 <strong>Para fundadores extranjeros:</strong> La mayoría elige una LLC como punto de partida por su flexibilidad y practicidad para muchos modelos de negocio.
+          </div>
+        </div>
+        <div class="struct-cta-col">
+          <div class="struct-cta-name">Plan desde</div>
+          <div class="struct-cta-price">$499 <span>USD</span></div>
+          <ul class="struct-cta-inc">
+            <li>LLC + EIN incluido</li>
+            <li>Registered Agent (1 año)</li>
+            <li>Proceso 100% en español</li>
+          </ul>
+          <a href="/index_final.html?type=llc" class="btn btn-primary" style="width:100%">Iniciar con una LLC →</a>
+          <div class="struct-cta-sub">+ tarifa estatal del estado elegido</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Corporation Panel -->
+    <div class="struct-panel" id="panel-corp" style="display:none">
+      <div class="struct-panel-inner">
+        <div class="struct-main">
+          <div class="struct-what">
+            <div class="struct-ico">🏢</div>
+            <div>
+              <h3>Corporation (C-Corp / S-Corp)</h3>
+              <p>Una estructura más formal, diseñada para negocios con planes de crecimiento corporativo o que buscan inversionistas.</p>
+            </div>
+          </div>
+          <div class="struct-2col">
+            <div>
+              <div class="struct-col-head green">Ideal para</div>
+              <ul class="struct-list">
+                <li>Startups con planes de crecimiento</li>
+                <li>Negocios que buscan inversionistas</li>
+                <li>Proyectos que podrían emitir acciones</li>
+                <li>Estructuras corporativas formales</li>
+              </ul>
+            </div>
+            <div>
+              <div class="struct-col-head blue">Ventajas</div>
+              <ul class="struct-list">
+                <li>Estructura corporativa más robusta</li>
+                <li>Mejor encaje en escenarios de inversión</li>
+                <li>Permite emisión de acciones</li>
+                <li>Mayor credibilidad institucional</li>
+              </ul>
+            </div>
+          </div>
+          <div class="struct-consider">
+            <div class="struct-consider-head">A tener en cuenta</div>
+            <p>Mayor formalidad operativa. Puede implicar más complejidad contable y fiscal. No siempre es la mejor primera opción para negocios pequeños o fundadores extranjeros que solo quieren empezar rápido.</p>
+          </div>
+          <div class="struct-foreign-note">
+            🌎 <strong>Para fundadores extranjeros:</strong> Una Corporation puede tener sentido si tu plan a largo plazo es más formal, escalable u orientado a inversión. Si solo quieres empezar, una LLC suele ser más práctica.
+          </div>
+        </div>
+        <div class="struct-cta-col">
+          <div class="struct-cta-name">Plan desde</div>
+          <div class="struct-cta-price">$499 <span>USD</span></div>
+          <ul class="struct-cta-inc">
+            <li>Corporation + EIN incluido</li>
+            <li>Registered Agent (1 año)</li>
+            <li>Proceso 100% en español</li>
+          </ul>
+          <a href="/index_final.html?type=corp" class="btn btn-primary" style="width:100%">Iniciar con una Corporation →</a>
+          <div class="struct-cta-sub">+ tarifa estatal del estado elegido</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DBA Panel -->
+    <div class="struct-panel" id="panel-dba" style="display:none">
+      <div class="struct-panel-inner">
+        <div class="struct-main">
+          <div class="struct-what">
+            <div class="struct-ico">🏷️</div>
+            <div>
+              <h3>DBA — "Doing Business As"</h3>
+              <p>Un nombre comercial que te permite operar con una marca diferente a la de tu empresa registrada. No crea una entidad nueva por sí solo.</p>
+              <span class="struct-dba-tag">⚠️ Complemento, no reemplazo de tu LLC o Corp</span>
+            </div>
+          </div>
+          <div class="struct-2col">
+            <div>
+              <div class="struct-col-head green">Ideal para</div>
+              <ul class="struct-list">
+                <li>Operar bajo una marca comercial distinta</li>
+                <li>LLCs o Corps que quieren otro nombre</li>
+                <li>Mejorar branding sin cambiar la entidad</li>
+                <li>Negocios con múltiples líneas de marca</li>
+              </ul>
+            </div>
+            <div>
+              <div class="struct-col-head blue">Ventajas</div>
+              <ul class="struct-list">
+                <li>Flexibilidad de marca comercial</li>
+                <li>Útil para marketing y posicionamiento</li>
+                <li>Relativamente sencillo de tramitar</li>
+                <li>Complementa tu estructura base</li>
+              </ul>
+            </div>
+          </div>
+          <div class="struct-consider">
+            <div class="struct-consider-head">Importante entender</div>
+            <p>Un DBA no crea protección legal ni una entidad nueva. No reemplaza una LLC o Corporation. Siempre necesitas una estructura base (LLC o Corp) primero.</p>
+          </div>
+          <div class="struct-dba-note">
+            🏷️ <strong>Nota práctica:</strong> Un DBA es usualmente un add-on, no tu estructura principal. Si aún no tienes LLC o Corporation, empieza por ahí — luego podemos agregar el DBA.
+          </div>
+        </div>
+        <div class="struct-cta-col">
+          <div class="struct-cta-name">Disponible como add-on</div>
+          <div class="struct-cta-price" style="font-size:1.5rem">+ $149 <span>USD</span></div>
+          <ul class="struct-cta-inc">
+            <li>Registro de nombre comercial</li>
+            <li>Guía de uso de marca</li>
+            <li>Incluido en planes Pro y Premium</li>
+          </ul>
+          <a href="/index_final.html" class="btn btn-outline" style="width:100%">Agregar DBA →</a>
+          <div class="struct-cta-sub">Se agrega sobre tu LLC o Corporation</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom guidance -->
+    <div class="struct-help">
+      <div class="struct-help-text">
+        <strong>¿No estás seguro cuál elegir?</strong>
+        <span>Podemos ayudarte a elegir la estructura correcta antes de empezar — sin presión, sin compromiso.</span>
+      </div>
+      <div class="struct-help-btns">
+        <a href="https://wa.me/19046248859?text=Hola%2C%20necesito%20ayuda%20para%20elegir%20entre%20LLC%2C%20Corporation%20o%20DBA%20para%20mi%20negocio" target="_blank" rel="noopener" class="btn btn-wa btn-sm">💬 WhatsApp</a>
+        <a href="/index_final.html" class="btn btn-primary btn-sm">Comenzar →</a>
+      </div>
     </div>
   </div>
 </section>
@@ -871,8 +1174,28 @@
     });
   });
 
+  /* ── Structure comparison tabs ─────────── */
+  function showStruct(key) {
+    var keys = ['llc','corp','dba'];
+    keys.forEach(function(k) {
+      var panel = document.getElementById('panel-'+k);
+      if (panel) panel.style.display = k === key ? 'block' : 'none';
+    });
+    document.querySelectorAll('.struct-tab').forEach(function(tab) {
+      var active = tab.getAttribute('data-key') === key;
+      tab.classList.toggle('active', active);
+      tab.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    // Preselect entity in funnel via query param — hook for future integration
+    document.querySelectorAll('.struct-cta-col a').forEach(function(a) {
+      var url = new URL(a.href, window.location.origin);
+      if (url.searchParams.has('type')) url.searchParams.set('type', key);
+      // a.href = url.toString(); // Uncomment when funnel supports ?type param
+    });
+  }
+
   /* ── Active nav on scroll ───────────────── */
-  var sections = ['precios','como-funciona','faq'];
+  var sections = ['precios','como-funciona','estructuras','faq'];
   window.addEventListener('scroll', function() {
     var y = window.scrollY + 100;
     sections.forEach(function(id) {
