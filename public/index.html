@@ -5,29 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Abre tu LLC o Corporation en Estados Unidos desde cualquier país. Proceso 100% en español, sin visa ni SSN. EIN, Registered Agent y más incluidos." />
   <title>CreaTuEmpresaUSA — Forma tu empresa en EE.UU. en español</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
   <style>
     /* ── RESET & BASE ─────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy:   #0A2540;
-      --navy2:  #132f52;
-      --red:    #DC2626;
-      --red2:   #b91c1c;
-      --blue:   #2563eb;
-      --wa:     #25D366;
-      --gray50: #f8fafc;
-      --gray100:#f1f5f9;
-      --gray200:#e2e8f0;
-      --gray400:#94a3b8;
-      --gray500:#64748b;
-      --gray700:#334155;
-      --white:  #ffffff;
-      --r:      10px;
-      --r-lg:   16px;
-      --r-xl:   24px;
-      --r-pill: 999px;
-      --font:   Arial, Helvetica, sans-serif;
-      --transition: .22s ease;
+      --navy:      #0A2540;
+      --navy2:     #132f52;
+      --red:       #DC2626;
+      --red2:      #b91c1c;
+      --blue:      #2563eb;
+      --wa:        #25D366;
+      --gray50:    #f8fafc;
+      --gray100:   #f1f5f9;
+      --gray200:   #e2e8f0;
+      --gray300:   #cbd5e1;
+      --gray400:   #94a3b8;
+      --gray500:   #64748b;
+      --gray700:   #334155;
+      --white:     #ffffff;
+      --r:         8px;
+      --r-lg:      14px;
+      --r-xl:      20px;
+      --r-pill:    999px;
+      --font:      'Inter', Arial, Helvetica, sans-serif;
+      --font-head: 'Manrope', 'Inter', Arial, sans-serif;
+      --transition: .2s ease;
     }
     html { scroll-behavior: smooth; }
     body {
@@ -36,214 +41,251 @@
       background: var(--white);
       line-height: 1.6;
       font-size: 16px;
+      -webkit-font-smoothing: antialiased;
     }
     a { color: inherit; text-decoration: none; }
     ul { list-style: none; }
     img { max-width: 100%; display: block; }
 
     /* ── TYPOGRAPHY ─────────────────────────── */
-    h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; line-height: 1.15; letter-spacing: -.02em; }
-    h2 { font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 800; line-height: 1.2; letter-spacing: -.01em; }
-    h3 { font-size: 1.15rem; font-weight: 700; }
+    h1 {
+      font-family: var(--font-head);
+      font-size: clamp(1.85rem, 4.5vw, 2.8rem);
+      font-weight: 800; line-height: 1.15; letter-spacing: -.025em;
+    }
+    h2 {
+      font-family: var(--font-head);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 800; line-height: 1.2; letter-spacing: -.015em;
+    }
+    h3 {
+      font-family: var(--font-head);
+      font-size: 1.05rem; font-weight: 700;
+    }
     p  { color: var(--gray700); line-height: 1.7; }
 
     /* ── LAYOUT ─────────────────────────────── */
-    .container { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
-    .section    { padding: 72px 0; }
-    .section-sm { padding: 48px 0; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    .section    { padding: 64px 0; }
+    .section-sm { padding: 44px 0; }
 
     /* ── BUTTONS ─────────────────────────────── */
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 14px 28px; border-radius: var(--r); font-size: 15px; font-weight: 700;
+      padding: 13px 26px; border-radius: var(--r); font-size: 15px; font-weight: 600;
       cursor: pointer; border: none; text-decoration: none; transition: all var(--transition);
-      white-space: nowrap;
+      white-space: nowrap; font-family: var(--font);
     }
     .btn-primary { background: var(--navy); color: #fff; }
-    .btn-primary:hover { background: var(--navy2); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(10,37,64,.22); }
+    .btn-primary:hover { background: var(--navy2); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(10,37,64,.2); }
     .btn-outline { background: transparent; color: var(--navy); border: 2px solid var(--navy); }
     .btn-outline:hover { background: var(--navy); color: #fff; }
     .btn-red { background: var(--red); color: #fff; }
-    .btn-red:hover { background: var(--red2); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(220,38,38,.28); }
+    .btn-red:hover { background: var(--red2); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(220,38,38,.25); }
     .btn-wa  { background: var(--wa); color: #fff; }
     .btn-wa:hover { filter: brightness(1.08); transform: translateY(-1px); }
-    .btn-ghost { background: transparent; color: var(--navy); border: 1.5px solid var(--gray200); }
-    .btn-ghost:hover { border-color: var(--navy); background: var(--gray50); }
-    .btn-lg { padding: 18px 36px; font-size: 17px; border-radius: var(--r-lg); }
-    .btn-sm { padding: 10px 20px; font-size: 13px; }
+    .btn-ghost { background: transparent; color: var(--gray700); border: 1.5px solid var(--gray300); }
+    .btn-ghost:hover { border-color: var(--navy); color: var(--navy); background: var(--gray50); }
+    .btn-lg { padding: 16px 34px; font-size: 16px; border-radius: var(--r-lg); font-weight: 700; }
+    .btn-sm { padding: 9px 18px; font-size: 13px; }
 
     /* ── NAVBAR ─────────────────────────────── */
     nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,.95); backdrop-filter: blur(12px);
+      background: rgba(255,255,255,.97); backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--gray200);
     }
     .nav-inner {
       display: flex; align-items: center; justify-content: space-between;
-      height: 64px; gap: 24px;
+      height: 60px; gap: 20px;
     }
-    .nav-logo { font-size: 1.25rem; font-weight: 800; letter-spacing: -.02em; color: var(--navy); }
+    .nav-logo {
+      font-family: var(--font-head);
+      font-size: 1.2rem; font-weight: 800; letter-spacing: -.02em; color: var(--navy);
+      flex-shrink: 0;
+    }
     .nav-logo .red { color: var(--red); }
-    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-links { display: flex; align-items: center; gap: 2px; }
     .nav-links a {
-      padding: 7px 13px; border-radius: 8px; font-size: 13.5px; font-weight: 600;
-      color: var(--gray700); transition: all var(--transition);
+      padding: 7px 12px; border-radius: 7px; font-size: 13.5px; font-weight: 500;
+      color: var(--gray500); transition: all var(--transition);
     }
     .nav-links a:hover { background: var(--gray100); color: var(--navy); }
-    .nav-links a.active { color: var(--navy); background: var(--gray100); }
-    .nav-cta { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .nav-links a.active { color: var(--navy); font-weight: 600; }
+    .nav-cta { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
     .burger { display: none; background: none; border: none; cursor: pointer; padding: 6px; }
     .burger-bar { display: block; width: 22px; height: 2px; background: var(--navy); margin: 5px 0; border-radius: 2px; transition: all .2s; }
 
     /* ── HERO ────────────────────────────────── */
     .hero {
-      background: linear-gradient(160deg, var(--navy) 0%, #1a3d6b 60%, #0e3060 100%);
-      color: #fff; padding: 80px 0 60px;
+      background: linear-gradient(160deg, #0A2540 0%, #0f3060 55%, #0c2a52 100%);
+      color: #fff;
+      padding: 52px 0 48px;
     }
     .hero-badge {
       display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
-      border-radius: var(--r-pill); padding: 6px 16px;
-      font-size: 12.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
-      margin-bottom: 20px; color: rgba(255,255,255,.9);
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
+      border-radius: var(--r-pill); padding: 5px 14px;
+      font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
+      margin-bottom: 18px; color: rgba(255,255,255,.88);
     }
-    .hero h1 { color: #fff; margin-bottom: 20px; max-width: 700px; }
+    .hero h1 { color: #fff; margin-bottom: 16px; max-width: 660px; }
     .hero h1 span { color: #f87171; }
-    .hero-sub { font-size: 1.1rem; color: rgba(255,255,255,.8); max-width: 580px; margin-bottom: 32px; line-height: 1.7; }
-    .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
-    .hero-trust { display: flex; flex-wrap: wrap; gap: 10px 20px; }
+    .hero-sub {
+      font-size: 1.05rem; color: rgba(255,255,255,.78);
+      max-width: 540px; margin-bottom: 28px; line-height: 1.7;
+    }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+    .hero-trust { display: flex; flex-wrap: wrap; gap: 8px 20px; }
     .trust-badge {
-      display: flex; align-items: center; gap: 7px;
-      font-size: 13px; font-weight: 600; color: rgba(255,255,255,.85);
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 500; color: rgba(255,255,255,.8);
     }
-
-    /* ── PRICING SNAPSHOT ────────────────────── */
-    .pricing-snap { padding: 0 0 60px; background: linear-gradient(180deg, #0e3060 0%, var(--gray50) 40%); }
-    .snap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .snap-card {
-      background: #fff; border-radius: var(--r-xl); padding: 28px 24px;
-      border: 1px solid var(--gray200); position: relative;
-      box-shadow: 0 4px 20px rgba(10,37,64,.07); transition: transform var(--transition), box-shadow var(--transition);
-    }
-    .snap-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(10,37,64,.12); }
-    .snap-card.popular { border-color: var(--navy); border-width: 2px; }
-    .popular-badge {
-      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
-      background: var(--red); color: #fff; font-size: 11px; font-weight: 800;
-      padding: 4px 16px; border-radius: var(--r-pill); white-space: nowrap; letter-spacing: .06em;
-    }
-    .snap-plan { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--gray400); margin-bottom: 8px; }
-    .snap-price { font-size: 2.2rem; font-weight: 800; color: var(--navy); line-height: 1; }
-    .snap-price span { font-size: 1rem; font-weight: 500; color: var(--gray500); }
-    .snap-note { font-size: 12px; color: var(--gray400); margin-top: 4px; margin-bottom: 16px; }
-    .snap-features { margin-bottom: 20px; }
-    .snap-features li { font-size: 13.5px; color: var(--gray700); padding: 5px 0; display: flex; align-items: flex-start; gap: 8px; }
-    .snap-features li::before { content: "✓"; color: #16a34a; font-weight: 800; flex-shrink: 0; margin-top: 1px; }
-
-    /* ── TRUST BAR ───────────────────────────── */
-    .trust-bar { background: var(--navy); padding: 48px 0; }
-    .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-    .trust-item { text-align: center; }
-    .trust-ico { font-size: 2rem; margin-bottom: 10px; }
-    .trust-label { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
-    .trust-desc { font-size: 12.5px; color: rgba(255,255,255,.6); }
 
     /* ── SECTION HEADER ─────────────────────── */
-    .sec-header { text-align: center; margin-bottom: 48px; }
-    .sec-eyebrow { font-size: 12px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
-    .sec-header h2 { margin-bottom: 14px; }
-    .sec-header p { color: var(--gray500); max-width: 560px; margin: 0 auto; font-size: 1.05rem; }
+    .sec-header { text-align: center; margin-bottom: 44px; }
+    .sec-eyebrow {
+      font-size: 11.5px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 10px;
+    }
+    .sec-header h2 { margin-bottom: 12px; }
+    .sec-header p { color: var(--gray500); max-width: 540px; margin: 0 auto; font-size: 1rem; }
 
-    /* ── PLANS ───────────────────────────────── */
-    .plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: start; }
+    /* ── PRICING SECTION ─────────────────────── */
+    .pricing-section {
+      background: var(--white);
+      border-top: 1px solid var(--gray100);
+    }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
+
     .plan-card {
-      background: #fff; border-radius: var(--r-xl); border: 1.5px solid var(--gray200);
+      background: var(--white);
+      border-radius: var(--r-xl);
+      border: 1.5px solid var(--gray200);
       overflow: hidden; position: relative;
-      box-shadow: 0 2px 12px rgba(10,37,64,.05); transition: transform var(--transition), box-shadow var(--transition);
+      box-shadow: 0 2px 10px rgba(10,37,64,.05);
+      transition: transform var(--transition), box-shadow var(--transition);
     }
-    .plan-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(10,37,64,.12); }
-    .plan-card.featured { border-color: var(--navy); border-width: 2px; }
-    .plan-header { padding: 28px 24px 20px; background: var(--gray50); border-bottom: 1px solid var(--gray100); }
-    .plan-card.featured .plan-header { background: var(--navy); }
-    .plan-badge-wrap { margin-bottom: 10px; min-height: 24px; }
+    .plan-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 40px rgba(10,37,64,.1);
+    }
+    .plan-card.featured {
+      border-color: var(--navy);
+      border-width: 2px;
+      box-shadow: 0 4px 20px rgba(10,37,64,.1);
+    }
+    .plan-card.featured::before {
+      content: '';
+      display: block;
+      height: 4px;
+      background: var(--navy);
+    }
+
+    .plan-header { padding: 24px 22px 18px; background: var(--gray50); border-bottom: 1px solid var(--gray100); }
+    .plan-card.featured .plan-header { background: #f0f5ff; }
+
+    .plan-badge-wrap { min-height: 22px; margin-bottom: 8px; }
     .plan-badge {
-      display: inline-block; background: var(--red); color: #fff;
-      font-size: 10px; font-weight: 800; padding: 3px 12px; border-radius: var(--r-pill);
-      letter-spacing: .08em; text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: 5px;
+      background: var(--navy); color: #fff;
+      font-size: 10px; font-weight: 700; padding: 3px 11px; border-radius: var(--r-pill);
+      letter-spacing: .06em; text-transform: uppercase;
     }
-    .plan-name { font-size: 1rem; font-weight: 800; margin-bottom: 4px; color: var(--navy); }
-    .plan-card.featured .plan-name { color: #fff; }
-    .plan-price { font-size: 2.4rem; font-weight: 800; color: var(--navy); line-height: 1; }
-    .plan-card.featured .plan-price { color: #fff; }
-    .plan-price sub { font-size: 1rem; font-weight: 500; color: var(--gray400); vertical-align: baseline; }
-    .plan-card.featured .plan-price sub { color: rgba(255,255,255,.65); }
-    .plan-state-note { font-size: 12px; color: var(--gray400); margin-top: 6px; }
-    .plan-card.featured .plan-state-note { color: rgba(255,255,255,.55); }
-    .plan-body { padding: 22px 24px 28px; }
-    .plan-features { margin-bottom: 24px; }
+    .plan-name {
+      font-family: var(--font-head);
+      font-size: 1.1rem; font-weight: 800; margin-bottom: 6px; color: var(--navy);
+    }
+    .plan-price {
+      font-family: var(--font-head);
+      font-size: 2.5rem; font-weight: 800; color: var(--navy); line-height: 1;
+    }
+    .plan-price sub { font-size: .9rem; font-weight: 500; color: var(--gray400); vertical-align: baseline; }
+    .plan-state-note { font-size: 11.5px; color: var(--gray400); margin-top: 5px; }
+
+    .plan-body { padding: 20px 22px 24px; }
+    .plan-features { margin-bottom: 22px; }
     .plan-features li {
       display: flex; align-items: flex-start; gap: 10px;
       font-size: 13.5px; color: var(--gray700); padding: 7px 0;
       border-bottom: 1px solid var(--gray100);
     }
     .plan-features li:last-child { border-bottom: none; }
-    .plan-features li .chk { color: #16a34a; font-weight: 800; flex-shrink: 0; width: 16px; }
+    .plan-features li .chk { color: #16a34a; font-weight: 700; flex-shrink: 0; width: 16px; margin-top: 1px; }
+    .plan-features li .chk-bold { color: var(--navy); font-weight: 800; }
+
+    .state-note-bar {
+      text-align: center; font-size: 13px; color: var(--gray400);
+      margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--gray100);
+    }
+
+    /* ── TRUST BAR ───────────────────────────── */
+    .trust-bar { background: var(--navy); padding: 44px 0; }
+    .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .trust-item { text-align: center; }
+    .trust-ico { font-size: 1.8rem; margin-bottom: 10px; }
+    .trust-label { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; font-family: var(--font-head); }
+    .trust-desc { font-size: 12.5px; color: rgba(255,255,255,.55); }
 
     /* ── HOW IT WORKS ─────────────────────────── */
     .how-section { background: var(--gray50); }
     .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; position: relative; }
     .steps-grid::before {
-      content: ""; position: absolute; top: 28px; left: calc(12.5% + 16px); right: calc(12.5% + 16px);
+      content: ""; position: absolute; top: 27px; left: calc(12.5% + 16px); right: calc(12.5% + 16px);
       height: 2px; background: var(--gray200); z-index: 0;
     }
     .step-item { text-align: center; position: relative; z-index: 1; }
     .step-num {
-      width: 56px; height: 56px; border-radius: 50%; background: var(--navy); color: #fff;
-      font-size: 1.25rem; font-weight: 800; display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 16px; border: 4px solid var(--white); box-shadow: 0 0 0 2px var(--navy);
+      width: 54px; height: 54px; border-radius: 50%; background: var(--navy); color: #fff;
+      font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 14px; border: 4px solid var(--white); box-shadow: 0 0 0 2px var(--navy);
+      font-family: var(--font-head);
     }
-    .step-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .step-title { font-family: var(--font-head); font-size: 14.5px; font-weight: 700; color: var(--navy); margin-bottom: 7px; }
     .step-desc  { font-size: 13px; color: var(--gray500); line-height: 1.6; }
 
     /* ── FOREIGNERS ──────────────────────────── */
     .foreigners-section { background: linear-gradient(135deg, #0c2d52 0%, #1a4070 100%); }
-    .foreigners-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .foreigners-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: center; }
     .foreigners-inner h2 { color: #fff; }
-    .foreigners-inner .sec-eyebrow { color: #f87171; }
-    .foreigners-inner > div > p { color: rgba(255,255,255,.75); margin-top: 14px; margin-bottom: 28px; }
+    .foreigners-inner .sec-eyebrow { color: #f87171; text-align: left; }
+    .foreigners-inner > div > p { color: rgba(255,255,255,.72); margin-top: 12px; margin-bottom: 26px; }
     .foreign-list li {
       display: flex; align-items: flex-start; gap: 12px;
-      color: rgba(255,255,255,.9); font-size: 15px; padding: 10px 0;
-      border-bottom: 1px solid rgba(255,255,255,.1);
+      color: rgba(255,255,255,.88); font-size: 14.5px; padding: 9px 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
     }
     .foreign-list li:last-child { border-bottom: none; }
-    .foreign-list .ico { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+    .foreign-list .ico { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
     .foreigners-card {
-      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.15);
-      border-radius: var(--r-xl); padding: 36px 32px;
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14);
+      border-radius: var(--r-xl); padding: 32px 28px;
     }
-    .foreigners-card h3 { color: #fff; font-size: 1.25rem; margin-bottom: 20px; }
+    .foreigners-card h3 { color: #fff; font-size: 1.15rem; margin-bottom: 18px; font-family: var(--font-head); }
     .foreigners-card .fstat {
       display: flex; align-items: center; gap: 14px;
-      background: rgba(255,255,255,.06); border-radius: var(--r); padding: 16px;
-      margin-bottom: 12px; border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.06); border-radius: var(--r); padding: 14px 16px;
+      margin-bottom: 10px; border: 1px solid rgba(255,255,255,.09);
     }
-    .fstat-num { font-size: 2rem; font-weight: 800; color: #60a5fa; white-space: nowrap; }
-    .fstat-label { font-size: 13px; color: rgba(255,255,255,.75); line-height: 1.4; }
+    .fstat-num {
+      font-family: var(--font-head);
+      font-size: 2rem; font-weight: 800; color: #60a5fa; white-space: nowrap;
+    }
+    .fstat-label { font-size: 13px; color: rgba(255,255,255,.7); line-height: 1.4; }
 
     /* ── WHY US ──────────────────────────────── */
-    .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
     .why-card {
-      background: #fff; border: 1.5px solid var(--gray200); border-radius: var(--r-xl);
-      padding: 28px; display: flex; gap: 18px; align-items: flex-start;
+      background: var(--white); border: 1.5px solid var(--gray200); border-radius: var(--r-xl);
+      padding: 24px; display: flex; gap: 16px; align-items: flex-start;
       transition: box-shadow var(--transition), border-color var(--transition);
     }
-    .why-card:hover { box-shadow: 0 8px 24px rgba(10,37,64,.09); border-color: var(--navy); }
+    .why-card:hover { box-shadow: 0 8px 24px rgba(10,37,64,.07); border-color: var(--gray300); }
     .why-ico {
-      width: 52px; height: 52px; border-radius: 14px; background: var(--gray100);
-      display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;
+      width: 48px; height: 48px; border-radius: 12px; background: var(--gray100);
+      display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0;
     }
-    .why-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .why-title { font-family: var(--font-head); font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
     .why-desc  { font-size: 13.5px; color: var(--gray500); line-height: 1.6; }
     .vs-row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
     .vs-chip { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: var(--r-pill); }
@@ -252,46 +294,59 @@
 
     /* ── FAQ ─────────────────────────────────── */
     .faq-section { background: var(--gray50); }
-    .faq-list { max-width: 720px; margin: 0 auto; }
+    .faq-list { max-width: 700px; margin: 0 auto; }
     .faq-item { border-bottom: 1px solid var(--gray200); }
     .faq-q {
       width: 100%; display: flex; align-items: center; justify-content: space-between;
-      gap: 12px; padding: 20px 0; background: none; border: none; cursor: pointer;
-      font-size: 15px; font-weight: 700; color: var(--navy); text-align: left; font-family: var(--font);
+      gap: 12px; padding: 18px 0; background: none; border: none; cursor: pointer;
+      font-size: 15px; font-weight: 600; color: var(--navy); text-align: left;
+      font-family: var(--font-head);
     }
-    .faq-ico { width: 22px; height: 22px; flex-shrink: 0; border-radius: 50%; background: var(--gray200); color: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; transition: all .2s; }
+    .faq-ico {
+      width: 22px; height: 22px; flex-shrink: 0; border-radius: 50%;
+      background: var(--gray200); color: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; transition: all .2s; font-family: var(--font);
+    }
     .faq-item.open .faq-ico { background: var(--navy); color: #fff; transform: rotate(45deg); }
-    .faq-body { display: none; padding: 0 0 20px; font-size: 14.5px; color: var(--gray500); line-height: 1.75; }
+    .faq-body { display: none; padding: 0 0 18px; font-size: 14.5px; color: var(--gray500); line-height: 1.75; }
     .faq-item.open .faq-body { display: block; }
 
     /* ── FINAL CTA ───────────────────────────── */
     .final-cta {
       background: linear-gradient(135deg, var(--navy) 0%, #1a3d6b 100%);
-      text-align: center; padding: 80px 0;
+      text-align: center; padding: 76px 0;
     }
-    .final-cta h2 { color: #fff; margin-bottom: 14px; }
-    .final-cta p { color: rgba(255,255,255,.75); margin-bottom: 36px; font-size: 1.05rem; max-width: 500px; margin-left: auto; margin-right: auto; }
-    .final-cta .cta-row { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+    .final-cta h2 { color: #fff; margin-bottom: 12px; }
+    .final-cta p {
+      color: rgba(255,255,255,.7); margin-bottom: 32px;
+      font-size: 1rem; max-width: 480px; margin-left: auto; margin-right: auto;
+    }
+    .final-cta .cta-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
 
     /* ── FOOTER ──────────────────────────────── */
-    footer { background: #06192d; color: rgba(255,255,255,.5); padding: 48px 0 28px; }
-    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
-    .footer-logo { font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 10px; }
+    footer { background: #06192d; color: rgba(255,255,255,.5); padding: 44px 0 24px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 36px; margin-bottom: 36px; }
+    .footer-logo { font-family: var(--font-head); font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 10px; }
     .footer-logo .red { color: var(--red); }
-    .footer-tagline { font-size: 13px; line-height: 1.6; margin-bottom: 16px; }
-    .footer-col h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.7); margin-bottom: 14px; }
-    .footer-col li { margin-bottom: 8px; }
-    .footer-col a { font-size: 13px; color: rgba(255,255,255,.5); transition: color .18s; }
+    .footer-tagline { font-size: 13px; line-height: 1.6; margin-bottom: 14px; }
+    .footer-col h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.6); margin-bottom: 12px; }
+    .footer-col li { margin-bottom: 7px; }
+    .footer-col a { font-size: 13px; color: rgba(255,255,255,.45); transition: color .18s; }
     .footer-col a:hover { color: #fff; }
-    .footer-bottom { border-top: 1px solid rgba(255,255,255,.08); padding-top: 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 12px; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.07); padding-top: 20px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 10px; font-size: 12px;
+    }
 
     /* ── WA FLOAT ───────────────────────────── */
     .wa-float-btn {
       position: fixed; bottom: 28px; right: 28px; z-index: 500;
       display: flex; align-items: center; gap: 10px;
       background: var(--wa); color: #fff; border-radius: var(--r-pill);
-      padding: 14px 22px; font-size: 14px; font-weight: 700;
-      text-decoration: none; box-shadow: 0 6px 24px rgba(37,211,102,.4);
+      padding: 13px 20px; font-size: 14px; font-weight: 600;
+      text-decoration: none; box-shadow: 0 6px 24px rgba(37,211,102,.38);
       transition: all .25s ease; font-family: var(--font);
     }
     .wa-float-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(37,211,102,.5); }
@@ -299,40 +354,37 @@
 
     /* ── MOBILE NAV ─────────────────────────── */
     .mnav {
-      display: none; position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
-      background: rgba(10,37,64,.97); z-index: 99; padding: 24px 20px;
-      flex-direction: column; gap: 4px; overflow-y: auto;
+      display: none; position: fixed; top: 60px; left: 0; right: 0; bottom: 0;
+      background: rgba(10,37,64,.98); z-index: 99; padding: 20px;
+      flex-direction: column; gap: 2px; overflow-y: auto;
     }
     .mnav.open { display: flex; }
     .mnav a {
-      padding: 14px 16px; border-radius: var(--r); font-size: 16px; font-weight: 600;
-      color: rgba(255,255,255,.9); border-bottom: 1px solid rgba(255,255,255,.08);
+      padding: 13px 14px; border-radius: var(--r); font-size: 15.5px; font-weight: 500;
+      color: rgba(255,255,255,.88); border-bottom: 1px solid rgba(255,255,255,.07);
     }
     .mnav a:hover { background: rgba(255,255,255,.07); }
 
     /* ── RESPONSIVE ─────────────────────────── */
     @media (max-width: 768px) {
-      .section { padding: 52px 0; }
-      .section-sm { padding: 36px 0; }
-      .hero { padding: 60px 0 44px; }
-      .hero h1 { font-size: 1.8rem; }
-      .hero-sub { font-size: 1rem; }
+      .section { padding: 48px 0; }
+      .section-sm { padding: 32px 0; }
+      .hero { padding: 44px 0 36px; }
+      .hero h1 { font-size: 1.7rem; }
+      .hero-sub { font-size: .95rem; }
 
-      .snap-grid { grid-template-columns: 1fr; gap: 14px; }
-      .pricing-snap { padding: 0 0 44px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 16px; }
 
       .trust-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
 
-      .plans-grid { grid-template-columns: 1fr; }
-
-      .steps-grid { grid-template-columns: 1fr; gap: 28px; }
+      .steps-grid { grid-template-columns: 1fr; gap: 24px; }
       .steps-grid::before { display: none; }
 
-      .foreigners-inner { grid-template-columns: 1fr; gap: 32px; }
+      .foreigners-inner { grid-template-columns: 1fr; gap: 28px; }
 
       .why-grid { grid-template-columns: 1fr; }
 
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
       .footer-grid > div:first-child { grid-column: 1 / -1; }
 
       .nav-links, .nav-cta { display: none; }
@@ -364,7 +416,7 @@
       </div>
       <div class="nav-cta">
         <a href="https://wa.me/19046248859" target="_blank" rel="noopener" class="btn btn-wa btn-sm">💬 WhatsApp</a>
-        <a href="/index_final.html" class="btn btn-primary btn-sm">🚀 Comenzar</a>
+        <a href="/index_final.html" class="btn btn-primary btn-sm">Comenzar →</a>
       </div>
       <button class="burger" id="burger" onclick="toggleMNav()" aria-label="Abrir menú" aria-expanded="false">
         <span class="burger-bar"></span>
@@ -383,7 +435,7 @@
   <a href="/index_final.html" onclick="closeMNav()">🧙 Asistente</a>
   <a href="#faq" onclick="closeMNav()">❓ Preguntas frecuentes</a>
   <a href="mailto:soporte@creatuempresausa.com" onclick="closeMNav()">📧 Contacto</a>
-  <a href="https://wa.me/19046248859" target="_blank" rel="noopener" style="color:#25D366;margin-top:12px">💬 WhatsApp directo</a>
+  <a href="https://wa.me/19046248859" target="_blank" rel="noopener" style="color:#25D366;margin-top:10px">💬 WhatsApp directo</a>
 </div>
 
 <!-- ════ HERO ════ -->
@@ -394,7 +446,7 @@
     <p class="hero-sub">LLC o Corporation, EIN, Registered Agent y más. Proceso guiado en español. Claro, rápido y sin complicaciones.</p>
     <div class="hero-ctas">
       <a href="/index_final.html" class="btn btn-red btn-lg">🚀 Comenzar ahora</a>
-      <a href="#precios" class="btn btn-outline btn-lg" style="color:#fff;border-color:rgba(255,255,255,.4)">Ver planes y precios</a>
+      <a href="#precios" class="btn btn-outline btn-lg" style="color:#fff;border-color:rgba(255,255,255,.35)">Ver planes y precios</a>
     </div>
     <div class="hero-trust">
       <div class="trust-badge"><span>✅</span> Sin visa ni SSN</div>
@@ -402,118 +454,34 @@
       <div class="trust-badge"><span>🇺🇸</span> Empresa legal en EE.UU.</div>
       <div class="trust-badge"><span>🗣️</span> Atención en español e inglés</div>
     </div>
-    <div style="margin-top:20px">
-      <a href="https://wa.me/19046248859?text=Hola%2C%20tengo%20una%20pregunta%20sobre%20crear%20mi%20empresa%20en%20EE.UU." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.75);font-size:14px;font-weight:600;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.75)'">
-        💬 ¿Tienes dudas? Escríbenos por WhatsApp →
-      </a>
-    </div>
   </div>
 </section>
 
-<!-- ════ PRICING SNAPSHOT ════ -->
-<div class="pricing-snap">
-  <div class="container">
-    <div class="snap-grid" style="margin-top:-1px;padding-top:40px">
-
-      <!-- Starter -->
-      <div class="snap-card">
-        <div class="snap-plan">Starter</div>
-        <div class="snap-price">$499 <span>USD</span></div>
-        <div class="snap-note">+ tarifa estatal</div>
-        <ul class="snap-features">
-          <li>LLC o Corporation</li>
-          <li>EIN (número fiscal federal)</li>
-          <li>Registered Agent (1 año)</li>
-          <li>Articles of Organization</li>
-        </ul>
-        <a href="/index_final.html" class="btn btn-ghost" style="width:100%">Elegir Starter →</a>
-      </div>
-
-      <!-- Pro -->
-      <div class="snap-card popular">
-        <div class="popular-badge">⭐ MÁS POPULAR</div>
-        <div class="snap-plan">Pro</div>
-        <div class="snap-price">$799 <span>USD</span></div>
-        <div class="snap-note">+ tarifa estatal</div>
-        <ul class="snap-features">
-          <li>Todo lo de Starter</li>
-          <li>Operating Agreement</li>
-          <li>Asesoría bancaria incluida</li>
-          <li>Soporte prioritario</li>
-        </ul>
-        <a href="/index_final.html" class="btn btn-primary" style="width:100%">Elegir Pro →</a>
-      </div>
-
-      <!-- Premium -->
-      <div class="snap-card">
-        <div class="snap-plan">Premium</div>
-        <div class="snap-price">$1,200 <span>USD</span></div>
-        <div class="snap-note">+ tarifa estatal</div>
-        <ul class="snap-features">
-          <li>Todo lo de Pro</li>
-          <li>Fast-track (prioridad máxima)</li>
-          <li>Business Address (12 meses)</li>
-          <li>Sesión de asesoría fiscal</li>
-        </ul>
-        <a href="/index_final.html" class="btn btn-ghost" style="width:100%">Elegir Premium →</a>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- ════ TRUST BAR ════ -->
-<section class="trust-bar">
-  <div class="container">
-    <div class="trust-grid">
-      <div class="trust-item">
-        <div class="trust-ico">🗣️</div>
-        <div class="trust-label">Soporte en español e inglés</div>
-        <div class="trust-desc">Asesoría clara en tu idioma, sin tecnicismos.</div>
-      </div>
-      <div class="trust-item">
-        <div class="trust-ico">🌎</div>
-        <div class="trust-label">Diseñado para extranjeros</div>
-        <div class="trust-desc">Abrimos empresas para clientes de más de 30 países.</div>
-      </div>
-      <div class="trust-item">
-        <div class="trust-ico">🔒</div>
-        <div class="trust-label">Proceso 100% seguro</div>
-        <div class="trust-desc">Tus datos y tu inversión protegidos en todo momento.</div>
-      </div>
-      <div class="trust-item">
-        <div class="trust-ico">⚡</div>
-        <div class="trust-label">Respuesta en 24h hábiles</div>
-        <div class="trust-desc">Tu caso recibe atención el mismo día hábil.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════ PLANES COMPLETOS ════ -->
-<section class="section" id="precios">
+<!-- ════ PRICING ════ -->
+<section class="pricing-section section" id="precios">
   <div class="container">
     <div class="sec-header">
       <div class="sec-eyebrow">Planes y precios</div>
-      <h2>Elige el plan que mejor se adapte a ti</h2>
+      <h2>Elige el plan que mejor se adapta a ti</h2>
       <p>Precios transparentes desde el inicio. Sin sorpresas ni costos ocultos.</p>
     </div>
-    <div class="plans-grid">
+
+    <div class="pricing-grid">
 
       <!-- Starter -->
       <div class="plan-card">
         <div class="plan-header">
           <div class="plan-badge-wrap"></div>
-          <div class="plan-name">Plan Starter</div>
+          <div class="plan-name">Starter</div>
           <div class="plan-price">$499 <sub>USD</sub></div>
           <div class="plan-state-note">+ tarifa estatal del estado elegido</div>
         </div>
         <div class="plan-body">
           <ul class="plan-features">
             <li><span class="chk">✓</span> LLC o Corporation</li>
-            <li><span class="chk">✓</span> EIN (número de identificación fiscal)</li>
-            <li><span class="chk">✓</span> Registered Agent (1 año incluido)</li>
-            <li><span class="chk">✓</span> Articles of Organization / Incorporation</li>
+            <li><span class="chk">✓</span> EIN (número fiscal federal)</li>
+            <li><span class="chk">✓</span> Registered Agent (1 año)</li>
+            <li><span class="chk">✓</span> Articles of Organization</li>
             <li><span class="chk">✓</span> Confirmación oficial del estado</li>
             <li><span class="chk">✓</span> Soporte por email</li>
           </ul>
@@ -521,17 +489,19 @@
         </div>
       </div>
 
-      <!-- Pro -->
+      <!-- Pro (Most Popular) -->
       <div class="plan-card featured">
         <div class="plan-header">
-          <div class="plan-badge-wrap"><span class="plan-badge">⭐ Recomendado</span></div>
-          <div class="plan-name">Plan Pro</div>
+          <div class="plan-badge-wrap">
+            <span class="plan-badge">⭐ Más popular</span>
+          </div>
+          <div class="plan-name">Pro</div>
           <div class="plan-price">$799 <sub>USD</sub></div>
           <div class="plan-state-note">+ tarifa estatal del estado elegido</div>
         </div>
         <div class="plan-body">
           <ul class="plan-features">
-            <li><span class="chk">✓</span> Todo lo de Starter</li>
+            <li><span class="chk chk-bold">✓</span> Todo lo de Starter</li>
             <li><span class="chk">✓</span> Operating Agreement personalizado</li>
             <li><span class="chk">✓</span> Asesoría bancaria incluida</li>
             <li><span class="chk">✓</span> Soporte prioritario por WhatsApp</li>
@@ -546,16 +516,16 @@
       <div class="plan-card">
         <div class="plan-header">
           <div class="plan-badge-wrap"></div>
-          <div class="plan-name">Plan Premium</div>
+          <div class="plan-name">Premium</div>
           <div class="plan-price">$1,200 <sub>USD</sub></div>
           <div class="plan-state-note">+ tarifa estatal del estado elegido</div>
         </div>
         <div class="plan-body">
           <ul class="plan-features">
-            <li><span class="chk">✓</span> Todo lo de Pro</li>
+            <li><span class="chk chk-bold">✓</span> Todo lo de Pro</li>
             <li><span class="chk">✓</span> Fast-track — prioridad máxima</li>
             <li><span class="chk">✓</span> Business Address (12 meses)</li>
-            <li><span class="chk">✓</span> Sesión de asesoría fiscal (30 min)</li>
+            <li><span class="chk">✓</span> Asesoría fiscal (sesión 30 min)</li>
             <li><span class="chk">✓</span> Form 5472 incluido</li>
             <li><span class="chk">✓</span> Soporte dedicado concierge</li>
           </ul>
@@ -564,7 +534,39 @@
       </div>
 
     </div>
-    <p style="text-align:center;font-size:13px;color:var(--gray400);margin-top:24px">* Las tarifas estatales varían por estado (Wyoming ~$62 · Delaware ~$140 · Florida ~$125). Se muestra el total exacto antes de pagar.</p>
+
+    <p class="state-note-bar">
+      * Las tarifas estatales varían por estado: Wyoming ~$62 · Florida ~$125 · Delaware ~$140.<br>
+      El total exacto se muestra antes de pagar — sin sorpresas.
+    </p>
+  </div>
+</section>
+
+<!-- ════ TRUST BAR ════ -->
+<section class="trust-bar">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-ico">🗣️</div>
+        <div class="trust-label">Soporte en español</div>
+        <div class="trust-desc">Asesoría clara en tu idioma, sin tecnicismos.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-ico">🌎</div>
+        <div class="trust-label">+30 países atendidos</div>
+        <div class="trust-desc">Clientes de América Latina, Europa y Asia.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-ico">🔒</div>
+        <div class="trust-label">Proceso 100% seguro</div>
+        <div class="trust-desc">Tus datos y tu inversión, protegidos en todo momento.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-ico">⚡</div>
+        <div class="trust-label">Respuesta en 24h</div>
+        <div class="trust-desc">Tu caso recibe atención el mismo día hábil.</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -580,7 +582,7 @@
       <div class="step-item">
         <div class="step-num">1</div>
         <div class="step-title">Elige tu estado</div>
-        <div class="step-desc">Wyoming, Florida, Delaware, Texas y más. Te explicamos las diferencias para que elijas con confianza.</div>
+        <div class="step-desc">Wyoming, Florida, Delaware y más. Te explicamos las diferencias para que elijas con confianza.</div>
       </div>
       <div class="step-item">
         <div class="step-num">2</div>
@@ -589,16 +591,16 @@
       </div>
       <div class="step-item">
         <div class="step-num">3</div>
-        <div class="step-title">Elige tu plan</div>
-        <div class="step-desc">Starter, Pro o Premium. Selecciona los servicios adicionales que necesitas según tu negocio.</div>
+        <div class="step-title">Selecciona tu plan</div>
+        <div class="step-desc">Starter, Pro o Premium. Elige los servicios adicionales que tu negocio necesita.</div>
       </div>
       <div class="step-item">
         <div class="step-num">4</div>
         <div class="step-title">¡Listo, empezamos!</div>
-        <div class="step-desc">Nuestro equipo radica tu empresa y te mantiene informado en cada paso hasta la entrega de documentos.</div>
+        <div class="step-desc">Radicamos tu empresa y te mantenemos informado hasta la entrega de tus documentos.</div>
       </div>
     </div>
-    <div style="text-align:center;margin-top:44px">
+    <div style="text-align:center;margin-top:40px">
       <a href="/index_final.html" class="btn btn-primary btn-lg">Iniciar el proceso →</a>
     </div>
   </div>
@@ -610,15 +612,15 @@
     <div class="foreigners-inner">
       <div>
         <div class="sec-eyebrow">Para no residentes</div>
-        <h2 style="color:#fff">¿No vives en EE.UU.?<br>No es problema.</h2>
-        <p>Miles de emprendedores de América Latina, Europa y Asia abren empresas en EE.UU. cada año sin poner un pie allá. Nosotros hacemos todo el proceso de manera remota.</p>
+        <h2>¿No vives en EE.UU.?<br>No es problema.</h2>
+        <p>Miles de emprendedores de América Latina, Europa y Asia abren empresas en EE.UU. cada año sin poner un pie allá. Hacemos todo el proceso de forma remota.</p>
         <ul class="foreign-list">
           <li><span class="ico">✅</span> Sin SSN ni ITIN requerido para abrir</li>
           <li><span class="ico">✅</span> EIN incluido — tu número fiscal federal</li>
           <li><span class="ico">✅</span> Registered Agent incluido en todos los planes</li>
           <li><span class="ico">✅</span> Banking y taxes disponibles como add-ons</li>
           <li><span class="ico">✅</span> Dirección comercial en EE.UU. disponible</li>
-          <li><span class="ico">✅</span> Soporte después de la formación</li>
+          <li><span class="ico">✅</span> Soporte continuo después de la formación</li>
         </ul>
       </div>
       <div class="foreigners-card">
@@ -635,7 +637,7 @@
           <div class="fstat-num">24h</div>
           <div class="fstat-label">Tiempo de respuesta máximo en días hábiles</div>
         </div>
-        <div style="margin-top:24px">
+        <div style="margin-top:22px">
           <a href="/index_final.html" class="btn btn-red" style="width:100%;justify-content:center">🚀 Comenzar ahora →</a>
         </div>
       </div>
@@ -776,7 +778,7 @@
       <a href="/index_final.html" class="btn btn-red btn-lg">🚀 Crear mi empresa ahora</a>
       <a href="https://wa.me/19046248859?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20abrir%20mi%20empresa%20en%20EE.UU." target="_blank" rel="noopener" class="btn btn-wa btn-lg">💬 Hablar con un asesor</a>
     </div>
-    <p style="margin-top:24px;font-size:13px;color:rgba(255,255,255,.45)">Sin compromiso · Respuesta en 24h hábiles · Proceso 100% en español</p>
+    <p style="margin-top:22px;font-size:13px;color:rgba(255,255,255,.4)">Sin compromiso · Respuesta en 24h hábiles · Proceso 100% en español</p>
   </div>
 </section>
 
@@ -815,7 +817,7 @@
           <li><a href="#">Política de privacidad</a></li>
           <li><a href="#">Política de cookies</a></li>
         </ul>
-        <h4 style="margin-top:20px">Contacto</h4>
+        <h4 style="margin-top:18px">Contacto</h4>
         <ul>
           <li><a href="mailto:soporte@creatuempresausa.com">soporte@creatuempresausa.com</a></li>
           <li><a href="https://wa.me/19046248859" target="_blank">+1 (904) 624-8859</a></li>
@@ -870,7 +872,7 @@
   });
 
   /* ── Active nav on scroll ───────────────── */
-  var sections = ['como-funciona','precios','faq'];
+  var sections = ['precios','como-funciona','faq'];
   window.addEventListener('scroll', function() {
     var y = window.scrollY + 100;
     sections.forEach(function(id) {
