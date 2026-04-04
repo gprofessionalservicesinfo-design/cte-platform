@@ -160,8 +160,12 @@
     .hero {
       background: linear-gradient(160deg, #0A2540 0%, #0f3060 55%, #0c2a52 100%);
       color: #fff;
-      padding: 40px 0 36px;
+      padding: 0;
       text-align: center;
+    }
+    .hero .container-lg {
+      max-width: 1120px;
+      padding: 56px 24px 40px;
     }
     .hero-eyebrow {
       font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
@@ -170,22 +174,23 @@
     .hero h1 {
       color: #fff;
       font-family: var(--font-head);
-      font-size: clamp(1.9rem, 3vw, 2.75rem);
-      font-weight: 800; line-height: 1.18; letter-spacing: -.02em;
-      max-width: 900px; margin: 0 auto 14px;
+      font-size: 76px;
+      font-weight: 800; line-height: 0.96; letter-spacing: -0.045em;
+      max-width: 980px; margin: 0 auto;
       text-wrap: balance;
     }
     .hero h1 span { color: var(--red); }
     .hero-sub {
-      font-size: .92rem; color: rgba(255,255,255,.72);
-      max-width: 620px; line-height: 1.65; margin: 0 auto 18px;
+      font-size: 18px; color: rgba(255,255,255,.72);
+      max-width: 760px; line-height: 1.45; margin: 14px auto 0;
     }
     .hero-cta {
       display: flex; justify-content: center; gap: 12px;
-      flex-wrap: wrap; margin-bottom: 16px;
+      flex-wrap: wrap; margin-top: 20px;
     }
     .hero-chips {
       display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
+      margin-top: 16px;
     }
     .hero-chip {
       display: inline-flex; align-items: center; gap: 5px;
@@ -533,9 +538,9 @@
       .section { padding: 48px 0; }
       .section-sm { padding: 32px 0; }
       .above-fold { min-height: unset; }
-      .hero { padding: 28px 0 24px; }
-      .hero h1 { font-size: 1.45rem; }
-      .hero-sub { font-size: .84rem; }
+      .hero .container-lg { padding: 32px 20px 28px; }
+      .hero h1 { font-size: 56px; }
+      .hero-sub { font-size: 16px; }
       .hero-chips { gap: 6px; }
       .hero-chip { font-size: 11px; padding: 3px 9px; }
       .pricing-grid { grid-template-columns: 1fr; gap: 16px; }
@@ -571,6 +576,8 @@
       .wa-float-btn { padding: 14px; border-radius: 50%; }
     }
     @media (max-width: 480px) {
+      .hero h1 { font-size: 38px; line-height: 1.0; max-width: 92%; }
+      .hero-sub { font-size: 15px; }
       .footer-grid { grid-template-columns: 1fr; }
       .trust-grid { grid-template-columns: 1fr; }
     }
