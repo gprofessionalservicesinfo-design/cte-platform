@@ -88,6 +88,7 @@
     .btn-ghost:hover { border-color: var(--navy); color: var(--navy); background: var(--gray50); }
     .btn-lg { padding: 16px 34px; font-size: 16px; border-radius: var(--r-lg); font-weight: 700; }
     .btn-sm { padding: 9px 18px; font-size: 13px; }
+    .btn-xs { padding: 8px 14px; font-size: 12.5px; }
 
     /* ── NAVBAR ─────────────────────────────── */
     nav {
@@ -120,45 +121,49 @@
     .hero {
       background: linear-gradient(160deg, #0A2540 0%, #0f3060 55%, #0c2a52 100%);
       color: #fff;
-      padding: 14px 0 14px;
-    }
-    .hero-eyebrow {
-      font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
-      color: rgba(255,255,255,.55); margin-bottom: 7px;
+      padding: 10px 0 10px;
     }
     .hero h1 {
-      color: #fff; margin-bottom: 8px; max-width: 620px;
-      font-size: clamp(1.5rem, 2.9vw, 2rem);
+      color: #fff; margin-bottom: 7px; max-width: 700px;
+      font-size: clamp(1.3rem, 2.4vw, 1.7rem);
     }
     .hero h1 span { color: #f87171; }
-    .hero-sub {
-      font-size: .875rem; color: rgba(255,255,255,.7);
-      max-width: 480px; margin-bottom: 12px; line-height: 1.6;
+    /* sub + CTAs share one horizontal row */
+    .hero-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap; margin-bottom: 8px;
     }
-    .hero-ctas { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
-    .hero-trust { display: flex; flex-wrap: nowrap; gap: 18px; overflow-x: auto; padding-bottom: 2px; }
+    .hero-sub {
+      font-size: .8rem; color: rgba(255,255,255,.68);
+      max-width: 400px; line-height: 1.55; margin: 0;
+    }
+    .hero-ctas { display: flex; flex-wrap: nowrap; gap: 7px; flex-shrink: 0; }
+    .hero-trust { display: flex; flex-wrap: nowrap; gap: 16px; overflow-x: auto; }
     .trust-badge {
-      display: flex; align-items: center; gap: 5px;
-      font-size: 11.5px; font-weight: 500; color: rgba(255,255,255,.72);
+      display: flex; align-items: center; gap: 4px;
+      font-size: 10.5px; font-weight: 500; color: rgba(255,255,255,.65);
       white-space: nowrap;
     }
 
     /* ── SECTION HEADER ─────────────────────── */
-    .sec-header { text-align: center; margin-bottom: 20px; }
+    .sec-header { text-align: center; margin-bottom: 16px; }
     .sec-eyebrow {
-      font-size: 10.5px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
-      color: var(--red); margin-bottom: 5px;
+      font-size: 10px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 4px;
     }
-    .sec-header h2 { margin-bottom: 6px; }
-    .sec-header p { color: var(--gray500); max-width: 540px; margin: 0 auto; font-size: .9rem; }
+    .sec-header h2 { margin-bottom: 5px; }
+    .sec-header p { color: var(--gray500); max-width: 540px; margin: 0 auto; font-size: .875rem; }
 
     /* ── PRICING SECTION ─────────────────────── */
     .pricing-section {
       background: var(--white);
       border-top: 1px solid var(--gray100);
-      padding: 20px 0 48px;
+      padding: 14px 0 44px;
     }
-    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
+    .pricing-section .sec-header h2 {
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+    }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; align-items: start; max-width: 960px; margin: 0 auto; }
 
     .plan-card {
       background: var(--white);
@@ -184,36 +189,36 @@
       background: var(--navy);
     }
 
-    .plan-header { padding: 14px 18px 11px; background: var(--gray50); border-bottom: 1px solid var(--gray100); }
+    .plan-header { padding: 12px 16px 9px; background: var(--gray50); border-bottom: 1px solid var(--gray100); }
     .plan-card.featured .plan-header { background: #f0f5ff; }
 
-    .plan-badge-wrap { min-height: 18px; margin-bottom: 4px; }
+    .plan-badge-wrap { min-height: 16px; margin-bottom: 3px; }
     .plan-badge {
       display: inline-flex; align-items: center; gap: 4px;
       background: var(--navy); color: #fff;
-      font-size: 9.5px; font-weight: 700; padding: 2px 10px; border-radius: var(--r-pill);
+      font-size: 9px; font-weight: 700; padding: 2px 9px; border-radius: var(--r-pill);
       letter-spacing: .06em; text-transform: uppercase;
     }
     .plan-name {
       font-family: var(--font-head);
-      font-size: .95rem; font-weight: 800; margin-bottom: 3px; color: var(--navy);
+      font-size: .88rem; font-weight: 800; margin-bottom: 2px; color: var(--navy);
     }
     .plan-price {
       font-family: var(--font-head);
-      font-size: 1.9rem; font-weight: 800; color: var(--navy); line-height: 1;
+      font-size: 1.75rem; font-weight: 800; color: var(--navy); line-height: 1;
     }
-    .plan-price sub { font-size: .8rem; font-weight: 500; color: var(--gray400); vertical-align: baseline; }
-    .plan-state-note { font-size: 10.5px; color: var(--gray400); margin-top: 3px; }
+    .plan-price sub { font-size: .75rem; font-weight: 500; color: var(--gray400); vertical-align: baseline; }
+    .plan-state-note { font-size: 10px; color: var(--gray400); margin-top: 2px; }
 
-    .plan-body { padding: 11px 18px 16px; }
-    .plan-features { margin-bottom: 12px; }
+    .plan-body { padding: 9px 16px 13px; }
+    .plan-features { margin-bottom: 10px; }
     .plan-features li {
-      display: flex; align-items: flex-start; gap: 8px;
-      font-size: 12.5px; color: var(--gray700); padding: 4px 0;
+      display: flex; align-items: flex-start; gap: 7px;
+      font-size: 12px; color: var(--gray700); padding: 3px 0;
       border-bottom: 1px solid var(--gray100);
     }
     .plan-features li:last-child { border-bottom: none; }
-    .plan-features li .chk { color: #16a34a; font-weight: 700; flex-shrink: 0; width: 14px; margin-top: 1px; font-size: 11.5px; }
+    .plan-features li .chk { color: #16a34a; font-weight: 700; flex-shrink: 0; width: 13px; margin-top: 1px; font-size: 11px; }
     .plan-features li .chk-bold { color: var(--navy); font-weight: 800; }
 
     .state-note-bar {
@@ -474,8 +479,10 @@
       .section { padding: 48px 0; }
       .section-sm { padding: 32px 0; }
       .hero { padding: 16px 0 14px; }
-      .hero h1 { font-size: 1.45rem; }
-      .hero-sub { font-size: .85rem; margin-bottom: 10px; }
+      .hero h1 { font-size: 1.35rem; }
+      .hero-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .hero-sub { font-size: .8rem; }
+      .hero-ctas { flex-wrap: wrap; }
       .hero-trust { flex-wrap: wrap; gap: 6px 12px; overflow: visible; }
 
       .pricing-grid { grid-template-columns: 1fr; gap: 16px; }
@@ -556,12 +563,13 @@
 <!-- ════ HERO ════ -->
 <section class="hero">
   <div class="container">
-    <div class="hero-eyebrow">🇺🇸 Especialistas en formación de empresas · EE.UU. · En español</div>
-    <h1>Forma tu empresa en<br><span>Estados Unidos</span><br>sin importar dónde vivas</h1>
-    <p class="hero-sub">LLC, EIN y Registered Agent incluidos. Proceso guiado en español, sin visa ni SSN.</p>
-    <div class="hero-ctas">
-      <a href="/index_final.html" class="btn btn-red">🚀 Comenzar ahora</a>
-      <a href="#precios" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,.35)">Ver precios →</a>
+    <h1>Forma tu empresa en <span>EE.UU.</span><br>sin visa ni SSN, en español</h1>
+    <div class="hero-row">
+      <p class="hero-sub">LLC, EIN y Registered Agent incluidos. Proceso guiado, 100% remoto, desde cualquier país.</p>
+      <div class="hero-ctas">
+        <a href="/index_final.html" class="btn btn-red btn-sm">🚀 Comenzar</a>
+        <a href="#precios" class="btn btn-sm" style="color:#fff;border:1.5px solid rgba(255,255,255,.3);background:transparent">Ver precios →</a>
+      </div>
     </div>
     <div class="hero-trust">
       <div class="trust-badge">✅ Sin visa ni SSN</div>
@@ -573,7 +581,7 @@
 </section>
 
 <!-- ════ PRICING ════ -->
-<section class="pricing-section section" id="precios">
+<section class="pricing-section" id="precios">
   <div class="container">
     <div class="sec-header">
       <div class="sec-eyebrow">Planes y precios</div>
@@ -598,7 +606,7 @@
             <li><span class="chk">✓</span> Registered Agent (1 año)</li>
             <li><span class="chk">✓</span> Soporte por email en español</li>
           </ul>
-          <a href="/index_final.html" class="btn btn-outline" style="width:100%">Elegir Starter →</a>
+          <a href="/index_final.html" class="btn btn-outline btn-xs" style="width:100%">Elegir Starter →</a>
         </div>
       </div>
 
@@ -619,7 +627,7 @@
             <li><span class="chk">✓</span> Asesoría bancaria incluida</li>
             <li><span class="chk">✓</span> Soporte prioritario por WhatsApp</li>
           </ul>
-          <a href="/index_final.html" class="btn btn-primary" style="width:100%">Elegir Pro →</a>
+          <a href="/index_final.html" class="btn btn-primary btn-xs" style="width:100%">Elegir Pro →</a>
         </div>
       </div>
 
@@ -638,7 +646,7 @@
             <li><span class="chk">✓</span> Business Address (12 meses)</li>
             <li><span class="chk">✓</span> Asesoría fiscal + Form 5472</li>
           </ul>
-          <a href="/index_final.html" class="btn btn-outline" style="width:100%">Elegir Premium →</a>
+          <a href="/index_final.html" class="btn btn-outline btn-xs" style="width:100%">Elegir Premium →</a>
         </div>
       </div>
 
