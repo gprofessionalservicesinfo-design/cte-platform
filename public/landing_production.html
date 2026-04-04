@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CreaTuEmpresaUSA — Abre tu LLC o Corporation en EE.UU. desde Latinoamérica</title>
+  <meta name="description" content="Abre tu LLC o Corporation en Estados Unidos desde cualquier país de Latinoamérica. 100% remoto, sin visa, sin SSN. Proceso guiado en español." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== CSS RESET & VARIABLES ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0A2540;
+      --navy-light: #0d2e4d;
+      --navy-dark: #071a2e;
+      --red: #DC2626;
+      --red-hover: #b91c1c;
+      --wa: #25D366;
+      --wa-hover: #1ebe5d;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-300: #cbd5e1;
+      --gray-400: #94a3b8;
+      --gray-500: #64748b;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --white: #ffffff;
+      --font-head: 'Manrope', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --nav-h: 60px;
+      --radius: 12px;
+      --radius-lg: 18px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.07);
+      --shadow-lg: 0 10px 32px rgba(0,0,0,0.14), 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-xl: 0 20px 48px rgba(0,0,0,0.18), 0 8px 20px rgba(0,0,0,0.10);
+    }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      color: var(--gray-700);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    /* ===== UTILITIES ===== */
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+    .container--wide { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+    .eyebrow {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 10px;
+    }
+    .eyebrow--white { color: rgba(255,255,255,0.55); }
+    .section-title {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .section-title--white { color: var(--white); }
+    .section-sub {
+      font-size: 0.95rem;
+      color: var(--gray-500);
+      max-width: 520px;
+      line-height: 1.65;
+    }
+    .section-sub--white { color: rgba(255,255,255,0.72); }
+    .section-header { text-align: center; margin-bottom: 40px; }
+    .section-header .section-sub { margin: 0 auto; }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 11px 22px;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.88rem;
+      transition: all 0.18s ease;
+      white-space: nowrap;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+    .btn--navy {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy);
+    }
+    .btn--navy:hover { background: var(--navy-light); border-color: var(--navy-light); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn--red {
+      background: var(--red);
+      color: var(--white);
+      border-color: rgba(255,255,255,0.6);
+      font-size: 1rem;
+      padding: 14px 32px;
+      border-radius: 10px;
+    }
+    .btn--red:hover { background: var(--red-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(220,38,38,0.35); }
+    .btn--wa {
+      background: var(--wa);
+      color: var(--white);
+      border-color: var(--wa);
+    }
+    .btn--wa:hover { background: var(--wa-hover); border-color: var(--wa-hover); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn--outline-navy {
+      background: transparent;
+      color: var(--navy);
+      border-color: var(--navy);
+    }
+    .btn--outline-navy:hover { background: var(--navy); color: var(--white); transform: translateY(-1px); }
+    .btn--outline-white {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255,255,255,0.6);
+    }
+    .btn--outline-white:hover { background: rgba(255,255,255,0.12); transform: translateY(-1px); }
+    .btn--lg { font-size: 1rem; padding: 14px 32px; border-radius: 10px; }
+
+    /* ===== NAVBAR ===== */
+    #navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: var(--nav-h);
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--gray-200);
+      box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+    }
+    .nav-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .nav-logo {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--navy);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .nav-logo span { color: var(--red); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex: 1;
+      justify-content: center;
+    }
+    .nav-links a {
+      font-size: 0.83rem;
+      font-weight: 500;
+      color: var(--gray-600);
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-links a:hover { color: var(--navy); background: var(--gray-50); }
+    .nav-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 6px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .burger:hover { background: var(--gray-100); }
+    .burger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--navy);
+      border-radius: 2px;
+      transition: all 0.25s ease;
+    }
+    .burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile nav menu */
+    #mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      box-shadow: var(--shadow-lg);
+      z-index: 999;
+      padding: 16px 24px 20px;
+      flex-direction: column;
+      gap: 4px;
+    }
+    #mobile-menu.open { display: flex; }
+    #mobile-menu a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--gray-700);
+      padding: 10px 12px;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+    #mobile-menu a:hover { background: var(--gray-50); color: var(--navy); }
+    .mobile-menu-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--gray-100);
+    }
+    .mobile-menu-actions .btn { flex: 1; justify-content: center; font-size: 0.85rem; }
+
+    /* ===== ABOVE-FOLD WRAPPER ===== */
+    #above-fold {
+      min-height: calc(100vh - var(--nav-h));
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== HERO ===== */
+    #hero {
+      flex-shrink: 0;
+      background: linear-gradient(160deg, var(--navy-dark) 0%, var(--navy) 55%, #0f3460 100%);
+      padding: 44px 0 36px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -80px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(220,38,38,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      left: -60px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(37,211,102,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 18px;
+    }
+    .hero-h1 {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: clamp(2rem, 3vw, 2.6rem);
+      max-width: 760px;
+      margin: 0 auto 16px;
+      line-height: 1.18;
+      color: var(--white);
+    }
+    .hero-h1 .red { color: var(--red); }
+    .hero-sub {
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.72);
+      max-width: 560px;
+      margin: 0 auto 28px;
+      line-height: 1.65;
+    }
+    .hero-cta { margin-bottom: 28px; }
+    .trust-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+    .trust-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 100px;
+      padding: 5px 14px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.82);
+      backdrop-filter: blur(6px);
+    }
+
+    /* ===== PRICING (inside above-fold) ===== */
+    #pricing {
+      background: var(--white);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 16px 0 12px;
+    }
+    .pricing-header { margin-bottom: 20px; }
+    .pricing-header .eyebrow { display: block; text-align: center; }
+    .pricing-header h2 {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: clamp(1.25rem, 2vw, 1.65rem);
+      color: var(--navy);
+      text-align: center;
+      margin-bottom: 6px;
+    }
+    .pricing-header p {
+      font-size: 0.85rem;
+      color: var(--gray-500);
+      text-align: center;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      align-items: stretch;
+      flex: 1;
+    }
+    .plan-card {
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 22px 20px 20px;
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+    }
+    .plan-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+    .plan-card--featured {
+      border: 2px solid var(--navy);
+      box-shadow: var(--shadow-xl);
+    }
+    .plan-card--featured::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--navy);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+    .plan-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: var(--navy);
+      color: var(--white);
+      font-size: 0.67rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 100px;
+      letter-spacing: 0.03em;
+    }
+    .plan-name {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .plan-price {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1.7rem;
+      color: var(--navy);
+      line-height: 1.1;
+      margin-bottom: 2px;
+    }
+    .plan-price span { font-size: 0.8rem; font-weight: 500; color: var(--gray-500); }
+    .plan-state-fee {
+      font-size: 0.72rem;
+      color: var(--gray-400);
+      margin-bottom: 14px;
+    }
+    .plan-divider { height: 1px; background: var(--gray-100); margin-bottom: 14px; }
+    .plan-features { flex: 1; margin-bottom: 16px; }
+    .plan-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--gray-600);
+      padding: 4px 0;
+      line-height: 1.4;
+    }
+    .plan-features li::before {
+      content: '✓';
+      color: var(--wa);
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .plan-cta { display: block; text-align: center; width: 100%; justify-content: center; }
+    .pricing-footnote {
+      font-size: 0.72rem;
+      color: var(--gray-400);
+      text-align: center;
+      padding-top: 12px;
+      flex-shrink: 0;
+      line-height: 1.5;
+    }
+
+    /* ===== CÓMO FUNCIONA ===== */
+    #como-funciona {
+      background: var(--gray-50);
+      padding: 80px 0;
+    }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .step-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 28px 22px;
+      border: 1px solid var(--gray-200);
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+    }
+    .step-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .step-number {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      flex-shrink: 0;
+    }
+    .step-title {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .step-desc {
+      font-size: 0.82rem;
+      color: var(--gray-500);
+      line-height: 1.55;
+    }
+    .step-arrow {
+      position: absolute;
+      top: 50%;
+      right: -16px;
+      transform: translateY(-50%);
+      color: var(--gray-300);
+      font-size: 1.2rem;
+      z-index: 2;
+    }
+    .step-card:last-child .step-arrow { display: none; }
+    .section-cta { text-align: center; }
+
+    /* ===== ESTRUCTURAS ===== */
+    #estructuras { background: var(--white); padding: 80px 0; }
+    .tabs-nav {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-bottom: 32px;
+      background: var(--gray-50);
+      padding: 6px;
+      border-radius: 12px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tab-btn {
+      padding: 9px 24px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--gray-500);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .tab-btn:hover { color: var(--navy); background: rgba(10,37,64,0.06); }
+    .tab-btn.active { background: var(--navy); color: var(--white); box-shadow: var(--shadow-sm); }
+    .struct-panel { display: none; }
+    .struct-panel.active { display: grid; grid-template-columns: 1fr 300px; gap: 28px; align-items: start; }
+    .struct-main {
+      background: var(--gray-50);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      border: 1px solid var(--gray-200);
+    }
+    .struct-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+    .struct-icon { font-size: 2rem; }
+    .struct-name {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--navy);
+    }
+    .struct-desc { font-size: 0.85rem; color: var(--gray-500); margin-top: 2px; }
+    .struct-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+    .struct-tag--green { background: #dcfce7; color: #15803d; }
+    .struct-tag--amber { background: #fef3c7; color: #92400e; }
+    .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+    .pros-cons-col h4 {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .pros-cons-col.pros h4 { color: #15803d; }
+    .pros-cons-col.cons h4 { color: #b45309; }
+    .pros-cons-col li {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      font-size: 0.82rem;
+      color: var(--gray-600);
+      padding: 3px 0;
+      line-height: 1.4;
+    }
+    .pros-cons-col.pros li::before { content: '✓'; color: #16a34a; font-weight: 700; flex-shrink: 0; }
+    .pros-cons-col.cons li::before { content: '•'; color: #d97706; font-weight: 700; flex-shrink: 0; }
+    .struct-consider {
+      background: rgba(10,37,64,0.05);
+      border-left: 3px solid var(--navy);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.83rem;
+      color: var(--navy);
+      font-style: italic;
+      line-height: 1.5;
+    }
+    .struct-sidebar {
+      background: var(--white);
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 24px 20px;
+      box-shadow: var(--shadow-md);
+    }
+    .sidebar-price-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gray-400);
+      margin-bottom: 14px;
+    }
+    .sidebar-plan {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .sidebar-plan:last-of-type { border-bottom: none; margin-bottom: 16px; }
+    .sidebar-plan-name { font-size: 0.85rem; font-weight: 600; color: var(--navy); }
+    .sidebar-plan-price { font-size: 0.85rem; font-weight: 700; color: var(--gray-700); }
+    .sidebar-cta { display: block; width: 100%; text-align: center; justify-content: center; margin-top: 16px; }
+    .struct-dba-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.83rem;
+      color: var(--gray-600);
+      padding: 4px 0;
+      line-height: 1.4;
+    }
+    .struct-dba-list li::before { content: '×'; color: #ef4444; font-weight: 700; flex-shrink: 0; }
+    .struct-dba-useful li { list-style: none; }
+    .struct-dba-useful li::before { content: '→'; color: var(--gray-400); }
+    .struct-note {
+      background: #fef2f2;
+      border-left: 3px solid #ef4444;
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.83rem;
+      color: #991b1b;
+      line-height: 1.5;
+      margin-top: 16px;
+    }
+    .struct-bottom-bar {
+      margin-top: 32px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .struct-bottom-bar p {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--gray-700);
+    }
+    .struct-bottom-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    /* ===== PARA EXTRANJEROS ===== */
+    #extranjeros {
+      background: linear-gradient(160deg, var(--navy-dark) 0%, var(--navy) 60%, #0f3460 100%);
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    #extranjeros::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(37,211,102,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .extranjeros-inner {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .extranjeros-text h2 {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      color: var(--white);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .extranjeros-text h2 .red { color: var(--red); }
+    .extranjeros-sub {
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+    .check-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.88);
+      padding: 7px 0;
+    }
+    .check-list li::before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(37,211,102,0.2);
+      border: 1.5px solid var(--wa);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2325D366'%3E%3Cpath fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'/%3E%3C/svg%3E");
+      background-size: 12px;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .stats-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      backdrop-filter: blur(10px);
+    }
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1.8rem;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.6); font-weight: 500; }
+
+    /* ===== POR QUÉ ELEGIRNOS ===== */
+    #por-que { background: var(--white); padding: 80px 0; }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .why-card {
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      background: var(--gray-50);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .why-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); background: var(--white); }
+    .why-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(10,37,64,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+    }
+    .why-title {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .why-desc { font-size: 0.85rem; color: var(--gray-500); line-height: 1.6; }
+
+    /* ===== FAQ ===== */
+    #faq { background: var(--gray-50); padding: 80px 0; }
+    .faq-list { max-width: 760px; margin: 0 auto; }
+    .faq-item {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      margin-bottom: 10px;
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+    .faq-item:hover { box-shadow: var(--shadow-sm); }
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--navy);
+      cursor: pointer;
+      gap: 12px;
+      text-align: left;
+      background: none;
+      border: none;
+      font-family: var(--font-body);
+    }
+    .faq-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--gray-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: var(--navy);
+      flex-shrink: 0;
+      transition: transform 0.25s ease, background 0.2s;
+      font-weight: 300;
+      line-height: 1;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--navy); color: var(--white); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.2s ease;
+    }
+    .faq-item.open .faq-answer { max-height: 300px; }
+    .faq-answer-inner {
+      padding: 0 22px 18px;
+      font-size: 0.85rem;
+      color: var(--gray-500);
+      line-height: 1.7;
+      border-top: 1px solid var(--gray-100);
+      padding-top: 14px;
+    }
+
+    /* ===== FINAL CTA ===== */
+    #final-cta {
+      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 50%, #0f3460 100%);
+      padding: 80px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #final-cta::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(220,38,38,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .final-cta-inner { position: relative; z-index: 1; }
+    #final-cta h2 {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    #final-cta p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.68);
+      margin-bottom: 32px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+    .final-cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* ===== FOOTER ===== */
+    #footer {
+      background: #060f1d;
+      padding: 60px 0 32px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    .footer-brand .nav-logo { font-size: 1.1rem; margin-bottom: 12px; display: flex; }
+    .footer-tagline { font-size: 0.8rem; color: rgba(255,255,255,0.4); line-height: 1.6; max-width: 220px; }
+    .footer-col h4 {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 14px;
+    }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.6);
+      transition: color 0.15s;
+    }
+    .footer-col a:hover { color: var(--white); }
+    .footer-divider { height: 1px; background: rgba(255,255,255,0.07); margin-bottom: 24px; }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-copy { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
+    .footer-legal { display: flex; gap: 20px; }
+    .footer-legal a { font-size: 0.75rem; color: rgba(255,255,255,0.3); transition: color 0.15s; }
+    .footer-legal a:hover { color: rgba(255,255,255,0.6); }
+
+    /* ===== FLOATING WHATSAPP ===== */
+    #wa-float {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 900;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--wa);
+      color: var(--white);
+      border-radius: 100px;
+      padding: 12px 18px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4), 0 2px 8px rgba(0,0,0,0.15);
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+    #wa-float:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 8px 28px rgba(37,211,102,0.5), 0 4px 12px rgba(0,0,0,0.15);
+    }
+    #wa-float svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1100px) {
+      .pricing-grid { gap: 12px; }
+      .plan-price { font-size: 1.45rem; }
+    }
+
+    @media (max-width: 900px) {
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+      .step-arrow { display: none; }
+      .struct-panel.active { grid-template-columns: 1fr; }
+      .extranjeros-inner { grid-template-columns: 1fr; gap: 40px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-actions { display: none; }
+      .burger { display: flex; }
+      #above-fold { min-height: auto; }
+      #hero { padding: 36px 0 28px; }
+      .hero-h1 { font-size: clamp(1.75rem, 6vw, 2.2rem); }
+      .trust-chips { gap: 6px; }
+      .trust-chip { font-size: 0.7rem; padding: 4px 10px; }
+      #pricing { padding: 20px 0 16px; flex: none; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 14px; }
+      .plan-card--featured { order: -1; }
+      .steps-grid { grid-template-columns: 1fr; gap: 16px; }
+      .why-grid { grid-template-columns: 1fr; gap: 16px; }
+      .struct-bottom-bar { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .pros-cons { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      #wa-float span { display: none; }
+      #wa-float { padding: 14px; border-radius: 50%; }
+      .final-cta-actions { flex-direction: column; align-items: center; }
+    }
+
+    @media (max-width: 480px) {
+      .container, .container--wide { padding: 0 16px; }
+      .hero-h1 { font-size: clamp(1.55rem, 7vw, 2rem); }
+      .hero-sub { font-size: 0.85rem; }
+      .tabs-nav { flex-direction: row; width: 100%; padding: 4px; }
+      .tab-btn { flex: 1; padding: 8px 12px; font-size: 0.8rem; text-align: center; }
+      .struct-main { padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="/index_final.html" class="nav-logo">
+      CreaTuEmpresa<span>USA</span>
+    </a>
+    <div class="nav-links">
+      <a href="#hero">Inicio</a>
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#pricing">Precios</a>
+      <a href="/index_final.html">Asistente</a>
+      <a href="#faq">FAQ</a>
+      <a href="#footer">Contacto</a>
+    </div>
+    <div class="nav-actions">
+      <a href="/index_final.html" class="btn btn--navy">Comenzar →</a>
+      <a href="https://wa.me/19046248859" target="_blank" rel="noopener" class="btn btn--wa">💬 WhatsApp</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" role="navigation" aria-label="Menú móvil">
+  <a href="#hero" class="mobile-nav-link">Inicio</a>
+  <a href="#como-funciona" class="mobile-nav-link">Cómo funciona</a>
+  <a href="#pricing" class="mobile-nav-link">Precios</a>
+  <a href="/index_final.html" class="mobile-nav-link">Asistente</a>
+  <a href="#faq" class="mobile-nav-link">FAQ</a>
+  <a href="#footer" class="mobile-nav-link">Contacto</a>
+  <div class="mobile-menu-actions">
+    <a href="/index_final.html" class="btn btn--navy">Comenzar →</a>
+    <a href="https://wa.me/19046248859" target="_blank" rel="noopener" class="btn btn--wa">💬 WhatsApp</a>
+  </div>
+</div>
+
+<!-- ===== ABOVE-FOLD WRAPPER ===== -->
+<div id="above-fold">
+
+  <!-- ===== HERO ===== -->
+  <section id="hero">
+    <div class="container hero-inner">
+      <p class="hero-eyebrow">SERVICIO DISPONIBLE PARA TODA LATINOAMÉRICA</p>
+      <h1 class="hero-h1">
+        Crea Tu Empresa en <span class="red">Estados Unidos</span><br>
+        Desde Cualquier País
+      </h1>
+      <p class="hero-sub">
+        Abre tu LLC o Corporation de forma rápida, segura y 100% remota. Sin visas, sin viajes, sin complicaciones.
+      </p>
+      <div class="hero-cta">
+        <a href="/index_final.html" class="btn btn--red">🚀 Crear mi empresa</a>
+      </div>
+      <div class="trust-chips">
+        <span class="trust-chip">🌎 100% Remoto</span>
+        <span class="trust-chip">🤝 Clientes internacionales</span>
+        <span class="trust-chip">🧭 Proceso guiado</span>
+        <span class="trust-chip">✅ Sin visa ni SSN</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRICING ===== -->
+  <section id="pricing">
+    <div class="container--wide">
+      <div class="pricing-header">
+        <span class="eyebrow">Planes y precios</span>
+        <h2>Elige el plan que mejor se adapta a ti</h2>
+        <p>Todo incluido para que tu empresa quede lista y funcionando.</p>
+      </div>
+
+      <div class="pricing-grid">
+
+        <!-- Starter -->
+        <div class="plan-card">
+          <p class="plan-name">Starter</p>
+          <p class="plan-price">$499 <span>USD</span></p>
+          <p class="plan-state-fee">+ tarifa estatal</p>
+          <div class="plan-divider"></div>
+          <ul class="plan-features">
+            <li>LLC o Corporation</li>
+            <li>EIN (número fiscal federal)</li>
+            <li>Registered Agent (1 año)</li>
+            <li>Soporte por email en español</li>
+          </ul>
+          <a href="/index_final.html" class="btn btn--outline-navy plan-cta">Elegir Starter →</a>
+        </div>
+
+        <!-- Pro (Featured) -->
+        <div class="plan-card plan-card--featured">
+          <span class="plan-badge">⭐ Más popular</span>
+          <p class="plan-name">Pro</p>
+          <p class="plan-price">$799 <span>USD</span></p>
+          <p class="plan-state-fee">+ tarifa estatal</p>
+          <div class="plan-divider"></div>
+          <ul class="plan-features">
+            <li>Todo lo de Starter</li>
+            <li>Operating Agreement personalizado</li>
+            <li>Asesoría bancaria incluida</li>
+            <li>Soporte prioritario por WhatsApp</li>
+          </ul>
+          <a href="/index_final.html" class="btn btn--navy plan-cta">Elegir Pro →</a>
+        </div>
+
+        <!-- Premium -->
+        <div class="plan-card">
+          <p class="plan-name">Premium</p>
+          <p class="plan-price">$1,200 <span>USD</span></p>
+          <p class="plan-state-fee">+ tarifa estatal</p>
+          <div class="plan-divider"></div>
+          <ul class="plan-features">
+            <li>Todo lo de Pro</li>
+            <li>Fast-track — prioridad máxima</li>
+            <li>Business Address (12 meses)</li>
+            <li>Asesoría fiscal + Form 5472</li>
+          </ul>
+          <a href="/index_final.html" class="btn btn--outline-navy plan-cta">Elegir Premium →</a>
+        </div>
+
+      </div>
+
+      <p class="pricing-footnote">
+        * Wyoming ~$62 · Florida ~$125 · Delaware ~$140. El total exacto se muestra antes de pagar.
+      </p>
+    </div>
+  </section>
+
+</div><!-- end #above-fold -->
+
+<!-- ===== CÓMO FUNCIONA ===== -->
+<section id="como-funciona">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">El proceso</span>
+      <h2 class="section-title">Abre tu empresa en 4 pasos simples</h2>
+      <p class="section-sub">Sin burocracia confusa. Sin perder tiempo. Todo desde tu computadora o teléfono.</p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <p class="step-title">Elige tu estado</p>
+        <p class="step-desc">Te ayudamos a comparar Wyoming, Florida y Delaware según tus objetivos y presupuesto.</p>
+        <span class="step-arrow">→</span>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <p class="step-title">Nombra tu empresa</p>
+        <p class="step-desc">Verificamos disponibilidad del nombre en tiempo real y te asesoramos si hay conflictos.</p>
+        <span class="step-arrow">→</span>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <p class="step-title">Selecciona tu plan</p>
+        <p class="step-desc">Elige Starter, Pro o Premium según lo que necesitas. Sin sorpresas de precio después.</p>
+        <span class="step-arrow">→</span>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <p class="step-title">¡Listo, empezamos!</p>
+        <p class="step-desc">Nosotros manejamos todo el papeleo. Recibes tus documentos oficiales por email.</p>
+        <span class="step-arrow">→</span>
+      </div>
+    </div>
+
+    <div class="section-cta">
+      <a href="/index_final.html" class="btn btn--navy btn--lg">Iniciar el proceso →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMPARACIÓN DE ESTRUCTURAS ===== -->
+<section id="estructuras">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">¿QUÉ ESTRUCTURA ES LA CORRECTA PARA TI?</span>
+      <h2 class="section-title">LLC, Corporation o DBA — elige con confianza</h2>
+      <p class="section-sub">Esta sección no es una enciclopedia legal. Es una guía rápida para que tomes la decisión correcta hoy.</p>
+    </div>
+
+    <div class="tabs-nav" role="tablist">
+      <button class="tab-btn active" onclick="showStruct('llc')" role="tab" aria-selected="true" id="tab-llc">LLC</button>
+      <button class="tab-btn" onclick="showStruct('corp')" role="tab" aria-selected="false" id="tab-corp">Corporation</button>
+      <button class="tab-btn" onclick="showStruct('dba')" role="tab" aria-selected="false" id="tab-dba">DBA</button>
+    </div>
+
+    <!-- LLC Panel -->
+    <div class="struct-panel active" id="struct-llc" role="tabpanel" aria-labelledby="tab-llc">
+      <div class="struct-main">
+        <div class="struct-header">
+          <span class="struct-icon">🏢</span>
+          <div>
+            <p class="struct-name">LLC</p>
+            <p class="struct-desc">Sociedad de Responsabilidad Limitada</p>
+          </div>
+        </div>
+        <span class="struct-tag struct-tag--green">✓ Ideal para extranjeros</span>
+        <div class="pros-cons">
+          <div class="pros-cons-col pros">
+            <h4>Ventajas</h4>
+            <ul>
+              <li>Protección de activos personales</li>
+              <li>Flexibilidad fiscal</li>
+              <li>Sin junta directiva formal</li>
+              <li>Distribución libre de utilidades</li>
+              <li>Ideal para freelancers y negocios digitales</li>
+            </ul>
+          </div>
+          <div class="pros-cons-col cons">
+            <h4>A tener en cuenta</h4>
+            <ul>
+              <li>Puede requerir Operating Agreement</li>
+              <li>Algunos bancos piden más documentos</li>
+            </ul>
+          </div>
+        </div>
+        <div class="struct-consider">
+          "La opción más elegida por emprendedores latinoamericanos que operan remotamente."
+        </div>
+      </div>
+      <div class="struct-sidebar">
+        <p class="sidebar-price-title">Disponible en</p>
+        <div class="sidebar-plan">
+          <span class="sidebar-plan-name">Starter</span>
+          <span class="sidebar-plan-price">$499 USD</span>
+        </div>
+        <div class="sidebar-plan">
+          <span class="sidebar-plan-name">Pro</span>
+          <span class="sidebar-plan-price">$799 USD</span>
+        </div>
+        <a href="/index_final.html" class="btn btn--navy sidebar-cta">Abrir mi LLC →</a>
+        <a href="/index_final.html" style="display:block; text-align:center; font-size:0.78rem; color:var(--gray-400); margin-top:10px;">Ver todos los planes</a>
+      </div>
+    </div>
+
+    <!-- Corporation Panel -->
+    <div class="struct-panel" id="struct-corp" role="tabpanel" aria-labelledby="tab-corp">
+      <div class="struct-main">
+        <div class="struct-header">
+          <span class="struct-icon">🏛️</span>
+          <div>
+            <p class="struct-name">Corporation (C-Corp / S-Corp)</p>
+            <p class="struct-desc">Sociedad Anónima corporativa con estructura formal</p>
+          </div>
+        </div>
+        <span class="struct-tag struct-tag--green">✓ Aceptada globalmente</span>
+        <div class="pros-cons">
+          <div class="pros-cons-col pros">
+            <h4>Ventajas</h4>
+            <ul>
+              <li>Ideal para levantar inversión</li>
+              <li>Múltiples clases de acciones</li>
+              <li>Credibilidad con inversionistas</li>
+              <li>Estructura para escalar</li>
+              <li>Perfecta para startups</li>
+            </ul>
+          </div>
+          <div class="pros-cons-col cons">
+            <h4>A tener en cuenta</h4>
+            <ul>
+              <li>Más requisitos de cumplimiento</li>
+              <li>Doble tributación en C-Corp</li>
+              <li>Requiere junta y actas</li>
+            </ul>
+          </div>
+        </div>
+        <div class="struct-consider">
+          "Si planeas buscar inversión o listar tu empresa, la Corporation es el camino."
+        </div>
+      </div>
+      <div class="struct-sidebar">
+        <p class="sidebar-price-title">Disponible en</p>
+        <div class="sidebar-plan">
+          <span class="sidebar-plan-name">Pro</span>
+          <span class="sidebar-plan-price">$799 USD</span>
+        </div>
+        <div class="sidebar-plan">
+          <span class="sidebar-plan-name">Premium</span>
+          <span class="sidebar-plan-price">$1,200 USD</span>
+        </div>
+        <a href="/index_final.html" class="btn btn--navy sidebar-cta">Abrir mi Corporation →</a>
+        <a href="/index_final.html" style="display:block; text-align:center; font-size:0.78rem; color:var(--gray-400); margin-top:10px;">Ver todos los planes</a>
+      </div>
+    </div>
+
+    <!-- DBA Panel -->
+    <div class="struct-panel" id="struct-dba" role="tabpanel" aria-labelledby="tab-dba">
+      <div class="struct-main">
+        <div class="struct-header">
+          <span class="struct-icon">📋</span>
+          <div>
+            <p class="struct-name">DBA — "Doing Business As"</p>
+            <p class="struct-desc">Un DBA no es una empresa. Es un nombre comercial registrado bajo tu nombre o bajo otra entidad.</p>
+          </div>
+        </div>
+        <span class="struct-tag struct-tag--amber">⚠️ Sin entidad legal propia</span>
+        <div style="margin-bottom:18px;">
+          <h4 style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#b45309;margin-bottom:10px;">Lo que NO incluye</h4>
+          <ul class="struct-dba-list">
+            <li>Sin protección de activos personales</li>
+            <li>Sin EIN propio</li>
+            <li>Sin cuenta bancaria empresarial propia</li>
+            <li>Solo cambia el nombre comercial</li>
+          </ul>
+        </div>
+        <div style="margin-bottom:18px;">
+          <h4 style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--gray-500);margin-bottom:10px;">Cuándo puede ser útil</h4>
+          <ul class="struct-dba-list struct-dba-useful">
+            <li>Operar bajo un nombre diferente al tuyo</li>
+            <li>Añadir nombre de marca a una LLC existente</li>
+          </ul>
+        </div>
+        <div class="struct-note">
+          Si quieres protección real, necesitas una LLC o Corporation — no un DBA.
+        </div>
+      </div>
+      <div class="struct-sidebar">
+        <p class="sidebar-price-title">¿No sabes qué necesitas?</p>
+        <p style="font-size:0.82rem; color:var(--gray-500); line-height:1.6; margin-bottom:16px;">
+          Habla con un experto y te asesoramos sin compromiso sobre la mejor estructura para tu situación.
+        </p>
+        <a href="https://wa.me/19046248859" target="_blank" rel="noopener" class="btn btn--wa sidebar-cta">💬 Consultar opciones</a>
+        <a href="/index_final.html" style="display:block; text-align:center; font-size:0.78rem; color:var(--gray-400); margin-top:10px;">Usar el asistente</a>
+      </div>
+    </div>
+
+    <div class="struct-bottom-bar">
+      <p>¿No estás seguro cuál elegir?</p>
+      <div class="struct-bottom-actions">
+        <a href="https://wa.me/19046248859" target="_blank" rel="noopener" class="btn btn--wa">💬 Hablar con un experto</a>
+        <a href="/index_final.html" class="btn btn--navy">🚀 Usar el asistente</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PARA EXTRANJEROS ===== -->
+<section id="extranjeros">
+  <div class="container">
+    <div class="extranjeros-inner">
+      <div class="extranjeros-text">
+        <span class="eyebrow" style="color:rgba(255,255,255,0.45);">Para latinoamericanos</span>
+        <h2>100% remoto.<br><span class="red">Sin visa. Sin SSN.</span></h2>
+        <p class="extranjeros-sub">
+          Diseñado específicamente para emprendedores latinoamericanos que quieren operar en el mercado más grande del mundo — desde su país de origen.
+        </p>
+        <ul class="check-list">
+          <li>No necesitas SSN (Número de Seguro Social)</li>
+          <li>No necesitas viajar a Estados Unidos</li>
+          <li>No necesitas visa de ningún tipo</li>
+          <li>Todo el proceso se realiza en español</li>
+        </ul>
+      </div>
+      <div class="stats-card">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <p class="stat-num">+30</p>
+            <p class="stat-label">Países atendidos</p>
+          </div>
+          <div class="stat-item">
+            <p class="stat-num">100%</p>
+            <p class="stat-label">Online</p>
+          </div>
+          <div class="stat-item">
+            <p class="stat-num">🇪🇸</p>
+            <p class="stat-label">Español nativo</p>
+          </div>
+          <div class="stat-item">
+            <p class="stat-num">EIN</p>
+            <p class="stat-label">Incluido siempre</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== POR QUÉ ELEGIRNOS ===== -->
+<section id="por-que">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Nuestra diferencia</span>
+      <h2 class="section-title">Por qué elegirnos</h2>
+      <p class="section-sub">No somos un formulario en línea. Somos un equipo de personas que entiende tu situación.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🌎</div>
+        <p class="why-title">Proceso 100% en español</p>
+        <p class="why-desc">Desde la primera consulta hasta la entrega de documentos, todo se hace en tu idioma. Sin traducciones, sin confusión.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💵</div>
+        <p class="why-title">Solo pagas una vez</p>
+        <p class="why-desc">El precio que ves es el precio que pagas. Sin cuotas mensuales escondidas, sin sorpresas de último minuto.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🔢</div>
+        <p class="why-title">EIN incluido siempre</p>
+        <p class="why-desc">Todos nuestros planes incluyen el EIN (número fiscal federal). Es indispensable para abrir cuentas bancarias y facturar.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💬</div>
+        <p class="why-title">Soporte real por WhatsApp</p>
+        <p class="why-desc">Hablas con personas reales, no con bots. Nuestro equipo responde tus dudas de lunes a viernes con rapidez.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section id="faq">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Preguntas frecuentes</span>
+      <h2 class="section-title">Resolvemos tus dudas</h2>
+      <p class="section-sub">Las preguntas más comunes de nuestros clientes latinoamericanos.</p>
+    </div>
+
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          ¿Necesito visa para abrir una empresa en EE.UU.?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            No. Cualquier persona extranjera puede formar una LLC o Corporation en Estados Unidos sin necesidad de visa, residencia ni presencia física en el país. El proceso es 100% remoto y lo manejamos todo nosotros.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          ¿Qué estado me conviene para registrar mi empresa?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Depende de tus objetivos. Wyoming es muy popular por sus costos bajos y privacidad. Delaware es preferido por startups que buscan inversión. Florida es ideal si tienes operaciones o clientes en ese estado. Nuestro asistente te ayuda a elegir según tu situación específica.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          ¿Qué incluye el precio del servicio?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Todos nuestros planes incluyen la formación de la LLC o Corporation, el EIN (número fiscal federal), un año de Registered Agent y soporte en español. Los planes Pro y Premium incluyen además el Operating Agreement, asesoría bancaria y otros beneficios adicionales. La tarifa estatal va por separado y se informa antes del pago.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          ¿Cuánto tiempo tarda el proceso?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            El tiempo varía según el estado. En Wyoming y Delaware el proceso suele tomar entre 5 y 10 días hábiles. En Florida puede tomar de 7 a 14 días. Con el plan Premium activamos el proceso en modo fast-track para la máxima prioridad disponible. El EIN puede tomar 2 a 4 semanas adicionales dependiendo del IRS.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          ¿Puedo abrir una cuenta bancaria en EE.UU. siendo extranjero?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Sí. Con tu LLC formada y tu EIN en mano, puedes abrir cuentas bancarias en bancos digitales como Mercury, Relay o Bluevine sin necesidad de viajar. Los planes Pro y Premium incluyen asesoría bancaria para guiarte en este proceso paso a paso.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          ¿Qué diferencia hay entre una LLC y una Corporation?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            La LLC es más flexible, con menos requisitos formales y una estructura tributaria simplificada — ideal para la mayoría de freelancers y negocios digitales. La Corporation tiene una estructura más rígida pero es ideal si planeas buscar inversión externa, emitir acciones o escalar hacia un exit. Puedes explorar la sección "Estructuras" en esta página para ver una comparación detallada, o usar nuestro asistente para recibir una recomendación personalizada.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section id="final-cta">
+  <div class="container final-cta-inner">
+    <h2>Tu empresa en EE.UU. está<br>a un paso de distancia</h2>
+    <p>Miles de emprendedores latinoamericanos ya abrieron su empresa con nosotros. Tú puedes ser el siguiente.</p>
+    <div class="final-cta-actions">
+      <a href="/index_final.html" class="btn btn--red btn--lg">🚀 Crear mi empresa ahora</a>
+      <a href="https://wa.me/19046248859" target="_blank" rel="noopener" class="btn btn--outline-white btn--lg">💬 Hablar por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="/index_final.html" class="nav-logo" style="color:white; font-family:var(--font-head); font-weight:800; font-size:1.1rem; display:flex; align-items:center; gap:2px; margin-bottom:12px;">
+          CreaTuEmpresa<span style="color:var(--red);">USA</span>
+        </a>
+        <p class="footer-tagline">Ayudamos a emprendedores latinoamericanos a establecer su presencia en el mercado estadounidense de forma rápida, segura y 100% remota.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Servicios</h4>
+        <ul>
+          <li><a href="/index_final.html">Abrir LLC</a></li>
+          <li><a href="/index_final.html">Abrir Corporation</a></li>
+          <li><a href="/index_final.html">Obtener EIN</a></li>
+          <li><a href="/index_final.html">Registered Agent</a></li>
+          <li><a href="/index_final.html">Asesoría bancaria</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="/index_final.html">Sobre nosotros</a></li>
+          <li><a href="#como-funciona">Cómo funciona</a></li>
+          <li><a href="#pricing">Precios</a></li>
+          <li><a href="#faq">Preguntas frecuentes</a></li>
+          <li><a href="https://wa.me/19046248859" target="_blank" rel="noopener">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/index_final.html">Términos de servicio</a></li>
+          <li><a href="/index_final.html">Política de privacidad</a></li>
+          <li><a href="/index_final.html">Política de reembolso</a></li>
+          <li><a href="/index_final.html">Aviso legal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2024 CreaTuEmpresaUSA. Todos los derechos reservados.</p>
+      <div class="footer-legal">
+        <a href="/index_final.html">Privacidad</a>
+        <a href="/index_final.html">Términos</a>
+        <a href="https://wa.me/19046248859" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== FLOATING WHATSAPP ===== -->
+<a href="https://wa.me/19046248859" target="_blank" rel="noopener" id="wa-float" aria-label="Contáctanos por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+  <span>WhatsApp</span>
+</a>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+  /* ===== BURGER MENU ===== */
+  (function() {
+    var burger = document.getElementById('burger');
+    var menu = document.getElementById('mobile-menu');
+    var links = menu.querySelectorAll('.mobile-nav-link');
+
+    function closeMenu() {
+      burger.classList.remove('open');
+      menu.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    }
+
+    burger.addEventListener('click', function() {
+      var isOpen = menu.classList.toggle('open');
+      burger.classList.toggle('open', isOpen);
+      burger.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    links.forEach(function(link) {
+      link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('click', function(e) {
+      if (!burger.contains(e.target) && !menu.contains(e.target)) {
+        closeMenu();
+      }
+    });
+  })();
+
+  /* ===== FAQ ACCORDION ===== */
+  (function() {
+    var items = document.querySelectorAll('.faq-item');
+    items.forEach(function(item) {
+      var btn = item.querySelector('.faq-question');
+      btn.addEventListener('click', function() {
+        var isOpen = item.classList.contains('open');
+        // Close all
+        items.forEach(function(i) {
+          i.classList.remove('open');
+          i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+        // Open clicked if it was closed
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  })();
+
+  /* ===== STRUCTURE TABS ===== */
+  function showStruct(id) {
+    var panels = document.querySelectorAll('.struct-panel');
+    var tabs = document.querySelectorAll('.tab-btn');
+
+    panels.forEach(function(p) {
+      p.classList.remove('active');
+    });
+    tabs.forEach(function(t) {
+      t.classList.remove('active');
+      t.setAttribute('aria-selected', 'false');
+    });
+
+    var target = document.getElementById('struct-' + id);
+    var tab = document.getElementById('tab-' + id);
+    if (target) target.classList.add('active');
+    if (tab) {
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+    }
+  }
+
+  /* ===== SMOOTH SCROLL for anchor links ===== */
+  (function() {
+    var anchorLinks = document.querySelectorAll('a[href^="#"]');
+    anchorLinks.forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        var href = link.getAttribute('href');
+        if (href === '#') return;
+        var target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          var navH = 60;
+          var top = target.getBoundingClientRect().top + window.pageYOffset - navH - 8;
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+      });
+    });
+  })();
+
+  /* ===== NAVBAR SHADOW on scroll ===== */
+  (function() {
+    var navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 10) {
+        navbar.style.boxShadow = '0 2px 16px rgba(0,0,0,0.10)';
+      } else {
+        navbar.style.boxShadow = '0 1px 8px rgba(0,0,0,0.06)';
+      }
+    }, { passive: true });
+  })();
+</script>
+
+</body>
+</html>
