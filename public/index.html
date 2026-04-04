@@ -121,32 +121,32 @@
     .hero {
       background: linear-gradient(160deg, #0A2540 0%, #0f3060 55%, #0c2a52 100%);
       color: #fff;
-      padding: 4px 0 6px;
+      padding: 20px 0 18px;
     }
     .hero-eyebrow {
-      font-size: 9.5px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase;
-      color: rgba(255,255,255,.45); margin-bottom: 2px;
+      font-size: 9.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+      color: rgba(255,255,255,.42); margin-bottom: 6px;
     }
     .hero h1 {
-      color: #fff; margin-bottom: 4px;
-      /* full container width — headline spans the layout, fewer line breaks = less height */
-      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: #fff; margin-bottom: 8px;
+      font-size: clamp(1.5rem, 2.8vw, 1.9rem);
+      max-width: 680px; /* controlled break point — cleaner than full-container width */
     }
     .hero h1 span { color: #f87171; }
-    /* sub + CTAs share one horizontal row */
-    .hero-row {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 16px; flex-wrap: wrap; margin-bottom: 5px;
-    }
     .hero-sub {
-      font-size: .78rem; color: rgba(255,255,255,.65);
-      max-width: 520px; line-height: 1.5; margin: 0;
+      font-size: .82rem; color: rgba(255,255,255,.65);
+      max-width: 580px; line-height: 1.6; margin-bottom: 12px;
     }
-    .hero-ctas { display: flex; flex-wrap: nowrap; gap: 6px; flex-shrink: 0; }
-    .hero-trust { display: flex; flex-wrap: nowrap; gap: 16px; overflow-x: auto; }
+    /* CTAs left + benefit chips right — share one compact row */
+    .hero-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+    }
+    .hero-ctas { display: flex; gap: 7px; flex-shrink: 0; }
+    .hero-trust { display: flex; flex-wrap: nowrap; gap: 18px; overflow-x: auto; }
     .trust-badge {
       display: flex; align-items: center; gap: 4px;
-      font-size: 10px; font-weight: 500; color: rgba(255,255,255,.58);
+      font-size: 10.5px; font-weight: 500; color: rgba(255,255,255,.6);
       white-space: nowrap;
     }
 
@@ -483,13 +483,12 @@
     @media (max-width: 768px) {
       .section { padding: 48px 0; }
       .section-sm { padding: 32px 0; }
-      .hero { padding: 14px 0 12px; }
-      /* on mobile let it wrap naturally — font is smaller so still readable */
-      .hero h1 { font-size: 1.3rem; }
-      .hero-row { flex-direction: column; align-items: flex-start; gap: 8px; }
-      .hero-sub { font-size: .78rem; max-width: 100%; }
+      .hero { padding: 16px 0 14px; }
+      .hero h1 { font-size: 1.35rem; max-width: 100%; }
+      .hero-sub { font-size: .8rem; margin-bottom: 10px; }
+      .hero-footer { flex-direction: column; align-items: flex-start; gap: 10px; }
       .hero-ctas { flex-wrap: wrap; }
-      .hero-trust { flex-wrap: wrap; gap: 5px 10px; overflow: visible; }
+      .hero-trust { flex-wrap: wrap; gap: 6px 12px; overflow: visible; }
 
       .pricing-grid { grid-template-columns: 1fr; gap: 16px; }
 
@@ -570,19 +569,19 @@
 <section class="hero">
   <div class="container">
     <div class="hero-eyebrow">Servicio disponible para toda Latinoamérica</div>
-    <h1>Crea tu empresa en <span>Estados Unidos</span> desde cualquier país</h1>
-    <div class="hero-row">
-      <p class="hero-sub">Abre tu LLC o Corporation de forma rápida, segura y 100% remota. Sin visas, sin viajes, sin complicaciones.</p>
+    <h1>Crea tu empresa en <span>Estados Unidos</span><br>desde cualquier país</h1>
+    <p class="hero-sub">LLC o Corporation, EIN y Registered Agent incluidos. Proceso rápido, seguro y 100% remoto.</p>
+    <div class="hero-footer">
       <div class="hero-ctas">
         <a href="/index_final.html" class="btn btn-red btn-sm">🚀 Crear mi empresa</a>
         <a href="https://wa.me/19046248859?text=Hola%2C%20quiero%20crear%20mi%20empresa%20en%20EE.UU." target="_blank" rel="noopener" class="btn btn-wa btn-sm">💬 Hablar por WhatsApp</a>
       </div>
-    </div>
-    <div class="hero-trust">
-      <div class="trust-badge">🌎 100% Remoto</div>
-      <div class="trust-badge">🤝 Clientes internacionales</div>
-      <div class="trust-badge">🧭 Proceso guiado</div>
-      <div class="trust-badge">✅ Sin visa ni SSN</div>
+      <div class="hero-trust">
+        <div class="trust-badge">🌎 100% Remoto</div>
+        <div class="trust-badge">🤝 Clientes internacionales</div>
+        <div class="trust-badge">🧭 Proceso guiado</div>
+        <div class="trust-badge">✅ Sin visa ni SSN</div>
+      </div>
     </div>
   </div>
 </section>
@@ -666,34 +665,6 @@
   </div>
 </section>
 
-<!-- ════ TRUST BAR ════ -->
-<section class="trust-bar">
-  <div class="container">
-    <div class="trust-grid">
-      <div class="trust-item">
-        <div class="trust-ico">🗣️</div>
-        <div class="trust-label">Soporte en español</div>
-        <div class="trust-desc">Asesoría clara en tu idioma, sin tecnicismos.</div>
-      </div>
-      <div class="trust-item">
-        <div class="trust-ico">🌎</div>
-        <div class="trust-label">+30 países atendidos</div>
-        <div class="trust-desc">Clientes de América Latina, Europa y Asia.</div>
-      </div>
-      <div class="trust-item">
-        <div class="trust-ico">🔒</div>
-        <div class="trust-label">Proceso 100% seguro</div>
-        <div class="trust-desc">Tus datos y tu inversión, protegidos en todo momento.</div>
-      </div>
-      <div class="trust-item">
-        <div class="trust-ico">⚡</div>
-        <div class="trust-label">Respuesta en 24h</div>
-        <div class="trust-desc">Tu caso recibe atención el mismo día hábil.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ════ CÓMO FUNCIONA ════ -->
 <section class="section how-section" id="como-funciona">
   <div class="container">
@@ -726,6 +697,34 @@
     </div>
     <div style="text-align:center;margin-top:40px">
       <a href="/index_final.html" class="btn btn-primary btn-lg">Iniciar el proceso →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ TRUST BAR ════ -->
+<section class="trust-bar">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-ico">🗣️</div>
+        <div class="trust-label">Soporte en español</div>
+        <div class="trust-desc">Asesoría clara en tu idioma, sin tecnicismos.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-ico">🌎</div>
+        <div class="trust-label">+30 países atendidos</div>
+        <div class="trust-desc">Clientes de América Latina, Europa y Asia.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-ico">🔒</div>
+        <div class="trust-label">Proceso 100% seguro</div>
+        <div class="trust-desc">Tus datos y tu inversión, protegidos en todo momento.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-ico">⚡</div>
+        <div class="trust-label">Respuesta en 24h</div>
+        <div class="trust-desc">Tu caso recibe atención el mismo día hábil.</div>
+      </div>
     </div>
   </div>
 </section>
