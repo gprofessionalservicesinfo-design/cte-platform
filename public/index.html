@@ -48,7 +48,7 @@
     img { max-width: 100%; display: block; }
 
     /* ── TYPOGRAPHY ─────────────────────────── */
-    h1:not(.hero-title) {
+    h1 {
       font-family: var(--font-head);
       font-size: clamp(1.85rem, 4.5vw, 2.8rem);
       font-weight: 800; line-height: 1.15; letter-spacing: -.025em;
@@ -160,67 +160,38 @@
     .hero {
       background: linear-gradient(160deg, #0A2540 0%, #0f3060 55%, #0c2a52 100%);
       color: #fff;
-      padding: 0;
-      text-align: center;
-    }
-    .hero-inner {
-      width: 100%;
-      max-width: 1222px;
-      margin: 0 auto;
-      padding: 56px 24px 36px;
+      padding: 40px 0 36px;
       text-align: center;
     }
     .hero-eyebrow {
       font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
       color: rgba(255,255,255,.5); margin-bottom: 10px;
     }
-    h1.hero-title {
-      display: block;
-      width: 100%;
-      max-width: 1222px;
-      margin: 0 auto;
-      font-size: 82px;
-      line-height: 0.94;
-      letter-spacing: -0.045em;
-      font-weight: 800;
+    .hero h1 {
       color: #fff;
       font-family: var(--font-head);
+      font-size: clamp(1.9rem, 3vw, 2.75rem);
+      font-weight: 800; line-height: 1.18; letter-spacing: -.02em;
+      max-width: 900px; margin: 0 auto 14px;
       text-wrap: balance;
     }
-    h1.hero-title span { color: var(--red); }
-    .hero-subtitle {
-      max-width: 760px;
-      margin: 14px auto 0;
-      font-size: 18px;
-      line-height: 1.45;
-      color: rgba(255,255,255,.72);
+    .hero h1 span { color: var(--red); }
+    .hero-sub {
+      font-size: .92rem; color: rgba(255,255,255,.72);
+      max-width: 620px; line-height: 1.65; margin: 0 auto 18px;
     }
-    .hero-actions {
+    .hero-cta {
       display: flex; justify-content: center; gap: 12px;
-      flex-wrap: wrap; margin-top: 20px;
+      flex-wrap: wrap; margin-bottom: 16px;
     }
-    .hero-trust {
+    .hero-chips {
       display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
-      margin-top: 16px;
     }
     .hero-chip {
       display: inline-flex; align-items: center; gap: 5px;
       background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.16);
       border-radius: var(--r-pill); padding: 5px 13px;
       font-size: 12px; color: rgba(255,255,255,.8); font-weight: 500;
-    }
-    @media (max-width: 1280px) {
-      h1.hero-title { font-size: 72px; max-width: 1100px; }
-      .hero-inner   { max-width: 1100px; }
-    }
-    @media (max-width: 1024px) {
-      h1.hero-title { font-size: 58px; line-height: 0.96; max-width: 100%; }
-      .hero-inner   { max-width: 100%; }
-    }
-    @media (max-width: 640px) {
-      .hero-inner   { padding: 40px 20px 28px; }
-      h1.hero-title { font-size: 40px; line-height: 1; letter-spacing: -0.035em; max-width: 100%; }
-      .hero-subtitle { font-size: 16px; }
     }
 
     /* ── SECTION HEADER ─────────────────────── */
@@ -562,6 +533,9 @@
       .section { padding: 48px 0; }
       .section-sm { padding: 32px 0; }
       .above-fold { min-height: unset; }
+      .hero { padding: 28px 0 24px; }
+      .hero h1 { font-size: 1.45rem; }
+      .hero-sub { font-size: .84rem; }
       .hero-chips { gap: 6px; }
       .hero-chip { font-size: 11px; padding: 3px 9px; }
       .pricing-grid { grid-template-columns: 1fr; gap: 16px; }
@@ -646,14 +620,14 @@
 
 <!-- ════ HERO ════ -->
 <section class="hero">
-  <div class="hero-inner">
+  <div class="container-lg">
     <div class="hero-eyebrow">Servicio disponible para toda Latinoamérica</div>
-    <h1 class="hero-title">Crea Tu Empresa en <span>Estados Unidos</span><br>Desde Cualquier País</h1>
-    <p class="hero-subtitle">Abre tu LLC o Corporation de forma rápida, segura y 100% remota. Sin visas, sin viajes, sin complicaciones.</p>
-    <div class="hero-actions">
+    <h1>Crea Tu Empresa en <span>Estados Unidos</span><br>Desde Cualquier País</h1>
+    <p class="hero-sub">Abre tu LLC o Corporation de forma rápida, segura y 100% remota. Sin visas, sin viajes, sin complicaciones.</p>
+    <div class="hero-cta">
       <a href="/index_final.html" class="btn btn-red" style="border: 2px solid rgba(255,255,255,0.7);">🚀 Crear mi empresa</a>
     </div>
-    <div class="hero-trust">
+    <div class="hero-chips">
       <span class="hero-chip">🌎 100% Remoto</span>
       <span class="hero-chip">🤝 Clientes internacionales</span>
       <span class="hero-chip">🧭 Proceso guiado</span>
