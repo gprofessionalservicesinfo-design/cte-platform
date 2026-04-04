@@ -1283,7 +1283,7 @@
     while (hi - lo > 0.5) {
       mid = (lo + hi) / 2;
       h1.style.fontSize = mid + 'px';
-      if (line.scrollWidth <= w) lo = mid; else hi = mid;
+      if (line.scrollWidth <= w * 0.80) lo = mid; else hi = mid;
     }
     h1.style.fontSize = lo + 'px';
     line.style.whiteSpace = '';
