@@ -121,29 +121,33 @@
     .hero {
       background: linear-gradient(160deg, #0A2540 0%, #0f3060 55%, #0c2a52 100%);
       color: #fff;
-      padding: 20px 0 18px;
+      padding: 38px 0 34px; /* +2cm vertical breathing room */
+      text-align: center;
     }
     .hero-eyebrow {
       font-size: 9.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
-      color: rgba(255,255,255,.42); margin-bottom: 6px;
+      color: rgba(255,255,255,.42); margin-bottom: 8px;
     }
     .hero h1 {
-      color: #fff; margin-bottom: 8px;
-      font-size: clamp(1.5rem, 2.8vw, 1.9rem);
-      max-width: 680px; /* controlled break point — cleaner than full-container width */
+      color: #fff; margin-bottom: 10px;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: clamp(1.6rem, 3vw, 2.1rem);
+      font-weight: 700; letter-spacing: -.01em;
+      max-width: 720px; margin-left: auto; margin-right: auto;
     }
     .hero h1 span { color: #f87171; }
     .hero-sub {
-      font-size: .82rem; color: rgba(255,255,255,.65);
-      max-width: 580px; line-height: 1.6; margin-bottom: 12px;
+      font-size: .85rem; color: rgba(255,255,255,.68);
+      max-width: 540px; line-height: 1.65; margin: 0 auto 14px;
     }
-    /* CTAs left + benefit chips right — share one compact row */
-    .hero-footer {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 16px; flex-wrap: wrap;
+    .hero-ctas {
+      display: flex; justify-content: center; gap: 8px;
+      flex-wrap: wrap; margin-bottom: 12px;
     }
-    .hero-ctas { display: flex; gap: 7px; flex-shrink: 0; }
-    .hero-trust { display: flex; flex-wrap: nowrap; gap: 18px; overflow-x: auto; }
+    .hero-trust {
+      display: flex; justify-content: center; flex-wrap: nowrap;
+      gap: 20px; overflow-x: auto;
+    }
     .trust-badge {
       display: flex; align-items: center; gap: 4px;
       font-size: 10.5px; font-weight: 500; color: rgba(255,255,255,.6);
@@ -194,36 +198,36 @@
       background: var(--navy);
     }
 
-    .plan-header { padding: 12px 16px 9px; background: var(--gray50); border-bottom: 1px solid var(--gray100); }
+    .plan-header { padding: 16px 20px 13px; background: var(--gray50); border-bottom: 1px solid var(--gray100); }
     .plan-card.featured .plan-header { background: #f0f5ff; }
 
-    .plan-badge-wrap { min-height: 14px; margin-bottom: 2px; }
+    .plan-badge-wrap { min-height: 18px; margin-bottom: 4px; }
     .plan-badge {
       display: inline-flex; align-items: center; gap: 4px;
       background: var(--navy); color: #fff;
-      font-size: 9px; font-weight: 700; padding: 2px 9px; border-radius: var(--r-pill);
+      font-size: 9.5px; font-weight: 700; padding: 3px 11px; border-radius: var(--r-pill);
       letter-spacing: .06em; text-transform: uppercase;
     }
     .plan-name {
       font-family: var(--font-head);
-      font-size: .88rem; font-weight: 800; margin-bottom: 2px; color: var(--navy);
+      font-size: .95rem; font-weight: 800; margin-bottom: 3px; color: var(--navy);
     }
     .plan-price {
       font-family: var(--font-head);
-      font-size: 1.75rem; font-weight: 800; color: var(--navy); line-height: 1;
+      font-size: 2rem; font-weight: 800; color: var(--navy); line-height: 1;
     }
-    .plan-price sub { font-size: .75rem; font-weight: 500; color: var(--gray400); vertical-align: baseline; }
-    .plan-state-note { font-size: 10px; color: var(--gray400); margin-top: 2px; }
+    .plan-price sub { font-size: .8rem; font-weight: 500; color: var(--gray400); vertical-align: baseline; }
+    .plan-state-note { font-size: 10.5px; color: var(--gray400); margin-top: 3px; }
 
-    .plan-body { padding: 9px 16px 13px; }
-    .plan-features { margin-bottom: 10px; }
+    .plan-body { padding: 12px 20px 18px; }
+    .plan-features { margin-bottom: 13px; }
     .plan-features li {
-      display: flex; align-items: flex-start; gap: 7px;
-      font-size: 12px; color: var(--gray700); padding: 3px 0;
+      display: flex; align-items: flex-start; gap: 8px;
+      font-size: 12.5px; color: var(--gray700); padding: 5px 0;
       border-bottom: 1px solid var(--gray100);
     }
     .plan-features li:last-child { border-bottom: none; }
-    .plan-features li .chk { color: #16a34a; font-weight: 700; flex-shrink: 0; width: 13px; margin-top: 1px; font-size: 11px; }
+    .plan-features li .chk { color: #16a34a; font-weight: 700; flex-shrink: 0; width: 14px; margin-top: 1px; font-size: 11.5px; }
     .plan-features li .chk-bold { color: var(--navy); font-weight: 800; }
 
     .state-note-bar {
@@ -483,12 +487,10 @@
     @media (max-width: 768px) {
       .section { padding: 48px 0; }
       .section-sm { padding: 32px 0; }
-      .hero { padding: 16px 0 14px; }
-      .hero h1 { font-size: 1.35rem; max-width: 100%; }
-      .hero-sub { font-size: .8rem; margin-bottom: 10px; }
-      .hero-footer { flex-direction: column; align-items: flex-start; gap: 10px; }
-      .hero-ctas { flex-wrap: wrap; }
-      .hero-trust { flex-wrap: wrap; gap: 6px 12px; overflow: visible; }
+      .hero { padding: 24px 0 20px; }
+      .hero h1 { font-size: 1.4rem; }
+      .hero-sub { font-size: .82rem; }
+      .hero-trust { flex-wrap: wrap; gap: 6px 14px; overflow: visible; justify-content: center; }
 
       .pricing-grid { grid-template-columns: 1fr; gap: 16px; }
 
@@ -571,17 +573,15 @@
     <div class="hero-eyebrow">Servicio disponible para toda Latinoamérica</div>
     <h1>Crea tu empresa en <span>Estados Unidos</span><br>desde cualquier país</h1>
     <p class="hero-sub">LLC o Corporation, EIN y Registered Agent incluidos. Proceso rápido, seguro y 100% remoto.</p>
-    <div class="hero-footer">
-      <div class="hero-ctas">
-        <a href="/index_final.html" class="btn btn-red btn-sm">🚀 Crear mi empresa</a>
-        <a href="https://wa.me/19046248859?text=Hola%2C%20quiero%20crear%20mi%20empresa%20en%20EE.UU." target="_blank" rel="noopener" class="btn btn-wa btn-sm">💬 Hablar por WhatsApp</a>
-      </div>
-      <div class="hero-trust">
-        <div class="trust-badge">🌎 100% Remoto</div>
-        <div class="trust-badge">🤝 Clientes internacionales</div>
-        <div class="trust-badge">🧭 Proceso guiado</div>
-        <div class="trust-badge">✅ Sin visa ni SSN</div>
-      </div>
+    <div class="hero-ctas">
+      <a href="/index_final.html" class="btn btn-red btn-sm">🚀 Crear mi empresa</a>
+      <a href="https://wa.me/19046248859?text=Hola%2C%20quiero%20crear%20mi%20empresa%20en%20EE.UU." target="_blank" rel="noopener" class="btn btn-wa btn-sm">💬 Hablar por WhatsApp</a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-badge">🌎 100% Remoto</div>
+      <div class="trust-badge">🤝 Clientes internacionales</div>
+      <div class="trust-badge">🧭 Proceso guiado</div>
+      <div class="trust-badge">✅ Sin visa ni SSN</div>
     </div>
   </div>
 </section>
