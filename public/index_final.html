@@ -41,7 +41,7 @@
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ── RESET ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -157,7 +157,7 @@ ul,ol{list-style:none}
   background:rgba(255,255,255,.92);backdrop-filter:blur(22px) saturate(160%);
   border-bottom:1px solid transparent;transition:border-color .2s,box-shadow .2s;
 }
-#nav .container{padding:0 16px 0 0;max-width:none;margin:0}
+#nav .container{padding:0 16px 0 max(16px,env(safe-area-inset-left));max-width:none;margin:0}
 #nav.scrolled{border-bottom-color:var(--gray-200);box-shadow:var(--sh-sm)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%}
 /* Logo */
@@ -709,6 +709,8 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
   .cta-btns .btn,.mnav-ctas .btn{width:100%;justify-content:center}
   .wa-float .wa-text{display:none}
   .wa-float{padding:14px}
+  /* Logo size on mobile to prevent clipping */
+  #nav a[onclick*="goTo('home')"] span{font-size:15px!important}
   .capture-row{flex-direction:column}
   .capture-input{width:100%}
   .cta-box{padding:40px 24px}
@@ -819,10 +821,171 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
 .state-btn-light{color:var(--gray-700)}
 .state-btn-light:hover,.state-btn-light.active{background:var(--navy);color:#fff;border-color:var(--navy)}
 .state-btn-badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#15803d;background:rgba(34,197,94,.12);border-radius:var(--r-pill);padding:2px 6px}
+/* State grid — mobile optimized */
+.wiz-state-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:480px){.wiz-state-grid{grid-template-columns:1fr 1fr;gap:8px}.wiz-state-grid button{min-height:70px;padding:14px 12px!important}.wiz-state-grid button div:nth-child(2){font-size:13px!important}.wiz-state-grid button div:nth-child(3){font-size:11px!important}}
 .field-error{display:block;font-size:12px;color:var(--red);margin-top:4px;min-height:16px}
 .form-error-banner{background:rgba(220,38,38,.08);border:1.5px solid rgba(220,38,38,.25);border-radius:var(--r);padding:12px 16px;font-size:14px;color:var(--red);margin-bottom:16px;display:none}
 @media(max-width:1060px){.wizard-layout{grid-template-columns:1fr}.wizard-sidebar{display:none}.wiz-plans{grid-template-columns:1fr}.wiz-options{grid-template-columns:1fr}.wiz-cta-grid{grid-template-columns:1fr}}
 @media(max-width:768px){.wiz-addons-grid{grid-template-columns:1fr 1fr}}
+
+/* ── WIZARD PREMIUM VISUAL SYSTEM ─────────────────────────────
+   Manrope headings · Inter body · matches landing page system  */
+#page-wizard .wiz-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:1.55rem;letter-spacing:-.02em}
+#page-wizard .wiz-sub{font-family:'Inter',sans-serif;font-size:13.5px;line-height:1.65}
+#page-wizard .wiz-panel-inner{border-radius:16px}
+#page-wizard .btn{font-family:'Inter',sans-serif;font-weight:600}
+#page-wizard .finput,#page-wizard .fsel{font-family:'Inter',sans-serif}
+#page-wizard .flbl{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.07em}
+/* Type option icon — replaces emoji */
+.wiz-opt-icon{width:44px;height:44px;border-radius:10px;background:var(--gray-100);display:flex;align-items:center;justify-content:center;margin-bottom:14px;color:var(--navy);flex-shrink:0}
+.wiz-option:has(input:checked) .wiz-opt-icon,.wiz-option.selected .wiz-opt-icon{background:rgba(10,37,64,.07)}
+/* Plan feature list — premium dash style */
+.wiz-plan-features li{padding-left:14px;position:relative}
+.wiz-plan-features li::before{content:'—';position:absolute;left:0;color:var(--gray-400);font-size:10px;top:1px}
+/* Upsell dedicated screen template */
+.wiz-upsell-screen{max-width:520px}
+.wiz-upsell-screen .upsell-icon{width:48px;height:48px;border-radius:12px;background:var(--gray-100);display:flex;align-items:center;justify-content:center;color:var(--navy);margin-bottom:20px}
+.wiz-upsell-screen h2{font-family:'Manrope',sans-serif;font-weight:800;font-size:1.4rem;letter-spacing:-.02em;margin-bottom:8px}
+.wiz-upsell-screen .upsell-body{color:var(--gray-500);font-size:14px;line-height:1.65;margin-bottom:20px}
+.wiz-upsell-screen .upsell-bullets{list-style:none;margin-bottom:24px;display:flex;flex-direction:column;gap:8px}
+.wiz-upsell-screen .upsell-bullets li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--navy)}
+.wiz-upsell-screen .upsell-bullets li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--navy);flex-shrink:0;margin-top:6px}
+.wiz-upsell-screen .upsell-price-block{padding:16px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:12px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between}
+.wiz-upsell-screen .upsell-price{font-family:'Manrope',sans-serif;font-weight:800;font-size:1.6rem;color:var(--navy)}
+.wiz-upsell-screen .upsell-price-note{font-size:12px;color:var(--gray-500)}
+.wiz-upsell-skip{display:block;text-align:center;margin-top:12px;font-size:13px;color:var(--gray-400);cursor:pointer;text-decoration:underline;text-underline-offset:3px;background:none;border:none;font-family:'Inter',sans-serif}
+.wiz-upsell-skip:hover{color:var(--navy)}
+/* Base confirmation step */
+.wiz-base-confirm{background:var(--gray-50);border:1px solid var(--gray-200);border-radius:14px;padding:24px;margin-bottom:24px}
+.wiz-base-confirm-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--gray-200);font-size:14px}
+.wiz-base-confirm-row:last-child{border-bottom:none}
+.wiz-base-confirm-label{color:var(--gray-500)}
+.wiz-base-confirm-val{font-weight:600;color:var(--navy)}
+.wiz-base-includes{margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-200)}
+.wiz-base-includes-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-400);margin-bottom:10px}
+.wiz-base-includes-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.wiz-base-includes-list li{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--navy)}
+.wiz-base-includes-list li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--navy);flex-shrink:0}
+/* In-funnel help trigger button */
+#wiz-help-trigger{display:none;position:fixed;bottom:24px;right:24px;align-items:center;gap:8px;background:var(--wa,#25D366);color:#fff;border:none;border-radius:100px;padding:12px 20px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 20px rgba(37,211,102,.35);z-index:8990;font-family:'Inter',sans-serif;transition:transform .2s,box-shadow .2s}
+#wiz-help-trigger:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(37,211,102,.48)}
+/* Help drawer overlay */
+#wiz-help-overlay{display:none;position:fixed;inset:0;background:rgba(10,37,64,.35);z-index:9000;backdrop-filter:blur(2px)}
+/* Help drawer panel */
+#wiz-help-drawer{position:fixed;top:0;right:0;width:min(420px,100vw);height:100vh;background:#fff;z-index:9001;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);box-shadow:-8px 0 40px rgba(10,37,64,.12);display:flex;flex-direction:column;overflow:hidden}
+#wiz-help-drawer.open{transform:translateX(0)}
+#wiz-help-drawer-header{display:flex;justify-content:space-between;align-items:flex-start;padding:28px 24px 20px;border-bottom:1px solid var(--gray-100)}
+#wiz-help-close{background:none;border:none;cursor:pointer;color:var(--gray-400);padding:4px;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:color .15s,background .15s}
+#wiz-help-close:hover{color:var(--navy);background:var(--gray-50)}
+/* ── Plan change modal ──────────────────────────────────── */
+#plan-modal-overlay{display:none;position:fixed;inset:0;background:rgba(10,37,64,.45);z-index:9100;backdrop-filter:blur(2px)}
+#plan-modal{position:fixed;left:0;right:0;bottom:0;background:#fff;border-radius:20px 20px 0 0;z-index:9101;max-height:92vh;overflow-y:auto;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);box-shadow:0 -8px 40px rgba(10,37,64,.15)}
+#plan-modal.open{transform:translateY(0)}
+@media(min-width:768px){
+  #plan-modal{left:50%;right:auto;bottom:auto;top:50%;width:min(700px,92vw);border-radius:16px;transform:translate(-50%,-40%);box-shadow:0 20px 60px rgba(10,37,64,.2)}
+  #plan-modal.open{transform:translate(-50%,-50%)}
+}
+#plan-modal-header{display:flex;justify-content:space-between;align-items:flex-start;padding:24px 24px 16px;border-bottom:1px solid var(--gray-100);position:sticky;top:0;background:#fff;z-index:1}
+#plan-modal-close{background:none;border:none;cursor:pointer;color:var(--gray-400);padding:4px;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:color .15s}
+#plan-modal-close:hover{color:var(--navy)}
+.plan-modal-cards{display:grid;grid-template-columns:1fr;gap:12px;padding:20px 24px 12px}
+@media(min-width:520px){.plan-modal-cards{grid-template-columns:repeat(3,1fr)}}
+.plan-modal-card{border:2px solid var(--gray-200);border-radius:12px;padding:18px 16px;cursor:pointer;transition:border-color .2s,box-shadow .2s;position:relative;user-select:none;padding-top:22px}
+.plan-modal-card:hover{border-color:rgba(10,37,64,.3);box-shadow:0 2px 12px rgba(10,37,64,.08)}
+.plan-modal-card.selected{border-color:var(--navy);background:rgba(10,37,64,.025);box-shadow:0 0 0 3px rgba(10,37,64,.08)}
+.plan-modal-card-badge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-size:9px;font-weight:700;padding:2px 10px;border-radius:0 0 8px 8px;letter-spacing:.06em;white-space:nowrap}
+.plan-modal-card-name{font-family:'Manrope',sans-serif;font-weight:800;font-size:17px;color:var(--navy);margin-bottom:2px}
+.plan-modal-card-price{font-size:24px;font-weight:800;color:var(--navy);font-family:'Manrope',sans-serif;line-height:1.1}
+.plan-modal-card-fee{font-size:11px;color:var(--gray-400);margin-bottom:10px;margin-top:2px}
+.plan-modal-card-features{font-size:12px;color:var(--gray-500);line-height:1.65}
+.plan-modal-card-feature{display:flex;gap:5px;align-items:flex-start;padding:1px 0}
+.plan-modal-card-check{color:#16a34a;font-weight:700;flex-shrink:0;margin-top:1px}
+.plan-modal-selected-mark{display:none;position:absolute;top:10px;right:10px;width:20px;height:20px;background:var(--navy);border-radius:50%;align-items:center;justify-content:center}
+.plan-modal-card.selected .plan-modal-selected-mark{display:flex}
+#wiz-help-drawer-body{flex:1;overflow-y:auto;padding:20px 24px 32px;display:flex;flex-direction:column;gap:0}
+/* FAQ items */
+.wiz-faq-item{border-bottom:1px solid var(--gray-100)}
+.wiz-faq-item summary{padding:14px 0;font-size:13.5px;font-weight:600;color:var(--navy);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;font-family:'Inter',sans-serif}
+.wiz-faq-item summary::-webkit-details-marker{display:none}
+.wiz-faq-item summary::after{content:'+';font-size:18px;font-weight:300;color:var(--gray-400);flex-shrink:0;transition:transform .2s}
+.wiz-faq-item[open] summary::after{transform:rotate(45deg)}
+.wiz-faq-item p{font-size:13px;color:var(--gray-500);line-height:1.65;padding:0 0 14px;font-family:'Inter',sans-serif}
+#wiz-help-wa-block{margin-top:24px;padding:20px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:14px}
+/* Step 8 checkout redesign */
+.wiz-checkout-summary{background:var(--gray-50);border:1px solid var(--gray-200);border-radius:14px;overflow:hidden;margin-bottom:24px}
+.wiz-checkout-row{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-bottom:1px solid var(--gray-200);font-size:13.5px}
+.wiz-checkout-row:last-child{border-bottom:none}
+/* Step 8 — conversion-focused layout */
+.wiz-pay-primary-btn{display:block;width:100%;margin-top:20px;padding:18px 24px;background:var(--navy);color:#fff;border:none;border-radius:var(--r-lg);font-size:17px;font-weight:800;cursor:pointer;letter-spacing:.01em;font-family:'Manrope',sans-serif;box-shadow:0 4px 20px rgba(10,37,64,.22);transition:transform .15s,box-shadow .15s}
+.wiz-pay-primary-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(10,37,64,.3)}
+.wiz-pay-primary-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.wiz-trust-row{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;font-size:12px;color:var(--gray-400);flex-wrap:wrap;font-family:'Inter',sans-serif}
+.wiz-trust-dot{width:3px;height:3px;border-radius:50%;background:var(--gray-300);display:inline-block}
+.wiz-step8-help{margin-top:28px;padding-top:20px;border-top:1px solid var(--gray-100);text-align:center}
+.wiz-step8-help>span{font-size:13px;color:var(--gray-400);font-family:'Inter',sans-serif}
+.wiz-step8-help-actions{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+.wiz-step8-help-btn{background:none;border:1px solid var(--gray-200);border-radius:var(--r-pill);padding:7px 16px;font-size:12.5px;color:var(--navy);cursor:pointer;font-family:'Inter',sans-serif;font-weight:500;text-decoration:none;transition:border-color .15s,background .15s;display:inline-flex;align-items:center}
+.wiz-step8-help-btn:hover{border-color:var(--navy);background:var(--gray-50)}
+.wiz-checkout-total{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;background:var(--navy);color:#fff}
+.wiz-checkout-cta{display:flex;flex-direction:column;gap:10px}
+/* Mobile summary accordion */
+.wiz-mob-summary{display:none;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:12px;overflow:hidden;margin-bottom:20px}
+.wiz-mob-summary summary{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;cursor:pointer;font-size:14px;font-weight:600;font-family:'Inter',sans-serif;list-style:none}
+.wiz-mob-summary summary::-webkit-details-marker{display:none}
+.wiz-mob-summary .mob-sum-body{padding:0 16px 16px;border-top:1px solid var(--gray-200)}
+@media(max-width:1060px){.wiz-mob-summary{display:block}}
+/* Progress bar stage grouping */
+.wiz-connector.completed{background:var(--navy)}
+/* Wizard page header */
+.wiz-page-header{text-align:center;padding:24px 0 18px;border-bottom:1px solid var(--gray-100);margin-bottom:24px}
+.wiz-page-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);background:rgba(10,37,64,.06);border-radius:100px;padding:5px 14px;margin-bottom:14px}
+.wiz-page-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:clamp(1.35rem,3vw,2rem);color:var(--navy);letter-spacing:-.025em;margin-bottom:6px}
+.wiz-page-sub{color:var(--gray-500);font-size:14px;font-family:'Inter',sans-serif}
+
+/* ── Mobile wizard optimizations ─────────────────────────── */
+@media(max-width:768px){
+  /* Reduce container top padding — must clear fixed navbar (62px) */
+  #page-wizard>.container{padding-top:calc(var(--nav-h,62px) + 14px)!important;padding-left:16px!important;padding-right:16px!important}
+  /* Compress page header */
+  .wiz-page-header{padding:10px 0 8px;margin-bottom:12px;border-bottom:none}
+  .wiz-page-title{font-size:1.25rem;margin-bottom:4px}
+  .wiz-page-sub{font-size:12.5px}
+  /* Tighter mobile summary bar */
+  .wiz-mob-summary{margin-bottom:12px;border-radius:10px}
+  .wiz-mob-summary summary{padding:11px 14px;font-size:13px}
+  /* Compress progress bar */
+  .wizard-progress{margin-bottom:16px}
+  .wiz-step-num{width:28px;height:28px;font-size:12px}
+  .wiz-step-label{font-size:10px}
+  .wiz-connector{min-width:10px;max-width:32px}
+  /* Tighter step cards */
+  .wiz-panel-inner{padding:20px 16px}
+  .wiz-title{font-size:1.2rem;margin-bottom:6px}
+  .wiz-sub{font-size:13px;margin-bottom:16px;line-height:1.55}
+  /* Nav buttons — stacked, full width on mobile */
+  .wiz-nav{flex-direction:column-reverse;gap:8px;margin-top:18px;padding-top:14px}
+  .wiz-nav .btn{width:100%;justify-content:center}
+  /* Option cards tighter */
+  .wiz-option-card{padding:18px 14px!important}
+  .wiz-opt-icon{width:36px;height:36px;margin-bottom:10px}
+  .wiz-option-title{font-size:14px!important;margin-bottom:3px!important}
+  /* Help trigger — top-right on mobile, icon only */
+  #wiz-help-trigger{bottom:auto!important;top:calc(var(--nav-h,62px) + 10px)!important;right:12px!important;padding:8px 12px!important;font-size:12px!important;gap:5px!important;box-shadow:0 2px 12px rgba(10,37,64,.2)!important}
+  #wiz-help-trigger span{display:none}
+  /* Step 8 primary pay button */
+  .wiz-pay-primary-btn{font-size:15px;padding:16px 18px}
+  /* Step 8 help section */
+  .wiz-step8-help-actions{flex-direction:column;gap:8px;align-items:stretch}
+  .wiz-step8-help-actions .wiz-trust-dot{display:none}
+  .wiz-step8-help-btn{justify-content:center}
+}
+@media(max-width:480px){
+  .wiz-step-label{display:none}
+  .wizard-progress{margin-bottom:12px}
+  .wiz-page-header{padding:8px 0 8px}
+  .wiz-panel-inner{padding:16px 14px}
+}
 </style>
 <!-- Supabase JS — required for Google OAuth in wizard Step 5 -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -1322,7 +1485,7 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
     <div class="services-grid">
       <!-- Starter -->
       <div class="service-card rv rv-d1" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12)">
-        <div class="service-name" style="color:#fff">Basic</div>
+        <div class="service-name" style="color:#fff">Starter</div>
         <div class="service-price" style="color:#fff">$499 <span style="color:rgba(255,255,255,.4)">+ tarifa estatal</span></div>
         <div class="service-period" style="color:rgba(255,255,255,.4)">Pago único · Sin costos ocultos</div>
         <div class="service-divider" style="background:rgba(255,255,255,.08)"></div>
@@ -1334,12 +1497,12 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
           <div class="service-feature" style="color:rgba(255,255,255,.35)"><span class="feature-no">✗</span>EIN del IRS</div>
           <div class="service-feature" style="color:rgba(255,255,255,.35)"><span class="feature-no">✗</span>Guía bancaria</div>
         </div>
-        <a href="https://wa.me/19046248859" target="_blank" class="btn btn-glass" style="width:100%;justify-content:center">Comenzar Basic →</a>
+        <a href="https://wa.me/19046248859" target="_blank" class="btn btn-glass" style="width:100%;justify-content:center">Comenzar Starter →</a>
       </div>
       <!-- Professional (featured) -->
       <div class="service-card featured rv rv-d2" style="background:rgba(255,255,255,.10);border-color:var(--accent);transform:translateY(-10px)">
         <div class="featured-badge">Más popular</div>
-        <div class="service-name" style="color:#fff">Growth ⭐</div>
+        <div class="service-name" style="color:#fff">Pro</div>
         <div class="service-price" style="color:#fff">$799 <span style="color:rgba(255,255,255,.4)">+ tarifa estatal</span></div>
         <div class="service-period" style="color:rgba(255,255,255,.4)">Pago único · Sin costos ocultos</div>
         <div class="service-divider" style="background:rgba(255,255,255,.08)"></div>
@@ -1351,11 +1514,11 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
           <div class="service-feature" style="color:rgba(255,255,255,.85)"><span class="feature-check">✓</span><strong>EIN del IRS incluido</strong></div>
           <div class="service-feature" style="color:rgba(255,255,255,.85)"><span class="feature-check">✓</span><strong>Guía apertura bancaria</strong></div>
         </div>
-        <button class="btn btn-primary" style="width:100%;justify-content:center;background:var(--accent)" onclick="alert('¡Excelente elección! Te contactaremos para iniciar.')">🚀 Elegir Professional →</button>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;background:var(--accent)" onclick="alert('¡Excelente elección! Te contactaremos para iniciar.')">Elegir Pro →</button>
       </div>
       <!-- Premium -->
       <div class="service-card rv rv-d3" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12)">
-        <div class="service-name" style="color:#fff">Premium Concierge</div>
+        <div class="service-name" style="color:#fff">Premium</div>
         <div class="service-price" style="color:#fff">$1,200 <span style="color:rgba(255,255,255,.4)">+ tarifa estatal</span></div>
         <div class="service-period" style="color:rgba(255,255,255,.4)">Pago único · Sin costos ocultos</div>
         <div class="service-divider" style="background:rgba(255,255,255,.08)"></div>
@@ -1367,7 +1530,7 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
           <div class="service-feature" style="color:rgba(255,255,255,.75)"><span class="feature-check">✓</span>Form 5472 incluido</div>
           <div class="service-feature" style="color:rgba(255,255,255,.75)"><span class="feature-check">✓</span>Soporte prioritario 24/7</div>
         </div>
-        <a href="https://wa.me/19046248859" target="_blank" class="btn btn-glass" style="width:100%;justify-content:center">Comenzar Premium Concierge →</a>
+        <a href="https://wa.me/19046248859" target="_blank" class="btn btn-glass" style="width:100%;justify-content:center">Comenzar Premium →</a>
       </div>
     </div>
     <p style="text-align:center;font-size:13px;color:rgba(255,255,255,.3);margin-top:28px" class="rv">* Precios no incluyen tarifas estatales (Wyoming ~$62 · Delaware ~$140 · Florida ~$125). Informamos el total antes de proceder.</p>
@@ -1520,18 +1683,30 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
 <!-- VERIFIED CHANGE: CLAUDE CODE APPLIED THIS UPDATE -->
 <!-- MVP SPRINT MAIN FLOW CONFIRMED -->
 <div id="page-wizard" class="page">
-<div class="container" style="padding:40px 28px 80px">
+<div class="container" style="padding:28px 28px 80px">
 
-  <!-- MVP sprint mode marker -->
-  <div style="text-align:center;margin-bottom:14px;padding:7px 18px;background:rgba(220,38,38,.07);border:1px solid rgba(220,38,38,.2);border-radius:8px;font-size:11px;font-weight:800;color:var(--red);letter-spacing:.1em;display:inline-block">MVP SPRINT MODE ACTIVE</div>
-
-  <div style="text-align:center;margin-bottom:36px">
-    <div class="tag">Asistente de formación</div>
-    <h1 style="font-family:var(--display);font-size:clamp(1.7rem,3.5vw,2.4rem);color:var(--navy);margin-bottom:8px">Configura tu empresa en EE.UU.</h1>
-    <p style="color:var(--gray-500);max-width:500px;margin:0 auto">7 pasos simples. Precios reales por estado. Sin sorpresas.</p>
+  <!-- Wizard header -->
+  <div class="wiz-page-header">
+    <h1 class="wiz-page-title">Completa los datos de tu empresa</h1>
+    <p class="wiz-page-sub">Proceso guiado, precios reales por estado y sin sorpresas.</p>
   </div>
 
-  <!-- Progress bar -->
+  <!-- Mobile summary accordion (shown below 1060px) -->
+  <details class="wiz-mob-summary" id="wizMobSummary">
+    <summary>
+      <span>Ver resumen de mi orden</span>
+      <span id="wizMobTotal" style="color:var(--navy)">—</span>
+    </summary>
+    <div class="mob-sum-body" style="padding-top:12px">
+      <div style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0"><span style="color:var(--gray-500)">Plan</span><span id="mobSbPlan" style="font-weight:600">—</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0"><span style="color:var(--gray-500)">Empresa</span><span id="mobSbType" style="font-weight:600">—</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0"><span style="color:var(--gray-500)">Estado</span><span id="mobSbState" style="font-weight:600">—</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0"><span style="color:var(--gray-500)">Nombre</span><span id="mobSbName" style="font-weight:600">—</span></div>
+      <div style="border-top:1px solid var(--gray-200);margin-top:8px;padding-top:8px;display:flex;justify-content:space-between;font-size:14px;font-weight:700"><span>Total estimado</span><span id="mobSbTotal">—</span></div>
+    </div>
+  </details>
+
+  <!-- Progress bar — 6 visual stages -->
   <div class="wizard-progress" id="wizardProgress">
     <div class="wiz-step active" data-step="1"><div class="wiz-step-num">1</div><div class="wiz-step-label">Perfil</div></div>
     <div class="wiz-connector"></div>
@@ -1543,9 +1718,9 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
     <div class="wiz-connector"></div>
     <div class="wiz-step" data-step="5"><div class="wiz-step-num">5</div><div class="wiz-step-label">Contacto</div></div>
     <div class="wiz-connector"></div>
-    <div class="wiz-step" data-step="6"><div class="wiz-step-num">6</div><div class="wiz-step-label">Plan</div></div>
+    <div class="wiz-step" data-step="7"><div class="wiz-step-num">6</div><div class="wiz-step-label">Extras</div></div>
     <div class="wiz-connector"></div>
-    <div class="wiz-step" data-step="8"><div class="wiz-step-num">✓</div><div class="wiz-step-label">Listo</div></div>
+    <div class="wiz-step" data-step="8"><div class="wiz-step-num">7</div><div class="wiz-step-label">Pago</div></div>
   </div>
 
   <div class="wizard-layout">
@@ -1553,59 +1728,70 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
 
       <!-- STEP 1: Pre-segmentation -->
       <div class="wiz-panel active" id="wizStep1">
-        <h2 class="wiz-title">¿Dónde vives actualmente?</h2>
-        <p class="wiz-sub">Esto nos ayuda a personalizar tu proceso y recomendaciones.</p>
-        <div class="wiz-options" style="grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
-          <label class="wiz-option" for="resUS" id="resUSLbl" onclick="document.getElementById('resUSLbl').classList.add('selected');document.getElementById('resForeignLbl').classList.remove('selected')">
-            <input type="radio" id="resUS" name="resident_type" value="us">
-            <div class="wiz-option-card" style="text-align:center;padding:28px 20px">
-              <div style="font-size:48px;margin-bottom:10px">🇺🇸</div>
-              <div class="wiz-option-title" style="font-size:16px">Vivo en EE.UU.</div>
-              <div style="font-size:13px;color:var(--gray-500);margin-top:6px">Residente o ciudadano</div>
-            </div>
-          </label>
-          <label class="wiz-option selected" for="resForeign" id="resForeignLbl" onclick="document.getElementById('resForeignLbl').classList.add('selected');document.getElementById('resUSLbl').classList.remove('selected')">
-            <input type="radio" id="resForeign" name="resident_type" value="foreign" checked>
-            <div class="wiz-option-card" style="text-align:center;padding:28px 20px">
-              <div style="font-size:48px;margin-bottom:10px">🌎</div>
-              <div class="wiz-option-title" style="font-size:16px">Vivo fuera de EE.UU.</div>
-              <div style="font-size:13px;color:var(--gray-500);margin-top:6px">Extranjero / internacional</div>
-            </div>
-          </label>
+        <div class="wiz-panel-inner">
+          <h2 class="wiz-title">¿Dónde vives actualmente?</h2>
+          <p class="wiz-sub">Tu ubicación nos ayuda a personalizar el proceso. Ambas opciones pueden abrir una empresa en EE.UU.</p>
+          <div class="wiz-options" style="grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px">
+            <label class="wiz-option" for="resUS" id="resUSLbl" onclick="document.getElementById('resUSLbl').classList.add('selected');document.getElementById('resForeignLbl').classList.remove('selected')">
+              <input type="radio" id="resUS" name="resident_type" value="us">
+              <div class="wiz-option-card" style="padding:26px 20px">
+                <div class="wiz-opt-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                </div>
+                <div class="wiz-option-title" style="font-size:15px;margin-bottom:4px">Vivo en EE.UU.</div>
+                <div style="font-size:12.5px;color:var(--gray-500);line-height:1.5">Residente o ciudadano americano</div>
+              </div>
+            </label>
+            <label class="wiz-option selected" for="resForeign" id="resForeignLbl" onclick="document.getElementById('resForeignLbl').classList.add('selected');document.getElementById('resUSLbl').classList.remove('selected')">
+              <input type="radio" id="resForeign" name="resident_type" value="foreign" checked>
+              <div class="wiz-option-card" style="padding:26px 20px">
+                <div class="wiz-opt-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+                </div>
+                <div class="wiz-option-title" style="font-size:15px;margin-bottom:4px">Vivo fuera de EE.UU.</div>
+                <div style="font-size:12.5px;color:var(--gray-500);line-height:1.5">Extranjero sin SSN · proceso 100% remoto</div>
+              </div>
+            </label>
+          </div>
+          <div id="wizForeignBanner" style="padding:12px 16px;background:rgba(10,37,64,.04);border:1px solid rgba(10,37,64,.1);border-radius:var(--r);font-size:13px;color:var(--navy);margin-bottom:20px">
+            <strong>Para clientes internacionales:</strong> gestionamos tu EIN del IRS sin necesidad de SSN ni visa. Todo remoto.
+          </div>
+          <div class="wiz-nav"><span></span><button class="btn btn-primary" onclick="wizNext(1)">Continuar — Tipo de empresa</button></div>
         </div>
-        <div id="wizForeignBanner" style="padding:14px 18px;background:rgba(37,99,235,.06);border:1.5px solid rgba(37,99,235,.2);border-radius:var(--r);font-size:13.5px;color:var(--navy);margin-bottom:20px">
-          🌎 <strong>Para clientes internacionales:</strong> el Plan Basic incluye LLC + EIN (requerido por el IRS para extranjeros). Lo gestionamos por ti.
-        </div>
-        <div class="wiz-nav"><span></span><button class="btn btn-primary" onclick="wizNext(1)">Siguiente → Tipo de empresa</button></div>
       </div>
 
       <!-- STEP 2: Company type -->
       <div class="wiz-panel" id="wizStep2">
-        <h2 class="wiz-title">¿Qué tipo de empresa quieres formar?</h2>
-        <p class="wiz-sub">La LLC es la más popular para emprendedores internacionales. La Corporation es ideal si buscas inversión.</p>
-        <div class="wiz-options" style="grid-template-columns:1fr 1fr;gap:16px">
+        <div class="wiz-panel-inner">
+        <h2 class="wiz-title">¿Qué tipo de empresa quieres registrar?</h2>
+        <p class="wiz-sub">Ambas se pueden abrir siendo extranjero, sin SSN ni visa. La diferencia está en la estructura y propósito.</p>
+        <div class="wiz-options" style="grid-template-columns:1fr 1fr;gap:14px">
           <label class="wiz-option selected" for="typeLLC">
             <input type="radio" id="typeLLC" name="company_type" value="llc" checked>
-            <div class="wiz-option-card" style="position:relative">
-              <div style="position:absolute;top:12px;right:12px;background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.05em">RECOMENDADA</div>
-              <div class="wiz-option-icon">🏢</div>
-              <div class="wiz-option-title">LLC</div>
-              <div class="wiz-option-desc" style="font-size:13px;color:var(--gray-500);margin-top:6px;line-height:1.55">La más popular. Protección personal + flexibilidad fiscal. Ideal para extranjeros y freelancers.</div>
+            <div class="wiz-option-card" style="position:relative;padding:24px">
+              <div style="position:absolute;top:12px;right:12px;background:var(--navy);color:#fff;font-size:9px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase">Más elegida</div>
+              <div class="wiz-opt-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="1"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+              </div>
+              <div class="wiz-option-title" style="font-size:18px;margin-bottom:6px">LLC</div>
+              <div class="wiz-option-desc">Flexible y simple. Protección personal con mínima burocracia. Ideal para founders internacionales y freelancers.</div>
             </div>
           </label>
           <label class="wiz-option" for="typeCorp">
             <input type="radio" id="typeCorp" name="company_type" value="corporation">
-            <div class="wiz-option-card">
-              <div class="wiz-option-icon">🏛️</div>
-              <div class="wiz-option-title">Corporation</div>
-              <div class="wiz-option-desc" style="font-size:13px;color:var(--gray-500);margin-top:6px;line-height:1.55">Ideal para inversión o múltiples accionistas. Estructura para startups y levantamiento de capital.</div>
+            <div class="wiz-option-card" style="padding:24px">
+              <div class="wiz-opt-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M9 8v13M15 8v13M3 8l9-5 9 5"/><line x1="2" y1="21" x2="22" y2="21"/></svg>
+              </div>
+              <div class="wiz-option-title" style="font-size:18px;margin-bottom:6px">Corporation</div>
+              <div class="wiz-option-desc">Estructura formal para startups que buscan inversión o tienen múltiples accionistas institucionales.</div>
             </div>
           </label>
         </div>
         <!-- Otras estructuras expandible -->
         <div style="margin-top:14px">
-          <button type="button" onclick="var d=document.getElementById('wizOtherTypes');d.style.display=d.style.display==='none'?'block':'none'" style="background:none;border:none;font-size:13px;color:var(--accent);cursor:pointer;font-weight:600;padding:4px 0">
-            ¿Necesitas otra estructura? → S-Corp, Non-Profit, Sole Prop, Series LLC ▾
+          <button type="button" onclick="var d=document.getElementById('wizOtherTypes');d.style.display=d.style.display==='none'?'block':'none'" style="background:none;border:none;font-size:13px;color:var(--navy);cursor:pointer;font-weight:600;padding:4px 0;font-family:'Inter',sans-serif;text-decoration:underline;text-underline-offset:3px">
+            ¿Necesitas otra estructura? S-Corp, Non-Profit, Series LLC
           </button>
           <div id="wizOtherTypes" style="display:none;margin-top:12px">
             <div class="wiz-options" style="grid-template-columns:1fr 1fr;gap:10px">
@@ -1640,49 +1826,51 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
             </div>
           </div>
         </div>
-        <div class="wiz-nav"><button class="btn btn-ghost" onclick="wizPrev(2)">← Anterior</button><button class="btn btn-primary" onclick="wizNext(2)">Siguiente → Estado</button></div>
+        <div class="wiz-nav"><button class="btn btn-ghost" onclick="wizPrev(2)">← Anterior</button><button class="btn btn-primary" onclick="wizNext(2)">Continuar — Estado</button></div>
+        </div><!-- /wiz-panel-inner -->
       </div>
 
       <!-- STEP 3: State selection with real pricing -->
       <div class="wiz-panel" id="wizStep3">
-        <h2 class="wiz-title">¿En qué estado quieres registrar tu empresa?</h2>
-        <p class="wiz-sub">Los precios cambian según el estado. Los totales se actualizan en tiempo real.</p>
+        <div class="wiz-panel-inner">
+        <h2 class="wiz-title">¿En qué estado registras tu empresa?</h2>
+        <p class="wiz-sub">No importa donde operes — el estado de registro determina la tarifa estatal y algunas ventajas fiscales.</p>
         <!-- Tip para extranjeros -->
-        <div style="padding:12px 16px;background:rgba(34,197,94,.06);border:1.5px solid rgba(34,197,94,.2);border-radius:var(--r);font-size:13px;color:var(--gray-700);margin-bottom:18px">
-          💡 <strong>¿No sabes cuál elegir?</strong> Wyoming y Florida son los más populares para extranjeros — bajo costo, privacidad y sin impuesto de LLC.
+        <div style="padding:12px 16px;background:rgba(10,37,64,.04);border:1px solid rgba(10,37,64,.1);border-radius:var(--r);font-size:13px;color:var(--navy);margin-bottom:18px">
+          <strong>¿Sin preferencia?</strong> Wyoming y Florida son los más elegidos por founders internacionales — bajo costo, privacidad alta, sin impuesto de LLC.
         </div>
         <div id="wizFeaturedStates" style="margin-bottom:16px">
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:8px">Estados más populares</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-            <button type="button" class="state-btn state-btn-light active" data-state="WY" onclick="wizSelectFeaturedState('WY')" style="padding:14px;text-align:left;border-radius:var(--r);border:1.5px solid var(--gray-200);background:#fff;cursor:pointer;font-family:var(--font)">
-              <div style="font-size:20px;margin-bottom:4px">🤠</div>
-              <div style="font-weight:700;font-size:14px;color:var(--navy)">Wyoming</div>
-              <div style="font-size:12px;color:var(--gray-500)">Sin impuesto estatal · Popular para extranjeros</div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:8px">Estados populares</div>
+          <div class="wiz-state-grid">
+            <button type="button" class="state-btn state-btn-light active" data-state="WY" onclick="wizSelectFeaturedState('WY')" style="padding:12px 14px;text-align:left;border-radius:var(--r);border:1.5px solid var(--gray-200);background:#fff;cursor:pointer;font-family:'Inter',sans-serif;transition:all .18s">
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:3px">WY · $62</div>
+              <div style="font-weight:700;font-size:13.5px;color:var(--navy)">Wyoming</div>
+              <div style="font-size:11.5px;color:var(--gray-500);margin-top:2px">Sin impuesto · Privacidad alta</div>
             </button>
-            <button type="button" class="state-btn state-btn-light" data-state="FL" onclick="wizSelectFeaturedState('FL')" style="padding:14px;text-align:left;border-radius:var(--r);border:1.5px solid var(--gray-200);background:#fff;cursor:pointer;font-family:var(--font)">
-              <div style="font-size:20px;margin-bottom:4px">🌴</div>
-              <div style="font-weight:700;font-size:14px;color:var(--navy)">Florida</div>
-              <div style="font-size:12px;color:var(--gray-500)">Gran mercado · Ideal para negocios físicos</div>
+            <button type="button" class="state-btn state-btn-light" data-state="FL" onclick="wizSelectFeaturedState('FL')" style="padding:12px 14px;text-align:left;border-radius:var(--r);border:1.5px solid var(--gray-200);background:#fff;cursor:pointer;font-family:'Inter',sans-serif;transition:all .18s">
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:3px">FL · $125</div>
+              <div style="font-weight:700;font-size:13.5px;color:var(--navy)">Florida</div>
+              <div style="font-size:11.5px;color:var(--gray-500);margin-top:2px">Gran mercado · Muy popular</div>
             </button>
-            <button type="button" class="state-btn state-btn-light" data-state="CO" onclick="wizSelectFeaturedState('CO')" style="padding:14px;text-align:left;border-radius:var(--r);border:1.5px solid var(--gray-200);background:#fff;cursor:pointer;font-family:var(--font)">
-              <div style="font-size:20px;margin-bottom:4px">🏔️</div>
-              <div style="font-weight:700;font-size:14px;color:var(--navy)">Colorado</div>
-              <div style="font-size:12px;color:var(--gray-500)">Ecosistema tech · Precio accesible</div>
+            <button type="button" class="state-btn state-btn-light" data-state="DE" onclick="wizSelectFeaturedState('DE')" style="padding:12px 14px;text-align:left;border-radius:var(--r);border:1.5px solid var(--gray-200);background:#fff;cursor:pointer;font-family:'Inter',sans-serif;transition:all .18s">
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:3px">DE · $140</div>
+              <div style="font-weight:700;font-size:13.5px;color:var(--navy)">Delaware</div>
+              <div style="font-size:11.5px;color:var(--gray-500);margin-top:2px">Favorito de inversores</div>
             </button>
-            <button type="button" class="state-btn state-btn-light" data-state="DE" onclick="wizSelectFeaturedState('DE')" style="padding:14px;text-align:left;border-radius:var(--r);border:1.5px solid var(--gray-200);background:#fff;cursor:pointer;font-family:var(--font)">
-              <div style="font-size:20px;margin-bottom:4px">🏆</div>
-              <div style="font-weight:700;font-size:14px;color:var(--navy)">Delaware</div>
-              <div style="font-size:12px;color:var(--gray-500)">Favorito de inversores · Estructura corporativa</div>
+            <button type="button" class="state-btn state-btn-light" data-state="TX" onclick="wizSelectFeaturedState('TX')" style="padding:12px 14px;text-align:left;border-radius:var(--r);border:1.5px solid var(--gray-200);background:#fff;cursor:pointer;font-family:'Inter',sans-serif;transition:all .18s">
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:3px">TX · $300</div>
+              <div style="font-weight:700;font-size:13.5px;color:var(--navy)">Texas</div>
+              <div style="font-size:11.5px;color:var(--gray-500);margin-top:2px">Sin impuesto estatal</div>
             </button>
-            <button type="button" class="state-btn state-btn-light" data-state="TX" onclick="wizSelectFeaturedState('TX')" style="padding:14px;text-align:left;border-radius:var(--r);border:1.5px solid var(--gray-200);background:#fff;cursor:pointer;font-family:var(--font)">
-              <div style="font-size:20px;margin-bottom:4px">⭐</div>
-              <div style="font-weight:700;font-size:14px;color:var(--navy)">Texas</div>
-              <div style="font-size:12px;color:var(--gray-500)">Sin impuesto estatal · Mercado enorme</div>
+            <button type="button" class="state-btn state-btn-light" data-state="NM" onclick="wizSelectFeaturedState('NM')" style="padding:12px 14px;text-align:left;border-radius:var(--r);border:1.5px solid var(--gray-200);background:#fff;cursor:pointer;font-family:'Inter',sans-serif;transition:all .18s">
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:3px">NM · $50</div>
+              <div style="font-weight:700;font-size:13.5px;color:var(--navy)">New Mexico</div>
+              <div style="font-size:11.5px;color:var(--gray-500);margin-top:2px">Más económico · Privacidad alta</div>
             </button>
-            <button type="button" class="state-btn state-btn-light" data-state="NM" onclick="wizSelectFeaturedState('NM')" style="padding:14px;text-align:left;border-radius:var(--r);border:1.5px solid var(--gray-200);background:#fff;cursor:pointer;font-family:var(--font)">
-              <div style="font-size:20px;margin-bottom:4px">🌵</div>
-              <div style="font-weight:700;font-size:14px;color:var(--navy)">New Mexico</div>
-              <div style="font-size:12px;color:var(--gray-500)">El más económico · Privacidad alta</div>
+            <button type="button" class="state-btn state-btn-light" data-state="CO" onclick="wizSelectFeaturedState('CO')" style="padding:12px 14px;text-align:left;border-radius:var(--r);border:1.5px solid var(--gray-200);background:#fff;cursor:pointer;font-family:'Inter',sans-serif;transition:all .18s">
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:3px">CO · $50</div>
+              <div style="font-weight:700;font-size:13.5px;color:var(--navy)">Colorado</div>
+              <div style="font-size:11.5px;color:var(--gray-500);margin-top:2px">Ecosistema tech · Accesible</div>
             </button>
           </div>
         </div>
@@ -1743,50 +1931,54 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
           </select>
         </div>
         <!-- Live state fee preview -->
-        <div id="wizStateFeePreview" style="display:none;padding:14px 18px;background:#fff;border:1.5px solid var(--accent);border-radius:var(--r);font-size:13.5px;color:var(--navy)"></div>
+        <div id="wizStateFeePreview" style="display:none;padding:14px 18px;background:#fff;border:1.5px solid var(--navy);border-radius:var(--r);font-size:13.5px;color:var(--navy)"></div>
         <div class="wiz-nav">
           <button class="btn btn-ghost" onclick="wizPrev(3)">← Anterior</button>
-          <button class="btn btn-primary" onclick="wizNext(3)">Siguiente → Nombre →</button>
+          <button class="btn btn-primary" onclick="wizNext(3)">Continuar — Nombre de empresa</button>
         </div>
+        </div><!-- /wiz-panel-inner -->
       </div>
 
       <!-- STEP 4: Company name -->
       <div class="wiz-panel" id="wizStep4">
+        <div class="wiz-panel-inner">
         <h2 class="wiz-title">¿Cómo se llamará tu empresa?</h2>
-        <p class="wiz-sub">El nombre puede ajustarse después. <strong>Esta es una validación preliminar</strong> — lo confirmamos manualmente antes de radicar.</p>
+        <p class="wiz-sub">Escribe el nombre que quieres. Revisamos disponibilidad antes de radicar. Puedes dar alternativas por si el principal no está disponible.</p>
 
         <div class="fgrp">
-          <label class="flbl" style="color:var(--navy)" for="wizCompanyName">Nombre de tu empresa *</label>
+          <label class="flbl" style="color:var(--navy)" for="wizCompanyName">Nombre principal *</label>
           <div style="display:flex;gap:10px;align-items:flex-start">
-            <input class="finput" id="wizCompanyName" type="text" placeholder="Ej: Mi Empresa LLC, Rodriguez Digital, Global Trade Co." required style="background:#fff;border-color:var(--gray-200);color:var(--navy);flex:1">
-            <button type="button" id="wizCheckNameBtn" onclick="wizCheckName()" style="height:44px;padding:0 16px;background:var(--accent);color:#fff;border:none;border-radius:var(--r);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0">Verificar</button>
+            <input class="finput" id="wizCompanyName" type="text" placeholder="Ej: Rodriguez Digital · Global Trade · CTE Holdings" required style="background:#fff;border-color:var(--gray-200);color:var(--navy);flex:1">
+            <button type="button" id="wizCheckNameBtn" onclick="wizCheckName()" style="height:44px;padding:0 16px;background:var(--navy);color:#fff;border:none;border-radius:var(--r);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:'Inter',sans-serif">Verificar</button>
           </div>
           <div id="wizNameCheckResult" style="display:none;margin-top:8px;padding:10px 14px;border-radius:var(--r);font-size:13px;font-weight:500"></div>
-          <div style="font-size:12px;color:var(--gray-400);margin-top:6px">💡 No necesitas incluir "LLC" — lo agregamos automáticamente si aplica.</div>
-          <div style="font-size:12px;color:var(--gray-500);margin-top:8px;padding:10px 12px;background:rgba(37,99,235,.05);border-radius:var(--r);border-left:3px solid var(--accent)">No te preocupes si no estás seguro — podemos ajustarlo antes de radicar.</div>
+          <div style="font-size:12px;color:var(--gray-500);margin-top:6px">No incluyas LLC ni Corp — lo agregamos automáticamente.</div>
+          <div style="font-size:12px;color:var(--gray-500);margin-top:8px;padding:10px 12px;background:var(--gray-50);border-radius:var(--r);border-left:2px solid var(--navy)">Si no estás seguro del nombre, puedes cambiarlo antes de que lo radiquemos.</div>
         </div>
 
         <div class="fgrp">
-          <label class="flbl" style="color:var(--navy)" for="wizAltName1">Nombre alternativo 1 <span style="font-weight:400;color:var(--gray-400)">(opcional)</span></label>
-          <input class="finput" id="wizAltName1" type="text" placeholder="Ej: Global Ventures Group LLC" style="background:#fff;border-color:var(--gray-200);color:var(--navy)">
+          <label class="flbl" style="color:var(--navy)" for="wizAltName1">Alternativa 1 <span style="font-weight:400;color:var(--gray-400)">(opcional)</span></label>
+          <input class="finput" id="wizAltName1" type="text" placeholder="Ej: Global Ventures Group" style="background:#fff;border-color:var(--gray-200);color:var(--navy)">
         </div>
 
         <div class="fgrp">
-          <label class="flbl" style="color:var(--navy)" for="wizAltName2">Nombre alternativo 2 <span style="font-weight:400;color:var(--gray-400)">(opcional)</span></label>
-          <input class="finput" id="wizAltName2" type="text" placeholder="Ej: GV Holdings LLC" style="background:#fff;border-color:var(--gray-200);color:var(--navy)">
+          <label class="flbl" style="color:var(--navy)" for="wizAltName2">Alternativa 2 <span style="font-weight:400;color:var(--gray-400)">(opcional)</span></label>
+          <input class="finput" id="wizAltName2" type="text" placeholder="Ej: GV Holdings" style="background:#fff;border-color:var(--gray-200);color:var(--navy)">
         </div>
 
         <div id="wizStep3Error" class="form-error-banner"></div>
         <div class="wiz-nav">
           <button class="btn btn-ghost" onclick="wizPrev(4)">← Anterior</button>
-          <button class="btn btn-primary" onclick="wizNext(4)">Siguiente → Contacto →</button>
+          <button class="btn btn-primary" onclick="wizNext(4)">Continuar — Datos de contacto</button>
         </div>
+        </div><!-- /wiz-panel-inner -->
       </div>
 
       <!-- STEP 5: Contact form (simplified) -->
       <div class="wiz-panel" id="wizStep5">
+        <div class="wiz-panel-inner">
         <h2 class="wiz-title">Tus datos de contacto</h2>
-        <p class="wiz-sub">Sin compromiso. Solo necesitamos lo básico para preparar tu caso.</p>
+        <p class="wiz-sub">Necesitamos lo básico para preparar tu caso y enviarte la confirmación. Sin compromiso de pago en este paso.</p>
         <form id="wizardForm" novalidate>
           <input type="hidden" name="_subject" value="Nuevo cliente del Asistente — CreaTuEmpresaUSA">
           <input type="hidden" name="source" value="wizard">
@@ -1952,8 +2144,8 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
                 <input class="finput" id="wizPersonalAddress" type="text" placeholder="Calle, número, colonia" style="background:#fff;border-color:var(--gray-200);color:var(--navy)">
               </div>
             </div>
-            <div style="padding:12px 16px;background:rgba(37,99,235,.05);border:1.5px solid rgba(37,99,235,.15);border-radius:var(--r);font-size:13px;color:var(--navy);margin-bottom:16px">
-              📬 No necesitas dirección en EE.UU. — puedes agregar una dirección comercial virtual en el siguiente paso.
+            <div style="padding:12px 16px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--r);font-size:13px;color:var(--navy);margin-bottom:16px">
+              No necesitas dirección en EE.UU. — puedes agregar una dirección comercial virtual como extra.
             </div>
           </div>
 
@@ -1991,28 +2183,69 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
 
           <div class="wiz-nav">
             <button type="button" class="btn btn-ghost" onclick="wizPrev(5)">← Anterior</button>
-            <button type="submit" class="btn btn-primary" id="wizSubmitBtn">Siguiente → Elige tu plan →</button>
+            <button type="submit" class="btn btn-primary" id="wizSubmitBtn">Continuar — Configuración</button>
           </div>
         </form>
         <div id="wizardFormError" class="form-error-banner"></div>
+        </div><!-- /wiz-panel-inner -->
       </div>
 
-      <!-- STEP 6: Plans -->
+      <!-- STEP 6b: Base plan confirmation (shown when plan comes from landing) -->
+      <div class="wiz-panel" id="wizStep6b">
+        <div class="wiz-panel-inner">
+          <div style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);background:rgba(10,37,64,.06);border-radius:100px;padding:4px 12px;margin-bottom:16px">Confirmación</div>
+          <h2 class="wiz-title">Tu configuración base está lista.</h2>
+          <p class="wiz-sub">Esto es lo que ya tienes cubierto con tu plan. A continuación puedes agregar servicios opcionales.</p>
+          <div class="wiz-base-confirm" id="wiz6bConfirmBlock">
+            <div class="wiz-base-confirm-row">
+              <span class="wiz-base-confirm-label">Plan</span>
+              <span class="wiz-base-confirm-val" id="wiz6bPlan">—</span>
+            </div>
+            <div class="wiz-base-confirm-row">
+              <span class="wiz-base-confirm-label">Tipo de empresa</span>
+              <span class="wiz-base-confirm-val" id="wiz6bType">—</span>
+            </div>
+            <div class="wiz-base-confirm-row">
+              <span class="wiz-base-confirm-label">Estado</span>
+              <span class="wiz-base-confirm-val" id="wiz6bState">—</span>
+            </div>
+            <div class="wiz-base-confirm-row">
+              <span class="wiz-base-confirm-label">Tarifa estatal</span>
+              <span class="wiz-base-confirm-val" id="wiz6bStateFee">—</span>
+            </div>
+            <div class="wiz-base-confirm-row" style="border-bottom:none;padding-top:12px;margin-top:4px">
+              <span style="font-weight:700;font-size:15px;color:var(--navy)">Subtotal base</span>
+              <span style="font-weight:800;font-size:18px;color:var(--navy)" id="wiz6bTotal">—</span>
+            </div>
+            <div class="wiz-base-includes">
+              <div class="wiz-base-includes-title">Incluido en tu plan</div>
+              <ul class="wiz-base-includes-list" id="wiz6bIncludes"></ul>
+            </div>
+          </div>
+          <div class="wiz-nav">
+            <button class="btn btn-ghost" onclick="wizGoTo(5)">← Anterior</button>
+            <button class="btn btn-primary" onclick="wizRefreshAddons();wizGoTo(7)">Continuar — Configurar extras</button>
+          </div>
+        </div><!-- /wiz-panel-inner -->
+      </div>
+
+      <!-- STEP 6: Plans (shown when NO plan comes from landing) -->
       <div class="wiz-panel" id="wizStep6">
+        <div class="wiz-panel-inner">
         <h2 class="wiz-title">Elige tu plan</h2>
-        <p class="wiz-sub">Precios reales para el estado que elegiste. El total incluye tarifa estatal.</p>
+        <p class="wiz-sub">Precios reales para el estado que elegiste. El total incluye la tarifa estatal.</p>
         <!-- Foreign EIN badge (shown only for foreign residents) -->
-        <div id="wizBasicEinBadge" style="display:none;padding:12px 16px;background:rgba(37,99,235,.06);border:1.5px solid rgba(37,99,235,.2);border-radius:var(--r);font-size:13px;color:var(--navy);margin-bottom:16px">
-          ✅ <strong>Plan Basic incluye EIN</strong> — requerido por el IRS para extranjeros. Lo tramitamos por ti.
+        <div id="wizBasicEinBadge" style="display:none;padding:12px 16px;background:rgba(10,37,64,.04);border:1px solid rgba(10,37,64,.1);border-radius:var(--r);font-size:13px;color:var(--navy);margin-bottom:16px">
+          <strong>Plan Starter incluye EIN</strong> — requerido por el IRS para extranjeros. Lo tramitamos por ti.
         </div>
         <div class="wiz-plans">
 
           <label class="wiz-plan-option" for="planBasic">
             <input type="radio" id="planBasic" name="plan" value="basic">
             <div class="wiz-plan-card">
-              <div class="wiz-plan-header"><div class="wiz-plan-name">Plan Basic</div><div class="wiz-plan-price" id="wiz3PriceB">$549</div></div>
+              <div class="wiz-plan-header"><div class="wiz-plan-name">Starter</div><div class="wiz-plan-price" id="wiz3PriceB">$549</div></div>
               <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:6px">Incluido</div>
-              <ul class="wiz-plan-features"><li>✅ Formación de LLC o Corporation</li><li>✅ EIN del IRS</li><li>✅ Articles of Organization</li><li>✅ Registered Agent (1 año)</li><li>✅ Documentos digitales</li></ul>
+              <ul class="wiz-plan-features"><li>Formación de LLC o Corporation</li><li>EIN del IRS</li><li>Articles of Organization</li><li>Registered Agent (1 año)</li><li>Documentos digitales</li></ul>
               <div style="border-top:1px solid var(--gray-200);margin-top:10px;padding-top:8px">
                 <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);padding:2px 0"><span>Honorarios de servicio</span><span style="font-weight:600">$499</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);padding:2px 0"><span>Tarifa estatal</span><span style="font-weight:600" id="wiz3StateFeeB">$50</span></div>
@@ -2022,12 +2255,12 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
           </label>
 
           <label class="wiz-plan-option popular" for="planGrowth">
-            <div class="wiz-plan-popular">⭐ Más popular</div>
+            <div class="wiz-plan-popular">Más popular</div>
             <input type="radio" id="planGrowth" name="plan" value="growth" checked>
             <div class="wiz-plan-card">
-              <div class="wiz-plan-header"><div class="wiz-plan-name">Plan Growth</div><div class="wiz-plan-price" id="wiz3PriceG">$849</div></div>
-              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:6px">Todo en Basic +</div>
-              <ul class="wiz-plan-features"><li>✅ Operating Agreement completo</li><li>✅ Asesoría apertura bancaria</li><li>✅ Guía de compliance anual</li><li>✅ Soporte prioritario por email</li></ul>
+              <div class="wiz-plan-header"><div class="wiz-plan-name">Pro</div><div class="wiz-plan-price" id="wiz3PriceG">$849</div></div>
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:6px">Todo en Starter +</div>
+              <ul class="wiz-plan-features"><li>Operating Agreement completo</li><li>Asesoría apertura bancaria</li><li>Guía de compliance anual</li><li>Soporte prioritario por email</li></ul>
               <div style="border-top:1px solid var(--gray-200);margin-top:10px;padding-top:8px">
                 <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);padding:2px 0"><span>Honorarios de servicio</span><span style="font-weight:600">$799</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);padding:2px 0"><span>Tarifa estatal</span><span style="font-weight:600" id="wiz3StateFeeG">$50</span></div>
@@ -2040,9 +2273,9 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
             <input type="radio" id="planPremium" name="plan" value="premium">
             <div class="wiz-plan-card">
               <div style="display:inline-block;background:linear-gradient(90deg,#0A2540,#2563eb);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:8px;letter-spacing:.05em">CONCIERGE</div>
-              <div class="wiz-plan-header"><div class="wiz-plan-name">Plan Premium</div><div class="wiz-plan-price" id="wiz3PricePrem">$1,250</div></div>
-              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:6px">Todo en Growth +</div>
-              <ul class="wiz-plan-features"><li>✅ Fast-track (prioridad máxima)</li><li>✅ Business Address Standard (12 meses)</li><li>✅ Sesión de asesoría fiscal</li><li>✅ Soporte dedicado WhatsApp</li><li>✅ Form 5472 incluido</li></ul>
+              <div class="wiz-plan-header"><div class="wiz-plan-name">Premium</div><div class="wiz-plan-price" id="wiz3PricePrem">$1,250</div></div>
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:6px">Todo en Pro +</div>
+              <ul class="wiz-plan-features"><li>Fast-track (prioridad máxima)</li><li>Business Address Standard (12 meses)</li><li>Sesión de asesoría fiscal</li><li>Soporte dedicado WhatsApp</li><li>Form 5472 incluido</li></ul>
               <div style="border-top:1px solid var(--gray-200);margin-top:10px;padding-top:8px">
                 <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);padding:2px 0"><span>Honorarios de servicio</span><span style="font-weight:600">$1,200</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);padding:2px 0"><span>Tarifa estatal</span><span style="font-weight:600" id="wiz3StateFeePrem">$50</span></div>
@@ -2052,7 +2285,8 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
           </label>
 
         </div>
-        <div class="wiz-nav"><button class="btn btn-ghost" onclick="wizPrev(6)">← Anterior</button><button class="btn btn-primary" onclick="wizNext(6)">Siguiente → Extras →</button></div>
+        <div class="wiz-nav"><button class="btn btn-ghost" onclick="wizPrev(6)">← Anterior</button><button class="btn btn-primary" onclick="wizNext(6)">Continuar — Extras</button></div>
+        </div><!-- /wiz-panel-inner -->
       </div>
 
       <!-- STEP 7: Upsells — dynamic sub-steps (5 for foreign, 3 for US) -->
@@ -2110,41 +2344,58 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
 
       </div>
 
-      <!-- STEP 8: Summary + CTA -->
-      <!-- ORDER FLOW STABILIZED -->
-      <!-- GOOGLE AUTH ENTRY POINT -->
+      <!-- STEP 8: Summary + Payment -->
       <div class="wiz-panel" id="wizStep8">
-        <div style="text-align:center;padding:12px 0 20px">
-          <div style="font-size:48px;margin-bottom:10px">🎉</div>
-          <h2 class="wiz-title">¡Tu empresa está casi lista!</h2>
-          <p class="wiz-sub">Resumen transparente de tu selección. Nuestro equipo te contactará pronto.</p>
-        </div>
-        <div id="wizSummaryFull"></div>
+        <div class="wiz-panel-inner">
 
-
-        <!-- Google Sign-In — reads from window.CONFIG.GOOGLE_AUTH_ENABLED -->
-        <div id="wizGoogleAuthArea" style="margin-bottom:20px">
-          <div style="text-align:center;margin-bottom:10px;font-size:12px;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:.06em">Guarda tu pedido con tu cuenta</div>
-          <button id="wizGoogleBtn" onclick="wizTryGoogleAuth()" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:12px 20px;background:#fff;border:1.5px solid var(--gray-200);border-radius:var(--r-lg);font-size:14px;font-weight:600;color:var(--navy);cursor:pointer;transition:border-color .2s,box-shadow .2s;box-shadow:0 1px 3px rgba(0,0,0,.06)">
-            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-            Continuar con Google
-          </button>
-          <div id="wizGoogleStatus" style="margin-top:8px;text-align:center;font-size:11.5px;color:var(--gray-400)"></div>
-          <!-- GOOGLE SESSION CHECK READY — success banner shown by initGoogleSessionCheck() -->
-          <div id="wizGoogleSuccessArea" style="display:none;margin-top:12px;padding:14px 16px;background:rgba(34,197,94,.09);border:1.5px solid rgba(34,197,94,.4);border-radius:var(--r-lg);text-align:center">
-            <div style="font-size:13px;font-weight:700;color:#15803d;margin-bottom:6px">✅ Sesión iniciada con Google</div>
-            <div id="wizGoogleUserEmail" style="font-size:13px;color:var(--navy);font-weight:600"></div>
-            <div style="font-size:11.5px;color:var(--gray-500);margin-top:4px">Sesión activa · Tu pedido está guardado</div>
+          <div style="margin-bottom:24px">
+            <div style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);background:rgba(10,37,64,.06);border-radius:100px;padding:4px 12px;margin-bottom:14px">Resumen de tu orden</div>
+            <h2 class="wiz-title" style="margin-bottom:6px">Revisa y confirma tu orden.</h2>
+            <p class="wiz-sub">Tu empresa empieza a tramitarse en cuanto confirmamos el pago.</p>
           </div>
-          <!-- APPLE AUTH DEFERRED TO NEXT SPRINT -->
-        </div>
 
-        <div class="wiz-cta-grid" style="margin-top:0">
-          <div class="wiz-cta-card"><div style="font-size:32px;margin-bottom:8px">💳</div><h3 style="font-size:16px;font-weight:700;margin-bottom:6px">Pagar ahora</h3><p style="font-size:13px;color:var(--gray-500);margin-bottom:14px">Comienza tu proceso de inmediato.</p><button onclick="wizPayInline()" class="btn btn-primary" style="width:100%;justify-content:center" id="wizPayBtn">Pagar con tarjeta →</button></div>
-          <div class="wiz-cta-card"><div style="font-size:32px;margin-bottom:8px">📅</div><h3 style="font-size:16px;font-weight:700;margin-bottom:6px">Agendar llamada</h3><p style="font-size:13px;color:var(--gray-500);margin-bottom:14px">Habla con un asesor antes de decidir.</p><a href="https://calendly.com/creatuempresausa" target="_blank" rel="noopener" class="btn btn-ghost" style="width:100%;justify-content:center">📅 Agendar llamada gratuita</a></div>
-          <div class="wiz-cta-card"><div style="font-size:32px;margin-bottom:8px">💬</div><h3 style="font-size:16px;font-weight:700;margin-bottom:6px">WhatsApp directo</h3><p style="font-size:13px;color:var(--gray-500);margin-bottom:14px">Respuesta inmediata de nuestro equipo.</p><a href="#" class="btn btn-wa" style="width:100%;justify-content:center">💬 Hablar ahora</a></div>
-        </div>
-        <div class="wiz-nav" style="margin-top:24px"><button class="btn btn-ghost" onclick="wizGoTo(7)">← Anterior</button></div>
+          <!-- Order summary card (populated by wizRenderSummary) -->
+          <div id="wizSummaryFull"></div>
+
+          <!-- PRIMARY payment CTA — one clear action -->
+          <button id="wizPayBtn" onclick="wizPayInline()" class="wiz-pay-primary-btn">
+            Pagar ahora — confirmar orden
+          </button>
+
+          <!-- Trust signals -->
+          <div class="wiz-trust-row">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            Pago 100% seguro
+            <span class="wiz-trust-dot"></span>
+            Proceso remoto
+            <span class="wiz-trust-dot"></span>
+            Sin cargos ocultos
+          </div>
+
+          <!-- Google session success (shown only after OAuth redirect — NOT a login prompt) -->
+          <div id="wizGoogleSuccessArea" style="display:none;margin-top:16px;padding:12px 16px;background:rgba(34,197,94,.08);border:1.5px solid rgba(34,197,94,.35);border-radius:var(--r-lg);text-align:center">
+            <div style="font-size:13px;font-weight:700;color:#15803d;margin-bottom:4px">Progreso guardado con Google</div>
+            <div id="wizGoogleUserEmail" style="font-size:12.5px;color:var(--navy)"></div>
+          </div>
+          <!-- Hidden elements for JS compatibility (Google auth functions) -->
+          <button id="wizGoogleBtn" style="display:none" onclick="wizTryGoogleAuth()"></button>
+          <div id="wizGoogleStatus" style="display:none"></div>
+
+          <!-- Secondary help — minimal, non-competing -->
+          <div class="wiz-step8-help">
+            <span>¿Tienes dudas antes de pagar?</span>
+            <div class="wiz-step8-help-actions">
+              <button onclick="wizToggleHelp(true)" class="wiz-step8-help-btn">Ver preguntas frecuentes</button>
+              <span class="wiz-trust-dot"></span>
+              <a href="https://wa.me/19046248859" target="_blank" rel="noopener" class="wiz-step8-help-btn">Hablar por WhatsApp con un agente</a>
+            </div>
+          </div>
+
+          <div class="wiz-nav" style="margin-top:20px">
+            <button class="btn btn-ghost" onclick="wizGoTo(7)">← Anterior</button>
+          </div>
+
+        </div><!-- /wiz-panel-inner -->
       </div>
 
     </div><!-- /wizard-main -->
@@ -2152,18 +2403,18 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
     <!-- Sidebar -->
     <aside class="wizard-sidebar" id="wizardSidebar">
       <div class="wiz-sidebar-card">
-        <h3 style="font-size:13px;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px">Tu selección</h3>
+        <h3 style="font-size:11px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px;font-family:'Inter',sans-serif">Tu orden</h3>
 
         <!-- Section: Empresa + Estado (step 4+) -->
         <div id="sbSectionBase" style="margin-bottom:14px">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px">
             <span class="wiz-sb-label">Empresa</span>
-            <button type="button" onclick="wizGoTo(2)" style="background:none;border:none;font-size:11px;color:var(--accent);cursor:pointer;padding:0;font-weight:600">✏️ Editar</button>
+            <button type="button" onclick="wizGoTo(2)" style="background:none;border:none;font-size:11px;color:var(--navy);cursor:pointer;padding:0;font-weight:600;font-family:'Inter',sans-serif;text-decoration:underline;text-underline-offset:2px">Editar</button>
           </div>
           <div id="sbTypeVal" class="wiz-sb-val" style="margin-bottom:10px">—</div>
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px">
             <span class="wiz-sb-label">Estado</span>
-            <button type="button" onclick="wizGoTo(3)" style="background:none;border:none;font-size:11px;color:var(--accent);cursor:pointer;padding:0;font-weight:600">✏️ Editar</button>
+            <button type="button" onclick="wizGoTo(3)" style="background:none;border:none;font-size:11px;color:var(--navy);cursor:pointer;padding:0;font-weight:600;font-family:'Inter',sans-serif;text-decoration:underline;text-underline-offset:2px">Editar</button>
           </div>
           <div id="sbStateVal" class="wiz-sb-val">—</div>
         </div>
@@ -2172,7 +2423,7 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
         <div id="sbSectionNombre" style="display:none;margin-bottom:14px;padding-top:12px;border-top:1px solid var(--gray-100)">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px">
             <span class="wiz-sb-label">Nombre empresa</span>
-            <button type="button" onclick="wizGoTo(4)" style="background:none;border:none;font-size:11px;color:var(--accent);cursor:pointer;padding:0;font-weight:600">✏️ Editar</button>
+            <button type="button" onclick="wizGoTo(4)" style="background:none;border:none;font-size:11px;color:var(--navy);cursor:pointer;padding:0;font-weight:600;font-family:'Inter',sans-serif;text-decoration:underline;text-underline-offset:2px">Editar</button>
           </div>
           <div id="sbCompanyNameVal" class="wiz-sb-val">—</div>
           <div id="sbAltName1Row" style="display:none;margin-top:4px">
@@ -2184,23 +2435,23 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
         <div id="sbSectionContacto" style="display:none;margin-bottom:14px;padding-top:12px;border-top:1px solid var(--gray-100)">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
             <span class="wiz-sb-label">Contacto</span>
-            <button type="button" onclick="wizGoTo(5)" style="background:none;border:none;font-size:11px;color:var(--accent);cursor:pointer;padding:0;font-weight:600">✏️ Editar</button>
+            <button type="button" onclick="wizGoTo(5)" style="background:none;border:none;font-size:11px;color:var(--navy);cursor:pointer;padding:0;font-weight:600;font-family:'Inter',sans-serif;text-decoration:underline;text-underline-offset:2px">Editar</button>
           </div>
           <div id="sbContactNameVal" style="font-size:13px;font-weight:600;color:var(--navy)">—</div>
           <div id="sbContactEmailVal" style="font-size:12px;color:var(--gray-500);margin-top:2px;word-break:break-all">—</div>
           <div id="sbContactPhoneVal" style="font-size:12px;color:var(--gray-500);margin-top:2px">—</div>
         </div>
 
-        <!-- Section: Plan + precio (step 6+) -->
+        <!-- Section: Plan + precio -->
         <div id="sbSectionPlan" style="display:none;padding-top:12px;border-top:1px solid var(--gray-100)">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px">
-            <span class="wiz-sb-label">Paquete</span>
-            <button type="button" onclick="wizGoTo(6)" style="background:none;border:none;font-size:11px;color:var(--accent);cursor:pointer;padding:0;font-weight:600">✏️ Editar</button>
+            <span class="wiz-sb-label">Plan</span>
+            <button type="button" onclick="wizOpenPlanModal()" style="background:none;border:none;font-size:11px;color:var(--navy);cursor:pointer;padding:0;font-weight:600;font-family:'Inter',sans-serif;text-decoration:underline;text-underline-offset:2px">Cambiar plan</button>
           </div>
-          <div id="sbPlanVal" class="wiz-sb-val" style="margin-bottom:10px">—</div>
+          <div id="sbPlanVal" class="wiz-sb-val" style="margin-bottom:10px;font-family:'Manrope',sans-serif;font-weight:700;font-size:14px">—</div>
           <!-- Breakdown lines -->
           <div id="sbBreakdown" style="font-size:12px;color:var(--gray-500)">
-            <div style="display:flex;justify-content:space-between;padding:3px 0"><span>Honorarios de servicio</span><span id="sbServiceFee">—</span></div>
+            <div style="display:flex;justify-content:space-between;padding:3px 0"><span>Servicio</span><span id="sbServiceFee">—</span></div>
             <div style="display:flex;justify-content:space-between;padding:3px 0"><span>Tarifa estatal</span><span id="sbStateFee">—</span></div>
           </div>
           <!-- Extras (populated dynamically) -->
@@ -2209,12 +2460,13 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
           </div>
           <!-- Total -->
           <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:12px;border-top:2px solid var(--navy)">
-            <span style="font-size:13px;font-weight:700;color:var(--navy)">Total hoy</span>
-            <span style="font-size:26px;font-weight:800;color:var(--accent)" id="sbPriceVal">—</span>
+            <span style="font-size:12px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.05em">Total</span>
+            <span style="font-size:22px;font-weight:800;color:var(--navy);font-family:'Manrope',sans-serif" id="sbPriceVal">—</span>
           </div>
+          <p style="font-size:11px;color:var(--gray-400);text-align:right;margin-top:4px">Se actualiza en tiempo real</p>
           <!-- Continuar button (step 7+) -->
           <div id="sbContinuarArea" style="display:none;margin-top:14px">
-            <button onclick="wizRenderSummary();wizGoTo(8)" style="width:100%;padding:13px;background:var(--accent);color:#fff;border:none;border-radius:var(--r-lg);font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.02em">Continuar →</button>
+            <button onclick="wizRenderSummary();wizGoTo(8)" style="width:100%;padding:13px;background:var(--navy);color:#fff;border:none;border-radius:var(--r-lg);font-size:14px;font-weight:700;cursor:pointer;letter-spacing:.02em;font-family:'Inter',sans-serif">Ver resumen y pagar →</button>
           </div>
         </div>
 
@@ -2226,15 +2478,118 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
 </div><!-- /container -->
 </div><!-- /page-wizard -->
 
-<!-- ════ WIZARD WA FLOAT (visible solo en wizard) ════ -->
-<a id="wiz-wa-float" href="https://wa.me/19046248859?text=Hola%2C%20tengo%20una%20pregunta%20sobre%20crear%20mi%20empresa%20en%20EE.UU." target="_blank" rel="noopener">
-  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-  💬 ¿Dudas? Escríbenos
-</a>
+<!-- ════ HELP TRIGGER BUTTON (visible only on wizard page) ════ -->
+<button id="wiz-help-trigger" onclick="wizToggleHelp(true)" aria-label="Abrir ayuda">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+  <span>Ayuda</span>
+</button>
+
+<!-- ════ IN-FUNNEL HELP DRAWER ════ -->
+<div id="wiz-help-overlay" onclick="wizToggleHelp(false)"></div>
+<div id="wiz-help-drawer" role="dialog" aria-modal="true" aria-label="Centro de ayuda">
+  <div id="wiz-help-drawer-header">
+    <div>
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gray-400);margin-bottom:4px">Centro de ayuda</div>
+      <div style="font-size:18px;font-weight:800;color:var(--navy);font-family:'Manrope',sans-serif">Preguntas frecuentes</div>
+    </div>
+    <button onclick="wizToggleHelp(false)" id="wiz-help-close" aria-label="Cerrar ayuda">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div id="wiz-help-drawer-body">
+    <details class="wiz-faq-item">
+      <summary>¿Necesito SSN, visa o ser residente?</summary>
+      <p>No. Solo necesitas tu pasaporte vigente. Tramitamos el EIN del IRS con poder notarial. Todo el proceso es 100% remoto desde tu país de origen.</p>
+    </details>
+    <details class="wiz-faq-item">
+      <summary>¿Cuánto tiempo tarda el proceso?</summary>
+      <p>La formación de la LLC tarda entre 5 y 15 días hábiles según el estado. Con nuestro plan Premium accedes a fast-track y priorizamos tu caso.</p>
+    </details>
+    <details class="wiz-faq-item">
+      <summary>¿Qué estado me conviene elegir?</summary>
+      <p>Para founders internacionales, Wyoming y Florida son los más populares: bajo costo, privacidad de dueños y sin impuesto estatal de LLC. Delaware es ideal si buscas capital de inversores.</p>
+    </details>
+    <details class="wiz-faq-item">
+      <summary>¿Cómo puedo abrir cuenta bancaria?</summary>
+      <p>Con tu LLC + EIN puedes abrir cuentas en Mercury, Relay o Brex 100% online — sin necesidad de viajar a EE.UU. Nuestro plan incluye guía de apertura bancaria.</p>
+    </details>
+    <details class="wiz-faq-item">
+      <summary>¿Tengo que pagar impuestos en EE.UU.?</summary>
+      <p>Una LLC con dueño extranjero que opera fuera de EE.UU. generalmente no paga impuestos federales. Solo debes presentar el Form 5472 informativo. Te guiamos en todo.</p>
+    </details>
+    <details class="wiz-faq-item">
+      <summary>¿Puedo cambiar de plan después?</summary>
+      <p>Puedes agregar servicios adicionales en cualquier momento. Contacta a nuestro equipo y te orientamos sin costo adicional en la consulta inicial.</p>
+    </details>
+    <div id="wiz-help-wa-block">
+      <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:6px;font-family:'Manrope',sans-serif">¿No encontraste tu respuesta?</div>
+      <p style="font-size:12.5px;color:var(--gray-500);margin-bottom:14px;line-height:1.55">Escríbenos por WhatsApp — respondemos en menos de 10 minutos en horario laboral.</p>
+      <a href="https://wa.me/19046248859?text=Hola%2C%20tengo%20una%20pregunta%20sobre%20crear%20mi%20empresa%20en%20EE.UU." target="_blank" rel="noopener" class="btn btn-wa" style="display:flex;justify-content:center;gap:8px;font-size:14px;padding:12px 20px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Hablar por WhatsApp con un agente
+      </a>
+      <p style="font-size:11px;color:var(--gray-400);margin-top:10px;text-align:center">Tu progreso en el formulario no se pierde</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════ PLAN CHANGE MODAL ════ -->
+<div id="plan-modal-overlay" onclick="wizClosePlanModal()"></div>
+<div id="plan-modal" role="dialog" aria-modal="true" aria-label="Cambiar plan">
+  <div id="plan-modal-header">
+    <div>
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gray-400);margin-bottom:4px">Selección de plan</div>
+      <div style="font-size:18px;font-weight:800;color:var(--navy);font-family:'Manrope',sans-serif">Elige tu plan</div>
+    </div>
+    <button id="plan-modal-close" onclick="wizClosePlanModal()" aria-label="Cerrar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="plan-modal-cards">
+    <div class="plan-modal-card" id="planModalBasic" onclick="wizSelectPlan('basic')">
+      <div class="plan-modal-selected-mark"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="plan-modal-card-name">Starter</div>
+      <div class="plan-modal-card-price">$499</div>
+      <div class="plan-modal-card-fee">+ tarifa estatal &middot; pago único</div>
+      <div class="plan-modal-card-features">
+        <div class="plan-modal-card-feature"><span class="plan-modal-card-check">✓</span>Formación LLC o Corporation</div>
+        <div class="plan-modal-card-feature"><span class="plan-modal-card-check">✓</span>EIN del IRS</div>
+        <div class="plan-modal-card-feature"><span class="plan-modal-card-check">✓</span>Registered Agent (1 año)</div>
+        <div class="plan-modal-card-feature"><span class="plan-modal-card-check">✓</span>Documentos digitales</div>
+      </div>
+    </div>
+    <div class="plan-modal-card" id="planModalGrowth" onclick="wizSelectPlan('growth')">
+      <div class="plan-modal-card-badge">Más popular</div>
+      <div class="plan-modal-selected-mark"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="plan-modal-card-name">Pro</div>
+      <div class="plan-modal-card-price">$799</div>
+      <div class="plan-modal-card-fee">+ tarifa estatal &middot; pago único</div>
+      <div class="plan-modal-card-features">
+        <div class="plan-modal-card-feature"><span class="plan-modal-card-check">✓</span>Todo en Starter</div>
+        <div class="plan-modal-card-feature"><span class="plan-modal-card-check">✓</span>Operating Agreement completo</div>
+        <div class="plan-modal-card-feature"><span class="plan-modal-card-check">✓</span>Guía apertura bancaria</div>
+        <div class="plan-modal-card-feature"><span class="plan-modal-card-check">✓</span>Soporte prioritario</div>
+      </div>
+    </div>
+    <div class="plan-modal-card" id="planModalPremium" onclick="wizSelectPlan('premium')">
+      <div class="plan-modal-selected-mark"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="plan-modal-card-name">Premium</div>
+      <div class="plan-modal-card-price">$1,200</div>
+      <div class="plan-modal-card-fee">+ tarifa estatal &middot; pago único</div>
+      <div class="plan-modal-card-features">
+        <div class="plan-modal-card-feature"><span class="plan-modal-card-check">✓</span>Todo en Pro</div>
+        <div class="plan-modal-card-feature"><span class="plan-modal-card-check">✓</span>Dirección comercial USA</div>
+        <div class="plan-modal-card-feature"><span class="plan-modal-card-check">✓</span>Sesión de asesoría fiscal</div>
+        <div class="plan-modal-card-feature"><span class="plan-modal-card-check">✓</span>Form 5472 incluido</div>
+      </div>
+    </div>
+  </div>
+  <p style="text-align:center;font-size:11.5px;color:var(--gray-400);padding:4px 24px 24px">Puedes cambiar tu plan aquí en cualquier momento antes de confirmar el pago.</p>
+</div>
 
 <!-- ════ DRAFT RESUME BANNER ════ -->
 <div id="wiz-draft-banner">
-  📋 Tienes una solicitud en proceso — ¿quieres continuar donde lo dejaste?
+  Tienes una solicitud en proceso — ¿continuar donde lo dejaste?
   <button onclick="wizResumeDraft()">Continuar →</button>
   <button class="wiz-draft-dismiss" onclick="wizDismissDraft()">✕ Descartar</button>
 </div>
@@ -2361,7 +2716,8 @@ function wizGetPlanData(planId, stateCode) {
   var plan = cfg ? cfg.plans[planId] : null;
   var svc = plan ? plan.serviceFee : ({basic:499,growth:799,premium:1200}[planId] || 799);
   var sf = wizGetStateFee(stateCode);
-  var name = plan ? plan.name : ('Plan ' + planId);
+  var displayNames = {basic:'Starter',growth:'Pro',premium:'Premium'};
+  var name = plan ? (plan.name || displayNames[planId] || planId) : (displayNames[planId] || planId);
   return { name:name, service:svc, stateFee:sf, total:svc + sf };
 }
 
@@ -2369,6 +2725,146 @@ function wizGetPlanData(planId, stateCode) {
 var WIZ = { currentStep:1, residentType:'foreign', type:'llc', state:'CO', stateName:'Colorado', plan:'growth', name:'', addons:{},
   company_name:'', alternate_name_1:'', alternate_name_2:'', members_count:'1', business_activity:'', _upsellsInited:false,
   personal_city:'', personal_address:'', us_address:'', us_city:'', us_state:'', us_zip:'', use_personal_as_company:false, company_address:'' };
+
+/* ── Step 6b: populate base confirmation screen ──────────── */
+function wizRenderStep6b() {
+  var pd = wizGetPlanData(WIZ.plan, WIZ.state);
+  var typeLabels = { llc:'LLC', corporation:'C-Corp', s_corporation:'S-Corp', non_profit:'Non-Profit', sole_proprietorship:'Sole Prop.' };
+  var planIncludes = {
+    basic:   ['LLC o Corporation','EIN del IRS (número fiscal federal)','Articles of Organization','Registered Agent (1 año)','Documentos digitales'],
+    growth:  ['LLC o Corporation','EIN del IRS','Registered Agent (1 año)','Operating Agreement personalizado','Asesoría apertura bancaria','Soporte prioritario por WhatsApp'],
+    premium: ['LLC o Corporation','EIN del IRS','Registered Agent (1 año)','Operating Agreement personalizado','Fast-track — prioridad máxima','Business Address (12 meses)','Asesoría fiscal + Form 5472']
+  };
+  var el = function(id, val) { var e = document.getElementById(id); if (e) e.textContent = val; };
+  el('wiz6bPlan',     pd.name);
+  el('wiz6bType',     typeLabels[WIZ.type] || WIZ.type || '—');
+  el('wiz6bState',    WIZ.stateName || WIZ.state || '—');
+  el('wiz6bStateFee', '$' + pd.stateFee);
+  el('wiz6bTotal',    '$' + pd.total);
+  var list = document.getElementById('wiz6bIncludes');
+  if (list) {
+    var items = planIncludes[WIZ.plan] || planIncludes.growth;
+    list.innerHTML = items.map(function(i) { return '<li>' + i + '</li>'; }).join('');
+  }
+}
+
+/* ── Mobile summary accordion ──────────────────────────────── */
+function wizUpdateMobSummary() {
+  var pd = wizGetPlanData(WIZ.plan, WIZ.state);
+  var addonTotal = Object.values(WIZ.addons).reduce(function(s,a){ return s + a.price; }, 0);
+  var total = pd.total + addonTotal;
+  var typeLabels = { llc:'LLC', corporation:'C-Corp', s_corporation:'S-Corp' };
+  var el = function(id, val) { var e = document.getElementById(id); if (e) e.textContent = val; };
+  el('wizMobTotal',  '$' + total);
+  el('mobSbPlan',    pd.name);
+  el('mobSbType',    typeLabels[WIZ.type] || WIZ.type || '—');
+  el('mobSbState',   (WIZ.stateName || WIZ.state || '—') + ' · $' + pd.stateFee);
+  el('mobSbName',    WIZ.company_name || '—');
+  el('mobSbTotal',   '$' + total);
+}
+
+/* ── Email + phone lead auto-capture ────────────────────── */
+function wizSaveEmailLead() {
+  var emailEl = document.getElementById('wizEmail');
+  if (!emailEl) return;
+  var email = emailEl.value.trim();
+  if (!email || !email.includes('@')) return;
+  /* Capture phone from DOM (may not be in WIZ yet if form not submitted) */
+  var phoneCode = document.getElementById('wizPhoneCode');
+  var phoneNum  = document.getElementById('wizPhoneNum');
+  var phone = '';
+  if (phoneNum && phoneNum.value.trim()) {
+    var code = phoneCode ? phoneCode.value.replace(/-[A-Z]+$/, '') : '';
+    phone = code + phoneNum.value.trim();
+  }
+  /* Capture current funnel state */
+  var displayNames = {basic:'Starter',growth:'Pro',premium:'Premium'};
+  var lead = {
+    email:     email,
+    phone:     phone,
+    plan:      displayNames[WIZ.plan] || WIZ.plan,
+    planId:    WIZ.plan,
+    type:      WIZ.type,
+    state:     WIZ.state,
+    stateName: WIZ.stateName,
+    step:      WIZ.currentStep,
+    extras:    Object.keys(WIZ.addons),
+    timestamp: new Date().toISOString(),
+    source:    phone ? 'wizard_phone_blur' : 'wizard_email_blur'
+  };
+  /* Persist locally */
+  try { localStorage.setItem('cte_lead', JSON.stringify(lead)); } catch(e) {}
+  /* Fire to persistence layer if available */
+  if (window.Persistence && window.Persistence.saveLead) {
+    try { window.Persistence.saveLead(lead); } catch(e) {}
+  }
+  /* Fire lightweight webhook if configured */
+  var cfg = window.CONFIG || {};
+  if (cfg.LEAD_WEBHOOK_URL && !cfg.LEAD_WEBHOOK_URL.includes('YOUR_')) {
+    try {
+      fetch(cfg.LEAD_WEBHOOK_URL, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(lead)
+      }).catch(function(){});
+    } catch(e) {}
+  }
+}
+
+/* ── In-funnel help drawer ──────────────────────────────── */
+/* ── Plan change modal ──────────────────────────────────────── */
+function wizOpenPlanModal() {
+  var overlay = document.getElementById('plan-modal-overlay');
+  var modal   = document.getElementById('plan-modal');
+  if (!overlay || !modal) return;
+  /* Sync selected highlight */
+  var map = {basic:'planModalBasic', growth:'planModalGrowth', premium:'planModalPremium'};
+  Object.keys(map).forEach(function(id){
+    var el = document.getElementById(map[id]);
+    if (el) el.classList.toggle('selected', WIZ.plan === id);
+  });
+  overlay.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+  requestAnimationFrame(function(){ modal.classList.add('open'); });
+}
+function wizClosePlanModal() {
+  var overlay = document.getElementById('plan-modal-overlay');
+  var modal   = document.getElementById('plan-modal');
+  if (!overlay || !modal) return;
+  modal.classList.remove('open');
+  overlay.style.display = 'none';
+  document.body.style.overflow = '';
+}
+function wizSelectPlan(planId) {
+  WIZ.plan = planId;
+  /* Update modal highlight */
+  var map = {basic:'planModalBasic', growth:'planModalGrowth', premium:'planModalPremium'};
+  Object.keys(map).forEach(function(id){
+    var el = document.getElementById(map[id]);
+    if (el) el.classList.toggle('selected', id === planId);
+  });
+  /* Refresh pricing, sidebar, and add-on offers */
+  if (typeof wizUpdatePlanPrices === 'function') wizUpdatePlanPrices();
+  if (typeof wizRefreshAddons    === 'function') wizRefreshAddons();
+  wizUpdateSidebar();
+  /* Close modal after brief visual confirmation */
+  setTimeout(wizClosePlanModal, 220);
+}
+
+function wizToggleHelp(open) {
+  var drawer  = document.getElementById('wiz-help-drawer');
+  var overlay = document.getElementById('wiz-help-overlay');
+  if (!drawer || !overlay) return;
+  if (open) {
+    drawer.classList.add('open');
+    overlay.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  } else {
+    drawer.classList.remove('open');
+    overlay.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+}
 
 /* ── Step navigation ────────────────────────────────────── */
 function wizGoTo(step) {
@@ -2382,20 +2878,34 @@ function wizGoTo(step) {
   });
   WIZ.currentStep = step;
   if (step === 5) wizToggleAddrBlocks();
+  if (step === '6b') wizRenderStep6b();
   if (step === 7) wizBuildUpsells();
+  /* Sidebar: always visible — plan is always set from step 1 */
   var sidebar = document.getElementById('wizardSidebar');
-  if (sidebar) sidebar.style.visibility = (step >= 4) ? 'visible' : 'hidden';
+  if (sidebar) sidebar.style.visibility = 'visible';
   window.scrollTo({top:0,behavior:'smooth'});
   wizUpdateSidebar();
+  wizUpdateMobSummary();
   wizSaveDraft();
 }
 function wizNext(fromStep) {
   if (!wizValidate(fromStep)) return;
   wizCollect(fromStep);
   wizUpdateSidebar();
-  wizGoTo(fromStep + 1);
+  /* Plan is not a step — always skip step 6 */
+  var nextStep = fromStep + 1;
+  if (nextStep === 6) {
+    wizRefreshAddons();
+    wizGoTo(7);
+    return;
+  }
+  wizGoTo(nextStep);
 }
-function wizPrev(fromStep) { wizGoTo(fromStep - 1); }
+function wizPrev(fromStep) {
+  /* Plan is not a step — skip 6 in both directions */
+  if (fromStep === 7) { wizGoTo(5); return; }
+  wizGoTo(fromStep - 1);
+}
 
 function wizValidate(step) {
   if (step === 3) {
@@ -2528,14 +3038,13 @@ function wizUpdatePlanPrices() {
 
 function wizUpdateSidebar() {
   var step = WIZ.currentStep;
-  console.log('addons en sidebar:', JSON.parse(JSON.stringify(WIZ.addons)));
   var typeLabels = { llc:'LLC', corporation:'C-Corp', s_corporation:'S-Corp', non_profit:'Non-Profit', sole_proprietorship:'Sole Prop.' };
 
   /* ── Empresa + Estado (always shown when sidebar is visible) ── */
   var sbType  = document.getElementById('sbTypeVal');
   var sbState = document.getElementById('sbStateVal');
   if (sbType)  sbType.textContent  = typeLabels[WIZ.type] || WIZ.type || '—';
-  if (sbState) sbState.textContent = WIZ.stateName || '—';
+  if (sbState) sbState.textContent = WIZ.stateName ? WIZ.stateName + ' · $' + wizGetStateFee(WIZ.state) : '—';
 
   /* ── Nombre empresa (step 5+) ─────────────────────────────── */
   var sbSectionNombre = document.getElementById('sbSectionNombre');
@@ -2549,10 +3058,11 @@ function wizUpdateSidebar() {
     if (sbA1Val) sbA1Val.textContent = WIZ.alternate_name_1 || '';
   }
 
-  /* ── Contacto (step 6+) ───────────────────────────────────── */
+  /* ── Contacto (step 5+) ──────────────────────────────────── */
   var sbSectionContacto = document.getElementById('sbSectionContacto');
-  if (sbSectionContacto) sbSectionContacto.style.display = step >= 6 ? 'block' : 'none';
-  if (step >= 6) {
+  var showContact = step >= 7 || (WIZ.name && step >= 5);
+  if (sbSectionContacto) sbSectionContacto.style.display = showContact ? 'block' : 'none';
+  if (showContact) {
     var sbCName  = document.getElementById('sbContactNameVal');
     var sbCEmail = document.getElementById('sbContactEmailVal');
     var sbCPhone = document.getElementById('sbContactPhoneVal');
@@ -2562,40 +3072,38 @@ function wizUpdateSidebar() {
     if (sbCPhone) sbCPhone.style.display = WIZ.phone ? 'block' : 'none';
   }
 
-  /* ── Plan + precio (step 6+) ──────────────────────────────── */
+  /* ── Plan + precio — always visible (plan is locked, never a step) ── */
   var sbSectionPlan = document.getElementById('sbSectionPlan');
-  if (sbSectionPlan) sbSectionPlan.style.display = step >= 6 ? 'block' : 'none';
-  if (step >= 6) {
-    var pd = wizGetPlanData(WIZ.plan, WIZ.state);
-    var addonKeys = Object.keys(WIZ.addons);
-    var addonTotal = addonKeys.reduce(function(s,k){ return s + WIZ.addons[k].price; }, 0);
-    var sbPlan  = document.getElementById('sbPlanVal');
-    var sbSvc   = document.getElementById('sbServiceFee');
-    var sbSf    = document.getElementById('sbStateFee');
-    var sbTotal = document.getElementById('sbPriceVal');
-    if (sbPlan)  sbPlan.textContent  = pd.name;
-    if (sbSvc)   sbSvc.textContent   = '$'+pd.service;
-    if (sbSf)    sbSf.textContent    = '$'+pd.stateFee;
-    if (sbTotal) sbTotal.textContent = '$'+(pd.total + addonTotal);
-    /* ── Extras list ── */
-    var sbExtrasSection = document.getElementById('sbExtrasSection');
-    var sbExtrasList    = document.getElementById('sbExtrasList');
-    if (sbExtrasSection) sbExtrasSection.style.display = addonKeys.length > 0 ? 'block' : 'none';
-    if (sbExtrasList) {
-      sbExtrasList.innerHTML = addonKeys.map(function(k) {
-        var a = WIZ.addons[k];
-        return '<div style="display:flex;justify-content:space-between;align-items:center;padding:3px 0">'
-          + '<span style="flex:1;padding-right:6px">'+a.label+(a.period ? '<span style="color:var(--gray-400)"> '+a.period+'</span>' : '')+'</span>'
-          + '<span style="font-weight:600;white-space:nowrap">+$'+a.price+'</span>'
-          + '<button type="button" onclick="wizRemoveUpsell(\''+k+'\')" title="Quitar" '
-          + 'style="margin-left:6px;background:none;border:none;color:var(--gray-400);font-size:13px;cursor:pointer;padding:0 2px;line-height:1">✕</button>'
-          + '</div>';
-      }).join('');
-    }
-    /* ── Continuar button (step 7+) ── */
-    var sbContinuarArea = document.getElementById('sbContinuarArea');
-    if (sbContinuarArea) sbContinuarArea.style.display = step >= 7 ? 'block' : 'none';
+  if (sbSectionPlan) sbSectionPlan.style.display = 'block';
+  var pd = wizGetPlanData(WIZ.plan, WIZ.state);
+  var addonKeys = Object.keys(WIZ.addons);
+  var addonTotal = addonKeys.reduce(function(s,k){ return s + WIZ.addons[k].price; }, 0);
+  var sbPlan  = document.getElementById('sbPlanVal');
+  var sbSvc   = document.getElementById('sbServiceFee');
+  var sbSf    = document.getElementById('sbStateFee');
+  var sbTotal = document.getElementById('sbPriceVal');
+  if (sbPlan)  sbPlan.textContent  = pd.name;
+  if (sbSvc)   sbSvc.textContent   = '$'+pd.service;
+  if (sbSf)    sbSf.textContent    = '$'+pd.stateFee;
+  if (sbTotal) sbTotal.textContent = '$'+(pd.total + addonTotal);
+  /* ── Extras list ── */
+  var sbExtrasSection = document.getElementById('sbExtrasSection');
+  var sbExtrasList    = document.getElementById('sbExtrasList');
+  if (sbExtrasSection) sbExtrasSection.style.display = addonKeys.length > 0 ? 'block' : 'none';
+  if (sbExtrasList) {
+    sbExtrasList.innerHTML = addonKeys.map(function(k) {
+      var a = WIZ.addons[k];
+      return '<div style="display:flex;justify-content:space-between;align-items:center;padding:3px 0">'
+        + '<span style="flex:1;padding-right:6px">'+a.label+(a.period ? '<span style="color:var(--gray-400)"> '+a.period+'</span>' : '')+'</span>'
+        + '<span style="font-weight:600;white-space:nowrap">+$'+a.price+'</span>'
+        + '<button type="button" onclick="wizRemoveUpsell(\''+k+'\')" title="Quitar" '
+        + 'style="margin-left:6px;background:none;border:none;color:var(--gray-400);font-size:13px;cursor:pointer;padding:0 2px;line-height:1">✕</button>'
+        + '</div>';
+    }).join('');
   }
+  /* ── Continuar button (step 7+) ── */
+  var sbContinuarArea = document.getElementById('sbContinuarArea');
+  if (sbContinuarArea) sbContinuarArea.style.display = step >= 7 ? 'block' : 'none';
 }
 
 function wizRemoveUpsell(id) {
@@ -2752,14 +3260,14 @@ function wizBuildUpsells() {
 
     /* Foreign alert banner (tax section for foreigners) */
     if (sec.special === 'foreign_alert') {
-      rows += '<div style="padding:11px 14px;background:rgba(245,158,11,.08);border:1.5px solid rgba(245,158,11,.3);border-radius:var(--r);font-size:13px;color:#92400e;margin-bottom:18px">⚠️ Importante para fundadores internacionales</div>';
+      rows += '<div style="padding:11px 14px;background:rgba(245,158,11,.08);border:1.5px solid rgba(245,158,11,.3);border-radius:var(--r);font-size:13px;color:#92400e;margin-bottom:18px">Importante para fundadores internacionales</div>';
     }
 
     /* Address block */
     if (sec.special === 'addr' || sec.special === 'email_banking') {
       var addrIncluded = WIZ.plan === 'premium';
       if (addrIncluded) {
-        rows += '<div style="padding:14px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:var(--r);font-size:13px;color:var(--gray-700);margin-bottom:16px">✅ Tu plan Premium incluye Business Address Standard (12 meses).</div>';
+        rows += '<div style="padding:14px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:var(--r);font-size:13px;color:var(--gray-700);margin-bottom:16px">Incluido en tu plan Premium: Business Address Standard (12 meses).</div>';
         count++;
       } else {
         var addrStdSel = !!WIZ.addons['addrStd'] ? ' selected' : '';
@@ -2767,13 +3275,13 @@ function wizBuildUpsells() {
         var addrStdMonthly = !WIZ.addons['addrStd'] || WIZ.addons['addrStd'].period === '/mes';
         var addrVipMonthly = !WIZ.addons['addrVip'] || WIZ.addons['addrVip'].period === '/mes';
         rows += '<div style="margin-bottom:20px">'
-          + '<div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px">📬 Dirección comercial en EE.UU.</div>'
+          + '<div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px">Dirección comercial en EE.UU.</div>'
           + '<div style="font-size:12px;color:var(--gray-500);margin-bottom:12px">Agrega una dirección real con manejo de correo en lugar de opciones riesgosas.</div>'
           + '<div class="wiz7-addr-grid">'
           + '<div class="wiz7-addr-card'+addrStdSel+'" id="addrCardStd" onclick="wiz7ToggleAddr(\'addrStd\',\'addrVip\',\'Business Address Standard\')">'
           + '<div style="margin-bottom:8px"><span class="wiz7-bk-badge-rec">Recomendado para extranjeros</span></div>'
           + '<div style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px">Standard Business Address</div>'
-          + '<div style="font-size:11.5px;color:var(--gray-500);margin-bottom:10px;flex:1">✅ Presencia profesional en EE.UU.<br>✅ Escaneo y manejo de correo<br>✅ Mejor configuración para fundadores remotos</div>'
+          + '<div style="font-size:11.5px;color:var(--gray-500);margin-bottom:10px;flex:1">Presencia profesional en EE.UU. · Escaneo y manejo de correo · Ideal para fundadores remotos</div>'
           + '<div style="display:flex;gap:6px;margin-bottom:10px">'
           + '<button class="wiz7-period-btn'+(addrStdMonthly?' active':'')+'" id="addrStd-btnM" onclick="event.stopPropagation();wiz7AddrPeriod(\'addrStd\',\'monthly\')">Mensual</button>'
           + '<button class="wiz7-period-btn'+(!addrStdMonthly?' active':'')+'" id="addrStd-btnY" onclick="event.stopPropagation();wiz7AddrPeriod(\'addrStd\',\'annual\')">Anual <span style="font-size:10px;background:#fef9c3;color:#a16207;padding:1px 5px;border-radius:10px;font-weight:700">Mejor valor</span></button>'
@@ -2801,13 +3309,13 @@ function wizBuildUpsells() {
     if (sec.special === 'banking' || sec.special === 'email_banking') {
       var bkIncluded = ['growth','premium'].indexOf(WIZ.plan) !== -1;
       if (bkIncluded) {
-        rows += '<div style="padding:14px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:var(--r);font-size:13px;color:var(--gray-700);margin-bottom:16px">✅ Tu plan incluye Banking Assistance.</div>';
+        rows += '<div style="padding:14px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:var(--r);font-size:13px;color:var(--gray-700);margin-bottom:16px">Incluido en tu plan: Banking Assistance.</div>';
       } else {
         var stdSel = !!WIZ.addons['bankingStd'] ? ' selected' : '';
         var vipSel = !!WIZ.addons['bankingVip'] ? ' selected' : '';
         var rec = wizGetBankRec();
         rows += '<div style="margin-bottom:20px">'
-          + '<div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:10px">🏦 Apertura de cuenta bancaria en EE.UU.</div>'
+          + '<div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:10px">Apertura de cuenta bancaria en EE.UU.</div>'
           + '<div class="wiz7-banking-grid">'
           + '<div class="wiz7-banking-card'+stdSel+'" id="bkCardStd" onclick="wiz7ToggleBank(\'bankingStd\',\'bankingVip\',99,\'Banking Setup Standard\')">'
           + '<div style="margin-bottom:8px"><span class="wiz7-bk-badge-rec">Standard</span></div>'
@@ -2852,7 +3360,7 @@ function wizBuildUpsells() {
         + '</div></div>';
     });
 
-    if (!count) rows = '<div style="padding:14px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:var(--r);font-size:13px;color:var(--gray-700)">✅ Tu plan ya incluye estos servicios.</div>';
+    if (!count) rows = '<div style="padding:14px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:var(--r);font-size:13px;color:var(--gray-700)">Tu plan ya incluye todos estos servicios.</div>';
     el.innerHTML = rows;
   });
 
@@ -2954,12 +3462,12 @@ async function wizCheckName() {
         resultEl.style.background = 'rgba(34,197,94,.08)';
         resultEl.style.border = '1.5px solid rgba(34,197,94,.3)';
         resultEl.style.color = '#15803d';
-        resultEl.textContent = '✅ ' + (data.message || 'Disponible');
+        resultEl.textContent = data.message || 'Disponible';
       } else {
         resultEl.style.background = 'rgba(234,179,8,.08)';
         resultEl.style.border = '1.5px solid rgba(234,179,8,.3)';
         resultEl.style.color = '#92400e';
-        resultEl.textContent = '⚠️ ' + (data.message || 'Lo verificamos manualmente en 24h');
+        resultEl.textContent = data.message || 'Lo verificamos manualmente en 24h';
       }
     }
   } catch(e) {
@@ -2968,7 +3476,7 @@ async function wizCheckName() {
       resultEl.style.background = 'rgba(234,179,8,.08)';
       resultEl.style.border = '1.5px solid rgba(234,179,8,.3)';
       resultEl.style.color = '#92400e';
-      resultEl.textContent = '⚠️ No podemos verificar en tiempo real — lo revisamos manualmente en 24h';
+      resultEl.textContent = 'No podemos verificar en tiempo real — lo revisamos manualmente en 24h';
     }
   } finally {
     if (btn) { btn.disabled = false; btn.textContent = 'Verificar'; }
@@ -2989,7 +3497,7 @@ function wizBuildPayload() {
     entity_type:       WIZ.type     || 'llc',
     state_code:        WIZ.state    || '',
     state_name:        WIZ.stateName|| '',
-    package:           WIZ.plan     || 'professional',
+    package:           WIZ.plan     || 'basic',
     service_fee:       pd.service,
     state_fee:         pd.stateFee,
     addons:            addonKeys.map(function(k){ return WIZ.addons[k]; }),
@@ -3042,13 +3550,13 @@ function wizTryGoogleAuth() {
 
   /* Guard: not configured */
   if (!enabled || !url || url.includes('YOUR_') || !key || key.includes('YOUR_')) {
-    showWarning('⚠️ <strong>Google auth no configurado.</strong> Agrega SUPABASE_URL, SUPABASE_ANON_KEY y pon GOOGLE_AUTH_ENABLED: true en /js/config.js');
+    showWarning('<strong>Google auth no configurado.</strong> Agrega SUPABASE_URL, SUPABASE_ANON_KEY y pon GOOGLE_AUTH_ENABLED: true en /js/config.js');
     return;
   }
 
   /* Guard: SDK not loaded */
   if (!window.supabase || !window.supabase.createClient) {
-    showWarning('⚠️ Supabase JS SDK no cargado. Verifica que el script CDN esté en el &lt;head&gt;.');
+    showWarning('Supabase JS SDK no cargado. Verifica que el script CDN esté en el &lt;head&gt;.');
     return;
   }
 
@@ -3137,7 +3645,7 @@ function initGoogleSessionCheck() {
 /* ── Checkout entry point: save → (optional webhook) → redirect ── */
 async function wizPayInline() {
   var btn = document.getElementById('wizPayBtn');
-  if (btn) { btn.disabled = true; btn.textContent = 'Preparando pago…'; }
+  if (btn) { btn.disabled = true; btn.textContent = 'Preparando pago…'; btn.style.opacity = '.75'; }
   var payload = wizBuildPayload();
   try { localStorage.setItem('formation_order', JSON.stringify(payload)); } catch(e) {}
   try { sessionStorage.setItem('wizOrderPayload', JSON.stringify(payload)); } catch(e) {}
@@ -3181,12 +3689,12 @@ function wizRenderSummary() {
     + '<span style="font-size:14px;font-weight:700;color:rgba(255,255,255,.65)">Total a pagar hoy</span>'
     + '<span style="font-family:var(--display);font-size:28px;color:#fff;font-weight:800">$'+grand+' USD</span>'
     + '</div>'
-    + '</div>'
-    + '<button onclick="wizPayInline()" style="display:block;width:100%;margin-top:16px;padding:16px;background:var(--accent);color:#fff;border:none;border-radius:var(--r-lg);font-size:17px;font-weight:800;cursor:pointer;letter-spacing:.02em;box-shadow:0 4px 14px rgba(37,99,235,.25)">💳 Pagar ahora →</button>'
-    + '<div style="background:rgba(34,197,94,.07);border:1.5px solid rgba(34,197,94,.2);border-radius:var(--r-lg);padding:14px 18px;margin-top:14px;font-size:13.5px;color:var(--navy);line-height:1.8">'
-    + '📋 Revisa tu resumen y elige cómo continuar abajo.</div>';
+    + '</div>';
   /* Save canonical payload to localStorage so checkout.html can read it */
   try { localStorage.setItem('formation_order', JSON.stringify(wizBuildPayload())); } catch(e) {}
+  /* Sync pay button text with total */
+  var payBtn = document.getElementById('wizPayBtn');
+  if (payBtn) payBtn.innerHTML = 'Pagar ahora &mdash; $' + grand + ' USD';
 }
 
 function wizReset() {
@@ -3215,6 +3723,13 @@ function initWizardOnce() {
   wizSelectFeaturedState('CO');
   wizRefreshAddons();
   wizUpdateSidebar();
+
+  /* Email blur → auto-save lead as soon as email is entered */
+  var emailInput = document.getElementById('wizEmail');
+  if (emailInput) emailInput.addEventListener('blur', wizSaveEmailLead);
+  /* Phone blur → re-save lead with phone number added */
+  var phoneInput = document.getElementById('wizPhoneNum');
+  if (phoneInput) phoneInput.addEventListener('blur', wizSaveEmailLead);
 
   /* stateSelect change → live price update */
   var sel = document.getElementById('wizStateSelect');
@@ -3260,7 +3775,7 @@ function initWizardOnce() {
     });
   });
 
-  /* Form submit → go to plans step */
+  /* Form submit → skip plan step, go directly to extras */
   var form = document.getElementById('wizardForm');
   if (form) {
     form.addEventListener('submit', function(e){
@@ -3273,7 +3788,8 @@ function initWizardOnce() {
       var phone = document.getElementById('wizPhoneNum'), phoneCode = document.getElementById('wizPhoneCode');
       if (phone) WIZ.phone = (phoneCode ? phoneCode.value : '') + phone.value.trim();
       wizUpdateSidebar();
-      wizGoTo(6);
+      wizRefreshAddons();
+      wizGoTo(7);
     });
   }
 }
@@ -3297,6 +3813,9 @@ function goTo(page) {
   window.scrollTo({top:0, behavior:'smooth'});
   setTimeout(initReveal, 120);
   if (page === 'wizard') initWizardOnce();
+  /* Hide global WA float on wizard page (replaced by in-funnel help) */
+  var globalWaFloat = document.querySelector('.wa-float');
+  if (globalWaFloat) globalWaFloat.style.display = page === 'wizard' ? 'none' : '';
   /* Show/hide wizard WA float */
   var wizWa = document.getElementById('wiz-wa-float');
   if (wizWa) wizWa.style.display = page === 'wizard' ? 'flex' : 'none';
@@ -3534,6 +4053,23 @@ window.addEventListener('beforeunload', function(e) {
 document.addEventListener('DOMContentLoaded', () => {
   /* ?page= URL param — lets external pages link back into the SPA.
      e.g. /?page=wizard from checkout.html / success.html / ein-intake.html */
+  /* ?plan= URL param — preselects a plan when arriving from the landing page.
+     Mapping: starter→basic, pro→growth, premium→premium */
+  var urlPlan = new URLSearchParams(window.location.search).get('plan');
+  if (urlPlan) {
+    var planMap = { starter: 'basic', pro: 'growth', premium: 'premium' };
+    var mappedPlan = planMap[urlPlan.toLowerCase()];
+    if (mappedPlan) WIZ.plan = mappedPlan;
+  }
+  /* Plan is never a required step — always default to Starter if unset,
+     and always hide the old plan-selection panels from the DOM. */
+  if (!WIZ.plan) WIZ.plan = 'basic';
+  WIZ.planFromUrl = true;   /* keeps routing and sidebar logic consistent */
+  var step6El = document.getElementById('wizStep6');
+  if (step6El) step6El.style.display = 'none';
+  var step6bEl = document.getElementById('wizStep6b');
+  if (step6bEl) step6bEl.style.display = 'none';
+
   var urlPage = new URLSearchParams(window.location.search).get('page');
   if (urlPage && document.getElementById('page-' + urlPage)) {
     goTo(urlPage);
@@ -3549,6 +4085,23 @@ document.addEventListener('DOMContentLoaded', () => {
   /* Check for incomplete draft on page load */
   wizCheckDraftOnLoad();
 
+  /* Help trigger visibility — show when on wizard page */
+  function wizSyncHelpTrigger() {
+    var trigger = document.getElementById('wiz-help-trigger');
+    if (!trigger) return;
+    var onWizard = document.getElementById('page-wizard') && document.getElementById('page-wizard').classList.contains('active');
+    trigger.style.display = onWizard ? 'inline-flex' : 'none';
+  }
+  wizSyncHelpTrigger();
+  /* Re-check whenever goTo is called (page changes) */
+  var _origGoTo = window.goTo;
+  window.goTo = function(p) { _origGoTo(p); setTimeout(wizSyncHelpTrigger, 100); };
+
+  /* Close help drawer and plan modal on Escape */
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') { wizToggleHelp(false); wizClosePlanModal(); }
+  });
+
   /* <!-- GOOGLE SESSION CHECK READY -->
      Check for a Supabase session on every load.
      Handles the case where we just returned from the Google OAuth redirect. */
@@ -3560,7 +4113,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <div style="position:fixed;bottom:0;left:0;right:0;background:#0A2540;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;z-index:9999;box-shadow:0 -2px 10px rgba(0,0,0,0.2)">
   <span style="color:#94a3b8;font-size:13px">¿Ya eres cliente?</span>
   <a href="/login" style="background:#2563eb;color:#fff;padding:8px 20px;border-radius:8px;font-weight:600;text-decoration:none;font-size:14px">
-    🔐 Acceder a mi portal
+    Acceder a mi portal
   </a>
   <a href="/admin/clients" style="color:#475569;font-size:11px;text-decoration:none">
     Admin

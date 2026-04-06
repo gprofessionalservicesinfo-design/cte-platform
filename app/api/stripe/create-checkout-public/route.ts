@@ -6,8 +6,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 })
 
 const PACKAGES: Record<string, { name: string; amount: number }> = {
-  basic:   { name: 'Plan Basic — LLC Formation',        amount: 49900  },
-  growth:  { name: 'Plan Growth — LLC Formation',       amount: 79900  },
+  basic:   { name: 'Plan Starter — LLC Formation',      amount: 49900  },
+  growth:  { name: 'Plan Pro — LLC Formation',          amount: 79900  },
   premium: { name: 'Plan Premium — LLC Formation',      amount: 120000 },
 }
 
