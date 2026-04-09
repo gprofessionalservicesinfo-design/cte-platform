@@ -13,17 +13,19 @@ import {
   LogOut,
   Menu,
   X,
+  ShieldCheck,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 
 const NAV_ITEMS = [
-  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard, exact: true },
-  { href: '/dashboard/documents', label: 'Documents', icon: FileText, exact: false },
-  { href: '/dashboard/mail', label: 'Mail', icon: Mail, exact: false },
-  { href: '/dashboard/company', label: 'Company', icon: Building2, exact: false },
-  { href: '/dashboard/billing', label: 'Billing', icon: CreditCard, exact: false },
+  { href: '/dashboard',                  label: 'Dashboard',     icon: LayoutDashboard, exact: true },
+  { href: '/dashboard/documents',        label: 'Documents',     icon: FileText,        exact: false },
+  { href: '/dashboard/mail',             label: 'Mail',          icon: Mail,            exact: false },
+  { href: '/dashboard/company',          label: 'Company',       icon: Building2,       exact: false },
+  { href: '/dashboard/billing',          label: 'Billing',       icon: CreditCard,      exact: false },
+  { href: '/dashboard/renovaciones',     label: 'Renovaciones',  icon: ShieldCheck,     exact: false },
 ]
 
 interface SidebarProps {

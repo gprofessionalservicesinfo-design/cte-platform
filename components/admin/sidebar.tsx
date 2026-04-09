@@ -3,21 +3,22 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { Users, FileText, Activity, CreditCard, Shield, LogOut, Menu, X, ShoppingBag, Mail, Wrench, LayoutDashboard } from 'lucide-react'
+import { Users, FileText, Activity, CreditCard, Shield, LogOut, Menu, X, ShoppingBag, Mail, Wrench, LayoutDashboard, RefreshCw } from 'lucide-react'
 import { Logo } from '@/components/logo'
 import { cn } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 
 const NAV_ITEMS = [
-  { href: '/admin',           label: 'Dashboard',   icon: LayoutDashboard },
-  { href: '/admin/clients',   label: 'Clients',     icon: Users },
-  { href: '/admin/orders',    label: 'Orders',      icon: ShoppingBag },
-  { href: '/admin/documents', label: 'Documents',   icon: FileText },
-  { href: '/admin/addresses', label: 'Direcciones', icon: Mail },
-  { href: '/admin/operations',label: 'Operations',  icon: Wrench },
-  { href: '/admin/status',    label: 'Status',      icon: Activity },
-  { href: '/admin/billing',   label: 'Billing',     icon: CreditCard },
+  { href: '/admin',            label: 'Dashboard',   icon: LayoutDashboard },
+  { href: '/admin/clients',    label: 'Clients',     icon: Users },
+  { href: '/admin/orders',     label: 'Orders',      icon: ShoppingBag },
+  { href: '/admin/renewals',   label: 'Renewals',    icon: RefreshCw },
+  { href: '/admin/documents',  label: 'Documents',   icon: FileText },
+  { href: '/admin/addresses',  label: 'Direcciones', icon: Mail },
+  { href: '/admin/operations', label: 'Operations',  icon: Wrench },
+  { href: '/admin/status',     label: 'Status',      icon: Activity },
+  { href: '/admin/billing',    label: 'Billing',     icon: CreditCard },
 ]
 
 interface AdminSidebarProps {
