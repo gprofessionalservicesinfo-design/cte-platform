@@ -25,20 +25,30 @@ export async function POST(req: Request) {
     const {
       plan,
       state_code,
+      state_name,
       customer_email,
+      client_full_name,
       phone,
       company_name,
       terms_accepted_at,
       addons_total,
     } = body
 
+    console.log('[create-checkout-public] received →', JSON.stringify({
+      company_name: company_name || '(empty)',
+      state_code:   state_code   || '(empty)',
+      state_name:   state_name   || '(empty)',
+      client_full_name: client_full_name || '(empty)',
+      plan,
+    }))
+
     const pkg = PACKAGES[plan]
     if (!pkg) {
       return NextResponse.json({ error: `Invalid plan: ${plan}` }, { status: 400 })
     }
 
-    const stateCode  = (state_code || 'WY').toUpperCase()
-    const stateFeeUsd = STATE_FEES[stateCode] ?? 62
+    const stateCode  = (state_code || '').toUpperCase()
+    const stateFeeUsd = stateCode ? (STATE_FEES[stateCode] ?? 0) : 0
     const addonsCents = Math.round((addons_total || 0) * 100)
 
     // Build client_reference_id — same format the webhook parser expects
@@ -58,15 +68,18 @@ export async function POST(req: Request) {
         },
         quantity: 1,
       },
-      {
+    ]
+
+    if (stateCode && stateFeeUsd > 0) {
+      lineItems.push({
         price_data: {
           currency: 'usd',
           product_data: { name: `State Filing Fee — ${stateCode}` },
           unit_amount: stateFeeUsd * 100,
         },
         quantity: 1,
-      },
-    ]
+      })
+    }
 
     if (addonsCents > 0) {
       lineItems.push({
@@ -87,15 +100,24 @@ export async function POST(req: Request) {
       line_items: lineItems,
       metadata: {
         plan,
-        company_name:  company_name  || '',
-        state_code:    stateCode,
-        phone:         phone         || '',
+        company_name:     company_name     || '',
+        state_code:       stateCode,
+        state_name:       state_name       || '',
+        client_full_name: client_full_name || '',
+        client_email:     customer_email   || '',
+        phone:            phone            || '',
       },
       success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url:  `${baseUrl}/checkout.html`,
+      cancel_url:  `${baseUrl}/checkout.html?checkout=cancelled`,
     })
 
-    console.log('[create-checkout-public] session created:', session.id, '| client_reference_id:', clientReferenceId ?? '(none)')
+    console.log('[create-checkout-public] session created:', session.id, '| metadata →', JSON.stringify({
+      company_name:     session.metadata?.company_name,
+      state_code:       session.metadata?.state_code,
+      state_name:       session.metadata?.state_name,
+      client_full_name: session.metadata?.client_full_name,
+      plan:             session.metadata?.plan,
+    }))
     return NextResponse.json({ url: session.url })
 
   } catch (err: any) {

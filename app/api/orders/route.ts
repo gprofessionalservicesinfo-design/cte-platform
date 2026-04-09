@@ -37,6 +37,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 
-  console.log('[api/orders] Order saved for:', email)
+  const p = body as any
+  console.log('[api/orders] pending_orders saved →', JSON.stringify({
+    email,
+    company_name: p?.company_name || '(empty)',
+    state_code:   p?.state_code   || '(empty)',
+    state_name:   p?.state_name   || '(empty)',
+    full_name:    p?.customer?.full_name || '(empty)',
+    plan:         p?.package      || '(empty)',
+  }))
   return NextResponse.json({ ok: true, result_status: 'registered' })
 }

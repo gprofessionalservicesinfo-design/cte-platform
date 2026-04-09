@@ -4,7 +4,7 @@ import { createClient as createAdminClient } from '@supabase/supabase-js'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { StatusBadge } from '@/components/client/status-badge'
 import { StatusTimeline } from '@/components/client/status-timeline'
-import { FileText, Mail, Building2 } from 'lucide-react'
+import { FileText, Mail, Building2, CheckCircle2, Clock, MessageSquare } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
 
 export default async function DashboardPage() {
@@ -69,12 +69,28 @@ export default async function DashboardPage() {
   ])
 
   const firstName = profile?.full_name?.split(' ')[0] ?? 'Cliente'
+  const wa = company as any
+
+  const planLabel: Record<string, string> = {
+    starter: 'Plan Starter', basic: 'Plan Starter',
+    professional: 'Plan Pro', growth: 'Plan Pro',
+    premium: 'Plan Premium',
+  }
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Bienvenido, {firstName}</h1>
-        <p className="text-gray-500 mt-1">Aqui esta el resumen de tu formacion de LLC.</p>
+      {/* Welcome header */}
+      <div className="rounded-2xl bg-[#0A2540] text-white px-6 py-8 sm:px-8">
+        <p className="text-sm font-semibold uppercase tracking-widest text-blue-300 mb-2">Portal de Cliente</p>
+        <h1 className="text-2xl sm:text-3xl font-bold mb-1">Bienvenido, {firstName}</h1>
+        <p className="text-blue-100 text-sm mt-1">
+          Tu empresa <strong>{company.company_name}</strong>
+          {company.state ? ` en ${company.state}` : ''} está en proceso de formacion.
+          Nuestro equipo esta trabajando en tu caso.
+        </p>
+        {company.order_reference && (
+          <p className="text-blue-300 text-xs mt-3">Referencia de orden: {company.order_reference}</p>
+        )}
       </div>
 
       <Card>
@@ -83,7 +99,7 @@ export default async function DashboardPage() {
             <div>
               <CardTitle className="text-xl">{company.company_name}</CardTitle>
               <p className="text-gray-500 text-sm mt-1">Estado de formacion: {company.state}</p>
-              <p className="text-gray-500 text-sm">Paquete: <span className="capitalize font-medium text-gray-700">{company.package}</span></p>
+              <p className="text-gray-500 text-sm">Paquete: <span className="font-medium text-gray-700">{planLabel[company.package ?? ''] ?? company.package}</span></p>
               {company.order_reference && <p className="text-gray-400 text-xs mt-1">Orden: {company.order_reference}</p>}
             </div>
             <StatusBadge status={company.status} />
@@ -96,6 +112,51 @@ export default async function DashboardPage() {
           <div className="pt-2">
             <p className="text-sm font-medium text-gray-700 mb-6">Progreso de formacion</p>
             <StatusTimeline currentStatus={company.status} />
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Communication status */}
+      <Card>
+        <CardHeader className="pb-3">
+          <CardTitle className="text-base">Comunicaciones de bienvenida</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {/* Email — always sent */}
+          <div className="flex items-start gap-3">
+            <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+            <div>
+              <p className="text-sm font-medium text-gray-800">Correo de bienvenida enviado</p>
+              <p className="text-xs text-gray-400">{user.email}</p>
+            </div>
+          </div>
+          {/* WhatsApp */}
+          {wa.whatsapp_status === 'sent' && (
+            <div className="flex items-start gap-3">
+              <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+              <div>
+                <p className="text-sm font-medium text-gray-800">WhatsApp de bienvenida enviado</p>
+                {wa.whatsapp_sent_at && (
+                  <p className="text-xs text-gray-400">{formatDate(wa.whatsapp_sent_at)}</p>
+                )}
+              </div>
+            </div>
+          )}
+          {wa.whatsapp_status && wa.whatsapp_status !== 'sent' && (
+            <div className="flex items-start gap-3">
+              <MessageSquare className="h-4 w-4 text-gray-400 mt-0.5 flex-shrink-0" />
+              <div>
+                <p className="text-sm font-medium text-gray-600">WhatsApp pendiente</p>
+                <p className="text-xs text-gray-400">Contacta a tu asesor si no recibiste el mensaje.</p>
+              </div>
+            </div>
+          )}
+          {/* Next steps note */}
+          <div className="flex items-start gap-3 pt-1 border-t border-gray-100 mt-1">
+            <Clock className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
+            <p className="text-sm text-gray-600">
+              Nuestro equipo comenzara a procesar tu caso en las proximas <strong>24–48 horas</strong> hables.
+            </p>
           </div>
         </CardContent>
       </Card>
@@ -139,19 +200,18 @@ export default async function DashboardPage() {
 
       {company.banking_setup_enabled ? (
         <Card>
-          <CardHeader><CardTitle className="text-base">💳 Configura tus pagos</CardTitle></CardHeader>
+          <CardHeader><CardTitle className="text-base">Configura tus pagos</CardTitle></CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
               {[
-                { name: 'Relay', desc: 'Cuenta bancaria para negocios. Sin tarifas mensuales.', href: 'https://relayfi.com', icon: '🏦' },
-                { name: 'Mercury', desc: 'Banca digital para startups y LLCs. 100% online.', href: 'https://mercury.com', icon: '🚀' },
-                { name: 'Wise Business', desc: 'Pagos internacionales con tasas bajas. Ideal para latinos.', href: 'https://wise.com/us/business/', icon: '🌎' },
-                { name: 'Stripe', desc: 'Acepta pagos online con tarjeta. Fácil de integrar.', href: 'https://stripe.com', icon: '💳' },
-                { name: 'Payoneer', desc: 'Cobra desde marketplaces y clientes internacionales.', href: 'https://www.payoneer.com', icon: '💸' },
+                { name: 'Relay', desc: 'Cuenta bancaria para negocios. Sin tarifas mensuales.', href: 'https://relayfi.com' },
+                { name: 'Mercury', desc: 'Banca digital para startups y LLCs. 100% online.', href: 'https://mercury.com' },
+                { name: 'Wise Business', desc: 'Pagos internacionales con tasas bajas. Ideal para latinos.', href: 'https://wise.com/us/business/' },
+                { name: 'Stripe', desc: 'Acepta pagos online con tarjeta. Facil de integrar.', href: 'https://stripe.com' },
+                { name: 'Payoneer', desc: 'Cobra desde marketplaces y clientes internacionales.', href: 'https://www.payoneer.com' },
               ].map(s => (
                 <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"
                   className="flex items-start gap-3 p-4 rounded-lg border border-gray-100 hover:border-blue-200 hover:bg-blue-50 transition-colors">
-                  <span className="text-2xl leading-none mt-0.5">{s.icon}</span>
                   <div>
                     <p className="font-semibold text-gray-900 text-sm">{s.name}</p>
                     <p className="text-gray-500 text-xs mt-0.5">{s.desc}</p>
@@ -164,14 +224,13 @@ export default async function DashboardPage() {
         </Card>
       ) : (
         <Card>
-          <CardHeader><CardTitle className="text-base">Configuración de pagos</CardTitle></CardHeader>
+          <CardHeader><CardTitle className="text-base">Configuracion de pagos</CardTitle></CardHeader>
           <CardContent>
-            <div className="flex flex-col items-center text-center py-4 gap-3">
-              <span className="text-4xl">🔒</span>
-              <p className="text-sm text-gray-500 max-w-xs">Este servicio estará disponible una vez que tu asesor lo active. Contáctanos si tienes preguntas.</p>
+            <div className="flex flex-col items-start py-2 gap-2">
+              <p className="text-sm text-gray-500">Este servicio estara disponible una vez que tu asesor lo active.</p>
               <a href="https://wa.me/19046248859" target="_blank" rel="noopener noreferrer"
-                className="bg-green-500 text-white px-5 py-2 rounded-lg font-medium text-sm">
-                💬 Preguntar por WhatsApp
+                className="text-sm font-medium text-blue-600 underline underline-offset-2">
+                Contactar asesor por WhatsApp
               </a>
             </div>
           </CardContent>
@@ -180,7 +239,7 @@ export default async function DashboardPage() {
 
       {(company as any).address_service_enabled ? (
         <Card>
-          <CardHeader><CardTitle className="text-base">📬 Tu dirección comercial</CardTitle></CardHeader>
+          <CardHeader><CardTitle className="text-base">Tu direccion comercial</CardTitle></CardHeader>
           <CardContent>
             <div className="space-y-3">
               <div className="flex items-center gap-2">
@@ -202,14 +261,13 @@ export default async function DashboardPage() {
         </Card>
       ) : (
         <Card>
-          <CardHeader><CardTitle className="text-base">📬 Tu dirección comercial</CardTitle></CardHeader>
+          <CardHeader><CardTitle className="text-base">Tu direccion comercial</CardTitle></CardHeader>
           <CardContent>
-            <div className="flex flex-col items-center text-center py-4 gap-3">
-              <span className="text-4xl">🔒</span>
-              <p className="text-sm text-gray-500 max-w-xs">Tu dirección comercial estará disponible una vez activada por tu asesor. Contáctanos si tienes preguntas.</p>
+            <div className="flex flex-col items-start py-2 gap-2">
+              <p className="text-sm text-gray-500">Tu direccion comercial estara disponible una vez activada por tu asesor.</p>
               <a href="https://wa.me/19046248859" target="_blank" rel="noopener noreferrer"
-                className="bg-green-500 text-white px-5 py-2 rounded-lg font-medium text-sm">
-                💬 Preguntar por WhatsApp
+                className="text-sm font-medium text-blue-600 underline underline-offset-2">
+                Contactar asesor por WhatsApp
               </a>
             </div>
           </CardContent>
@@ -218,9 +276,12 @@ export default async function DashboardPage() {
 
       <Card>
         <CardHeader><CardTitle className="text-base">Necesitas ayuda?</CardTitle></CardHeader>
-        <CardContent className="flex flex-wrap gap-3">
-          <a href="https://wa.me/19046248859" target="_blank" className="bg-green-500 text-white px-5 py-2 rounded-lg font-medium text-sm">WhatsApp</a>
-          <a href="mailto:info@creatuempresausa.com" className="bg-gray-100 text-gray-700 px-5 py-2 rounded-lg font-medium text-sm">Email</a>
+        <CardContent>
+          <p className="text-sm text-gray-500 mb-3">Nuestro equipo esta disponible para resolver cualquier pregunta sobre tu caso.</p>
+          <div className="flex flex-wrap gap-3">
+            <a href="https://wa.me/19046248859" target="_blank" className="bg-[#0A2540] text-white px-5 py-2 rounded-lg font-medium text-sm">WhatsApp</a>
+            <a href="mailto:info@creatuempresausa.com" className="bg-gray-100 text-gray-700 px-5 py-2 rounded-lg font-medium text-sm">Email</a>
+          </div>
         </CardContent>
       </Card>
     </div>
