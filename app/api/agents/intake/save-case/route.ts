@@ -50,10 +50,11 @@ export async function POST(request: NextRequest) {
 
     // 4. Update case with normalized output + human review flags
     await supabase.from('cases').update({
-      normalized_output:     normalized,
-      confidence_score:      normalized.confidence_score,
-      requires_human_review: normalized.requires_human_review,
-      normalization_applied: wasNormalized,
+      normalized_output:            normalized,
+      confidence_score:             normalized.confidence_score,
+      requires_human_review:        normalized.requires_human_review,
+      normalization_applied:        wasNormalized,
+      route_classification_pending: true,
       status: normalized.requires_human_review ? 'pending' : 'in_progress',
     }).eq('id', caseId)
 
