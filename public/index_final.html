@@ -870,6 +870,14 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
 /* In-funnel help trigger button */
 #wiz-help-trigger{display:none;position:fixed;bottom:24px;right:24px;align-items:center;gap:8px;background:var(--wa,#25D366);color:#fff;border:none;border-radius:100px;padding:12px 20px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 20px rgba(37,211,102,.35);z-index:8990;font-family:'Inter',sans-serif;transition:transform .2s,box-shadow .2s}
 #wiz-help-trigger:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(37,211,102,.48)}
+/* ── Mobile sticky CTA bar ──────────────────────────────────── */
+#wiz-mob-cta{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1.5px solid var(--gray-200);padding:10px 16px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:8900;box-shadow:0 -4px 20px rgba(10,37,64,.1);flex-direction:column;gap:4px}
+#wiz-mob-cta-error{display:none;font-size:12px;font-weight:600;color:var(--red);text-align:center;padding:2px 0;font-family:'Inter',sans-serif;line-height:1.4}
+#wiz-mob-cta-btn{width:100%;padding:14px;background:var(--navy);color:#fff;border:none;border-radius:var(--r-lg);font-size:15px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:.01em;transition:background .15s,transform .1s,opacity .15s}
+#wiz-mob-cta-btn:active{transform:scale(.97)}
+#wiz-mob-cta-btn:disabled{opacity:.55;cursor:not-allowed}
+#wiz-mob-cta-btn.step-pay{background:var(--accent)}
+@media(min-width:768px){#wiz-mob-cta{display:none!important}}
 /* Help drawer overlay */
 #wiz-help-overlay{display:none;position:fixed;inset:0;background:rgba(10,37,64,.35);z-index:9000;backdrop-filter:blur(2px)}
 /* Help drawer panel */
@@ -880,11 +888,11 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
 #wiz-help-close:hover{color:var(--navy);background:var(--gray-50)}
 /* ── Plan change modal ──────────────────────────────────── */
 #plan-modal-overlay{display:none;position:fixed;inset:0;background:rgba(10,37,64,.45);z-index:9100;backdrop-filter:blur(2px)}
-#plan-modal{position:fixed;left:0;right:0;bottom:0;background:#fff;border-radius:20px 20px 0 0;z-index:9101;max-height:92vh;overflow-y:auto;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);box-shadow:0 -8px 40px rgba(10,37,64,.15)}
-#plan-modal.open{transform:translateY(0)}
+#plan-modal{position:fixed;left:0;right:0;bottom:0;background:#fff;border-radius:20px 20px 0 0;z-index:9101;max-height:92vh;overflow-y:auto;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1),opacity .25s ease;box-shadow:0 -8px 40px rgba(10,37,64,.15);opacity:0;pointer-events:none}
+#plan-modal.open{transform:translateY(0);opacity:1;pointer-events:auto}
 @media(min-width:768px){
-  #plan-modal{left:50%;right:auto;bottom:auto;top:50%;width:min(700px,92vw);border-radius:16px;transform:translate(-50%,-40%);box-shadow:0 20px 60px rgba(10,37,64,.2)}
-  #plan-modal.open{transform:translate(-50%,-50%)}
+  #plan-modal{left:50%;right:auto;bottom:auto;top:50%;width:min(700px,92vw);border-radius:16px;transform:translate(-50%,-48%) scale(.96);box-shadow:0 20px 60px rgba(10,37,64,.2)}
+  #plan-modal.open{transform:translate(-50%,-50%) scale(1)}
 }
 #plan-modal-header{display:flex;justify-content:space-between;align-items:flex-start;padding:24px 24px 16px;border-bottom:1px solid var(--gray-100);position:sticky;top:0;background:#fff;z-index:1}
 #plan-modal-close{background:none;border:none;cursor:pointer;color:var(--gray-400);padding:4px;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:color .15s}
@@ -1040,6 +1048,7 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
   <div class="mnav-ctas">
     <a class="btn btn-wa" href="https://wa.me/19046248859" target="_blank">💬 Hablar por WhatsApp</a>
     <button class="btn btn-primary" onclick="goTo('wizard');closeMNav()">🚀 Crear mi empresa</button>
+    <a class="btn btn-ghost btn-sm" href="/login" style="justify-content:center;border-color:var(--gray-200);color:var(--gray-500);font-size:13px">Acceder a mi portal</a>
   </div>
 </nav>
 
@@ -1842,7 +1851,7 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
         <div id="wizFeaturedStates" style="margin-bottom:16px">
           <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:8px">Estados populares</div>
           <div class="wiz-state-grid">
-            <button type="button" class="state-btn state-btn-light active" data-state="WY" onclick="wizSelectFeaturedState('WY')" style="padding:12px 14px;text-align:left;border-radius:var(--r);border:1.5px solid var(--gray-200);background:#fff;cursor:pointer;font-family:'Inter',sans-serif;transition:all .18s">
+            <button type="button" class="state-btn state-btn-light" data-state="WY" onclick="wizSelectFeaturedState('WY')" style="padding:12px 14px;text-align:left;border-radius:var(--r);border:1.5px solid var(--gray-200);background:#fff;cursor:pointer;font-family:'Inter',sans-serif;transition:all .18s">
               <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:3px">WY · $62</div>
               <div style="font-weight:700;font-size:13.5px;color:var(--navy)">Wyoming</div>
               <div style="font-size:11.5px;color:var(--gray-500);margin-top:2px">Sin impuesto · Privacidad alta</div>
@@ -2247,7 +2256,7 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
               <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:6px">Incluido</div>
               <ul class="wiz-plan-features"><li>Formación de LLC o Corporation</li><li>EIN del IRS</li><li>Articles of Organization</li><li>Registered Agent (1 año)</li><li>Documentos digitales</li></ul>
               <div style="border-top:1px solid var(--gray-200);margin-top:10px;padding-top:8px">
-                <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);padding:2px 0"><span>Honorarios de servicio</span><span style="font-weight:600">$499</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);padding:2px 0"><span>Paquete</span><span style="font-weight:600">$499</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);padding:2px 0"><span>Tarifa estatal</span><span style="font-weight:600" id="wiz3StateFeeB">$50</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:var(--navy);padding:4px 0;border-top:1px solid var(--gray-100);margin-top:3px"><span>Total hoy</span><span id="wiz3TotalB">$549</span></div>
               </div>
@@ -2262,7 +2271,7 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
               <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:6px">Todo en Starter +</div>
               <ul class="wiz-plan-features"><li>Operating Agreement completo</li><li>Asesoría apertura bancaria</li><li>Guía de compliance anual</li><li>Soporte prioritario por email</li></ul>
               <div style="border-top:1px solid var(--gray-200);margin-top:10px;padding-top:8px">
-                <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);padding:2px 0"><span>Honorarios de servicio</span><span style="font-weight:600">$799</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);padding:2px 0"><span>Paquete</span><span style="font-weight:600">$799</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);padding:2px 0"><span>Tarifa estatal</span><span style="font-weight:600" id="wiz3StateFeeG">$50</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:var(--navy);padding:4px 0;border-top:1px solid var(--gray-100);margin-top:3px"><span>Total hoy</span><span id="wiz3TotalG">$849</span></div>
               </div>
@@ -2277,7 +2286,7 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
               <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:6px">Todo en Pro +</div>
               <ul class="wiz-plan-features"><li>Fast-track (prioridad máxima)</li><li>Business Address Standard (12 meses)</li><li>Sesión de asesoría fiscal</li><li>Soporte dedicado WhatsApp</li><li>Form 5472 incluido</li></ul>
               <div style="border-top:1px solid var(--gray-200);margin-top:10px;padding-top:8px">
-                <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);padding:2px 0"><span>Honorarios de servicio</span><span style="font-weight:600">$1,200</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);padding:2px 0"><span>Paquete</span><span style="font-weight:600">$1,200</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);padding:2px 0"><span>Tarifa estatal</span><span style="font-weight:600" id="wiz3StateFeePrem">$50</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:var(--navy);padding:4px 0;border-top:1px solid var(--gray-100);margin-top:3px"><span>Total hoy</span><span id="wiz3TotalPrem">$1,250</span></div>
               </div>
@@ -2534,14 +2543,14 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
 </div>
 
 <!-- ════ PLAN CHANGE MODAL ════ -->
-<div id="plan-modal-overlay" onclick="wizClosePlanModal()"></div>
+<div id="plan-modal-overlay" onclick="wizClosePlanModalIfConfirmed()"></div>
 <div id="plan-modal" role="dialog" aria-modal="true" aria-label="Cambiar plan">
   <div id="plan-modal-header">
     <div>
       <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gray-400);margin-bottom:4px">Selección de plan</div>
       <div style="font-size:18px;font-weight:800;color:var(--navy);font-family:'Manrope',sans-serif">Elige tu plan</div>
     </div>
-    <button id="plan-modal-close" onclick="wizClosePlanModal()" aria-label="Cerrar">
+    <button id="plan-modal-close" onclick="wizClosePlanModalIfConfirmed()" aria-label="Cerrar">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
   </div>
@@ -2599,11 +2608,9 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 224 28" aria-label="CreaTuEmpresaUSA" role="img" style="width:140px;height:auto;display:block;margin-bottom:4px">
-          <text x="0" y="26" font-family="Georgia,'Times New Roman',serif" font-size="24" font-weight="700" letter-spacing="-0.3">
-            <tspan fill="#0A2540">CreaTuEmpresa</tspan><tspan fill="#DC2626">USA</tspan>
-          </text>
-        </svg>
+        <div style="display:flex;align-items:center;gap:0;white-space:nowrap;margin-bottom:4px">
+          <span style="font-family:Georgia,'Times New Roman',serif;font-size:20px;font-weight:700;color:#fff;letter-spacing:-0.5px">CreaTuEmpresa</span><span style="font-family:Georgia,'Times New Roman',serif;font-size:20px;font-weight:700;color:#DC2626">USA</span>
+        </div>
         <p data-es="Ayudamos a emprendedores de Latinoamérica a crear empresas en Estados Unidos de forma 100% remota, rápida y segura." data-en="We help Latin American entrepreneurs create companies in the United States 100% remotely, quickly and securely.">Ayudamos a emprendedores de Latinoamérica a crear empresas en Estados Unidos de forma 100% remota, rápida y segura.</p>
         <div class="footer-social">
           <a class="social-btn" href="#" title="Instagram">📸</a>
@@ -2700,10 +2707,10 @@ var STATE_NAMES = {
 
 /* ── Helpers ───────────────────────────────────────────────── */
 function wizGetStateFee(code) {
-  if (!code) code = 'CO';
+  if (!code) return 0;
   var cfg = window.PRICING_CONFIG;
   if (cfg && cfg.states[code]) return cfg.states[code].fee;
-  return STATE_FEES[code] || 62;
+  return STATE_FEES[code] || 0;
 }
 function wizGetStateName(code) {
   if (!code) return '';
@@ -2714,16 +2721,16 @@ function wizGetStateName(code) {
 function wizGetPlanData(planId, stateCode) {
   var cfg = window.PRICING_CONFIG;
   var plan = cfg ? cfg.plans[planId] : null;
-  var svc = plan ? plan.serviceFee : ({basic:499,growth:799,premium:1200}[planId] || 799);
-  var sf = wizGetStateFee(stateCode);
+  var svc = plan ? plan.serviceFee : ({basic:499,growth:799,premium:1200}[planId] || 499);
+  var sf = stateCode ? wizGetStateFee(stateCode) : 0;
   var displayNames = {basic:'Starter',growth:'Pro',premium:'Premium'};
   var name = plan ? (plan.name || displayNames[planId] || planId) : (displayNames[planId] || planId);
   return { name:name, service:svc, stateFee:sf, total:svc + sf };
 }
 
 /* ── Wizard state object ─────────────────────────────────── */
-var WIZ = { currentStep:1, residentType:'foreign', type:'llc', state:'CO', stateName:'Colorado', plan:'growth', name:'', addons:{},
-  company_name:'', alternate_name_1:'', alternate_name_2:'', members_count:'1', business_activity:'', _upsellsInited:false,
+var WIZ = { currentStep:1, residentType:'foreign', type:'llc', state:'', stateName:'', plan:'basic', name:'', addons:{},
+  company_name:'', alternate_name_1:'', alternate_name_2:'', members_count:'1', business_activity:'',
   personal_city:'', personal_address:'', us_address:'', us_city:'', us_state:'', us_zip:'', use_personal_as_company:false, company_address:'' };
 
 /* ── Step 6b: populate base confirmation screen ──────────── */
@@ -2738,8 +2745,8 @@ function wizRenderStep6b() {
   var el = function(id, val) { var e = document.getElementById(id); if (e) e.textContent = val; };
   el('wiz6bPlan',     pd.name);
   el('wiz6bType',     typeLabels[WIZ.type] || WIZ.type || '—');
-  el('wiz6bState',    WIZ.stateName || WIZ.state || '—');
-  el('wiz6bStateFee', '$' + pd.stateFee);
+  el('wiz6bState',    WIZ.stateName || 'Pendiente');
+  el('wiz6bStateFee', WIZ.state ? '$' + pd.stateFee : 'Pendiente');
   el('wiz6bTotal',    '$' + pd.total);
   var list = document.getElementById('wiz6bIncludes');
   if (list) {
@@ -2758,7 +2765,7 @@ function wizUpdateMobSummary() {
   el('wizMobTotal',  '$' + total);
   el('mobSbPlan',    pd.name);
   el('mobSbType',    typeLabels[WIZ.type] || WIZ.type || '—');
-  el('mobSbState',   (WIZ.stateName || WIZ.state || '—') + ' · $' + pd.stateFee);
+  el('mobSbState',   WIZ.stateName ? WIZ.stateName + ' · $' + pd.stateFee : 'Pendiente');
   el('mobSbName',    WIZ.company_name || '—');
   el('mobSbTotal',   '$' + total);
 }
@@ -2812,6 +2819,132 @@ function wizSaveEmailLead() {
 }
 
 /* ── In-funnel help drawer ──────────────────────────────── */
+/* ── Mobile sticky CTA ──────────────────────────────────────── */
+var STEP_CTA_LABELS = {
+  1: 'Continuar — Tipo de empresa',
+  2: 'Continuar — Estado',
+  3: 'Continuar — Nombre',
+  4: 'Continuar — Contacto',
+  5: 'Continuar',
+  7: 'Revisar mi orden',
+  8: 'Pagar ahora'
+};
+
+function wizUpdateMobCta(step) {
+  var bar = document.getElementById('wiz-mob-cta');
+  var btn = document.getElementById('wiz-mob-cta-btn');
+  var errEl = document.getElementById('wiz-mob-cta-error');
+  if (!bar || !btn) return;
+
+  /* Only on mobile AND wizard page */
+  var onWizard = document.getElementById('page-wizard') &&
+    document.getElementById('page-wizard').classList.contains('active');
+  if (!onWizard || window.innerWidth >= 768) {
+    bar.style.display = 'none';
+    /* Remove extra bottom padding */
+    var cnt = document.querySelector('#page-wizard>.container');
+    if (cnt) cnt.style.paddingBottom = '';
+    return;
+  }
+
+  /* Clear any previous error */
+  if (errEl) { errEl.style.display = 'none'; errEl.textContent = ''; }
+
+  var label = STEP_CTA_LABELS[step] || 'Continuar';
+  btn.textContent = label;
+  btn.disabled = false;
+  /* "Pagar ahora" gets accent colour */
+  btn.classList.toggle('step-pay', step === 8);
+  bar.style.display = 'flex';
+
+  /* Push wizard content up so it isn't hidden behind the bar */
+  var cnt = document.querySelector('#page-wizard>.container');
+  if (cnt) cnt.style.paddingBottom = '90px';
+}
+
+var _wizMobErrTimer = null;
+function wizMobCtaAction() {
+  var step = WIZ.currentStep;
+  var errEl = document.getElementById('wiz-mob-cta-error');
+  var btn   = document.getElementById('wiz-mob-cta-btn');
+
+  function showMobError(msg, focusEl) {
+    if (errEl) {
+      errEl.textContent = msg;
+      errEl.style.display = 'block';
+      clearTimeout(_wizMobErrTimer);
+      _wizMobErrTimer = setTimeout(function() {
+        errEl.style.display = 'none';
+      }, 5000);
+    }
+    if (focusEl) {
+      focusEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(function() { if (focusEl.focus) focusEl.focus(); }, 350);
+    }
+  }
+  function clearMobError() {
+    if (errEl) { errEl.style.display = 'none'; errEl.textContent = ''; }
+    clearTimeout(_wizMobErrTimer);
+  }
+
+  clearMobError();
+
+  /* Steps 1 & 2 — always have a default selection, just advance */
+  if (step === 1 || step === 2) { wizNext(step); return; }
+
+  /* Step 3 — state required */
+  if (step === 3) {
+    var stateEl = document.getElementById('wizStateSelect');
+    if (!WIZ.state && (!stateEl || !stateEl.value)) {
+      if (stateEl) stateEl.style.borderColor = 'var(--red)';
+      showMobError('Selecciona un estado para continuar', stateEl);
+      return;
+    }
+    wizNext(3); return;
+  }
+
+  /* Step 4 — company name required */
+  if (step === 4) {
+    var nameEl = document.getElementById('wizCompanyName');
+    if (!nameEl || !nameEl.value.trim()) {
+      if (nameEl) nameEl.style.borderColor = 'var(--red)';
+      showMobError('Ingresa el nombre de tu empresa', nameEl);
+      return;
+    }
+    wizNext(4); return;
+  }
+
+  /* Step 5 — name + email required */
+  if (step === 5) {
+    var n5El  = document.getElementById('wizName');
+    var e5El  = document.getElementById('wizEmail');
+    if (!n5El || !n5El.value.trim()) {
+      if (n5El) n5El.style.borderColor = 'var(--red)';
+      showMobError('Ingresa tu nombre completo', n5El);
+      return;
+    }
+    if (!e5El || !e5El.value.trim() || !e5El.value.includes('@')) {
+      if (e5El) e5El.style.borderColor = 'var(--red)';
+      showMobError('Tu email es obligatorio', e5El);
+      return;
+    }
+    /* Trigger the form submit button (runs full validation + form submit handler) */
+    var submitBtn = document.getElementById('wizSubmitBtn');
+    if (submitBtn) { submitBtn.click(); } else { wizNext(5); }
+    return;
+  }
+
+  /* Step 7 — go to summary/payment */
+  if (step === 7) {
+    wizRenderSummary(); wizGoTo(8); return;
+  }
+
+  /* Step 8 — pay */
+  if (step === 8) {
+    wizPayInline(); return;
+  }
+}
+
 /* ── Plan change modal ──────────────────────────────────────── */
 function wizOpenPlanModal() {
   var overlay = document.getElementById('plan-modal-overlay');
@@ -2835,8 +2968,12 @@ function wizClosePlanModal() {
   overlay.style.display = 'none';
   document.body.style.overflow = '';
 }
+function wizClosePlanModalIfConfirmed() {
+  if (WIZ.planConfirmed) wizClosePlanModal();
+}
 function wizSelectPlan(planId) {
   WIZ.plan = planId;
+  WIZ.planConfirmed = true;
   /* Update modal highlight */
   var map = {basic:'planModalBasic', growth:'planModalGrowth', premium:'planModalPremium'};
   Object.keys(map).forEach(function(id){
@@ -2877,7 +3014,29 @@ function wizGoTo(step) {
     s.classList.toggle('completed', n < step);
   });
   WIZ.currentStep = step;
-  if (step === 5) wizToggleAddrBlocks();
+  if (step === 5) {
+    wizToggleAddrBlocks();
+    /* Restore step-5 field values from WIZ state (fields may have lost DOM values
+       if the user navigated away and back; WIZ is the single source of truth) */
+    var s5 = function(id, val) { var e = document.getElementById(id); if (e && val !== undefined && val !== null && val !== '') e.value = val; };
+    s5('wizName',          WIZ.name);
+    s5('wizEmail',         WIZ.email);
+    s5('wizPersonalCity',    WIZ.personal_city);
+    s5('wizPersonalAddress', WIZ.personal_address);
+    s5('wizUSAddress',    WIZ.us_address);
+    s5('wizUSCity',       WIZ.us_city);
+    s5('wizUSStateAddr',  WIZ.us_state);
+    s5('wizUSZip',        WIZ.us_zip);
+    /* Restore phone number portion (WIZ.phone may include country code prefix) */
+    if (WIZ.phone) {
+      var phoneInput = document.getElementById('wizPhoneNum');
+      if (phoneInput && !phoneInput.value) {
+        /* Strip leading country code if present (e.g. "+1" or "+52") to get raw number */
+        var rawPhone = WIZ.phone.replace(/^\+?\d{1,3}/, '').trim();
+        if (rawPhone) phoneInput.value = rawPhone;
+      }
+    }
+  }
   if (step === '6b') wizRenderStep6b();
   if (step === 7) wizBuildUpsells();
   /* Sidebar: always visible — plan is always set from step 1 */
@@ -2886,6 +3045,7 @@ function wizGoTo(step) {
   window.scrollTo({top:0,behavior:'smooth'});
   wizUpdateSidebar();
   wizUpdateMobSummary();
+  wizUpdateMobCta(step);
   wizSaveDraft();
 }
 function wizNext(fromStep) {
@@ -2993,14 +3153,23 @@ function wizCollect(step) {
     WIZ.alternate_name_2 = alt2   ? alt2.value.trim()   : '';
   }
   if (step === 5) {
+    /* Core contact fields — collect regardless of resident type */
+    var g5 = function(id) { var e = document.getElementById(id); return e ? e.value.trim() : ''; };
+    var nameVal = g5('wizName');   if (nameVal)  WIZ.name  = nameVal;
+    var emailVal = g5('wizEmail'); if (emailVal) WIZ.email = emailVal;
+    var phoneNum = document.getElementById('wizPhoneNum');
+    var phoneCode = document.getElementById('wizPhoneCode');
+    if (phoneNum && phoneNum.value.trim()) {
+      WIZ.phone = (phoneCode ? phoneCode.value.replace(/-[A-Z]+$/,'') : '') + phoneNum.value.trim();
+    }
     if (WIZ.residentType !== 'us') {
-      WIZ.personal_city    = (document.getElementById('wizPersonalCity')    || {value:''}).value.trim();
-      WIZ.personal_address = (document.getElementById('wizPersonalAddress') || {value:''}).value.trim();
+      WIZ.personal_city    = g5('wizPersonalCity');
+      WIZ.personal_address = g5('wizPersonalAddress');
     } else {
-      WIZ.us_address = (document.getElementById('wizUSAddress')   || {value:''}).value.trim();
-      WIZ.us_city    = (document.getElementById('wizUSCity')      || {value:''}).value.trim();
+      WIZ.us_address = g5('wizUSAddress');
+      WIZ.us_city    = g5('wizUSCity');
       WIZ.us_state   = (document.getElementById('wizUSStateAddr') || {value:''}).value;
-      WIZ.us_zip     = (document.getElementById('wizUSZip')       || {value:''}).value.trim();
+      WIZ.us_zip     = g5('wizUSZip');
       var cb = document.getElementById('wizUsePersonalAsCompany');
       WIZ.use_personal_as_company = !!(cb && cb.checked);
       if (WIZ.use_personal_as_company) {
@@ -3010,14 +3179,14 @@ function wizCollect(step) {
   }
   if (step === 6) {
     var ch = document.querySelector('#wizStep6 input[name="plan"]:checked');
-    WIZ.plan = ch ? ch.value : 'growth';
+    WIZ.plan = ch ? ch.value : 'basic';
     wizRefreshAddons();
   }
 }
 
 /* ── Pricing updates ─────────────────────────────────────── */
 function wizUpdatePlanPrices() {
-  var sc = WIZ.state || 'CO';
+  var sc = WIZ.state || '';
   var sf = wizGetStateFee(sc);
   var cfg = window.PRICING_CONFIG;
   var fees = { basic: cfg ? cfg.plans.basic.serviceFee : 499, growth: cfg ? cfg.plans.growth.serviceFee : 799, premium: cfg ? cfg.plans.premium.serviceFee : 1200 };
@@ -3044,7 +3213,7 @@ function wizUpdateSidebar() {
   var sbType  = document.getElementById('sbTypeVal');
   var sbState = document.getElementById('sbStateVal');
   if (sbType)  sbType.textContent  = typeLabels[WIZ.type] || WIZ.type || '—';
-  if (sbState) sbState.textContent = WIZ.stateName ? WIZ.stateName + ' · $' + wizGetStateFee(WIZ.state) : '—';
+  if (sbState) sbState.textContent = WIZ.stateName ? WIZ.stateName + ' · $' + wizGetStateFee(WIZ.state) : 'Pendiente';
 
   /* ── Nombre empresa (step 5+) ─────────────────────────────── */
   var sbSectionNombre = document.getElementById('sbSectionNombre');
@@ -3084,7 +3253,7 @@ function wizUpdateSidebar() {
   var sbTotal = document.getElementById('sbPriceVal');
   if (sbPlan)  sbPlan.textContent  = pd.name;
   if (sbSvc)   sbSvc.textContent   = '$'+pd.service;
-  if (sbSf)    sbSf.textContent    = '$'+pd.stateFee;
+  if (sbSf)    sbSf.textContent    = WIZ.state ? '$'+pd.stateFee : 'Se calculará al elegir el estado';
   if (sbTotal) sbTotal.textContent = '$'+(pd.total + addonTotal);
   /* ── Extras list ── */
   var sbExtrasSection = document.getElementById('sbExtrasSection');
@@ -3108,6 +3277,7 @@ function wizUpdateSidebar() {
 
 function wizRemoveUpsell(id) {
   delete WIZ.addons[id];
+  wizUpdateMobSummary();
   var toggle = document.querySelector('#wizStep7 .wiz-toggle[data-uid="'+id+'"]');
   if (toggle) toggle.classList.remove('on');
   /* Sync banking cards if removed from sidebar */
@@ -3136,6 +3306,7 @@ function wiz7AddrPeriod(cardId, period) {
     WIZ.addons[cardId].price  = price;
     WIZ.addons[cardId].period = pLabel;
     wizUpdateSidebar();
+    wizUpdateMobSummary();
   }
 }
 
@@ -3159,6 +3330,7 @@ function wiz7ToggleAddr(id, otherId, label) {
     if (card) card.classList.add('selected');
   }
   wizUpdateSidebar();
+  wizUpdateMobSummary();
 }
 
 function wizGetBankRec() {
@@ -3185,6 +3357,7 @@ function wiz7ToggleBank(id, otherId, price, label) {
     if (card) card.classList.add('selected');
   }
   wizUpdateSidebar();
+  wizUpdateMobSummary();
 }
 
 /* ── Upsell step 7 — dynamic sub-steps per resident type ───── */
@@ -3202,14 +3375,14 @@ var WIZ7_ITEMS = {
 /* Layout config per resident type. special: 'addr'=address block, 'banking'=banking block, 'email_banking'=emailDomain+banking */
 var WIZ7_CONFIG = {
   foreign: [
-    { id:'A', n:1, total:5, progress:'Dirección comercial',      title:'Establece tu dirección comercial en EE.UU.',     sub:'Una dirección real con manejo de correo es el primer paso operativo para tu empresa.',         special:'addr',         items:[], prevFn:"wizGoTo(6)", nextFn:"wiz7GoTo('B')" },
+    { id:'A', n:1, total:5, progress:'Dirección comercial',      title:'Establece tu dirección comercial en EE.UU.',     sub:'Una dirección real con manejo de correo es el primer paso operativo para tu empresa.',         special:'addr',         items:[], prevFn:"wizGoTo(5)", nextFn:"wiz7GoTo('B')" },
     { id:'B', n:2, total:5, progress:'Estructura legal',         title:'Define la estructura legal de tu empresa',       sub:'Estos servicios protegen y dan identidad a tu LLC desde el inicio.',                          special:null,           items:['opAgreement','dba'], prevFn:"wiz7GoTo('A')", nextFn:"wiz7GoTo('C')" },
     { id:'C', n:3, total:5, progress:'Tax & Cumplimiento fiscal', title:'Prepárate para impuestos y cumplimiento fiscal', sub:'El paso más importante para extranjeros que abren empresa en EE.UU.',                         special:'foreign_alert', items:['taxReady','itin'], prevFn:"wiz7GoTo('B')", nextFn:"wiz7GoTo('D')" },
     { id:'D', n:4, total:5, progress:'Apertura bancaria',         title:'Abre tu cuenta bancaria en EE.UU.',             sub:'El paso esencial para operar financieramente como empresa americana.',                         special:'banking',      items:[], prevFn:"wiz7GoTo('C')", nextFn:"wiz7GoTo('E')" },
     { id:'E', n:5, total:5, progress:'Mantenimiento',             title:'Mantén tu empresa activa y en crecimiento',     sub:'Servicios anuales que protegen el estatus de tu empresa a largo plazo.',                       special:null,           items:['compliance','bookkeeping','waSupport'], prevFn:"wiz7GoTo('D')", nextFn:"wizRenderSummary();wizGoTo(8)" },
   ],
   us: [
-    { id:'A', n:1, total:3, progress:'Estructura legal',          title:'Define la estructura legal de tu empresa',       sub:'Estos servicios protegen y dan identidad a tu LLC desde el inicio.',                          special:null,           items:['opAgreement','dba'], prevFn:"wizGoTo(6)", nextFn:"wiz7GoTo('B')" },
+    { id:'A', n:1, total:3, progress:'Estructura legal',          title:'Define la estructura legal de tu empresa',       sub:'Estos servicios protegen y dan identidad a tu LLC desde el inicio.',                          special:null,           items:['opAgreement','dba'], prevFn:"wizGoTo(5)", nextFn:"wiz7GoTo('B')" },
     { id:'B', n:2, total:3, progress:'Compliance & Contabilidad', title:'Compliance y contabilidad desde el inicio',      sub:'Mantén tu empresa en orden y evita problemas con el IRS.',                                    special:null,           items:['compliance','bookkeeping','waSupport'], prevFn:"wiz7GoTo('A')", nextFn:"wiz7GoTo('C')" },
     { id:'C', n:3, total:3, progress:'Operación digital y bancaria', title:'Prepárate para operar desde el primer día',  sub:'Todo lo que necesitas para recibir pagos y presentarte profesionalmente.',                     special:'email_banking', items:['emailDomain'], prevFn:"wiz7GoTo('B')", nextFn:"wizRenderSummary();wizGoTo(8)" },
   ]
@@ -3218,18 +3391,6 @@ var WIZ7_CONFIG = {
 function wizBuildUpsells() {
   var isForeign = WIZ.residentType !== 'us';
   var config = isForeign ? WIZ7_CONFIG.foreign : WIZ7_CONFIG.us;
-
-  /* Apply recommended defaults on first entry this session */
-  if (!WIZ._upsellsInited) {
-    WIZ._upsellsInited = true;
-    var defaults = ['opAgreement','taxReady','compliance'];
-    Object.keys(WIZ7_ITEMS).forEach(function(k) {
-      var u = WIZ7_ITEMS[k];
-      if (defaults.indexOf(u.id) !== -1 && u.includedIn.indexOf(WIZ.plan) === -1 && !WIZ.addons[u.id]) {
-        WIZ.addons[u.id] = { price:u.price, label:u.label, period:u.period };
-      }
-    });
-  }
 
   /* Active panel ids for this resident type */
   var activeIds = config.map(function(s){ return s.id; });
@@ -3388,6 +3549,7 @@ function wizToggleUpsell(btn, id, price, label, period) {
     btn.setAttribute('aria-pressed','true');
   }
   wizUpdateSidebar();
+  wizUpdateMobSummary();
 }
 
 /* ── Add-ons ──────────────────────────────────────────────── */
@@ -3398,6 +3560,7 @@ function toggleWizAddon(card) {
   if (WIZ.addons[id]) { delete WIZ.addons[id]; card.classList.remove('selected'); }
   else { WIZ.addons[id] = {price:price,label:label,period:period}; card.classList.add('selected'); }
   wizUpdateSidebar();
+  wizUpdateMobSummary();
 }
 
 function wizRefreshAddons() {
@@ -3647,6 +3810,14 @@ async function wizPayInline() {
   var btn = document.getElementById('wizPayBtn');
   if (btn) { btn.disabled = true; btn.textContent = 'Preparando pago…'; btn.style.opacity = '.75'; }
   var payload = wizBuildPayload();
+  console.log('[CTE funnel] wizPayInline payload →', JSON.stringify({
+    company_name: payload.company_name || '(empty — step 4 not collected?)',
+    state_code:   payload.state_code   || '(empty — step 3 not collected?)',
+    state_name:   payload.state_name   || '(empty)',
+    full_name:    payload.customer && payload.customer.full_name || '(empty)',
+    email:        payload.customer && payload.customer.email     || '(empty)',
+    plan:         payload.package      || '(empty)',
+  }));
   try { localStorage.setItem('formation_order', JSON.stringify(payload)); } catch(e) {}
   try { sessionStorage.setItem('wizOrderPayload', JSON.stringify(payload)); } catch(e) {}
   try { sessionStorage.setItem('wizOrderRef', payload.order_reference || ''); } catch(e) {}
@@ -3679,11 +3850,11 @@ function wizRenderSummary() {
     + '</div>'
     + '<div style="padding:16px 20px;border-bottom:1px solid var(--gray-100)">'
     + '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:10px">Incluido hoy</div>'
-    + '<div style="display:flex;justify-content:space-between;font-size:13px;padding:3px 0;color:var(--gray-700)"><span>Honorarios de servicio</span><span style="font-weight:600">$'+pd.service+'</span></div>'
+    + '<div style="display:flex;justify-content:space-between;font-size:13px;padding:3px 0;color:var(--gray-700)"><span>Paquete '+pd.name+'</span><span style="font-weight:600">$'+pd.service+'</span></div>'
     + '<div style="display:flex;justify-content:space-between;font-size:13px;padding:3px 0;color:var(--gray-700)"><span>Tarifa estatal ('+WIZ.stateName+')</span><span style="font-weight:600">$'+pd.stateFee+'</span></div>'
     + '</div>'
     + '<div style="padding:16px 20px;border-bottom:1px solid var(--gray-100)">'
-    + '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:10px">Add-ons seleccionados</div>'
+    + '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:10px">Servicios adicionales</div>'
     + addonRows + '</div>'
     + '<div style="display:flex;justify-content:space-between;align-items:center;padding:18px 20px;background:var(--navy)">'
     + '<span style="font-size:14px;font-weight:700;color:rgba(255,255,255,.65)">Total a pagar hoy</span>'
@@ -3698,8 +3869,8 @@ function wizRenderSummary() {
 }
 
 function wizReset() {
-  WIZ.currentStep=1; WIZ.residentType='foreign'; WIZ.type='llc'; WIZ.state='CO'; WIZ.stateName='Colorado';
-  WIZ.plan='growth'; WIZ.name=''; WIZ.addons={}; WIZ._upsellsInited=false;
+  WIZ.currentStep=1; WIZ.residentType='foreign'; WIZ.type='llc'; WIZ.state=''; WIZ.stateName='';
+  WIZ.plan='basic'; WIZ.name=''; WIZ.addons={};
   WIZ.company_name=''; WIZ.alternate_name_1=''; WIZ.alternate_name_2=''; WIZ.members_count='1'; WIZ.business_activity='';
   WIZ.personal_city=''; WIZ.personal_address=''; WIZ.us_address=''; WIZ.us_city=''; WIZ.us_state=''; WIZ.us_zip=''; WIZ.use_personal_as_company=false; WIZ.company_address='';
   ['wizCompanyName','wizAltName1','wizAltName2'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
@@ -3719,10 +3890,13 @@ function initWizardOnce() {
   if (_wizardReady) return;
   _wizardReady = true;
 
-  /* Default to CO on load */
-  wizSelectFeaturedState('CO');
   wizRefreshAddons();
   wizUpdateSidebar();
+
+  /* Auto-open plan modal for generic CTA users (no ?plan= in URL) */
+  if (!WIZ.planSelectedFromUrl) {
+    setTimeout(wizOpenPlanModal, 500);
+  }
 
   /* Email blur → auto-save lead as soon as email is entered */
   var emailInput = document.getElementById('wizEmail');
@@ -3781,12 +3955,9 @@ function initWizardOnce() {
     form.addEventListener('submit', function(e){
       e.preventDefault();
       if (!wizValidate(5)) return;
-      var name = document.getElementById('wizName'), email = document.getElementById('wizEmail'), country = document.getElementById('wizCountry');
-      if (name) WIZ.name = name.value.trim();
-      if (email) WIZ.email = email.value.trim();
+      wizCollect(5);   /* single source of truth — collects name, email, phone, address */
+      var country = document.getElementById('wizCountry');
       if (country) WIZ.country = country.value;
-      var phone = document.getElementById('wizPhoneNum'), phoneCode = document.getElementById('wizPhoneCode');
-      if (phone) WIZ.phone = (phoneCode ? phoneCode.value : '') + phone.value.trim();
       wizUpdateSidebar();
       wizRefreshAddons();
       wizGoTo(7);
@@ -3813,6 +3984,8 @@ function goTo(page) {
   window.scrollTo({top:0, behavior:'smooth'});
   setTimeout(initReveal, 120);
   if (page === 'wizard') initWizardOnce();
+  /* Update mobile CTA bar visibility */
+  wizUpdateMobCta(WIZ.currentStep);
   /* Hide global WA float on wizard page (replaced by in-funnel help) */
   var globalWaFloat = document.querySelector('.wa-float');
   if (globalWaFloat) globalWaFloat.style.display = page === 'wizard' ? 'none' : '';
@@ -3974,7 +4147,6 @@ function wizSaveDraft() {
       name:          WIZ.name,
       email:         WIZ.email || '',
       phone:         WIZ.phone || '',
-      addons:        WIZ.addons,
       savedAt:       Date.now()
     }));
   } catch(e) {}
@@ -3993,14 +4165,14 @@ function wizResumeDraft() {
     var d = JSON.parse(raw);
     WIZ.residentType  = d.residentType  || 'foreign';
     WIZ.type          = d.type          || 'llc';
-    WIZ.state         = d.state         || 'CO';
-    WIZ.stateName     = d.stateName     || 'Colorado';
-    WIZ.plan          = d.plan          || 'growth';
+    WIZ.state         = d.state         || '';
+    WIZ.stateName     = d.stateName     || '';
+    WIZ.plan          = d.plan          || 'basic';
     WIZ.company_name  = d.company_name  || '';
     WIZ.name          = d.name          || '';
     WIZ.email         = d.email         || '';
     WIZ.phone         = d.phone         || '';
-    WIZ.addons        = d.addons        || {};
+    WIZ.addons        = {};  /* never restore extras — client must re-select each session */
     goTo('wizard');
     /* Restore UI radio selections */
     var rtInput = document.querySelector('#wizStep1 input[name="resident_type"][value="'+WIZ.residentType+'"]');
@@ -4056,10 +4228,12 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ?plan= URL param — preselects a plan when arriving from the landing page.
      Mapping: starter→basic, pro→growth, premium→premium */
   var urlPlan = new URLSearchParams(window.location.search).get('plan');
+  WIZ.planSelectedFromUrl = false;
+  WIZ.planConfirmed = false;
   if (urlPlan) {
     var planMap = { starter: 'basic', pro: 'growth', premium: 'premium' };
     var mappedPlan = planMap[urlPlan.toLowerCase()];
-    if (mappedPlan) WIZ.plan = mappedPlan;
+    if (mappedPlan) { WIZ.plan = mappedPlan; WIZ.planSelectedFromUrl = true; WIZ.planConfirmed = true; }
   }
   /* Plan is never a required step — always default to Starter if unset,
      and always hide the old plan-selection panels from the DOM. */
@@ -4085,6 +4259,9 @@ document.addEventListener('DOMContentLoaded', () => {
   /* Check for incomplete draft on page load */
   wizCheckDraftOnLoad();
 
+  /* Update mobile CTA on resize / orientation change */
+  window.addEventListener('resize', function() { wizUpdateMobCta(WIZ.currentStep); }, { passive: true });
+
   /* Help trigger visibility — show when on wizard page */
   function wizSyncHelpTrigger() {
     var trigger = document.getElementById('wiz-help-trigger');
@@ -4099,7 +4276,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* Close help drawer and plan modal on Escape */
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') { wizToggleHelp(false); wizClosePlanModal(); }
+    if (e.key === 'Escape') { wizToggleHelp(false); wizClosePlanModalIfConfirmed(); }
   });
 
   /* <!-- GOOGLE SESSION CHECK READY -->
@@ -4109,17 +4286,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<!-- BARRA DE ACCESO CLIENTE Y ADMIN -->
-<div style="position:fixed;bottom:0;left:0;right:0;background:#0A2540;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;z-index:9999;box-shadow:0 -2px 10px rgba(0,0,0,0.2)">
-  <span style="color:#94a3b8;font-size:13px">¿Ya eres cliente?</span>
-  <a href="/login" style="background:#2563eb;color:#fff;padding:8px 20px;border-radius:8px;font-weight:600;text-decoration:none;font-size:14px">
-    Acceder a mi portal
-  </a>
-  <a href="/admin/clients" style="color:#475569;font-size:11px;text-decoration:none">
-    Admin
-  </a>
+<!-- ════ MOBILE WIZARD STICKY CTA ════ -->
+<div id="wiz-mob-cta" role="complementary" aria-label="Acción del paso actual">
+  <div id="wiz-mob-cta-error" role="alert"></div>
+  <button id="wiz-mob-cta-btn" onclick="wizMobCtaAction()">Continuar</button>
 </div>
-<div style="height:60px"></div>
 
 </body>
 </html>
