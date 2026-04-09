@@ -20,7 +20,9 @@ import { AddressServiceToggle } from '@/components/admin/address-service-toggle'
 import { AddressServicePanel } from '@/components/admin/address-service-panel'
 import { OperationsHub } from '@/components/admin/operations-hub'
 import { MailItemsPanel } from '@/components/admin/mail-items-panel'
-import { ChevronLeft, Building2, User, Mail, CreditCard, ClipboardList, TrendingUp, MessageCircle, ExternalLink } from 'lucide-react'
+import { WhatsAppStatusPanel } from '@/components/admin/whatsapp-status-panel'
+import { OpsDetailPanel } from '@/components/admin/ops-detail-panel'
+import { ChevronLeft, Building2, User, Mail, CreditCard, ClipboardList, TrendingUp, MessageCircle, ExternalLink, ListChecks } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
 import type { InvoiceRow } from '@/components/billing/invoice-table'
 
@@ -315,9 +317,48 @@ export default async function AdminClientDetailPage({ params }: PageProps) {
             </CardContent>
           </Card>
 
+          {/* WhatsApp Welcome Status */}
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base flex items-center gap-2">
+                <MessageCircle className="h-4 w-4 text-green-600" />
+                WhatsApp Bienvenida
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <WhatsAppStatusPanel
+                companyId={company.id}
+                status={(company as any).whatsapp_status ?? null}
+                provider={(company as any).whatsapp_provider ?? null}
+                phoneUsed={(company as any).whatsapp_phone_used ?? null}
+                sentAt={(company as any).whatsapp_sent_at ?? null}
+                error={(company as any).whatsapp_error ?? null}
+              />
+            </CardContent>
+          </Card>
+
+          {/* Operations Queue Panel */}
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base flex items-center gap-2">
+                <ListChecks className="h-4 w-4 text-gray-500" />
+                Operations Queue
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <OpsDetailPanel
+                companyId={company.id}
+                initialQueueStatus={(company as any).work_queue_status ?? 'new'}
+                initialHandoffStatus={(company as any).customer_handoff_status ?? 'confirmation_sent'}
+                initialNextAction={(company as any).next_action ?? null}
+                initialChecklist={(company as any).operations_checklist ?? {}}
+              />
+            </CardContent>
+          </Card>
+
           {/* Operations Hub */}
           <div>
-            <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3 px-1">⚙️ Operations Hub</h2>
+            <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3 px-1">Operations Hub</h2>
             <OperationsHub
               company={{
                 id:                        company.id,
