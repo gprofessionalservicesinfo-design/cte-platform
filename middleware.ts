@@ -25,6 +25,22 @@ export async function middleware(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname
 
+  // Internal API routes called by n8n and Twilio — bypass auth entirely.
+  // These are server-to-server webhooks; they carry no user session cookie.
+  const INTERNAL_API_PATHS = [
+    '/api/agents/clasificador/process',
+    '/api/agents/documental/process',
+    '/api/agents/compliance/process',
+    '/api/agents/comunicacion/process',
+    '/api/agents/growth/process',
+    '/api/agents/revops/process',
+    '/api/agents/master/process',
+    '/api/whatsapp/incoming',
+  ]
+  if (INTERNAL_API_PATHS.some(p => pathname.startsWith(p))) {
+    return NextResponse.next()
+  }
+
   // /auth/callback must always pass through — it is the OAuth landing route.
   // Blocking it would prevent the code exchange from completing.
   if (pathname.startsWith('/auth/callback')) {
