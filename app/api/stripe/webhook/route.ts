@@ -603,8 +603,7 @@ export async function POST(request: NextRequest) {
                 }
 
                 // ── cases: insert first to capture cases.id for downstream refs ──
-                // NOTE: .select() returns an array (no .single()) — avoids PGRST116 masking
-                // the INSERT result when .single() would return null+error on 0 rows returned.
+                console.log('[webhook] About to INSERT case with company_id:', companyData?.id ?? '(null)')
                 const { data: caseRows, error: caseInsertError } = await supabase
                   .from('cases')
                   .insert({
@@ -615,17 +614,10 @@ export async function POST(request: NextRequest) {
                   .select('id')
 
                 if (caseInsertError) {
-                  // Log each property directly — JSON.stringify on Supabase errors returns '{}'
-                  // because the error properties are non-enumerable.
-                  console.error(
-                    '[webhook] CASE INSERT FAILED —',
-                    'code:', caseInsertError.code,
-                    '| message:', caseInsertError.message,
-                    '| details:', caseInsertError.details,
-                    '| hint:', caseInsertError.hint,
-                  )
+                  console.error('[webhook] CASE INSERT FAILED — full error object:', caseInsertError)
+                  console.error('[webhook] CASE INSERT FAILED — code:', caseInsertError.code, '| message:', caseInsertError.message, '| details:', caseInsertError.details, '| hint:', caseInsertError.hint)
                 } else {
-                  console.log('[webhook] cases INSERT rows returned:', caseRows?.length, '| first id:', caseRows?.[0]?.id ?? '(null)')
+                  console.log('[webhook] cases INSERT result — rows:', caseRows?.length ?? 0, '| id:', caseRows?.[0]?.id ?? '(null)')
                 }
 
                 const caseRef = caseRows?.[0]?.id ?? null
