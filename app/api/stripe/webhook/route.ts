@@ -603,7 +603,9 @@ export async function POST(request: NextRequest) {
                 }
 
                 // ── cases: insert first to capture cases.id for downstream refs ──
-                const { data: caseData, error: caseInsertError } = await supabase
+                // NOTE: .select() returns an array (no .single()) — avoids PGRST116 masking
+                // the INSERT result when .single() would return null+error on 0 rows returned.
+                const { data: caseRows, error: caseInsertError } = await supabase
                   .from('cases')
                   .insert({
                     agent_id:   'intake',
@@ -611,13 +613,22 @@ export async function POST(request: NextRequest) {
                     company_id: companyData.id,
                   })
                   .select('id')
-                  .single()
 
                 if (caseInsertError) {
-                  console.error('[webhook] CASE INSERT FAILED:', JSON.stringify(caseInsertError))
+                  // Log each property directly — JSON.stringify on Supabase errors returns '{}'
+                  // because the error properties are non-enumerable.
+                  console.error(
+                    '[webhook] CASE INSERT FAILED —',
+                    'code:', caseInsertError.code,
+                    '| message:', caseInsertError.message,
+                    '| details:', caseInsertError.details,
+                    '| hint:', caseInsertError.hint,
+                  )
+                } else {
+                  console.log('[webhook] cases INSERT rows returned:', caseRows?.length, '| first id:', caseRows?.[0]?.id ?? '(null)')
                 }
 
-                const caseRef = caseData?.id ?? null
+                const caseRef = caseRows?.[0]?.id ?? null
 
                 // ── Intake LLM — generate normalized_output with full client context ──
                 // Must complete BEFORE agent_tasks so downstream agents see normalized_output.
