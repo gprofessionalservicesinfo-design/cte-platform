@@ -110,6 +110,7 @@ async function upsertPayment(supabase: ReturnType<typeof adminClient>, invoice: 
 }
 
 export async function POST(request: NextRequest) {
+  console.log('[webhook] BUILD VERSION: 2026-04-09-v3')
   const body      = await request.text()
   const signature = request.headers.get('stripe-signature')
 
