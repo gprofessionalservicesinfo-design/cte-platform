@@ -603,15 +603,24 @@ export async function POST(request: NextRequest) {
                 }
 
                 // ── cases: insert first to capture cases.id for downstream refs ──
-                const { data: caseData } = await supabase
+                const { data: caseData, error: caseInsertError } = await supabase
                   .from('cases')
-                  .insert({ agent_id: 'intake', status: 'pending' })
+                  .insert({
+                    agent_id:   'intake',
+                    status:     'pending',
+                    company_id: companyData.id,
+                  })
                   .select('id')
                   .single()
+
+                if (caseInsertError) {
+                  console.error('[webhook] CASE INSERT FAILED:', JSON.stringify(caseInsertError))
+                }
 
                 const caseRef = caseData?.id ?? null
 
                 // ── Intake LLM — generate normalized_output with full client context ──
+                // Must complete BEFORE agent_tasks so downstream agents see normalized_output.
                 if (caseRef) {
                   try {
                     const intakeResult = await runIntake(
@@ -630,21 +639,34 @@ export async function POST(request: NextRequest) {
                       supabase
                     )
 
-                    const caseStatus = intakeResult.data.requires_human_review ? 'pending' : 'active'
-                    await supabase
+                    // status 'in_progress' = intake complete, awaiting clasificador
+                    // status 'pending'     = requires human review before proceeding
+                    const caseStatus = intakeResult.data.requires_human_review ? 'pending' : 'in_progress'
+                    const { error: caseUpdateError } = await supabase
                       .from('cases')
-                      .update({ normalized_output: intakeResult.data, status: caseStatus })
+                      .update({
+                        normalized_output:     intakeResult.data,
+                        status:                caseStatus,
+                        confidence_score:      intakeResult.data.confidence_score,
+                        requires_human_review: intakeResult.data.requires_human_review,
+                        normalization_applied: intakeResult.normalized,
+                        route_classification_pending: !intakeResult.data.requires_human_review,
+                      })
                       .eq('id', caseRef)
 
-                    if (intakeResult.normalized) {
-                      console.warn('[webhook] Intake LLM output required normalization — issues:', intakeResult.issues)
+                    if (caseUpdateError) {
+                      console.error('[webhook] CASE UPDATE FAILED:', JSON.stringify(caseUpdateError))
+                    } else if (intakeResult.normalized) {
+                      console.warn('[webhook] Intake normalized (fallback applied) — issues:', intakeResult.issues)
                     } else {
-                      console.log('[webhook] Intake LLM output valid — confidence:', intakeResult.data.confidence_score, '| score:', intakeResult.data.intake_score)
+                      console.log('[webhook] Intake OK — confidence:', intakeResult.data.confidence_score, '| score:', intakeResult.data.intake_score, '| service:', intakeResult.data.servicio_solicitado)
                     }
                   } catch (err) {
-                    console.error('[webhook] Intake LLM call failed — case flagged for human review:', err)
-                    // Non-fatal: case exists without normalized_output; human review will catch it
+                    console.error('[webhook] Intake LLM call failed — case remains pending for human review:', err)
+                    // Non-fatal: case row exists, human review catches it
                   }
+                } else {
+                  console.error('[webhook] caseRef is null — skipping runIntake. Check CASE INSERT error above.')
                 }
 
                 // Audit: case_created
