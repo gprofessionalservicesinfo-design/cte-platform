@@ -604,7 +604,7 @@ export async function POST(request: NextRequest) {
                 }
 
                 // ── cases: insert first to capture cases.id for downstream refs ──
-                console.log('[webhook] About to INSERT case with company_id:', companyData?.id ?? '(null)')
+                console.warn('[webhook] DIAG: About to INSERT case — company_id:', companyData?.id ?? '(null)', '| agent_id: intake | status: pending')
                 const { data: caseRows, error: caseInsertError } = await supabase
                   .from('cases')
                   .insert({
@@ -615,10 +615,9 @@ export async function POST(request: NextRequest) {
                   .select('id')
 
                 if (caseInsertError) {
-                  console.error('[webhook] CASE INSERT FAILED — full error object:', caseInsertError)
                   console.error('[webhook] CASE INSERT FAILED — code:', caseInsertError.code, '| message:', caseInsertError.message, '| details:', caseInsertError.details, '| hint:', caseInsertError.hint)
                 } else {
-                  console.log('[webhook] cases INSERT result — rows:', caseRows?.length ?? 0, '| id:', caseRows?.[0]?.id ?? '(null)')
+                  console.warn('[webhook] DIAG: cases INSERT done — rows:', caseRows?.length ?? 0, '| id:', caseRows?.[0]?.id ?? '(null)')
                 }
 
                 const caseRef = caseRows?.[0]?.id ?? null
