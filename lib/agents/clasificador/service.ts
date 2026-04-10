@@ -82,7 +82,7 @@ export async function runClasificador(
     const { data: caseRow, error: caseError } = await supabase
       .from('cases')
       .select('id, case_id, normalized_output, requires_human_review, confidence_score, status')
-      .eq('case_id', caseId)
+      .or(`id.eq.${caseId},case_id.eq.${caseId}`)
       .single()
 
     if (caseError || !caseRow) {
