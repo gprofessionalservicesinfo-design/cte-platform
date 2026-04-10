@@ -708,6 +708,16 @@ export async function POST(request: NextRequest) {
                   metadata:    { task_type: 'process_new_client', priority: 1, case_id: caseRef },
                 })
 
+                // ── clasificador task — polled by n8n Clasificador workflow ──
+                await supabase.from('agent_tasks').insert({
+                  agent_id:  'clasificador',
+                  case_id:   caseRef,
+                  task_type: 'route_classification_pending',
+                  status:    'pending',
+                  priority:  1,
+                  payload:   { case_id: caseRef },
+                })
+
                 // ── agent_logs ────────────────────────────────────────────────
                 await supabase.from('agent_logs').insert({
                   agent_id:           'intake',
