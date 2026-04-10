@@ -5,6 +5,7 @@ import Stripe from 'stripe'
 import { Resend } from 'resend'
 import { buildWelcomeEmailHtml } from '@/lib/welcome/email-html'
 import { sendWelcomeWhatsApp, persistWhatsAppResult } from '@/lib/welcome/whatsapp'
+import { runIntake } from '@/lib/agents/intake/service'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -609,6 +610,42 @@ export async function POST(request: NextRequest) {
                   .single()
 
                 const caseRef = caseData?.id ?? null
+
+                // ── Intake LLM — generate normalized_output with full client context ──
+                if (caseRef) {
+                  try {
+                    const intakeResult = await runIntake(
+                      {
+                        caseId:      caseRef,
+                        clientName:  finalClientName,
+                        clientEmail: email,
+                        phone,
+                        companyName: finalCompanyName,
+                        stateCode:   finalStateCode,
+                        stateName:   finalStateName,
+                        packageKey:  pkg,
+                        amountUsd:   amountTotal / 100,
+                        source:      pick(session.metadata?.source) || pick(session.metadata?.utm_source) || undefined,
+                      },
+                      supabase
+                    )
+
+                    const caseStatus = intakeResult.data.requires_human_review ? 'pending' : 'active'
+                    await supabase
+                      .from('cases')
+                      .update({ normalized_output: intakeResult.data, status: caseStatus })
+                      .eq('id', caseRef)
+
+                    if (intakeResult.normalized) {
+                      console.warn('[webhook] Intake LLM output required normalization — issues:', intakeResult.issues)
+                    } else {
+                      console.log('[webhook] Intake LLM output valid — confidence:', intakeResult.data.confidence_score, '| score:', intakeResult.data.intake_score)
+                    }
+                  } catch (err) {
+                    console.error('[webhook] Intake LLM call failed — case flagged for human review:', err)
+                    // Non-fatal: case exists without normalized_output; human review will catch it
+                  }
+                }
 
                 // Audit: case_created
                 await supabase.from('audit_logs').insert({
