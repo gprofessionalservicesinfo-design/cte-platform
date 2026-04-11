@@ -424,7 +424,7 @@ export async function runMaster(
           'anthropic-version': '2023-06-01',
           'content-type':      'application/json',
         },
-        timeout: 55_000,
+        timeout: 120_000,
       }
     )
 

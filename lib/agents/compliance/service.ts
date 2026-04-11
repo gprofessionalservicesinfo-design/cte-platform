@@ -160,7 +160,7 @@ export async function runCompliance(
           'anthropic-version': '2023-06-01',
           'content-type':      'application/json',
         },
-        timeout: 45_000,
+        timeout: 120_000,
       }
     )
 

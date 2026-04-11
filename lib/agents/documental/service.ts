@@ -237,7 +237,7 @@ export async function runDocumental(
           'anthropic-version': '2023-06-01',
           'content-type':      'application/json',
         },
-        timeout: 30_000,
+        timeout: 120_000,
       }
     )
 
