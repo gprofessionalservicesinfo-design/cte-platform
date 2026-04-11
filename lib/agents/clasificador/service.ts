@@ -103,18 +103,31 @@ export async function runClasificador(
     }
 
     // ── 5. Read route_matrix for LLM context ──────────────────────────────
+    // Only fetch route name + regulatory_notes — skip checklist_template and
+    // required_documents arrays which balloon the prompt to ~22KB.
     const { data: routeMatrix, error: matrixError } = await supabase
       .from('route_matrix')
-      .select('route, checklist_template, required_documents, typical_days, upsells_default, regulatory_notes')
+      .select('route, regulatory_notes, typical_days')
 
     if (matrixError) {
       throw new Error(`route_matrix read failed: ${matrixError.message}`)
     }
 
     // ── 6. Build LLM input and store it ───────────────────────────────────
+    // Truncate checklist to first 3 items — LLM only needs service signal, not full list.
+    const expediente = caseRow.normalized_output as Record<string, unknown> | null
+    const slimExpediente = expediente
+      ? {
+          ...expediente,
+          checklist_inicial: Array.isArray(expediente.checklist_inicial)
+            ? (expediente.checklist_inicial as unknown[]).slice(0, 3)
+            : expediente.checklist_inicial,
+        }
+      : expediente
+
     const llmInput = {
       case_id:    caseId,
-      expediente: caseRow.normalized_output,
+      expediente: slimExpediente,
     }
     const userPrompt = buildPrompt(
       prompt.prompt_text as string,
