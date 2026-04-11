@@ -83,7 +83,7 @@ export async function runCompliance(
         'id, case_id, assigned_route, complexity, normalized_output, clasificador_output, ' +
         'requires_human_review, confidence_score, compliance_risk_level'
       )
-      .eq('case_id', caseId)
+      .or(`id.eq.${caseId},case_id.eq.${caseId}`)
       .single()
 
     if (caseError || !caseRow) throw new Error(`Case not found: ${caseId}`)

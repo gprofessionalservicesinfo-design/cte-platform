@@ -147,7 +147,7 @@ export async function runDocumental(
     const { data: caseRow, error: caseError } = await supabase
       .from('cases')
       .select('id, case_id, normalized_output, clasificador_output, requires_human_review')
-      .eq('case_id', caseId)
+      .or(`id.eq.${caseId},case_id.eq.${caseId}`)
       .single()
 
     if (caseError || !caseRow) throw new Error(`Case not found: ${caseId}`)

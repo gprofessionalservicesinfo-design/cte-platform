@@ -127,7 +127,7 @@ export async function runComunicacion(
         'id, case_id, normalized_output, clasificador_output, compliance_output, ' +
         'assigned_route, complexity, compliance_risk_level, requires_human_review'
       )
-      .eq('id', internalCaseId)
+      .or(`id.eq.${internalCaseId},case_id.eq.${internalCaseId}`)
       .single()
 
     if (caseError || !caseRow) throw new Error(`Case not found (internal id): ${internalCaseId}`)
