@@ -1004,20 +1004,20 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
 <nav id="nav">
   <div class="container">
     <div class="nav-inner">
-      <a href="#" onclick="goTo('home');return false" style="text-decoration:none;display:flex;align-items:center;gap:0;white-space:nowrap;flex-shrink:0;">
+      <a href="/" onclick="window.location.href='/';return false" style="text-decoration:none;display:flex;align-items:center;gap:0;white-space:nowrap;flex-shrink:0;">
         <span style="font-family:Georgia,serif;font-size:18px;font-weight:700;color:#0A2540;letter-spacing:-0.5px;">CreaTuEmpresa</span><span style="font-family:Georgia,serif;font-size:18px;font-weight:700;color:#DC2626;">USA</span>
       </a>
       <nav class="nav-links" id="navLinks" aria-label="Menú principal">
-        <span class="nav-link active" data-page="home" onclick="goTo('home')" role="button" tabindex="0">Inicio</span>
-        <span class="nav-link" data-page="como-funciona" onclick="goTo('como-funciona')" role="button" tabindex="0">Cómo funciona</span>
-        <span class="nav-link" data-page="servicios" onclick="goTo('servicios')" role="button" tabindex="0">Servicios</span>
-        <span class="nav-link" data-page="precios" onclick="goTo('precios')" role="button" tabindex="0">Precios</span>
+        <span class="nav-link active" data-page="home" onclick="window.location.href='/'" role="button" tabindex="0">Inicio</span>
+        <span class="nav-link" data-page="como-funciona" onclick="window.location.href='/#como-funciona'" role="button" tabindex="0">Cómo funciona</span>
+        <span class="nav-link" data-page="servicios" onclick="window.location.href='/#servicios'" role="button" tabindex="0">Servicios</span>
+        <span class="nav-link" data-page="precios" onclick="window.location.href='/#precios'" role="button" tabindex="0">Precios</span>
         <span class="nav-link" data-page="wizard" onclick="goTo('wizard')" role="button" tabindex="0" style="color:var(--accent);font-weight:700">🚀 Asistente</span>
-        <span class="nav-link" data-page="guias" onclick="goTo('guias')" role="button" tabindex="0">Guías</span>
-        <span class="nav-link" data-page="blog" onclick="goTo('blog')" role="button" tabindex="0">Blog</span>
-        <span class="nav-link" data-page="testimonios" onclick="goTo('testimonios')" role="button" tabindex="0">Testimonios</span>
-        <span class="nav-link" data-page="faq" onclick="goTo('faq')" role="button" tabindex="0">FAQ</span>
-        <span class="nav-link" data-page="contacto" onclick="goTo('contacto')" role="button" tabindex="0">Contacto</span>
+        <span class="nav-link" data-page="guias" onclick="window.location.href='/#guias'" role="button" tabindex="0">Guías</span>
+        <span class="nav-link" data-page="blog" onclick="window.location.href='/#blog'" role="button" tabindex="0">Blog</span>
+        <span class="nav-link" data-page="testimonios" onclick="window.location.href='/#testimonios'" role="button" tabindex="0">Testimonios</span>
+        <span class="nav-link" data-page="faq" onclick="window.location.href='/#faq'" role="button" tabindex="0">FAQ</span>
+        <span class="nav-link" data-page="contacto" onclick="window.location.href='/#contacto'" role="button" tabindex="0">Contacto</span>
       </nav>
       <div class="nav-right">
         <div class="lang-toggle">
@@ -1036,15 +1036,15 @@ footer{background:var(--gray-900);color:rgba(255,255,255,.55);padding:58px 0 36p
 
 <!-- ════ MOBILE NAV ════ -->
 <nav class="mnav" id="mnav" role="navigation" aria-label="Menú móvil">
-  <span class="mnav-item" onclick="goTo('home');closeMNav()">🏠 Inicio</span>
-  <span class="mnav-item" onclick="goTo('como-funciona');closeMNav()">⚙️ Cómo funciona</span>
-  <span class="mnav-item" onclick="goTo('servicios');closeMNav()">📋 Servicios</span>
-  <span class="mnav-item" onclick="goTo('precios');closeMNav()">💰 Precios</span>
-  <span class="mnav-item" onclick="goTo('guias');closeMNav()">📚 Guías</span>
-  <span class="mnav-item" onclick="goTo('blog');closeMNav()">📰 Blog</span>
-  <span class="mnav-item" onclick="goTo('testimonios');closeMNav()">⭐ Testimonios</span>
-  <span class="mnav-item" onclick="goTo('faq');closeMNav()">❓ FAQ</span>
-  <span class="mnav-item" onclick="goTo('contacto');closeMNav()">📩 Contacto</span>
+  <span class="mnav-item" onclick="window.location.href='/'">🏠 Inicio</span>
+  <span class="mnav-item" onclick="window.location.href='/#como-funciona'">⚙️ Cómo funciona</span>
+  <span class="mnav-item" onclick="window.location.href='/#servicios'">📋 Servicios</span>
+  <span class="mnav-item" onclick="window.location.href='/#precios'">💰 Precios</span>
+  <span class="mnav-item" onclick="window.location.href='/#guias'">📚 Guías</span>
+  <span class="mnav-item" onclick="window.location.href='/#blog'">📰 Blog</span>
+  <span class="mnav-item" onclick="window.location.href='/#testimonios'">⭐ Testimonios</span>
+  <span class="mnav-item" onclick="window.location.href='/#faq'">❓ FAQ</span>
+  <span class="mnav-item" onclick="window.location.href='/#contacto'">📩 Contacto</span>
   <div class="mnav-ctas">
     <a class="btn btn-wa" href="https://wa.me/19046248859" target="_blank">💬 Hablar por WhatsApp</a>
     <button class="btn btn-primary" onclick="goTo('wizard');closeMNav()">🚀 Crear mi empresa</button>
