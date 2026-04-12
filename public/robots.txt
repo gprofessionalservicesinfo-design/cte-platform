@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /login
+Disallow: /register
+Disallow: /reset-password
+
+Sitemap: https://creatuempresausa.com/sitemap.xml
