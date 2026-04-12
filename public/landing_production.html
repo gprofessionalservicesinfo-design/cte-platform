@@ -237,66 +237,69 @@
     }
 
     /* ─── 2. HERO ───────────────────────────────────────────── */
-    .hero {
-      position: relative;
-      min-height: 92vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 80px 24px 60px;
+    .hero-photo {
+      width: 100%;
+      height: 52vh;
       background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1920&q=80');
       background-size: cover;
-      background-position: center;
+      background-position: center 30%;
+      display: block;
     }
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(20, 35, 50, 0.78);
-    }
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 780px;
-      width: 100%;
+    .hero-text {
+      background: #FAFAF7;
+      padding: 40px 60px 52px;
+      max-width: 700px;
     }
     .hero-eyebrow {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.65);
+      color: #2CB98A;
       display: block;
-      margin-bottom: 20px;
+      margin-bottom: 14px;
     }
     .hero-h1 {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      color: #ffffff;
-      text-align: center;
-      line-height: 1.08;
-      margin: 0 auto 32px;
-      font-size: 58px;
+      color: #2A3544;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      font-size: 40px;
+      text-align: left;
+    }
+    .hero-sub {
+      font-size: 16px;
+      color: #6B7A8D;
+      line-height: 1.6;
+      margin-bottom: 28px;
+      max-width: 520px;
     }
     .hero-cta {
       display: block;
+      width: 100%;
       background: #2CB98A !important;
       color: #fff !important;
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: 18px;
+      font-size: 17px;
       text-align: center;
       text-decoration: none;
-      padding: 20px 0;
-      border-radius: 14px;
-      width: 100%;
-      max-width: 680px;
-      margin: 0 auto;
-      transition: background 0.15s, transform 0.1s;
+      padding: 18px 0;
+      border-radius: 50px;
+      margin-bottom: 20px;
       border: none;
+      transition: background 0.15s;
     }
-    .hero-cta:hover { background: #24a87c !important; transform: translateY(-1px); }
+    .hero-cta:hover { background: #24a87c !important; }
+    .hero-proof {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #6B7A8D;
+    }
+    .proof-stars { color: #F5B84C; font-size: 14px; letter-spacing: 1px; }
 
     /* ─── 3. TRUST STRIP ────────────────────────────────────── */
     .trust {
@@ -1102,6 +1105,86 @@
     }
     .footer-bottom-links a:hover { color: #fff; }
 
+    /* ─── PILL BUTTONS GLOBAL ───────────────────────────────── */
+    .btn-plan-solid, .btn-plan-outline { border-radius: 50px !important; }
+    .btn-solid, .hero-cta, .btn-outline { border-radius: 50px !important; }
+
+    /* ─── PROCESS PHOTO CARDS ────────────────────────────────── */
+    .steps-scroll-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 0 -24px;
+      padding: 0 24px 4px;
+    }
+    .steps-scroll {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .step-photo-card {
+      background: #fff;
+      border-radius: 20px;
+      border: 1px solid #EAEAE4;
+      overflow: hidden;
+    }
+    .step-photo-wrap {
+      position: relative;
+      height: 180px;
+      overflow: hidden;
+    }
+    .step-photo-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .step-num-badge {
+      position: absolute;
+      bottom: 12px; left: 12px;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: #2CB98A;
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 15px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .step-body { padding: 18px 20px; }
+    .step-body h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700; font-size: 16px;
+      color: #2A3544; margin-bottom: 8px;
+    }
+    .step-body p { font-size: 13px; color: #6B7A8D; line-height: 1.55; }
+    .steps-scroll-hint {
+      text-align: center; font-size: 12px;
+      color: #99A6B5; margin-top: 12px;
+      display: none;
+    }
+
+    /* ─── SOCIAL PROOF BAR ───────────────────────────────────── */
+    .social-proof-bar {
+      background: #2A3544;
+      padding: 36px 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+    .sp-item { text-align: center; padding: 12px 32px; }
+    .sp-num {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 36px;
+      color: #fff; line-height: 1;
+    }
+    .sp-stars { color: #F5B84C; font-size: 20px; letter-spacing: 2px; }
+    .sp-label {
+      font-size: 11px; color: #5A7A9A;
+      text-transform: uppercase;
+      letter-spacing: 0.1em; margin-top: 4px;
+    }
+    .sp-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.1); }
+
     /* ─── FLOATING WA ────────────────────────────────────────── */
     .wa-float {
       position: fixed;
@@ -1127,9 +1210,18 @@
       .nav-links, .nav-cta { display: none; }
       .nav-hamburger { display: flex; }
 
-      .hero { min-height: 100svh; padding: 60px 16px 48px; }
-      .hero-h1 { font-size: 36px; line-height: 1.12; }
-      .hero-cta { max-width: 100%; font-size: 17px; padding: 18px 0; border-radius: 12px; }
+      .hero-photo { height: 42vh; }
+      .hero-text { padding: 28px 20px 36px; max-width: 100%; }
+      .hero-h1 { font-size: 34px; line-height: 1.12; }
+      .hero-sub { font-size: 15px; }
+      /* Steps scroll on mobile */
+      .steps-scroll { grid-template-columns: repeat(4, 280px); scroll-snap-type: x mandatory; }
+      .step-photo-card { scroll-snap-align: start; }
+      .steps-scroll-hint { display: block; }
+      /* Social proof bar mobile */
+      .sp-item { padding: 12px 20px; }
+      .sp-num { font-size: 28px; }
+      .sp-divider { display: none; }
       /* Nav overflow fix for mobile logo */
       .nav { overflow: visible; }
       .nav-logo { overflow: visible; flex-shrink: 0; }
@@ -1155,6 +1247,7 @@
 
       .proceso-section { padding: 48px 16px; }
       .steps-grid { grid-template-columns: 1fr; max-width: 440px; margin-left: auto; margin-right: auto; }
+      .steps-scroll-wrap { margin: 0 -16px; padding: 0 16px 4px; }
 
       .tabs-section { padding: 48px 16px; }
       .tab-entity-name { font-size: 24px; }
@@ -1192,17 +1285,13 @@
       .footer-bottom { flex-direction: column; align-items: flex-start; }
     }
 
-    @media (max-width: 900px) {
-      .hero-h1 { font-size: 46px; }
-    }
-
     @media (max-width: 480px) {
-      .hero-h1 { font-size: 32px; line-height: 1.14; }
+      .hero-h1 { font-size: 30px; line-height: 1.14; }
       .stat-num { font-size: 34px; }
     }
 
     @media (max-width: 390px) {
-      .hero-h1 { font-size: 29px; line-height: 1.16; }
+      .hero-h1 { font-size: 27px; line-height: 1.16; }
     }
   </style>
 </head>
@@ -1241,13 +1330,19 @@
 </header>
 
 <!-- ═══════════════════════════════════════════════════ 2. HERO -->
-<section class="hero">
-  <div class="hero-content">
-    <span class="hero-eyebrow">Crea tu empresa hoy &#8212; disponible para toda Latinoam&#233;rica</span>
+<div class="hero-photo" role="img" aria-label="Equipo de trabajo profesional"></div>
+<div style="display:flex; justify-content:flex-start;">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Crea tu empresa hoy &#8212; disponible para toda Latinoam&#233;rica</p>
     <h1 class="hero-h1">Crea Tu Empresa<br>en Estados Unidos<br>Desde Cualquier Pa&#237;s</h1>
+    <p class="hero-sub">Abre tu LLC o Corporation de forma r&#225;pida, segura y 100% remota. Sin visas, sin viajes, sin complicaciones.</p>
     <a href="#planes" class="hero-cta">Crear mi empresa &#8594;</a>
+    <div class="hero-proof">
+      <span class="proof-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      <span>+500 empresas formadas &middot; Atenci&#243;n en espa&#241;ol</span>
+    </div>
   </div>
-</section>
+</div>
 
 <!-- ═══════════════════════════════════════════ 3. TRUST STRIP -->
 <section class="trust">
@@ -1372,28 +1467,60 @@
     <p class="section-sub">Sin burocracia confusa. Sin perder tiempo. Todo desde tu computadora o tel&#233;fono.</p>
   </div>
 
-  <div class="steps-grid">
-    <div class="step-card">
-      <div class="step-num">1</div>
-      <div class="step-title">Elige tu estado</div>
-      <p class="step-desc">Te ayudamos a comparar Wyoming, Florida y Delaware seg&#250;n tus objetivos y presupuesto.</p>
-    </div>
-    <div class="step-card">
-      <div class="step-num">2</div>
-      <div class="step-title">Nombra tu empresa</div>
-      <p class="step-desc">Verificamos disponibilidad del nombre en tiempo real y te asesoramos si hay conflictos.</p>
-    </div>
-    <div class="step-card">
-      <div class="step-num">3</div>
-      <div class="step-title">Selecciona tu plan</div>
-      <p class="step-desc">Elige Starter, Pro o Premium seg&#250;n lo que necesitas. Sin sorpresas de precio despu&#233;s.</p>
-    </div>
-    <div class="step-card">
-      <div class="step-num">4</div>
-      <div class="step-title">&#161;Listo, empezamos!</div>
-      <p class="step-desc">Nosotros manejamos todo el papeleo. Recibes tus documentos oficiales por email.</p>
+  <div class="steps-scroll-wrap">
+    <div class="steps-scroll">
+
+      <div class="step-photo-card">
+        <div class="step-photo-wrap">
+          <img src="https://images.unsplash.com/photo-1562564055-71e051d33c19?w=600&q=80"
+               alt="Elegir estado LLC" loading="lazy">
+          <div class="step-num-badge">1</div>
+        </div>
+        <div class="step-body">
+          <h3>Elige tu estado</h3>
+          <p>Te ayudamos a comparar Wyoming, Florida y Delaware seg&#250;n tus objetivos y presupuesto.</p>
+        </div>
+      </div>
+
+      <div class="step-photo-card">
+        <div class="step-photo-wrap">
+          <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600&q=80"
+               alt="Nombre de empresa" loading="lazy">
+          <div class="step-num-badge">2</div>
+        </div>
+        <div class="step-body">
+          <h3>Nombra tu empresa</h3>
+          <p>Verificamos disponibilidad del nombre en tiempo real y te asesoramos si hay conflictos.</p>
+        </div>
+      </div>
+
+      <div class="step-photo-card">
+        <div class="step-photo-wrap">
+          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80"
+               alt="Seleccionar plan" loading="lazy">
+          <div class="step-num-badge">3</div>
+        </div>
+        <div class="step-body">
+          <h3>Selecciona tu plan</h3>
+          <p>Elige Starter, Pro o Premium seg&#250;n lo que necesitas. Sin sorpresas de precio despu&#233;s.</p>
+        </div>
+      </div>
+
+      <div class="step-photo-card">
+        <div class="step-photo-wrap">
+          <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80"
+               alt="Empresa lista" loading="lazy">
+          <div class="step-num-badge">4</div>
+        </div>
+        <div class="step-body">
+          <h3>&#161;Listo, empezamos!</h3>
+          <p>Nosotros manejamos todo el papeleo. Recibes tus documentos oficiales por email.</p>
+        </div>
+      </div>
+
     </div>
   </div>
+  <p class="steps-scroll-hint">&#8592; desliza para ver m&#225;s &#8594;</p>
 
   <div class="proceso-cta">
     <a href="#planes" class="btn-solid" style="display:inline-flex;">Iniciar el proceso &#8594;</a>
@@ -1555,7 +1682,7 @@
         &ldquo;El proceso fue mucho m&#225;s sencillo de lo que esperaba. En menos de dos semanas ten&#237;a mi LLC activa y mi EIN en mano. El equipo me explic&#243; cada paso en espa&#241;ol y me asesor&#243; sobre qu&#233; banco digital usar.&rdquo;
       </p>
       <div class="testi-author">
-        <div class="testi-avatar" style="background:#4DB39A;">MG</div>
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80" alt="Mar&#237;a Garc&#237;a" loading="lazy" style="width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;">
         <div>
           <div class="testi-name">Mar&#237;a Garc&#237;a</div>
           <div class="testi-role">Freelancer digital &middot; Colombia</div>
@@ -1569,7 +1696,7 @@
         &ldquo;Llevaba meses pensando en abrir una empresa en EE.UU. pero me parec&#237;a muy complicado. CreaTuEmpresaUSA me demostr&#243; que es posible hacerlo desde Venezuela sin necesidad de viajar ni de tener visa.&rdquo;
       </p>
       <div class="testi-author">
-        <div class="testi-avatar" style="background:#6AAEDE;">CR</div>
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80" alt="Carlos Rodr&#237;guez" loading="lazy" style="width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;">
         <div>
           <div class="testi-name">Carlos Rodr&#237;guez</div>
           <div class="testi-role">Consultor de negocios &middot; Venezuela</div>
@@ -1583,7 +1710,7 @@
         &ldquo;Lo que m&#225;s valoro es el acompa&#241;amiento despu&#233;s de formar la empresa. Me ayudaron con la cuenta bancaria, con el Operating Agreement y con mis primeras dudas fiscales. No es solo un tr&#225;mite, es un servicio completo.&rdquo;
       </p>
       <div class="testi-author">
-        <div class="testi-avatar" style="background:#A89FE0;">AL</div>
+        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=80&q=80" alt="Ana L&#243;pez" loading="lazy" style="width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;">
         <div>
           <div class="testi-name">Ana L&#243;pez</div>
           <div class="testi-role">E-commerce &middot; M&#233;xico</div>
@@ -1592,6 +1719,29 @@
     </div>
   </div>
 </section>
+
+<!-- ══════════════════════════ SOCIAL PROOF BAR -->
+<div class="social-proof-bar">
+  <div class="sp-item">
+    <div class="sp-num">+500</div>
+    <div class="sp-label">Empresas formadas</div>
+  </div>
+  <div class="sp-divider"></div>
+  <div class="sp-item">
+    <div class="sp-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+    <div class="sp-label">Valoraci&#243;n promedio</div>
+  </div>
+  <div class="sp-divider"></div>
+  <div class="sp-item">
+    <div class="sp-num">30+</div>
+    <div class="sp-label">Pa&#237;ses atendidos</div>
+  </div>
+  <div class="sp-divider"></div>
+  <div class="sp-item">
+    <div class="sp-num">100%</div>
+    <div class="sp-label">En espa&#241;ol</div>
+  </div>
+</div>
 
 <!-- ══════════════════════════ 9. DISE&#209;ADO PARA LATAM -->
 <section class="latam-section" id="latam">
@@ -1886,7 +2036,9 @@
 </footer>
 
 <!-- ═══════════════════════════════ FLOATING WHATSAPP -->
-<a href="https://wa.me/18669958013" class="wa-float" aria-label="WhatsApp">
+<a href="https://wa.me/18669958013"
+   style="position:fixed !important;bottom:24px;right:20px;z-index:9999;width:56px;height:56px;border-radius:50%;background-color:#1B2B1B !important;background:#1B2B1B !important;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,0.35);"
+   aria-label="Contactar por WhatsApp">
   <svg width="28" height="28" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true">
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
   </svg>
