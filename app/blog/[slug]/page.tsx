@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getPost, getAllSlugs, type Section } from '@/lib/blog/posts'
+import BlogNav from '../components/BlogNav'
 
 // ── Static params ─────────────────────────────────────────────────────────────
 export function generateStaticParams() {
@@ -184,6 +185,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
   return (
     <>
+      <BlogNav />
       <ArticleSchema post={post} />
       <main className="max-w-3xl mx-auto px-6 py-16">
         {/* Breadcrumb */}
