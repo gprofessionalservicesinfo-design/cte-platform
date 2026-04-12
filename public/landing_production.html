@@ -270,13 +270,14 @@
       display: block;
       margin-bottom: 20px;
     }
-    .hero h1 {
+    .hero-h1 {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: clamp(36px, 5vw, 64px);
+      color: #ffffff;
+      text-align: center;
       line-height: 1.08;
-      color: #fff;
-      margin-bottom: 36px;
+      margin: 0 auto 32px;
+      font-size: 58px;
     }
     .hero-cta {
       display: block;
@@ -609,6 +610,25 @@
       border-radius: 16px;
       padding: 32px;
       border: 1px solid #EAEAE4;
+    }
+    .tab-entity-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 16px;
+    }
+    .tab-entity-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      color: #2A3544;
+      font-size: 28px;
+      line-height: 1;
+    }
+    .tab-entity-sub {
+      font-size: 14px;
+      color: #6B7A8D;
+      font-weight: 500;
+      line-height: 1.3;
     }
     .tab-title {
       font-family: 'Syne', sans-serif;
@@ -1091,7 +1111,8 @@
       width: 56px;
       height: 56px;
       border-radius: 50%;
-      background: #1B2B1B;
+      background: #1B2B1B !important;
+      background-color: #1B2B1B !important;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1099,7 +1120,7 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.3);
       transition: transform 0.15s;
     }
-    .wa-float:hover { transform: scale(1.08); }
+    .wa-float:hover { transform: scale(1.08); background: #2a4028 !important; }
 
     /* ─── MOBILE ─────────────────────────────────────────────── */
     @media (max-width: 768px) {
@@ -1107,7 +1128,7 @@
       .nav-hamburger { display: flex; }
 
       .hero { min-height: 100svh; padding: 60px 16px 48px; }
-      .hero h1 { font-size: 36px !important; line-height: 1.15 !important; letter-spacing: -0.5px; }
+      .hero-h1 { font-size: 36px; line-height: 1.12; }
       .hero-cta { max-width: 100%; font-size: 17px; padding: 18px 0; border-radius: 12px; }
       /* Nav overflow fix for mobile logo */
       .nav { overflow: visible; }
@@ -1136,6 +1157,8 @@
       .steps-grid { grid-template-columns: 1fr; max-width: 440px; margin-left: auto; margin-right: auto; }
 
       .tabs-section { padding: 48px 16px; }
+      .tab-entity-name { font-size: 24px; }
+      .tab-entity-sub  { font-size: 13px; }
       .tab-col-wrap { grid-template-columns: 1fr; gap: 16px; }
       .tab-btns { flex-direction: column; }
       .tab-btns a { text-align: center; }
@@ -1169,13 +1192,17 @@
       .footer-bottom { flex-direction: column; align-items: flex-start; }
     }
 
+    @media (max-width: 900px) {
+      .hero-h1 { font-size: 46px; }
+    }
+
     @media (max-width: 480px) {
-      .hero h1 { font-size: 34px !important; }
+      .hero-h1 { font-size: 32px; line-height: 1.14; }
       .stat-num { font-size: 34px; }
     }
 
     @media (max-width: 390px) {
-      .hero h1 { font-size: 32px !important; }
+      .hero-h1 { font-size: 29px; line-height: 1.16; }
     }
   </style>
 </head>
@@ -1217,7 +1244,7 @@
 <section class="hero">
   <div class="hero-content">
     <span class="hero-eyebrow">Crea tu empresa hoy &#8212; disponible para toda Latinoam&#233;rica</span>
-    <h1>Crea Tu Empresa en<br>Estados Unidos<br>Desde Cualquier Pa&#237;s</h1>
+    <h1 class="hero-h1">Crea Tu Empresa<br>en Estados Unidos<br>Desde Cualquier Pa&#237;s</h1>
     <a href="#planes" class="hero-cta">Crear mi empresa &#8594;</a>
   </div>
 </section>
@@ -1391,7 +1418,10 @@
     <!-- LLC -->
     <div id="tab-llc" class="tab-content active">
       <div class="tab-card">
-        <div class="tab-title">LLC &#8212; Sociedad de Responsabilidad Limitada</div>
+        <div class="tab-entity-header">
+          <span class="tab-entity-name">LLC</span>
+          <span class="tab-entity-sub">Sociedad de Responsabilidad Limitada</span>
+        </div>
         <span class="tab-badge">Ideal para extranjeros</span>
         <div class="tab-col-wrap">
           <div class="tab-col">
@@ -1430,7 +1460,10 @@
     <!-- Corporation -->
     <div id="tab-corp" class="tab-content">
       <div class="tab-card">
-        <div class="tab-title">Corporation &#8212; Corporaci&#243;n de EE.UU.</div>
+        <div class="tab-entity-header">
+          <span class="tab-entity-name">Corporation</span>
+          <span class="tab-entity-sub">Corporaci&#243;n de EE.UU.</span>
+        </div>
         <span class="tab-badge" style="background:#EEF3FF;color:#3B4FBF;">Para startups e inversores</span>
         <div class="tab-col-wrap">
           <div class="tab-col">
@@ -1468,7 +1501,10 @@
     <!-- DBA -->
     <div id="tab-dba" class="tab-content">
       <div class="tab-card">
-        <div class="tab-title">DBA &#8212; Doing Business As</div>
+        <div class="tab-entity-header">
+          <span class="tab-entity-name">DBA</span>
+          <span class="tab-entity-sub">Doing Business As &#8212; Nombre comercial</span>
+        </div>
         <span class="tab-badge" style="background:#FFF3E0;color:#B45309;">Nombre comercial adicional</span>
         <div class="tab-col-wrap">
           <div class="tab-col">
