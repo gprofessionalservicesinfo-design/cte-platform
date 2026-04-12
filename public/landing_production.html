@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CreaTuEmpresaUSA — Forma tu LLC en EE.UU. desde cualquier país</title>
-  <meta name="description" content="Forma tu LLC en Estados Unidos sin visa, sin SSN, sin viajar. Proceso guiado 100% en español. Desde $149." />
+  <title>CreaTuEmpresaUSA &#8212; Forma tu LLC en EE.UU. desde cualquier pa&#237;s</title>
+  <meta name="description" content="Forma tu LLC o Corporation en Estados Unidos sin visa, sin SSN, sin viajar. Proceso 100% en espa&#241;ol. Starter desde $499." />
   <link rel="canonical" href="https://creatuempresausa.com/" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,72 +30,224 @@
       background: var(--bg);
       color: var(--dark);
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    /* ── NAV ─────────────────────────────────────────────────────── */
+    /* ─── UTILITIES ─────────────────────────────────────────── */
+    .section-eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--emerald);
+      display: block;
+      margin-bottom: 10px;
+    }
+    .section-h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 800;
+      color: var(--dark);
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+    .section-sub {
+      font-size: 15px;
+      color: var(--mid);
+      line-height: 1.6;
+      max-width: 560px;
+    }
+    .section-head { text-align: center; margin-bottom: 48px; }
+    .section-head .section-sub { margin: 0 auto; }
+
+    .btn-solid {
+      display: inline-block;
+      background: var(--emerald);
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 14px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s;
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-solid:hover { background: #24a87c; }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      color: var(--teal);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 14px 28px;
+      border-radius: 10px;
+      border: 2px solid var(--teal);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      min-height: 52px;
+    }
+    .btn-outline:hover { background: var(--teal); color: #fff; }
+
+    .wa-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #1B2B1B;
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 16px 28px;
+      border-radius: 12px;
+      text-decoration: none;
+      min-height: 52px;
+      transition: background 0.15s;
+    }
+    .wa-link:hover { background: #2a4028; }
+
+    /* ─── 1. NAV ────────────────────────────────────────────── */
     .nav {
       position: sticky;
       top: 0;
       z-index: 100;
       background: rgba(250, 250, 247, 0.95);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(0,0,0,0.07);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(42, 53, 68, 0.08);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
       height: 64px;
       display: flex;
       align-items: center;
-      padding: 0 24px;
-    }
-    .nav-inner {
-      width: 100%;
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
       justify-content: space-between;
+      gap: 24px;
     }
     .nav-logo {
       display: flex;
       align-items: center;
       gap: 10px;
       text-decoration: none;
+      flex-shrink: 0;
     }
     .nav-logo-text {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: 1.1rem;
-      line-height: 1;
+      font-size: 1.05rem;
       letter-spacing: -0.3px;
+      line-height: 1;
     }
-    .nav-logo-text span:first-child { color: var(--dark); }
-    .nav-logo-text span:last-child  { color: #DC2626; }
+    .nav-logo-text .dark { color: var(--dark); }
+    .nav-logo-text .red  { color: #DC2626; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      flex: 1;
+    }
+    .nav-links a {
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--mid);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: color 0.15s, background 0.15s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover { color: var(--dark); background: rgba(0,0,0,0.04); }
 
     .nav-cta {
       background: var(--emerald);
       color: #fff;
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 700;
-      font-size: 14px;
-      padding: 10px 20px;
+      font-size: 13px;
+      padding: 10px 22px;
       border-radius: 8px;
       text-decoration: none;
       white-space: nowrap;
       transition: background 0.15s;
+      flex-shrink: 0;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
     }
     .nav-cta:hover { background: #24a87c; }
 
-    /* ── HERO ────────────────────────────────────────────────────── */
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--dark);
+      border-radius: 2px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .nav-mobile-menu {
+      display: none;
+      flex-direction: column;
+      padding: 12px 16px 20px;
+      background: rgba(250, 250, 247, 0.98);
+      border-top: 1px solid rgba(42,53,68,0.06);
+    }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-menu a {
+      padding: 14px 12px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--dark);
+      text-decoration: none;
+      border-radius: 8px;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      transition: background 0.1s;
+    }
+    .nav-mobile-menu a:hover { background: rgba(0,0,0,0.04); }
+    .nav-mobile-menu .nav-cta {
+      margin-top: 8px;
+      justify-content: center;
+      font-size: 15px;
+      padding: 14px;
+      border-radius: 10px;
+    }
+
+    /* ─── 2. HERO ───────────────────────────────────────────── */
     .hero {
       position: relative;
-      min-height: 88vh;
+      min-height: 92vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 60px 24px;
+      padding: 80px 24px 60px;
       background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1920&q=80');
       background-size: cover;
-      background-position: center top;
+      background-position: center;
     }
     .hero::before {
       content: '';
@@ -106,51 +258,62 @@
     .hero-content {
       position: relative;
       z-index: 1;
-      max-width: 760px;
+      max-width: 780px;
+      width: 100%;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.65);
+      display: block;
+      margin-bottom: 20px;
     }
     .hero h1 {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: clamp(36px, 6vw, 62px);
-      line-height: 1.08;
+      font-size: 68px;
+      line-height: 1.05;
       color: #fff;
       margin-bottom: 36px;
     }
-    .hero h1 .accent { color: #5DD4B8; }
-    .hero h1 .dim    { opacity: 0.9; }
-
-    .hero-btn {
-      display: inline-block;
+    .hero-cta {
+      display: block;
       background: var(--emerald);
       color: #fff;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 700;
-      font-size: 17px;
-      padding: 18px 44px;
-      border-radius: 12px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      text-align: center;
       text-decoration: none;
+      padding: 20px 0;
+      border-radius: 14px;
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
       transition: background 0.15s, transform 0.1s;
     }
-    .hero-btn:hover { background: #24a87c; transform: translateY(-1px); }
+    .hero-cta:hover { background: #24a87c; transform: translateY(-1px); }
 
-    /* ── TRUST STRIP ─────────────────────────────────────────────── */
+    /* ─── 3. TRUST STRIP ────────────────────────────────────── */
     .trust {
       background: var(--surface);
-      padding: 20px 24px;
+      padding: 18px 24px;
     }
     .trust-inner {
-      max-width: 900px;
+      max-width: 960px;
       margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 32px;
+      gap: 36px;
       flex-wrap: wrap;
     }
     .trust-pill {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
       font-size: 13px;
       font-weight: 600;
       color: var(--dark);
@@ -159,39 +322,23 @@
     .trust-pill .plus {
       color: var(--emerald);
       font-weight: 800;
-      font-size: 15px;
+      font-size: 16px;
+      line-height: 1;
     }
 
-    /* ── PLANES ──────────────────────────────────────────────────── */
+    /* ─── 4. PLANES ─────────────────────────────────────────── */
     .planes-section {
       background: var(--bg);
-      padding: 64px 24px;
+      padding: 72px 24px;
     }
-    .planes-header {
-      text-align: center;
-      margin-bottom: 48px;
-    }
-    .planes-header h2 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(26px, 4vw, 36px);
-      color: var(--dark);
-      margin-bottom: 10px;
-    }
-    .planes-header p {
-      font-size: 15px;
-      color: var(--mid);
-    }
-
-    .planes-grid {
+    .plans-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 20px;
-      max-width: 1040px;
-      margin: 0 auto;
-      align-items: center;
+      max-width: 1100px;
+      margin: 48px auto 0;
+      align-items: start;
     }
-
     .plan-card {
       background: #fff;
       border-radius: 20px;
@@ -202,14 +349,12 @@
     }
     .plan-card.featured {
       border: 2px solid var(--teal);
-      transform: scale(1.03);
-      box-shadow: 0 8px 32px rgba(77,179,154,0.15);
+      box-shadow: 0 12px 40px rgba(77, 179, 154, 0.14);
+      transform: translateY(-8px);
+      order: -1;
     }
-
     .plan-badge {
       display: inline-block;
-      background: #FFF3E0;
-      color: #B45309;
       font-size: 11px;
       font-weight: 700;
       padding: 4px 12px;
@@ -217,27 +362,38 @@
       margin-bottom: 12px;
       align-self: flex-start;
     }
-    .plan-badge.featured-badge {
-      background: #E6F4F0;
-      color: #1E6B55;
-    }
+    .plan-badge.popular { background: #E6F4F0; color: #1E6B55; }
+    .plan-badge.complete { background: #EEF3FF; color: #3B4FBF; }
+    .plan-badge.start    { background: var(--surface); color: var(--mid); }
 
     .plan-name {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: 18px;
+      font-size: 20px;
       color: var(--dark);
-      margin-bottom: 2px;
+      margin-bottom: 4px;
     }
-    .plan-tagline {
+    .plan-price {
+      font-family: 'Syne', sans-serif;
+      font-size: 54px;
+      font-weight: 800;
+      color: var(--dark);
+      line-height: 1;
+      margin: 16px 0 4px;
+    }
+    .plan-price sup {
+      font-size: 22px;
+      vertical-align: top;
+      margin-top: 10px;
+      display: inline-block;
+    }
+    .plan-plus-fee {
       font-size: 13px;
       color: var(--mid);
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
 
-    .state-pills {
-      margin-bottom: 12px;
-    }
+    .plan-states { margin-bottom: 16px; }
     .state-pill {
       display: inline-block;
       background: #E6F4F0;
@@ -249,38 +405,17 @@
       margin: 2px;
     }
 
-    .plan-price {
-      font-family: 'Syne', sans-serif;
-      font-size: 52px;
-      font-weight: 800;
-      color: var(--dark);
-      line-height: 1;
-      margin: 12px 0 4px;
-    }
-    .plan-price sup {
-      font-size: 24px;
-      vertical-align: top;
-      margin-top: 10px;
-      display: inline-block;
-    }
-    .plan-period {
-      font-size: 13px;
-      color: var(--mid);
-      margin-bottom: 20px;
-    }
-
     .plan-divider {
       border: none;
       border-top: 1px solid #F0EFE9;
       margin: 16px 0;
     }
-
-    .features-list {
+    .plan-features {
       list-style: none;
-      margin-bottom: 24px;
       flex: 1;
+      margin-bottom: 24px;
     }
-    .feature {
+    .plan-features li {
       display: flex;
       align-items: flex-start;
       gap: 8px;
@@ -288,147 +423,605 @@
       color: var(--dark);
       margin-bottom: 10px;
     }
-    .feature-check { color: var(--emerald); font-weight: 800; flex-shrink: 0; font-size: 15px; }
-    .feature-no    { color: #C8D0DC; flex-shrink: 0; font-size: 15px; }
-    .feature.dim   { color: #99A6B5; }
-
-    .btn-plan-outline {
+    .plan-features li .ck {
+      color: var(--emerald);
+      font-weight: 800;
+      flex-shrink: 0;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+    .btn-plan-solid {
       display: block;
-      text-align: center;
       width: 100%;
+      text-align: center;
       padding: 14px;
+      background: var(--emerald);
+      color: #fff;
       border-radius: 10px;
-      border: 2px solid var(--teal);
-      color: var(--teal);
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 15px;
       font-weight: 700;
-      background: transparent;
       text-decoration: none;
-      transition: background 0.15s, color 0.15s;
+      border: none;
+      cursor: pointer;
       margin-top: auto;
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+    .btn-plan-solid:hover { background: #24a87c; }
+    .btn-plan-outline {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+      background: transparent;
+      color: var(--teal);
+      border: 2px solid var(--teal);
+      border-radius: 10px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      margin-top: auto;
+      min-height: 52px;
+      transition: background 0.15s, color 0.15s;
     }
     .btn-plan-outline:hover { background: var(--teal); color: #fff; }
 
-    .btn-plan-solid {
-      display: block;
-      text-align: center;
-      width: 100%;
-      padding: 14px;
-      border-radius: 10px;
-      background: var(--emerald);
-      color: #fff;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      border: none;
-      text-decoration: none;
-      transition: background 0.15s;
-      margin-top: auto;
-    }
-    .btn-plan-solid:hover { background: #24a87c; }
-
-    .planes-legal {
-      text-align: center;
+    .plans-legal {
       font-size: 11px;
       color: #99A6B5;
+      text-align: center;
       margin-top: 20px;
       max-width: 600px;
       margin-left: auto;
       margin-right: auto;
     }
 
-    /* State comparison table */
-    .table-section {
-      max-width: 900px;
-      margin: 40px auto 0;
+    /* ─── 5. STATS BAR ──────────────────────────────────────── */
+    .stats-bar {
+      background: var(--dark);
+      padding: 40px 24px;
     }
-    .table-section h3 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 18px;
-      color: var(--dark);
-      margin-bottom: 16px;
+    .stats-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .stat-item {
       text-align: center;
-    }
-    .table-wrapper {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-    .state-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-      min-width: 560px;
-    }
-    .state-table th {
-      background: var(--surface);
       padding: 12px 16px;
-      text-align: left;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
       font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      color: var(--dark);
-      white-space: nowrap;
+      font-size: 44px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+      display: block;
     }
-    .state-table td {
-      padding: 12px 16px;
-      border-bottom: 1px solid #F0EFE9;
-      color: var(--dark);
-      font-size: 13px;
+    .stat-label {
+      font-size: 11px;
+      color: #5A7A9A;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 6px;
+      display: block;
     }
-    .state-table tr:hover td { background: #FAFAF7; }
-    .state-table td:first-child { font-weight: 600; color: var(--mid); }
-    .td-highlight { color: var(--emerald) !important; font-weight: 700 !important; }
 
-    /* ── WHATSAPP CTA ─────────────────────────────────────────────── */
-    .wa-section {
-      background: var(--teal);
-      padding: 56px 24px;
-      text-align: center;
+    /* ─── 6. EL PROCESO ─────────────────────────────────────── */
+    .proceso-section {
+      background: var(--bg);
+      padding: 72px 24px;
     }
-    .wa-section h2 {
+    .steps-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 840px;
+      margin: 0 auto 40px;
+    }
+    .step-card {
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid #EAEAE4;
+      padding: 28px 24px;
+    }
+    .step-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: #E6F4F0;
+      color: #1E6B55;
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .step-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .step-desc {
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+    .proceso-cta { text-align: center; }
+
+    /* ─── 7. LLC / CORP / DBA TABS ──────────────────────────── */
+    .tabs-section {
+      background: var(--surface);
+      padding: 72px 24px;
+    }
+    .tabs-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .tabs {
+      display: flex;
+      gap: 4px;
+      background: #E8E7E2;
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 32px;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 9px;
+      border: none;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      background: transparent;
+      color: var(--mid);
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background: #fff;
+      color: var(--dark);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .tab-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px;
+      border: 1px solid #EAEAE4;
+    }
+    .tab-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+    .tab-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      background: #E6F4F0;
+      color: #1E6B55;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .tab-col-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    .tab-col h4 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 12px;
+    }
+    .tab-col ul { list-style: none; }
+    .tab-col ul li {
+      font-size: 14px;
+      color: var(--dark);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+    }
+    .tab-col ul li .ck { color: var(--emerald); font-weight: 800; flex-shrink: 0; }
+    .tab-col ul li .dash { color: #C8D0DC; font-weight: 700; flex-shrink: 0; }
+    .tab-quote {
+      font-style: italic;
+      font-size: 14px;
+      color: var(--mid);
+      border-left: 3px solid var(--teal);
+      padding-left: 14px;
+      margin: 20px 0;
+      line-height: 1.6;
+    }
+    .tab-plans {
+      font-size: 13px;
+      color: var(--mid);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .tab-plans strong { color: var(--dark); margin-right: 4px; }
+    .tab-plan-pill {
+      display: inline-block;
+      background: var(--surface);
+      color: var(--dark);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+    .tab-btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* ─── 8. TESTIMONIOS ────────────────────────────────────── */
+    .testi-section {
+      background: var(--bg);
+      padding: 72px 24px;
+    }
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+    .testi-card {
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid #EAEAE4;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+    }
+    .verified-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #1E6B55;
+      background: #E6F4F0;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+      align-self: flex-start;
+    }
+    .testi-text {
+      font-size: 14px;
+      color: #3A4A5C;
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: 20px;
+    }
+    .testi-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .testi-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: clamp(20px, 3vw, 26px);
+      font-size: 14px;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .testi-name { font-size: 14px; font-weight: 700; color: var(--dark); }
+    .testi-role { font-size: 12px; color: var(--mid); }
+
+    /* ─── 9. LATINOAMERICANOS ───────────────────────────────── */
+    .latam-section {
+      position: relative;
+      padding: 72px 24px;
+      background-image: url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+    .latam-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(20, 35, 50, 0.82);
+    }
+    .latam-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 940px;
+      margin: 0 auto;
+    }
+    .latam-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+      margin-bottom: 56px;
+    }
+    .latam-section .section-eyebrow { color: var(--teal); }
+    .latam-section .section-h2 { color: #fff; }
+    .latam-section .section-sub { color: rgba(255,255,255,0.7); }
+    .latam-bullets { list-style: none; }
+    .latam-bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 15px;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .latam-bullets li .ck { color: var(--emerald); font-weight: 800; flex-shrink: 0; font-size: 16px; }
+
+    .latam-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    .latam-step {
+      background: rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 24px 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .latam-step-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 8px;
+    }
+    .latam-step h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
       color: #fff;
       margin-bottom: 8px;
     }
-    .wa-section p {
-      font-size: 14px;
-      color: rgba(255,255,255,0.82);
-      margin-bottom: 28px;
+    .latam-step p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
     }
-    .wa-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      background: #1B2B1B;
-      color: #fff;
-      text-decoration: none;
-      padding: 16px 32px;
-      border-radius: 12px;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 700;
-      font-size: 15px;
-      transition: background 0.15s;
-    }
-    .wa-btn:hover { background: #2a4028; }
 
-    /* ── FOOTER ──────────────────────────────────────────────────── */
+    .latam-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .latam-stat {
+      text-align: center;
+    }
+    .latam-stat strong {
+      display: block;
+      font-family: 'Syne', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .latam-stat span {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.4;
+    }
+
+    .latam-cta { text-align: center; }
+
+    /* ─── 10. NUESTRA DIFERENCIA ────────────────────────────── */
+    .dif-section {
+      background: var(--bg);
+      padding: 72px 24px;
+    }
+    .dif-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 48px;
+    }
+    .dif-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff;
+      border: 1px solid #EAEAE4;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--dark);
+    }
+    .dif-pill .plus { color: var(--emerald); font-weight: 800; font-size: 15px; }
+    .dif-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 880px;
+      margin: 0 auto;
+    }
+    .dif-card {
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid #EAEAE4;
+      padding: 28px;
+    }
+    .dif-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .dif-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .dif-desc {
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 1.65;
+    }
+
+    /* ─── 11. FAQ ────────────────────────────────────────────── */
+    .faq-section {
+      background: var(--surface);
+      padding: 72px 24px;
+    }
+    .faq-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .faq-item { border-bottom: 1px solid #DDDDD5; }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--dark);
+      cursor: pointer;
+      text-align: left;
+      gap: 16px;
+    }
+    .faq-icon {
+      color: var(--teal);
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1;
+      flex-shrink: 0;
+      transition: transform 0.25s;
+    }
+    .faq-answer {
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 1.7;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s;
+    }
+    .faq-item.open .faq-answer { max-height: 320px; padding-bottom: 20px; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    /* ─── 12. CTA FINAL ─────────────────────────────────────── */
+    .cta-final {
+      position: relative;
+      padding: 80px 24px;
+      text-align: center;
+      background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+    .cta-final::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(20, 35, 50, 0.80);
+    }
+    .cta-final-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .cta-final h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 5vw, 46px);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 14px;
+      line-height: 1.1;
+    }
+    .cta-final p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.65;
+      margin-bottom: 36px;
+    }
+    .cta-final-btns {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .cta-final-sub {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.6;
+    }
+
+    /* ─── 13. FOOTER ────────────────────────────────────────── */
     .footer {
       background: var(--dark);
-      padding: 28px 24px;
+      padding: 56px 24px 32px;
     }
     .footer-inner {
       max-width: 1100px;
       margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
     }
-    .footer-logo {
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-brand p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.7;
+      margin-top: 14px;
+      max-width: 280px;
+    }
+    .footer-logo-wrap {
       display: flex;
       align-items: center;
       gap: 10px;
@@ -440,31 +1033,60 @@
       font-size: 1rem;
       color: #fff;
     }
-    .footer-meta {
+    .footer-col h5 {
+      font-family: 'Syne', sans-serif;
       font-size: 12px;
-      color: rgba(255,255,255,0.45);
-      text-align: right;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 16px;
     }
-    .footer-meta a {
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a {
+      font-size: 13px;
       color: rgba(255,255,255,0.55);
       text-decoration: none;
-      margin-left: 12px;
+      transition: color 0.15s;
     }
-    .footer-meta a:hover { color: #fff; }
-    .footer-disclaimer {
-      width: 100%;
-      font-size: 11px;
+    .footer-col ul li a:hover { color: #fff; }
+    .footer-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 24px;
+    }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-copy {
+      font-size: 12px;
       color: rgba(255,255,255,0.3);
-      text-align: center;
-      margin-top: 4px;
     }
+    .footer-bottom-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-bottom-links a {
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .footer-bottom-links a:hover { color: #fff; }
 
-    /* ── FLOATING WA ─────────────────────────────────────────────── */
+    /* ─── FLOATING WA ────────────────────────────────────────── */
     .wa-float {
       position: fixed;
       bottom: 24px;
       right: 20px;
-      z-index: 999;
+      z-index: 9999;
       width: 56px;
       height: 56px;
       border-radius: 50%;
@@ -472,279 +1094,802 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
       text-decoration: none;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
       transition: transform 0.15s;
     }
     .wa-float:hover { transform: scale(1.08); }
 
-    /* ── MOBILE ──────────────────────────────────────────────────── */
-    @media (max-width: 767px) {
-      .hero {
-        min-height: 100svh;
-        padding: 48px 16px;
-      }
-      .hero h1 { font-size: 34px; line-height: 1.1; }
-      .hero-btn {
-        display: block;
-        width: 100%;
-        max-width: 320px;
-        margin: 0 auto;
-        padding: 18px;
-        font-size: 16px;
-        text-align: center;
-      }
+    /* ─── MOBILE ─────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+
+      .hero { min-height: 100svh; padding: 60px 16px 48px; }
+      .hero h1 { font-size: 36px; line-height: 1.1; }
+      .hero-cta { max-width: 100%; font-size: 17px; padding: 18px 0; border-radius: 12px; }
+
       .trust-inner {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 12px 20px;
+        gap: 10px 20px;
         justify-items: start;
       }
       .trust-pill { white-space: normal; }
-      .planes-section { padding: 40px 16px; }
-      .planes-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
+
+      .planes-section { padding: 48px 16px; }
+      .plans-grid { grid-template-columns: 1fr; max-width: 440px; margin-left: auto; margin-right: auto; }
+      .plan-card.featured { transform: none; order: -1; }
+
+      .stats-inner { grid-template-columns: 1fr 1fr; }
+      .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .stat-item:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.08); }
+      .stat-item:nth-child(3), .stat-item:nth-child(4) { border-bottom: none; }
+
+      .proceso-section { padding: 48px 16px; }
+      .steps-grid { grid-template-columns: 1fr; max-width: 440px; margin-left: auto; margin-right: auto; }
+
+      .tabs-section { padding: 48px 16px; }
+      .tab-col-wrap { grid-template-columns: 1fr; gap: 16px; }
+      .tab-btns { flex-direction: column; }
+      .tab-btns a { text-align: center; }
+
+      .testi-section { padding: 48px 16px; }
+      .testi-grid {
+        display: flex;
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
+        gap: 14px;
+        padding-bottom: 8px;
       }
-      .plan-card.featured { transform: none; }
-      .plan-price { font-size: 44px; }
-      .footer-inner { flex-direction: column; align-items: flex-start; }
-      .footer-meta { text-align: left; }
+      .testi-card { scroll-snap-align: start; min-width: 280px; }
+
+      .latam-section { padding: 48px 16px; }
+      .latam-top { grid-template-columns: 1fr; gap: 28px; }
+      .latam-steps { grid-template-columns: 1fr; }
+      .latam-stats { grid-template-columns: 1fr 1fr; }
+
+      .dif-section { padding: 48px 16px; }
+      .dif-grid { grid-template-columns: 1fr; max-width: 440px; margin-left: auto; margin-right: auto; }
+
+      .faq-section { padding: 48px 16px; }
+
+      .cta-final { padding: 60px 16px; }
+      .cta-final-btns { flex-direction: column; align-items: center; }
+      .cta-final-btns a { width: 100%; max-width: 360px; }
+
+      .footer { padding: 40px 16px 24px; }
+      .footer-top { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
     }
 
-    @media (min-width: 768px) and (max-width: 900px) {
-      .planes-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-        max-width: 480px;
-      }
-      .plan-card.featured { transform: none; }
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 34px; }
+      .stat-num { font-size: 34px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════════════════════ NAV -->
-  <header class="nav">
-    <div class="nav-inner">
-      <a href="/" class="nav-logo">
-        <svg width="36" height="36" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-          <rect width="64" height="64" rx="16" fill="#4DB39A"/>
-          <rect x="0" y="27" width="64" height="10" fill="rgba(0,0,0,0.18)"/>
-          <text x="32" y="46" font-family="Syne,sans-serif" font-weight="800"
-                font-size="28" fill="white" text-anchor="middle" letter-spacing="-1">CTE</text>
-        </svg>
-        <span class="nav-logo-text">
-          <span>CreaTuEmpresa</span><span>USA</span>
-        </span>
-      </a>
-      <a href="#planes" class="nav-cta">Crear mi empresa &#8594;</a>
-    </div>
-  </header>
-
-  <!-- ══════════════════════════════════════════════════════ HERO -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>
-        <span class="accent">Crea Tu Empresa</span><br>
-        <span class="dim">en Estados Unidos</span><br>
-        <span class="dim">Desde Cualquier Pa&#237;s</span>
-      </h1>
-      <a href="#planes" class="hero-btn">Crear mi empresa &#8594;</a>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════ TRUST STRIP -->
-  <section class="trust">
-    <div class="trust-inner">
-      <div class="trust-pill"><span class="plus">+</span> 100% Remoto</div>
-      <div class="trust-pill"><span class="plus">+</span> Clientes internacionales</div>
-      <div class="trust-pill"><span class="plus">+</span> Proceso guiado</div>
-      <div class="trust-pill"><span class="plus">+</span> Sin visa ni SSN</div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════ PLANES -->
-  <section class="planes-section" id="planes">
-    <div class="planes-header">
-      <h2>&#191;Qu&#233; quieres formar?</h2>
-      <p>Elige tu empresa y estado &#8212; precio final, sin sorpresas</p>
-    </div>
-
-    <div class="planes-grid">
-
-      <!-- STARTER -->
-      <div class="plan-card">
-        <span class="plan-badge">Esencial</span>
-        <div class="plan-name">Starter</div>
-        <div class="plan-tagline">LLC formada y lista para operar</div>
-        <div class="state-pills">
-          <span class="state-pill">Wyoming</span>
-          <span class="state-pill">Delaware</span>
-        </div>
-        <div class="plan-price"><sup>$</sup>149</div>
-        <div class="plan-period">pago &#250;nico</div>
-        <hr class="plan-divider">
-        <ul class="features-list">
-          <li class="feature"><span class="feature-check">&#10003;</span> LLC formada y registrada</li>
-          <li class="feature"><span class="feature-check">&#10003;</span> Agente registrado 1 a&#241;o</li>
-          <li class="feature"><span class="feature-check">&#10003;</span> BOI Report (FinCEN)</li>
-          <li class="feature"><span class="feature-check">&#10003;</span> Portal de seguimiento</li>
-          <li class="feature dim"><span class="feature-no">&#8211;</span> EIN (n&#250;mero fiscal)</li>
-          <li class="feature dim"><span class="feature-no">&#8211;</span> Cuenta bancaria</li>
-          <li class="feature dim"><span class="feature-no">&#8211;</span> Asesor&#237;a CPA</li>
-        </ul>
-        <a href="/index_final.html?page=wizard&plan=starter" class="btn-plan-outline">Elegir Starter &#8594;</a>
-      </div>
-
-      <!-- PRO (featured) -->
-      <div class="plan-card featured">
-        <span class="plan-badge featured-badge">M&#225;s Popular &#8212; PRO</span>
-        <div class="plan-name">Pro</div>
-        <div class="plan-tagline">LLC + EIN + Cuenta bancaria</div>
-        <div class="state-pills">
-          <span class="state-pill">Wyoming</span>
-          <span class="state-pill">Delaware</span>
-        </div>
-        <div class="plan-price"><sup>$</sup>249</div>
-        <div class="plan-period">pago &#250;nico</div>
-        <hr class="plan-divider">
-        <ul class="features-list">
-          <li class="feature"><span class="feature-check">&#10003;</span> LLC formada y registrada</li>
-          <li class="feature"><span class="feature-check">&#10003;</span> Agente registrado 1 a&#241;o</li>
-          <li class="feature"><span class="feature-check">&#10003;</span> BOI Report (FinCEN)</li>
-          <li class="feature"><span class="feature-check">&#10003;</span> Portal de seguimiento</li>
-          <li class="feature"><span class="feature-check">&#10003;</span> EIN gestionado con el IRS</li>
-          <li class="feature"><span class="feature-check">&#10003;</span> Apertura Mercury Bank</li>
-          <li class="feature"><span class="feature-check">&#10003;</span> WhatsApp prioritario</li>
-        </ul>
-        <a href="/index_final.html?page=wizard&plan=pro" class="btn-plan-solid">Elegir Pro &#8594;</a>
-      </div>
-
-      <!-- PREMIUM -->
-      <div class="plan-card">
-        <span class="plan-badge">Completo</span>
-        <div class="plan-name">Premium</div>
-        <div class="plan-tagline">Todo incluido + ITIN + VIP</div>
-        <div class="state-pills">
-          <span class="state-pill">Wyoming</span>
-          <span class="state-pill">Delaware</span>
-          <span class="state-pill">New Mexico</span>
-          <span class="state-pill">Corp DE</span>
-        </div>
-        <div class="plan-price"><sup>$</sup>399</div>
-        <div class="plan-period">pago &#250;nico</div>
-        <hr class="plan-divider">
-        <ul class="features-list">
-          <li class="feature"><span class="feature-check">&#10003;</span> Todo lo de Pro</li>
-          <li class="feature"><span class="feature-check">&#10003;</span> ITIN gestionado</li>
-          <li class="feature"><span class="feature-check">&#10003;</span> Asesor&#237;a CPA incluida</li>
-          <li class="feature"><span class="feature-check">&#10003;</span> 2do a&#241;o ag. registrado</li>
-          <li class="feature"><span class="feature-check">&#10003;</span> WhatsApp dedicado</li>
-          <li class="feature"><span class="feature-check">&#10003;</span> Corp Delaware disponible</li>
-          <li class="feature"><span class="feature-check">&#10003;</span> LLC New Mexico an&#243;nima</li>
-        </ul>
-        <a href="/index_final.html?page=wizard&plan=premium" class="btn-plan-outline">Elegir Premium &#8594;</a>
-      </div>
-
-    </div>
-
-    <p class="planes-legal">
-      * Precios no incluyen government fees del estado (Wyoming $102, Delaware $140, New Mexico $50).
-      No somos abogados ni contadores.
-    </p>
-
-    <!-- State comparison table -->
-    <div class="table-section">
-      <h3>&#191;Cu&#225;l estado elegir?</h3>
-      <div class="table-wrapper">
-        <table class="state-table">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Wyoming</th>
-              <th>Delaware</th>
-              <th>New Mexico</th>
-              <th>Corp Delaware</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Costo LLC</td>
-              <td>$102</td>
-              <td>$140</td>
-              <td class="td-highlight">$50</td>
-              <td>$140</td>
-            </tr>
-            <tr>
-              <td>Impuesto estatal</td>
-              <td class="td-highlight">0%</td>
-              <td>0%*</td>
-              <td class="td-highlight">0%</td>
-              <td>8.7%</td>
-            </tr>
-            <tr>
-              <td>Privacidad</td>
-              <td>Media</td>
-              <td>Media</td>
-              <td class="td-highlight">M&#225;xima</td>
-              <td>Media</td>
-            </tr>
-            <tr>
-              <td>Ideal para</td>
-              <td>Negocios digitales</td>
-              <td>Startups / VC</td>
-              <td class="td-highlight">Anonimato</td>
-              <td>Inversi&#243;n</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <p style="font-size:11px; color:#99A6B5; margin-top:10px; text-align:center;">
-        * Delaware cobra franchise tax anual (~$300)
-      </p>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════ WHATSAPP CTA -->
-  <section class="wa-section">
-    <h2>&#191;Tienes dudas?</h2>
-    <p>Esch&#237;benos por WhatsApp &#8212; respuesta en menos de 2 horas</p>
-    <a href="https://wa.me/18669958013" class="wa-btn">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+<!-- ═══════════════════════════════════════════════════ 1. NAV -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <svg width="36" height="36" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+        <rect width="64" height="64" rx="16" fill="#4DB39A"/>
+        <rect x="0" y="27" width="64" height="10" fill="rgba(0,0,0,0.18)"/>
+        <text x="32" y="46" font-family="Syne,sans-serif" font-weight="800"
+              font-size="28" fill="white" text-anchor="middle" letter-spacing="-1">CTE</text>
       </svg>
-      Abrir WhatsApp
+      <span class="nav-logo-text"><span class="dark">CreaTuEmpresa</span><span class="red">USA</span></span>
     </a>
-  </section>
+    <nav class="nav-links" aria-label="Principal">
+      <a href="#planes">Servicios</a>
+      <a href="#planes">Precios</a>
+      <a href="#proceso">C&#243;mo funciona</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a href="#planes" class="nav-cta">Crear mi empresa &#8594;</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Men&#250;" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile-menu" id="mobileMenu" role="navigation">
+    <a href="#planes" class="mobile-close">Servicios</a>
+    <a href="#planes" class="mobile-close">Precios</a>
+    <a href="#proceso" class="mobile-close">C&#243;mo funciona</a>
+    <a href="#faq" class="mobile-close">FAQ</a>
+    <a href="#planes" class="nav-cta mobile-close">Crear mi empresa &#8594;</a>
+  </div>
+</header>
 
-  <!-- ════════════════════════════════════════════════ FOOTER -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <a href="/" class="footer-logo">
-        <svg width="32" height="32" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-          <rect width="64" height="64" rx="16" fill="#4DB39A"/>
-          <rect x="0" y="27" width="64" height="10" fill="rgba(0,0,0,0.18)"/>
-          <text x="32" y="46" font-family="Syne,sans-serif" font-weight="800"
-                font-size="28" fill="white" text-anchor="middle" letter-spacing="-1">CTE</text>
+<!-- ═══════════════════════════════════════════════════ 2. HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-eyebrow">Crea tu empresa hoy &#8212; disponible para toda Latinoam&#233;rica</span>
+    <h1>Crea Tu Empresa en<br>Estados Unidos<br>Desde Cualquier Pa&#237;s</h1>
+    <a href="#planes" class="hero-cta">Crear mi empresa &#8594;</a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ 3. TRUST STRIP -->
+<section class="trust">
+  <div class="trust-inner">
+    <div class="trust-pill"><span class="plus">+</span> 100% Remoto</div>
+    <div class="trust-pill"><span class="plus">+</span> Clientes internacionales</div>
+    <div class="trust-pill"><span class="plus">+</span> Proceso guiado</div>
+    <div class="trust-pill"><span class="plus">+</span> Sin visa ni SSN</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ 4. PLANES -->
+<section class="planes-section" id="planes">
+  <div class="section-head">
+    <span class="section-eyebrow">Planes y Precios</span>
+    <h2 class="section-h2">Elige el plan que mejor se adapta a ti</h2>
+    <p class="section-sub">Todo incluido para que tu empresa quede lista y funcionando.</p>
+  </div>
+
+  <div class="plans-grid">
+
+    <!-- PRO — featured, order -1 -->
+    <div class="plan-card featured">
+      <span class="plan-badge popular">M&#225;s popular</span>
+      <div class="plan-name">Pro</div>
+      <div class="plan-price"><sup>$</sup>799</div>
+      <div class="plan-plus-fee">USD + tarifa estatal</div>
+      <div class="plan-states">
+        <span class="state-pill">Wyoming</span>
+        <span class="state-pill">Florida</span>
+        <span class="state-pill">Delaware</span>
+      </div>
+      <hr class="plan-divider">
+      <ul class="plan-features">
+        <li><span class="ck">&#10003;</span> LLC o Corporation</li>
+        <li><span class="ck">&#10003;</span> EIN (n&#250;mero fiscal federal)</li>
+        <li><span class="ck">&#10003;</span> Registered Agent (1 a&#241;o)</li>
+        <li><span class="ck">&#10003;</span> Operating Agreement personalizado</li>
+        <li><span class="ck">&#10003;</span> Asesor&#237;a bancaria incluida</li>
+        <li><span class="ck">&#10003;</span> Soporte prioritario por WhatsApp</li>
+      </ul>
+      <a href="/checkout?plan=pro" class="btn-plan-solid">Elegir Pro &#8594;</a>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="plan-card">
+      <span class="plan-badge complete">Soluci&#243;n completa</span>
+      <div class="plan-name">Premium</div>
+      <div class="plan-price"><sup>$</sup>1,200</div>
+      <div class="plan-plus-fee">USD + tarifa estatal</div>
+      <div class="plan-states">
+        <span class="state-pill">Wyoming</span>
+        <span class="state-pill">Florida</span>
+        <span class="state-pill">Delaware</span>
+      </div>
+      <hr class="plan-divider">
+      <ul class="plan-features">
+        <li><span class="ck">&#10003;</span> Todo lo de Pro</li>
+        <li><span class="ck">&#10003;</span> Fast-track &#8212; prioridad m&#225;xima</li>
+        <li><span class="ck">&#10003;</span> Business Address (12 meses)</li>
+        <li><span class="ck">&#10003;</span> Asesor&#237;a fiscal + Form 5472</li>
+      </ul>
+      <a href="/checkout?plan=premium" class="btn-plan-outline">Elegir Premium &#8594;</a>
+    </div>
+
+    <!-- STARTER -->
+    <div class="plan-card">
+      <span class="plan-badge start">Para empezar</span>
+      <div class="plan-name">Starter</div>
+      <div class="plan-price"><sup>$</sup>499</div>
+      <div class="plan-plus-fee">USD + tarifa estatal</div>
+      <div class="plan-states">
+        <span class="state-pill">Wyoming</span>
+        <span class="state-pill">Florida</span>
+        <span class="state-pill">Delaware</span>
+      </div>
+      <hr class="plan-divider">
+      <ul class="plan-features">
+        <li><span class="ck">&#10003;</span> LLC o Corporation</li>
+        <li><span class="ck">&#10003;</span> EIN (n&#250;mero fiscal federal)</li>
+        <li><span class="ck">&#10003;</span> Registered Agent (1 a&#241;o)</li>
+        <li><span class="ck">&#10003;</span> Soporte por email en espa&#241;ol</li>
+      </ul>
+      <a href="/checkout?plan=starter" class="btn-plan-outline">Elegir Starter &#8594;</a>
+    </div>
+
+  </div>
+
+  <p class="plans-legal">
+    * Wyoming ~$62 &middot; Florida ~$125 &middot; Delaware ~$140.
+    El total exacto se muestra antes de pagar.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════ 5. STATS BAR -->
+<section class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <span class="stat-num">+500</span>
+      <span class="stat-label">Empresas formadas</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">30+</span>
+      <span class="stat-label">Pa&#237;ses atendidos</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">Proceso verificado</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">ES</span>
+      <span class="stat-label">Soporte en espa&#241;ol</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════════════════════════ 6. EL PROCESO -->
+<section class="proceso-section" id="proceso">
+  <div class="section-head">
+    <span class="section-eyebrow">El Proceso</span>
+    <h2 class="section-h2">Abre tu empresa en 4 pasos simples</h2>
+    <p class="section-sub">Sin burocracia confusa. Sin perder tiempo. Todo desde tu computadora o tel&#233;fono.</p>
+  </div>
+
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-title">Elige tu estado</div>
+      <p class="step-desc">Te ayudamos a comparar Wyoming, Florida y Delaware seg&#250;n tus objetivos y presupuesto.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-title">Nombra tu empresa</div>
+      <p class="step-desc">Verificamos disponibilidad del nombre en tiempo real y te asesoramos si hay conflictos.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-title">Selecciona tu plan</div>
+      <p class="step-desc">Elige Starter, Pro o Premium seg&#250;n lo que necesitas. Sin sorpresas de precio despu&#233;s.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <div class="step-title">&#161;Listo, empezamos!</div>
+      <p class="step-desc">Nosotros manejamos todo el papeleo. Recibes tus documentos oficiales por email.</p>
+    </div>
+  </div>
+
+  <div class="proceso-cta">
+    <a href="#planes" class="btn-solid" style="display:inline-flex;">Iniciar el proceso &#8594;</a>
+  </div>
+</section>
+
+<!-- ════════════════════════════ 7. LLC / CORP / DBA TABS -->
+<section class="tabs-section" id="estructuras">
+  <div class="section-head">
+    <span class="section-eyebrow">&#191;Qu&#233; estructura es la correcta para ti?</span>
+    <h2 class="section-h2">LLC, Corporation o DBA &#8212; elige con confianza</h2>
+    <p class="section-sub">No es una enciclopedia legal. Es una gu&#237;a r&#225;pida para que tomes la decisi&#243;n correcta hoy.</p>
+  </div>
+
+  <div class="tabs-wrap">
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" data-tab="tab-llc" role="tab" aria-selected="true">LLC</button>
+      <button class="tab-btn" data-tab="tab-corp" role="tab" aria-selected="false">Corporation</button>
+      <button class="tab-btn" data-tab="tab-dba" role="tab" aria-selected="false">DBA</button>
+    </div>
+
+    <!-- LLC -->
+    <div id="tab-llc" class="tab-content active">
+      <div class="tab-card">
+        <div class="tab-title">LLC &#8212; Sociedad de Responsabilidad Limitada</div>
+        <span class="tab-badge">Ideal para extranjeros</span>
+        <div class="tab-col-wrap">
+          <div class="tab-col">
+            <h4>Ventajas</h4>
+            <ul>
+              <li><span class="ck">&#10003;</span> Protecci&#243;n de activos personales</li>
+              <li><span class="ck">&#10003;</span> Flexibilidad fiscal</li>
+              <li><span class="ck">&#10003;</span> Sin junta directiva formal</li>
+              <li><span class="ck">&#10003;</span> Distribuci&#243;n libre de utilidades</li>
+              <li><span class="ck">&#10003;</span> Ideal para freelancers y negocios digitales</li>
+            </ul>
+          </div>
+          <div class="tab-col">
+            <h4>A tener en cuenta</h4>
+            <ul>
+              <li><span class="dash">&#8212;</span> Puede requerir Operating Agreement</li>
+              <li><span class="dash">&#8212;</span> Algunos bancos piden m&#225;s documentos</li>
+            </ul>
+          </div>
+        </div>
+        <blockquote class="tab-quote">
+          &ldquo;La opci&#243;n m&#225;s elegida por emprendedores latinoamericanos que operan remotamente.&rdquo;
+        </blockquote>
+        <div class="tab-plans">
+          <strong>Disponible en:</strong>
+          <span class="tab-plan-pill">Starter $499</span>
+          <span class="tab-plan-pill">Pro $799</span>
+        </div>
+        <div class="tab-btns">
+          <a href="#planes" class="btn-solid" style="display:inline-flex;">Abrir mi LLC &#8594;</a>
+          <a href="#planes" class="btn-outline">Ver todos los planes</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Corporation -->
+    <div id="tab-corp" class="tab-content">
+      <div class="tab-card">
+        <div class="tab-title">Corporation &#8212; Corporaci&#243;n de EE.UU.</div>
+        <span class="tab-badge" style="background:#EEF3FF;color:#3B4FBF;">Para startups e inversores</span>
+        <div class="tab-col-wrap">
+          <div class="tab-col">
+            <h4>Ventajas</h4>
+            <ul>
+              <li><span class="ck">&#10003;</span> Estructura preferida por inversores y VCs</li>
+              <li><span class="ck">&#10003;</span> Emisi&#243;n de acciones flexible</li>
+              <li><span class="ck">&#10003;</span> Ideal para levantar capital externo</li>
+              <li><span class="ck">&#10003;</span> Reconocida internacionalmente</li>
+            </ul>
+          </div>
+          <div class="tab-col">
+            <h4>A tener en cuenta</h4>
+            <ul>
+              <li><span class="dash">&#8212;</span> Requiere junta directiva y accionistas</li>
+              <li><span class="dash">&#8212;</span> M&#225;s obligaciones formales anuales</li>
+            </ul>
+          </div>
+        </div>
+        <blockquote class="tab-quote">
+          &ldquo;La elecci&#243;n est&#225;ndar para startups que buscan inversi&#243;n.&rdquo;
+        </blockquote>
+        <div class="tab-plans">
+          <strong>Disponible en:</strong>
+          <span class="tab-plan-pill">Pro $799</span>
+          <span class="tab-plan-pill">Premium $1,200</span>
+        </div>
+        <div class="tab-btns">
+          <a href="#planes" class="btn-solid" style="display:inline-flex;">Abrir mi Corporation &#8594;</a>
+          <a href="#planes" class="btn-outline">Ver todos los planes</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- DBA -->
+    <div id="tab-dba" class="tab-content">
+      <div class="tab-card">
+        <div class="tab-title">DBA &#8212; Doing Business As</div>
+        <span class="tab-badge" style="background:#FFF3E0;color:#B45309;">Nombre comercial adicional</span>
+        <div class="tab-col-wrap">
+          <div class="tab-col">
+            <h4>Ventajas</h4>
+            <ul>
+              <li><span class="ck">&#10003;</span> Operar bajo un nombre diferente al legal</li>
+              <li><span class="ck">&#10003;</span> Costo muy bajo</li>
+              <li><span class="ck">&#10003;</span> Ideal para m&#250;ltiples marcas bajo una entidad</li>
+            </ul>
+          </div>
+          <div class="tab-col">
+            <h4>A tener en cuenta</h4>
+            <ul>
+              <li><span class="dash">&#8212;</span> No es una entidad legal independiente</li>
+              <li><span class="dash">&#8212;</span> No protege activos personales por s&#237; solo</li>
+              <li><span class="dash">&#8212;</span> Requiere una LLC o Corp preexistente</li>
+            </ul>
+          </div>
+        </div>
+        <blockquote class="tab-quote">
+          &ldquo;&#218;til para negocios que quieren m&#250;ltiples marcas.&rdquo;
+        </blockquote>
+        <div class="tab-plans">
+          <strong>Disponible en:</strong>
+          <span class="tab-plan-pill">Pro $799</span>
+          <span class="tab-plan-pill">Premium $1,200</span>
+        </div>
+        <div class="tab-btns">
+          <a href="https://wa.me/18669958013" class="btn-solid" style="display:inline-flex;">Consultar &#8594;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════════════════════ 8. TESTIMONIOS -->
+<section class="testi-section" id="testimonios">
+  <div class="section-head">
+    <span class="section-eyebrow">Lo que dicen nuestros clientes</span>
+    <h2 class="section-h2">Emprendedores que ya abrieron su empresa</h2>
+    <p class="section-sub">Fundadores de toda Latinoam&#233;rica que tomaron la decisi&#243;n de establecer su presencia en EE.UU.</p>
+  </div>
+
+  <div class="testi-grid">
+    <div class="testi-card">
+      <span class="verified-badge">Verificado</span>
+      <p class="testi-text">
+        &ldquo;El proceso fue mucho m&#225;s sencillo de lo que esperaba. En menos de dos semanas ten&#237;a mi LLC activa y mi EIN en mano. El equipo me explic&#243; cada paso en espa&#241;ol y me asesor&#243; sobre qu&#233; banco digital usar.&rdquo;
+      </p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#4DB39A;">MG</div>
+        <div>
+          <div class="testi-name">Mar&#237;a Garc&#237;a</div>
+          <div class="testi-role">Freelancer digital &middot; Colombia</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card">
+      <span class="verified-badge">Verificado</span>
+      <p class="testi-text">
+        &ldquo;Llevaba meses pensando en abrir una empresa en EE.UU. pero me parec&#237;a muy complicado. CreaTuEmpresaUSA me demostr&#243; que es posible hacerlo desde Venezuela sin necesidad de viajar ni de tener visa.&rdquo;
+      </p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#6AAEDE;">CR</div>
+        <div>
+          <div class="testi-name">Carlos Rodr&#237;guez</div>
+          <div class="testi-role">Consultor de negocios &middot; Venezuela</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card">
+      <span class="verified-badge">Verificado</span>
+      <p class="testi-text">
+        &ldquo;Lo que m&#225;s valoro es el acompa&#241;amiento despu&#233;s de formar la empresa. Me ayudaron con la cuenta bancaria, con el Operating Agreement y con mis primeras dudas fiscales. No es solo un tr&#225;mite, es un servicio completo.&rdquo;
+      </p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#A89FE0;">AL</div>
+        <div>
+          <div class="testi-name">Ana L&#243;pez</div>
+          <div class="testi-role">E-commerce &middot; M&#233;xico</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ 9. DISE&#209;ADO PARA LATAM -->
+<section class="latam-section" id="latam">
+  <div class="latam-inner">
+    <div class="latam-top">
+      <div>
+        <span class="section-eyebrow">Dise&#241;ado para latinoamericanos</span>
+        <h2 class="section-h2" style="color:#fff; margin-bottom:14px;">Abre tu empresa en EE.UU. Desde donde est&#233;s.</h2>
+        <p class="section-sub" style="color:rgba(255,255,255,0.7); max-width:400px;">
+          No necesitas vivir en Estados Unidos. No necesitas visa. No necesitas un SSN.
+          Hemos simplificado el proceso completo para que cualquier emprendedor latinoamericano
+          pueda establecer su empresa americana en d&#237;as &#8212; no en meses.
+        </p>
+      </div>
+      <ul class="latam-bullets">
+        <li><span class="ck">&#10003;</span> Sin SSN &#8212; el EIN lo tramitamos nosotros</li>
+        <li><span class="ck">&#10003;</span> Sin visa ni viajes a Estados Unidos</li>
+        <li><span class="ck">&#10003;</span> Registered Agent incluido en todos los planes</li>
+        <li><span class="ck">&#10003;</span> Operating Agreement en espa&#241;ol disponible</li>
+        <li><span class="ck">&#10003;</span> Cuenta bancaria digital: te asesoramos paso a paso</li>
+      </ul>
+    </div>
+
+    <div class="latam-steps">
+      <div class="latam-step">
+        <span class="latam-step-num">01</span>
+        <h4>Completa el formulario online</h4>
+        <p>20 minutos desde cualquier dispositivo. Solo necesitas tu pasaporte.</p>
+      </div>
+      <div class="latam-step">
+        <span class="latam-step-num">02</span>
+        <h4>Nosotros manejamos todo el tr&#225;mite</h4>
+        <p>Formaci&#243;n, EIN, Registered Agent &#8212; sin que muevas un dedo.</p>
+      </div>
+      <div class="latam-step">
+        <span class="latam-step-num">03</span>
+        <h4>Recibes tus documentos oficiales</h4>
+        <p>Por email. Listos para abrir tu cuenta bancaria y operar legalmente.</p>
+      </div>
+    </div>
+
+    <div class="latam-stats">
+      <div class="latam-stat">
+        <strong>+500</strong>
+        <span>empresas formadas y contando</span>
+      </div>
+      <div class="latam-stat">
+        <strong>30+</strong>
+        <span>pa&#237;ses atendidos en Latinoam&#233;rica</span>
+      </div>
+      <div class="latam-stat">
+        <strong>100%</strong>
+        <span>online y remoto, sin viajar nunca</span>
+      </div>
+      <div class="latam-stat">
+        <strong>EIN</strong>
+        <span>incluido siempre en todos los planes</span>
+      </div>
+    </div>
+
+    <div class="latam-cta">
+      <a href="https://wa.me/18669958013" class="wa-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
         </svg>
-        <span class="footer-logo-text">CreaTuEmpresaUSA</span>
+        Consultar gratis
       </a>
-      <div class="footer-meta">
-        &copy; 2025 &middot; Colorado, USA
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ 10. NUESTRA DIFERENCIA -->
+<section class="dif-section" id="diferencia">
+  <div class="section-head">
+    <span class="section-eyebrow">Nuestra diferencia</span>
+    <h2 class="section-h2">Por qu&#233; elegirnos</h2>
+    <p class="section-sub">No somos un formulario en l&#237;nea. Somos un equipo especializado que acompa&#241;a tu proceso de principio a fin.</p>
+  </div>
+
+  <div class="dif-pills">
+    <div class="dif-pill"><span class="plus">+</span> Precio &#250;nico, sin cargos mensuales</div>
+    <div class="dif-pill"><span class="plus">+</span> Soporte en espa&#241;ol por WhatsApp</div>
+    <div class="dif-pill"><span class="plus">+</span> EIN incluido en todos los planes</div>
+    <div class="dif-pill"><span class="plus">+</span> Acompa&#241;amiento post-formaci&#243;n</div>
+    <div class="dif-pill"><span class="plus">+</span> Asesor&#237;a bancaria incluida (Pro y Premium)</div>
+  </div>
+
+  <div class="dif-grid">
+    <div class="dif-card">
+      <div class="dif-icon" style="background:#E6F4F0;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M18 10c0 4.418-3.582 8-8 8a7.96 7.96 0 01-4-1.072L2 18l1.072-4A7.96 7.96 0 012 10C2 5.582 5.582 2 10 2s8 3.582 8 8z" stroke="#4DB39A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="dif-title">Proceso 100% en espa&#241;ol</div>
+      <p class="dif-desc">Desde la primera consulta hasta la entrega de documentos, todo se hace en tu idioma. Sin traducciones, sin confusi&#243;n.</p>
+    </div>
+    <div class="dif-card">
+      <div class="dif-icon" style="background:#FFFBEB;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" stroke="#F5B84C" stroke-width="1.5"/>
+          <text x="12" y="17" font-family="Syne,sans-serif" font-size="12" font-weight="700" fill="#F5B84C" text-anchor="middle">$</text>
+        </svg>
+      </div>
+      <div class="dif-title">Precio &#250;nico, sin sorpresas</div>
+      <p class="dif-desc">Lo que ves es lo que pagas. Sin cuotas mensuales, sin cargos por renovaci&#243;n autom&#225;tica, sin letra peque&#241;a.</p>
+    </div>
+    <div class="dif-card">
+      <div class="dif-icon" style="background:#E6F4F0;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" stroke="#2CB98A" stroke-width="1.5"/>
+          <path d="M8.5 12l2.5 2.5 4.5-4.5" stroke="#2CB98A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="dif-title">EIN incluido en todos los planes</div>
+      <p class="dif-desc">El n&#250;mero fiscal federal est&#225; incluido siempre. Sin &#233;l no puedes abrir cuentas bancarias ni facturar &#8212; y lo gestionamos nosotros.</p>
+    </div>
+    <div class="dif-card">
+      <div class="dif-icon" style="background:#EEF5FF;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="9" cy="7" r="3" stroke="#6AAEDE" stroke-width="1.5"/>
+          <path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2" stroke="#6AAEDE" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M16 3.13a4 4 0 010 7.75" stroke="#6AAEDE" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M21 21v-2a4 4 0 00-3-3.87" stroke="#6AAEDE" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="dif-title">Acompa&#241;amiento real, no automatizado</div>
+      <p class="dif-desc">Hablas con personas reales, en espa&#241;ol, por WhatsApp. Te seguimos ayudando despu&#233;s de que tu empresa quede formada.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ 11. FAQ -->
+<section class="faq-section" id="faq">
+  <div class="section-head">
+    <span class="section-eyebrow">Preguntas frecuentes</span>
+    <h2 class="section-h2">Resolvemos tus dudas</h2>
+    <p class="section-sub">Las preguntas m&#225;s comunes de nuestros clientes latinoamericanos.</p>
+  </div>
+
+  <div class="faq-wrap">
+    <div class="faq-item">
+      <button class="faq-question">
+        &#191;Necesito visa para abrir una empresa en EE.UU.?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        No. Cualquier persona extranjera puede abrir una LLC o Corporation en Estados Unidos sin necesidad de visa, residencia ni viajes. Todo el proceso es 100% remoto.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        &#191;Qu&#233; estado me conviene para registrar mi empresa?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        Depende de tus objetivos: Wyoming es ideal para negocios digitales por sus bajos costos y privacidad. Delaware es preferido por startups que buscan inversi&#243;n. Florida si planeas operar f&#237;sicamente. Te asesoramos sin costo antes de decidir.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        &#191;Qu&#233; incluye el precio del servicio?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        Todos los planes incluyen: formaci&#243;n de la entidad (LLC o Corp), EIN federal, Registered Agent por 1 a&#241;o y BOI Report. Los planes Pro y Premium incluyen adem&#225;s Operating Agreement, asesor&#237;a bancaria y soporte prioritario.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        &#191;Cu&#225;nto tiempo tarda el proceso?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        Wyoming: 3-5 d&#237;as h&#225;biles. Delaware: 5-7 d&#237;as h&#225;biles. Florida: 5-10 d&#237;as h&#225;biles. El plan Premium incluye fast-track para reducir estos tiempos.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        &#191;Puedo abrir una cuenta bancaria en EE.UU. siendo extranjero?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        S&#237;. Con tu EIN y los documentos de tu LLC puedes abrir cuentas en bancos digitales como Mercury, Relay o Wise sin pisar EE.UU. Los planes Pro y Premium incluyen asesor&#237;a bancaria paso a paso.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        &#191;Qu&#233; diferencia hay entre una LLC y una Corporation?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        La LLC es m&#225;s flexible y simple &#8212; ideal para freelancers y negocios digitales. La Corporation es m&#225;s formal y preferida por inversores. Te explicamos cu&#225;l es mejor para tu caso en una consulta gratuita.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ 12. CTA FINAL -->
+<section class="cta-final">
+  <div class="cta-final-inner">
+    <h2>Crea tu empresa hoy</h2>
+    <p>Tu LLC o Corporation en EE.UU. puede estar activa en d&#237;as &#8212; sin viajar, sin visa, en espa&#241;ol.</p>
+    <div class="cta-final-btns">
+      <a href="#planes" class="btn-solid" style="font-size:16px; padding:18px 36px; border-radius:12px;">Comenzar ahora &#8594;</a>
+      <a href="https://wa.me/18669958013" class="wa-link" style="font-size:16px; padding:18px 28px; border-radius:12px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        WhatsApp
+      </a>
+    </div>
+    <p class="cta-final-sub">
+      Tu empresa en EE.UU., lista hoy.<br>
+      Cientos de emprendedores latinoamericanos ya formaron su empresa con nosotros.<br>
+      Empieza ahora &#8212; sin viajes, sin visa, en espa&#241;ol.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════ 13. FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="/" class="footer-logo-wrap">
+          <svg width="32" height="32" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <rect width="64" height="64" rx="16" fill="#4DB39A"/>
+            <rect x="0" y="27" width="64" height="10" fill="rgba(0,0,0,0.18)"/>
+            <text x="32" y="46" font-family="Syne,sans-serif" font-weight="800"
+                  font-size="28" fill="white" text-anchor="middle" letter-spacing="-1">CTE</text>
+          </svg>
+          <span class="footer-logo-text">CreaTuEmpresaUSA</span>
+        </a>
+        <p>Ayudamos a emprendedores latinoamericanos a establecer su presencia en el mercado estadounidense de forma r&#225;pida, segura y 100% remota.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Servicios</h5>
+        <ul>
+          <li><a href="#planes">Abrir LLC</a></li>
+          <li><a href="#planes">Abrir Corporation</a></li>
+          <li><a href="#planes">Obtener EIN</a></li>
+          <li><a href="#planes">Registered Agent</a></li>
+          <li><a href="#planes">Asesor&#237;a bancaria</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Empresa</h5>
+        <ul>
+          <li><a href="#latam">Sobre nosotros</a></li>
+          <li><a href="#proceso">C&#243;mo funciona</a></li>
+          <li><a href="#planes">Precios</a></li>
+          <li><a href="#faq">Preguntas frecuentes</a></li>
+          <li><a href="https://wa.me/18669958013">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="/terminos">T&#233;rminos de servicio</a></li>
+          <li><a href="/privacidad">Pol&#237;tica de privacidad</a></li>
+          <li><a href="/reembolso">Pol&#237;tica de reembolso</a></li>
+          <li><a href="/aviso-legal">Aviso legal</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="footer-divider">
+
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2025 CreaTuEmpresaUSA. Todos los derechos reservados.</span>
+      <div class="footer-bottom-links">
         <a href="/privacidad">Privacidad</a>
         <a href="/terminos">T&#233;rminos</a>
+        <a href="https://wa.me/18669958013" style="
+          display:inline-flex; align-items:center; gap:6px;
+          background:#1B2B1B; color:#fff; text-decoration:none;
+          padding:8px 16px; border-radius:8px; font-size:13px; font-weight:700;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          WhatsApp
+        </a>
       </div>
-      <p class="footer-disclaimer">No somos abogados ni contadores. La informaci&#243;n de este sitio es educativa.</p>
     </div>
-  </footer>
+  </div>
+</footer>
 
-  <!-- ══════════════════════════════════ FLOATING WHATSAPP -->
-  <a href="https://wa.me/18669958013" class="wa-float" aria-label="WhatsApp">
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
-  </a>
+<!-- ═══════════════════════════════ FLOATING WHATSAPP -->
+<a href="https://wa.me/18669958013" class="wa-float" aria-label="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<!-- ═══════════════════════════════════════ JS -->
+<script>
+  // Hamburger
+  (function() {
+    var btn = document.getElementById('hamburger');
+    var menu = document.getElementById('mobileMenu');
+    btn.addEventListener('click', function() {
+      var open = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+    });
+    document.querySelectorAll('.mobile-close').forEach(function(el) {
+      el.addEventListener('click', function() {
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
+
+  // Tabs
+  document.querySelectorAll('.tab-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.tab-btn').forEach(function(b) {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.tab-content').forEach(function(c) {
+        c.classList.remove('active');
+      });
+      this.classList.add('active');
+      this.setAttribute('aria-selected', 'true');
+      document.getElementById(this.dataset.tab).classList.add('active');
+    });
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-question').forEach(function(q) {
+    q.addEventListener('click', function() {
+      var item = this.parentElement;
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+</script>
 
 </body>
 </html>
