@@ -25,7 +25,7 @@ window.CONFIG = {
   /* ── WhatsApp ──────────────────────────────────────────────────
      Digits only with country code. No +, spaces, or dashes.
      Example: "12125551234" → +1 (212) 555-1234                  */
-  WHATSAPP_NUMBER: "19046248859",
+  WHATSAPP_NUMBER: "18669958013",
 
   /* ── Formspree ─────────────────────────────────────────────────
      Create a free form at formspree.io → copy the endpoint URL.
