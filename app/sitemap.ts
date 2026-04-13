@@ -15,27 +15,52 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
     },
     {
-      url: `${BASE_URL}/blog/llc-en-usa-guia-completa`,
+      url: `${BASE_URL}/blog/abrir-llc-en-usa-desde-mexico`,
       priority: 0.8,
       changeFrequency: 'monthly',
     },
     {
-      url: `${BASE_URL}/blog/como-elegir-estado-para-tu-llc`,
+      url: `${BASE_URL}/blog/mejor-estado-para-abrir-llc-extranjero`,
       priority: 0.8,
       changeFrequency: 'monthly',
     },
     {
-      url: `${BASE_URL}/blog/ein-para-extranjeros`,
+      url: `${BASE_URL}/blog/sacar-ein-sin-ssn`,
       priority: 0.8,
       changeFrequency: 'monthly',
     },
     {
-      url: `${BASE_URL}/blog/impuestos-llc-extranjeros`,
+      url: `${BASE_URL}/blog/abrir-cuenta-bancaria-usa-sin-ssn`,
       priority: 0.8,
       changeFrequency: 'monthly',
     },
     {
-      url: `${BASE_URL}/blog/abrir-cuenta-bancaria-usa`,
+      url: `${BASE_URL}/blog/impuestos-llc-no-residentes`,
+      priority: 0.8,
+      changeFrequency: 'monthly',
+    },
+    {
+      url: `${BASE_URL}/blog/llc-anonima-new-mexico`,
+      priority: 0.8,
+      changeFrequency: 'monthly',
+    },
+    {
+      url: `${BASE_URL}/blog/abrir-cuenta-mercury-bank-extranjero`,
+      priority: 0.8,
+      changeFrequency: 'monthly',
+    },
+    {
+      url: `${BASE_URL}/blog/form-5472-irs-espanol`,
+      priority: 0.8,
+      changeFrequency: 'monthly',
+    },
+    {
+      url: `${BASE_URL}/blog/alternativas-stripe-atlas`,
+      priority: 0.8,
+      changeFrequency: 'monthly',
+    },
+    {
+      url: `${BASE_URL}/blog/como-sacar-itin-desde-tu-pais`,
       priority: 0.8,
       changeFrequency: 'monthly',
     },
