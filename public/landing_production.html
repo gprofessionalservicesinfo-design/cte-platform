@@ -1205,9 +1205,14 @@
     }
     .wa-float:hover { transform: scale(1.08); background: #2a4028 !important; }
 
+    /* ─── NAV COLLAPSE AT 1100px ──────────────────────────────── */
+    @media (max-width: 1100px) {
+      .nav-links, .nav-cta, #langToggle, .nav-wa-link { display: none; }
+      .nav-hamburger { display: flex; }
+    }
+
     /* ─── MOBILE ─────────────────────────────────────────────── */
     @media (max-width: 768px) {
-      .nav-links, .nav-cta { display: none; }
       .nav-hamburger { display: flex; }
 
       .hero { min-height: 100svh; padding: 0 20px; align-items: center; }
@@ -1309,26 +1314,42 @@
       <span class="nav-logo-text"><span class="dark">CreaTuEmpresa</span><span class="red">USA</span></span>
     </a>
     <nav class="nav-links" aria-label="Principal">
+      <a href="#inicio">Inicio</a>
+      <a href="#proceso">C&#243;mo funciona</a>
       <a href="#planes">Servicios</a>
       <a href="#planes">Precios</a>
-      <a href="#proceso">C&#243;mo funciona</a>
+      <a href="/index_final.html">&#128640; Asistente</a>
+      <a href="/blog">Gu&#237;as</a>
+      <a href="/blog">Blog</a>
+      <a href="#testimonios">Testimonios</a>
       <a href="#faq">FAQ</a>
+      <a href="https://wa.me/18669958013">Contacto</a>
     </nav>
-    <a href="#planes" class="nav-cta">Crear mi empresa &#8594;</a>
+    <button id="langToggle" onclick="(function(){var h=document.documentElement;var isES=h.lang==='es'||!h.lang;h.lang=isES?'en':'es';document.getElementById('langToggle').textContent=isES?'EN':'ES';})()" style="background:none;border:1.5px solid #E8E7E2;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;color:#6B7A8D;cursor:pointer;white-space:nowrap;flex-shrink:0;">ES</button>
+    <a href="https://wa.me/18669958013" class="nav-wa-link" style="display:inline-flex;align-items:center;gap:6px;border:1.5px solid #2CB98A;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:700;color:#2CB98A;text-decoration:none;white-space:nowrap;flex-shrink:0;">&#128172; WhatsApp</a>
+    <a href="#planes" class="nav-cta">Comenzar &#8594;</a>
     <button class="nav-hamburger" id="hamburger" aria-label="Men&#250;" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
   <div class="nav-mobile-menu" id="mobileMenu" role="navigation">
+    <a href="#inicio" class="mobile-close">Inicio</a>
+    <a href="#proceso" class="mobile-close">C&#243;mo funciona</a>
     <a href="#planes" class="mobile-close">Servicios</a>
     <a href="#planes" class="mobile-close">Precios</a>
-    <a href="#proceso" class="mobile-close">C&#243;mo funciona</a>
+    <a href="/index_final.html" class="mobile-close">&#128640; Asistente</a>
+    <a href="/blog" class="mobile-close">Gu&#237;as</a>
+    <a href="/blog" class="mobile-close">Blog</a>
+    <a href="#testimonios" class="mobile-close">Testimonios</a>
     <a href="#faq" class="mobile-close">FAQ</a>
-    <a href="#planes" class="nav-cta mobile-close">Crear mi empresa &#8594;</a>
+    <a href="https://wa.me/18669958013" class="mobile-close">Contacto</a>
+    <a href="https://wa.me/18669958013" class="mobile-close" style="color:#2CB98A;font-weight:700;">&#128172; WhatsApp</a>
+    <a href="#planes" class="nav-cta mobile-close">Comenzar &#8594;</a>
   </div>
 </header>
 
 <!-- ═══════════════════════════════════════════════════ 2. HERO -->
+<span id="inicio" style="position:absolute;top:0;pointer-events:none;"></span>
 <section class="hero" id="hero">
   <div class="hero-inner">
     <p class="hero-eyebrow">Crea tu empresa hoy &#8212; disponible para toda Latinoam&#233;rica</p>
