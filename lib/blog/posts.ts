@@ -17,6 +17,9 @@ export interface Post {
   modified: string
   readTime: number      // minutes
   keyword: string       // primary keyword
+  category: string      // display category
+  badge: string         // short badge label
+  photo: string         // hero / card image URL
   sections: Section[]
 }
 
@@ -34,6 +37,9 @@ export const posts: Post[] = [
     modified: '2026-04-10',
     readTime: 8,
     keyword: 'abrir LLC en USA desde México',
+    category: 'Formación LLC',
+    badge: 'LLC en USA',
+    photo: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80',
     sections: [
       {
         type: 'p',
@@ -160,6 +166,9 @@ export const posts: Post[] = [
     modified: '2026-04-10',
     readTime: 9,
     keyword: 'mejor estado para abrir LLC extranjero',
+    category: 'Elegir Estado',
+    badge: 'Comparativa',
+    photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&q=80',
     sections: [
       {
         type: 'p',
@@ -295,6 +304,9 @@ export const posts: Post[] = [
     modified: '2026-04-10',
     readTime: 7,
     keyword: 'sacar EIN sin SSN',
+    category: 'EIN',
+    badge: 'EIN',
+    photo: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1200&q=80',
     sections: [
       {
         type: 'p',
@@ -399,6 +411,9 @@ export const posts: Post[] = [
     modified: '2026-04-10',
     readTime: 8,
     keyword: 'abrir cuenta bancaria USA sin SSN',
+    category: 'Banca USA',
+    badge: 'Banca',
+    photo: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&q=80',
     sections: [
       {
         type: 'p',
@@ -531,6 +546,9 @@ export const posts: Post[] = [
     modified: '2026-04-10',
     readTime: 10,
     keyword: 'impuestos LLC no residentes',
+    category: 'Impuestos',
+    badge: 'Impuestos',
+    photo: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=80',
     sections: [
       {
         type: 'p',
@@ -638,6 +656,600 @@ export const posts: Post[] = [
           {
             q: '¿Qué es el nexo y por qué importa?',
             a: 'El nexo es la conexión suficiente entre tu negocio y un estado de EE.UU. para que ese estado pueda cobrarte impuestos. Tener empleados, almacén o ventas significativas en un estado puede crear nexo. Para negocios digitales sin presencia física, generalmente no hay nexo.',
+          },
+        ],
+      },
+    ],
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // 6. LLC anónima New Mexico (1,900/mes)
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'llc-anonima-new-mexico',
+    title: 'LLC Anónima en New Mexico: Privacidad Total para Extranjeros (2026)',
+    headline: 'LLC anónima en New Mexico: guía de privacidad para no residentes',
+    description:
+      'Descubre cómo una LLC en New Mexico ofrece anonimato total sin revelar tu nombre en registros públicos. La opción más privada para emprendedores extranjeros en 2026.',
+    date: '2026-04-06',
+    modified: '2026-04-10',
+    readTime: 7,
+    keyword: 'LLC anónima New Mexico',
+    category: 'Privacidad',
+    badge: 'Privacidad',
+    photo: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200&q=80',
+    sections: [
+      {
+        type: 'p',
+        text: 'Si la privacidad es tu prioridad al formar una empresa en Estados Unidos, New Mexico es la respuesta. Es el único estado donde puedes formar una LLC sin que tu nombre ni tus datos personales aparezcan en ningún registro público — sin costo de annual report y con la tarifa de formación más baja del país.',
+      },
+      { type: 'h2', text: '¿Qué es una LLC anónima?' },
+      {
+        type: 'p',
+        text: 'Una LLC anónima es una sociedad donde los nombres de los dueños (members) y del administrador (manager) no aparecen en los registros públicos del estado. En la mayoría de los estados, los Articles of Organization son públicos y requieren divulgar al menos al agente registrado y, en muchos casos, a los miembros o managers. New Mexico no exige ninguna de esas divulgaciones.',
+      },
+      { type: 'h2', text: '¿Por qué New Mexico es el estado más privado?' },
+      {
+        type: 'ul',
+        items: [
+          'No requiere listar a los miembros (owners) en los Articles of Organization',
+          'No requiere listar al manager en documentos públicos',
+          'No hay annual report — nunca tendrás que actualizar información en registros públicos',
+          'State filing fee: solo $50 USD (el más bajo de todos los estados)',
+          'El registro público solo muestra el nombre de la LLC y la dirección del agente registrado',
+        ],
+      },
+      { type: 'h2', text: 'Cómo se logra el anonimato en New Mexico' },
+      {
+        type: 'p',
+        text: 'El anonimato se logra a través de dos mecanismos: (1) usar un "organizer" (quien presenta los Articles) que no sea el dueño real, típicamente el servicio de formación; y (2) estructurar la LLC como "manager-managed" donde el manager puede ser otra entidad. En ningún momento se vincula tu nombre a los documentos públicos del estado.',
+      },
+      {
+        type: 'ol',
+        items: [
+          'El agente registrado o el servicio de formación actúa como "organizer" — la persona que firma y presenta los Articles of Organization.',
+          'Los Articles se presentan solo con el nombre de la LLC y la dirección del agente registrado.',
+          'El Operating Agreement (que sí lista a los miembros) es un documento privado — no se registra ante el estado.',
+          'Tu nombre y datos personales permanecen completamente fuera de los registros públicos.',
+        ],
+      },
+      { type: 'h2', text: 'Comparación de privacidad por estado' },
+      {
+        type: 'table',
+        headers: ['Estado', 'Members públicos', 'Annual report', 'State fee', 'Anonimato'],
+        rows: [
+          ['New Mexico', '❌ No', '❌ No existe', '$50', '✅ Total'],
+          ['Wyoming', '❌ No', '✅ Sí ($60/año)', '$62', '✅ Alto'],
+          ['Delaware', '❌ No', '✅ Sí ($300/año)', '$90', '✅ Alto'],
+          ['Florida', '✅ Sí', '✅ Sí ($138/año)', '$125', '⚠️ Bajo'],
+          ['Texas', '⚠️ Parcial', '⚠️ No fee', '$300', '⚠️ Medio'],
+        ],
+      },
+      { type: 'h2', text: '¿Para quién es ideal una LLC anónima en New Mexico?' },
+      {
+        type: 'ul',
+        items: [
+          'Emprendedores que no quieren que su nombre aparezca en búsquedas públicas vinculadas a empresas',
+          'Creadores de contenido, influencers y personas públicas que prefieren separar su identidad personal de su negocio',
+          'Inversionistas en bienes raíces o cripto que desean privacidad patrimonial',
+          'Negocios digitales sin clientes ni presencia física en New Mexico',
+          'Extranjeros no residentes que valoran la privacidad pero no quieren pagar annual reports',
+        ],
+      },
+      { type: 'h2', text: 'Limitaciones importantes del anonimato' },
+      {
+        type: 'ul',
+        items: [
+          'El anonimato es ante el público — el IRS y los bancos sí conocen tu identidad para abrir cuenta o presentar el EIN',
+          'El Operating Agreement (privado) sí lista a los dueños reales — debes guardarlo con cuidado',
+          'Si la LLC tiene empleados o nexo fiscal en otro estado, ese estado puede requerir registro y divulgación',
+          'Los bancos como Mercury requieren pasaporte e identificación del beneficial owner — no hay anonimato bancario',
+          'Litigios judiciales pueden requerir la divulgación de los dueños mediante subpoena',
+        ],
+      },
+      {
+        type: 'cta',
+        text: 'Forma tu LLC anónima en New Mexico con nosotros',
+        href: '/index_final.html?page=wizard',
+        label: 'Iniciar el proceso →',
+      },
+      {
+        type: 'faq',
+        items: [
+          {
+            q: '¿Es legal una LLC anónima?',
+            a: 'Sí. El anonimato en New Mexico es completamente legal. Simplemente aprovechas que la ley estatal no exige divulgar a los miembros en documentos públicos. Es una estrategia de privacidad, no de evasión fiscal.',
+          },
+          {
+            q: '¿El IRS sabrá quién soy?',
+            a: 'Sí. Al solicitar el EIN debes identificarte como el "responsible party". El IRS conoce tu identidad, pero esa información no es pública.',
+          },
+          {
+            q: '¿Puedo operar en otro estado con una LLC de New Mexico?',
+            a: 'Sí, pero si tienes presencia física (oficina, empleados) en otro estado, deberías registrar la LLC como "foreign LLC" en ese estado, lo que puede requerir divulgación de información. Para negocios 100% digitales sin presencia física, generalmente no es necesario.',
+          },
+          {
+            q: '¿New Mexico tiene impuesto estatal sobre ingresos para LLCs?',
+            a: 'New Mexico sí tiene impuesto estatal sobre ingresos (Gross Receipts Tax). Sin embargo, si la LLC no tiene presencia ni actividad en New Mexico, generalmente no aplica. Para negocios digitales operados desde el extranjero, normalmente no hay obligación fiscal estatal en New Mexico.',
+          },
+        ],
+      },
+    ],
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // 7. Mercury Bank extranjero (1,400/mes)
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'abrir-cuenta-mercury-bank-extranjero',
+    title: 'Cómo Abrir Cuenta en Mercury Bank Siendo Extranjero (Guía 2026)',
+    headline: 'Cómo abrir una cuenta en Mercury Bank siendo extranjero no residente',
+    description:
+      'Guía paso a paso para abrir una cuenta de negocios en Mercury Bank sin SSN, con tu LLC y EIN. Requisitos, documentos y proceso completo para extranjeros en 2026.',
+    date: '2026-04-07',
+    modified: '2026-04-10',
+    readTime: 6,
+    keyword: 'abrir cuenta Mercury Bank extranjero',
+    category: 'Banca USA',
+    badge: 'Mercury Bank',
+    photo: 'https://images.unsplash.com/photo-1601597111158-2fceff292cdc?w=1200&q=80',
+    sections: [
+      {
+        type: 'p',
+        text: 'Mercury Bank es la cuenta bancaria favorita de fundadores de startups, freelancers y emprendedores digitales en Estados Unidos. Sin comisiones, sin saldo mínimo, y lo más importante: acepta LLC de extranjeros no residentes sin requerir SSN. Si tienes tu LLC y tu EIN, puedes abrir una cuenta Mercury en menos de una semana.',
+      },
+      { type: 'h2', text: '¿Qué es Mercury Bank?' },
+      {
+        type: 'p',
+        text: 'Mercury es un banco digital (fintech) fundado en 2019, enfocado exclusivamente en empresas (no cuentas personales). Sus fondos están asegurados por la FDIC hasta $250,000 USD. Ofrece cuenta corriente y de ahorros, tarjeta de débito Visa, transferencias ACH y wire, y una API para automatización financiera. Es el estándar de la industria para startups y empresas remotas.',
+      },
+      { type: 'h2', text: 'Requisitos para abrir cuenta Mercury como extranjero' },
+      {
+        type: 'ul',
+        items: [
+          'LLC formada legalmente en cualquier estado de EE.UU.',
+          'EIN (Employer Identification Number) del IRS — carta CP 575 o documento oficial',
+          'Articles of Organization o Certificate of Formation de tu LLC',
+          'Operating Agreement firmado',
+          'Pasaporte vigente del beneficial owner (dueño real)',
+          'Dirección de negocios en EE.UU. (puede ser la dirección de tu agente registrado)',
+          'Correo electrónico y número de teléfono',
+        ],
+      },
+      { type: 'h2', text: 'Proceso paso a paso para abrir la cuenta' },
+      {
+        type: 'ol',
+        items: [
+          'Ve a mercury.com y haz clic en "Open an account". Crea tu perfil personal (nombre, email, contraseña).',
+          'Selecciona "Business account" e ingresa los datos de tu LLC: nombre, EIN, dirección, tipo de negocio y descripción de actividades.',
+          'Sube el EIN: la carta CP 575 del IRS o la confirmación oficial. Si aún no tienes la carta física, puedes cargar el documento SS-4 aprobado.',
+          'Sube los Articles of Organization (documento de formación de la LLC) y el Operating Agreement.',
+          'Verifica tu identidad: sube ambas caras de tu pasaporte y, si Mercury lo solicita, tómate una selfie con el pasaporte.',
+          'Mercury revisa la aplicación. El proceso tarda entre 1 y 5 días hábiles. Recibirás actualizaciones por email.',
+          'Una vez aprobada, recibes los datos de tu cuenta (número de cuenta y routing number). Puedes hacer el primer depósito via wire internacional.',
+        ],
+      },
+      { type: 'h2', text: 'Causas comunes de rechazo y cómo evitarlas' },
+      {
+        type: 'ul',
+        items: [
+          'EIN no verificable: asegúrate de subir la carta oficial del IRS, no solo el número',
+          'LLC no activa: Mercury verifica que la LLC esté vigente en el estado — evita LLCs disueltas o con annual report vencido',
+          'Actividades de alto riesgo: cripto, cannabis, servicios financieros no regulados y gambling generalmente son rechazados',
+          'Información inconsistente: el nombre en los Articles debe coincidir exactamente con el EIN de la LLC',
+          'Pasaporte vencido o foto ilegible: usa el pasaporte más reciente y fotos de alta calidad',
+        ],
+      },
+      { type: 'h2', text: 'Características de la cuenta Mercury' },
+      {
+        type: 'table',
+        headers: ['Característica', 'Detalle'],
+        rows: [
+          ['Comisión mensual', '$0 (plan básico)'],
+          ['Saldo mínimo', '$0'],
+          ['Transferencias ACH', 'Gratis, ilimitadas'],
+          ['Domestic wire', '$0 (entrante), $5 (saliente)'],
+          ['International wire', '$20 por envío'],
+          ['Tarjeta de débito', 'Visa física y virtual'],
+          ['FDIC', 'Hasta $250,000 USD'],
+          ['API', 'Sí — integración con herramientas propias'],
+          ['Integración Stripe', 'Sí — directo'],
+        ],
+      },
+      {
+        type: 'cta',
+        text: 'Forma tu LLC y abre tu cuenta Mercury con nosotros',
+        href: '/index_final.html?page=wizard&plan=pro',
+        label: 'Ver Plan Pro con asesoría bancaria →',
+      },
+      {
+        type: 'faq',
+        items: [
+          {
+            q: '¿Mercury acepta LLCs de todos los estados?',
+            a: 'Sí. Mercury acepta LLCs formadas en cualquier estado de EE.UU. Los más comunes son Wyoming, Delaware, Florida y Texas, pero no hay restricción por estado.',
+          },
+          {
+            q: '¿Puedo abrir la cuenta sin haber recibido aún la carta CP 575?',
+            a: 'Mercury requiere el EIN, pero en algunos casos acepta la confirmación SS-4 aprobada. Lo más recomendable es esperar a tener la carta CP 575 para evitar demoras o rechazos.',
+          },
+          {
+            q: '¿Cuánto tiempo tarda la apertura?',
+            a: 'El proceso de revisión tarda entre 1 y 5 días hábiles. En casos más complejos puede extenderse hasta 2 semanas si Mercury solicita documentación adicional.',
+          },
+          {
+            q: '¿Puedo conectar Stripe con Mercury?',
+            a: 'Sí. Mercury es una de las cuentas bancarias más compatibles con Stripe. Una vez activa tu cuenta, puedes vincularla en minutos desde el dashboard de Stripe.',
+          },
+          {
+            q: '¿Mercury permite múltiples usuarios?',
+            a: 'Sí. Puedes agregar team members con diferentes niveles de acceso (admin, contable, solo lectura). Útil si tienes socio o contador que necesita acceso a la cuenta.',
+          },
+        ],
+      },
+    ],
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // 8. Form 5472 en español (2,100/mes)
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'form-5472-irs-espanol',
+    title: 'Form 5472 del IRS en Español: Guía Completa para LLCs de Extranjeros (2026)',
+    headline: 'Form 5472 del IRS en español: todo lo que debe reportar tu LLC',
+    description:
+      'Guía completa del Form 5472 en español. Quién debe presentarlo, qué transacciones se reportan, fechas límite, multas y cómo llenarlo siendo extranjero no residente en 2026.',
+    date: '2026-04-08',
+    modified: '2026-04-10',
+    readTime: 9,
+    keyword: 'Form 5472 IRS en español',
+    category: 'Impuestos',
+    badge: 'Form 5472',
+    photo: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=80',
+    sections: [
+      {
+        type: 'p',
+        text: 'El Form 5472 es uno de los formularios más importantes — y más ignorados — del sistema fiscal estadounidense para extranjeros con LLC. Una multa de $25,000 USD por año por no presentarlo es la consecuencia de no conocerlo. Esta guía te explica qué es, quién debe presentarlo, qué se reporta y cómo hacerlo correctamente, en español.',
+      },
+      { type: 'h2', text: '¿Qué es el Form 5472?' },
+      {
+        type: 'p',
+        text: 'El Form 5472 ("Information Return of a 25% Foreign-Owned U.S. Corporation or a Foreign Corporation Engaged in a U.S. Trade or Business") es un formulario informativo del IRS que reporta las transacciones entre una LLC de propiedad extranjera y sus dueños o partes relacionadas. No implica pago de impuestos — es un reporte de transparencia.',
+      },
+      { type: 'h2', text: '¿Quién debe presentar el Form 5472?' },
+      {
+        type: 'ul',
+        items: [
+          'Toda LLC de un solo miembro (SMLLC) propiedad de un extranjero no residente',
+          'Aplica incluso si la LLC no tuvo ingresos durante el año fiscal',
+          'Aplica incluso si la LLC no tuvo transacciones durante el año',
+          'Aplica aunque la LLC no tenga empleados ni presencia física en EE.UU.',
+          'También aplica a corporaciones C que tienen 25% o más de propiedad extranjera',
+        ],
+      },
+      { type: 'h2', text: '¿Qué transacciones se reportan en el Form 5472?' },
+      {
+        type: 'p',
+        text: 'Se reportan todas las "reportable transactions" entre la LLC y el dueño extranjero (o partes relacionadas). Esto incluye:',
+      },
+      {
+        type: 'table',
+        headers: ['Tipo de transacción', 'Ejemplo', '¿Se reporta?'],
+        rows: [
+          ['Contribuciones de capital', 'Tú depositas $10,000 en la LLC desde tu cuenta personal', '✅ Sí'],
+          ['Distribuciones', 'La LLC te transfiere $5,000 como ganancia', '✅ Sí'],
+          ['Préstamos dueño → LLC', 'Le prestas dinero a tu LLC', '✅ Sí'],
+          ['Préstamos LLC → dueño', 'La LLC te presta dinero a ti', '✅ Sí'],
+          ['Servicios pagados', 'La LLC te paga por servicios que prestas', '✅ Sí'],
+          ['Ingresos de clientes', 'Cliente A paga $3,000 a la LLC', '❌ No (son ingresos normales)'],
+          ['Gastos operativos', 'LLC paga software, hosting, etc.', '❌ No'],
+        ],
+      },
+      { type: 'h2', text: '¿Cuándo y cómo se presenta?' },
+      {
+        type: 'ul',
+        items: [
+          'Fecha límite: 15 de abril del año siguiente al año fiscal que se reporta',
+          'Extensión disponible: hasta el 15 de octubre con Form 7004',
+          'Se presenta junto con un Form 1120 "pro forma" (de carácter informativo, no de pago)',
+          'El Form 5472 no se puede presentar por sí solo — siempre va adjunto al 1120',
+          'Método: por correo a la dirección del IRS para no residentes, o electrónicamente con software autorizado',
+          'No existe versión en español oficial del formulario — todos los campos se llenan en inglés',
+        ],
+      },
+      { type: 'h2', text: 'Multas por no presentar el Form 5472' },
+      {
+        type: 'p',
+        text: 'Las multas del IRS por incumplimiento del Form 5472 son de las más severas del código tributario:',
+      },
+      {
+        type: 'table',
+        headers: ['Incumplimiento', 'Multa'],
+        rows: [
+          ['No presentar el Form 5472', '$25,000 USD por año por formulario'],
+          ['Presentar con información incompleta', '$25,000 USD'],
+          ['No corregir después de notificación del IRS', '$25,000 USD adicionales por 90 días de retraso'],
+          ['No mantener registros requeridos', '$10,000 USD adicionales'],
+        ],
+      },
+      { type: 'h2', text: 'Caso especial: LLC sin actividad' },
+      {
+        type: 'p',
+        text: 'Muchos extranjeros creen que si su LLC no tuvo ingresos en el año, no necesitan presentar el Form 5472. Esto es incorrecto. El IRS exige la presentación incluso si no hubo actividad, ingresos ni transacciones. La excepción es si la LLC nunca recibió su EIN y no realizó ninguna transacción desde su formación — pero esto es un caso muy específico.',
+      },
+      {
+        type: 'cta',
+        text: '¿Necesitas ayuda con tu Form 5472?',
+        href: '/index_final.html?page=wizard&plan=premium',
+        label: 'Ver Plan Premium con asesoría fiscal →',
+      },
+      {
+        type: 'faq',
+        items: [
+          {
+            q: '¿El Form 5472 genera pago de impuestos?',
+            a: 'No directamente. El Form 5472 es informativo — reporta transacciones pero no genera un pago de impuestos por sí mismo. Los impuestos se determinan en otros formularios según el tipo de ingreso y nexo fiscal.',
+          },
+          {
+            q: '¿Necesito un CPA para presentar el Form 5472?',
+            a: 'Técnicamente no es obligatorio, pero es muy recomendable. Los errores en el Form 5472 tienen multas muy altas. Un CPA con experiencia en no residentes garantiza que el formulario esté correcto y adjunto al 1120 pro forma.',
+          },
+          {
+            q: '¿Qué es el Form 1120 "pro forma"?',
+            a: 'El Form 1120 es la declaración de impuestos de las corporaciones. Para una SMLLC extranjera, se presenta un Form 1120 "pro forma" (informativo, no de pago) como portada para adjuntar el Form 5472. No implica que la LLC pague impuestos corporativos.',
+          },
+          {
+            q: '¿Qué pasa si olvidé presentar el Form 5472 de un año anterior?',
+            a: 'Puedes presentarlo tardíamente. El IRS tiene un programa de "reasonable cause" que puede reducir o eliminar las multas si demuestras que el incumplimiento fue por causa razonable y no negligencia. Un CPA puede ayudarte a presentar tardíamente con una carta explicativa.',
+          },
+        ],
+      },
+    ],
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // 9. Alternativas a Stripe Atlas (1,600/mes)
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'alternativas-stripe-atlas',
+    title: 'Las Mejores Alternativas a Stripe Atlas para Formar tu Empresa en USA (2026)',
+    headline: 'Alternativas a Stripe Atlas: las mejores opciones para abrir tu empresa en USA',
+    description:
+      'Stripe Atlas ya no acepta nuevos usuarios de todos los países. Descubre las mejores alternativas para formar tu LLC o C-Corp en Estados Unidos siendo extranjero en 2026.',
+    date: '2026-04-09',
+    modified: '2026-04-10',
+    readTime: 7,
+    keyword: 'alternativas Stripe Atlas',
+    category: 'Formación LLC',
+    badge: 'Comparativa',
+    photo: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=1200&q=80',
+    sections: [
+      {
+        type: 'p',
+        text: 'Stripe Atlas fue durante años la opción favorita de fundadores latinoamericanos para abrir una C-Corp en Delaware con todo incluido: LLC o C-Corp, cuenta Mercury, acceso a Stripe y asesoría legal básica por $500 USD. Sin embargo, Stripe Atlas tiene disponibilidad limitada por país y listas de espera largas. Aquí te presentamos las mejores alternativas reales para 2026.',
+      },
+      { type: 'h2', text: '¿Qué ofrecía Stripe Atlas?' },
+      {
+        type: 'ul',
+        items: [
+          'Formación de LLC o C-Corp en Delaware por $500 USD',
+          'EIN incluido',
+          'Cuenta bancaria Mercury incluida',
+          'Acceso a Stripe Payments desde el primer día',
+          'Templates legales básicos (Operating Agreement, etc.)',
+          'Acceso a perks de software (AWS, Notion, Stripe credits)',
+        ],
+      },
+      { type: 'h2', text: 'Por qué buscar alternativas' },
+      {
+        type: 'ul',
+        items: [
+          'Stripe Atlas no está disponible en todos los países de LATAM sin lista de espera',
+          'Solo forma C-Corps en Delaware — no LLCs en Wyoming, Texas o Florida',
+          'Si quieres LLC (no C-Corp), Stripe Atlas no es la opción correcta',
+          'El costo de $500 puede ser alto si no necesitas todos los servicios incluidos',
+          'Las perks de software tienen poco valor si no usas esas herramientas',
+        ],
+      },
+      { type: 'h2', text: 'Las mejores alternativas a Stripe Atlas' },
+      { type: 'h3', text: 'CreaTuEmpresaUSA — para LATAM en español' },
+      {
+        type: 'ul',
+        items: [
+          'Formación de LLC en Wyoming, Florida o Texas — planes desde $499 USD',
+          'Todo el proceso en español con seguimiento en tiempo real',
+          'EIN incluido en Plan Pro y Premium',
+          'Asesoría bancaria (Mercury, Relay) y fiscal incluida en planes superiores',
+          'Ideal para emprendedores de México, Colombia, Argentina y toda LATAM',
+        ],
+      },
+      { type: 'h3', text: 'Firstbase.io — experiencia digital completa' },
+      {
+        type: 'ul',
+        items: [
+          'Formación de LLC o C-Corp en Delaware, Wyoming o cualquier estado',
+          'Agente registrado, EIN y cuenta bancaria incluidos',
+          'Dashboard para gestión de compliance anual',
+          'Plan básico desde $399 USD/año',
+          'En inglés — menos soporte en español que opciones LATAM',
+        ],
+      },
+      { type: 'h3', text: 'Doola — enfocado en fundadores internacionales' },
+      {
+        type: 'ul',
+        items: [
+          'Formación LLC o C-Corp + EIN + cuenta bancaria + Stripe',
+          'Soporte en múltiples idiomas incluyendo español',
+          'Planes desde $297 USD (básico) hasta $1,999 (con bookkeeping)',
+          'Popular entre fundadores de India, Nigeria, LATAM',
+        ],
+      },
+      { type: 'h3', text: 'Northwest Registered Agent — lo más económico' },
+      {
+        type: 'ul',
+        items: [
+          'Formación de LLC desde $39 USD + state fee',
+          'Agente registrado incluido el primer año',
+          'Sin EIN ni cuenta bancaria en el plan básico',
+          'Muy buena reputación por privacidad y servicio al cliente',
+          'Solo en inglés',
+        ],
+      },
+      { type: 'h2', text: 'Comparación de alternativas' },
+      {
+        type: 'table',
+        headers: ['Servicio', 'Precio base', 'LLC/C-Corp', 'EIN incluido', 'En español'],
+        rows: [
+          ['CreaTuEmpresaUSA', '$499', 'LLC', '✅ Plan Pro+', '✅ Sí'],
+          ['Firstbase.io', '$399/año', 'LLC + C-Corp', '✅ Sí', '⚠️ Parcial'],
+          ['Doola', '$297', 'LLC + C-Corp', '✅ Sí', '⚠️ Parcial'],
+          ['Northwest', '$39 + fee', 'LLC', '❌ No', '❌ No'],
+          ['Stripe Atlas', '$500', 'Solo C-Corp DE', '✅ Sí', '❌ No'],
+        ],
+      },
+      { type: 'h2', text: '¿LLC o C-Corp? La decisión más importante' },
+      {
+        type: 'p',
+        text: 'Stripe Atlas impulsa las C-Corps porque son el vehículo preferido de los VC (venture capital). Pero para la mayoría de los emprendedores latinoamericanos que venden servicios, tienen agencias, hacen ecommerce o freelancing, una LLC es la elección correcta: más simple, menos costosa de operar y con mejores beneficios fiscales para no residentes sin inversión institucional.',
+      },
+      {
+        type: 'cta',
+        text: 'Forma tu LLC en USA — todo en español',
+        href: '/index_final.html?page=wizard',
+        label: 'Iniciar el proceso →',
+      },
+      {
+        type: 'faq',
+        items: [
+          {
+            q: '¿Stripe requiere Stripe Atlas para activar mi cuenta?',
+            a: 'No. Puedes activar Stripe Payments con cualquier LLC registrada en EE.UU. con EIN. No necesitas haber formado la LLC a través de Stripe Atlas.',
+          },
+          {
+            q: '¿Puedo acceder a los perks de AWS y otros con una LLC normal?',
+            a: 'Algunos perks de Stripe Atlas son exclusivos del programa. Sin embargo, AWS Activate, Notion, HubSpot y muchos otros tienen programas de startups accesibles directamente sin pasar por Stripe Atlas.',
+          },
+          {
+            q: '¿Una LLC de Wyoming puede usar Stripe?',
+            a: 'Sí. Stripe acepta LLCs de cualquier estado. Wyoming, Florida, Texas, Delaware — todos válidos para activar tu cuenta de Stripe Payments.',
+          },
+        ],
+      },
+    ],
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // 10. Cómo sacar el ITIN desde México/LATAM (3,200/mes)
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'como-sacar-itin-desde-tu-pais',
+    title: 'Cómo Sacar el ITIN desde México, Colombia o LATAM sin Viajar (2026)',
+    headline: 'Cómo obtener el ITIN desde tu país sin viajar a Estados Unidos',
+    description:
+      'Guía completa para obtener el ITIN (Individual Taxpayer Identification Number) desde México, Colombia, Argentina y LATAM. Proceso, documentos, tiempos y a quién le sirve en 2026.',
+    date: '2026-04-10',
+    modified: '2026-04-10',
+    readTime: 8,
+    keyword: 'cómo sacar ITIN desde México',
+    category: 'ITIN',
+    badge: 'ITIN',
+    photo: 'https://images.unsplash.com/photo-1606189934390-ae9b5f0dc9e7?w=1200&q=80',
+    sections: [
+      {
+        type: 'p',
+        text: 'El ITIN (Individual Taxpayer Identification Number) es el número de identificación fiscal personal para extranjeros que no califican para obtener un SSN. No es lo mismo que el EIN de tu LLC — el ITIN es tuyo como persona física. Si necesitas presentar una declaración personal de impuestos en EE.UU., reclamar un tratado fiscal o abrir ciertos tipos de cuentas bancarias personales, necesitarás un ITIN.',
+      },
+      { type: 'h2', text: '¿Qué es el ITIN y para qué sirve?' },
+      {
+        type: 'ul',
+        items: [
+          'Presentar declaraciones de impuestos personales (Form 1040-NR) ante el IRS',
+          'Reclamar beneficios de tratados fiscales entre tu país y EE.UU.',
+          'Recibir ciertos reembolsos del IRS',
+          'Abrir cuentas bancarias personales en EE.UU. en algunos bancos que lo aceptan',
+          'Requisito para ciertas licencias estatales o contratos',
+          'Aplicar a crédito personal en EE.UU. (algunos prestamistas aceptan ITIN)',
+        ],
+      },
+      { type: 'h2', text: '¿Necesitas ITIN si ya tienes EIN?' },
+      {
+        type: 'p',
+        text: 'Depende. El EIN es el número fiscal de tu LLC — el ITIN es tu número fiscal personal. Para la mayoría de los dueños de LLC que solo operan la empresa, el EIN es suficiente. Necesitas ITIN si: tienes retenciones fiscales en EE.UU. que quieres reclamar, presentas una declaración personal de impuestos en EE.UU., o necesitas aplicar a ciertos servicios que exigen un número de identificación personal (no empresarial).',
+      },
+      { type: 'h2', text: '¿Quién califica para obtener el ITIN?' },
+      {
+        type: 'ul',
+        items: [
+          'Extranjeros no residentes con obligación de presentar declaración fiscal en EE.UU.',
+          'Cónyuge o dependiente de un ciudadano o residente permanente de EE.UU.',
+          'Estudiante, profesor o investigador extranjero en EE.UU. con ingresos sujetos a retención',
+          'Extranjero no residente que reclama un treaty benefit',
+          'Inversor extranjero en bienes raíces en EE.UU.',
+        ],
+      },
+      { type: 'h2', text: 'Proceso para obtener el ITIN desde LATAM' },
+      {
+        type: 'ol',
+        items: [
+          'Verifica que calificas para el ITIN con base en uno de los criterios válidos del IRS.',
+          'Completa el formulario W-7 ("Application for IRS Individual Taxpayer Identification Number"). Está disponible en IRS.gov. El formulario está en inglés pero puedes completarlo con ayuda.',
+          'Reúne los documentos de identidad requeridos: pasaporte vigente (es el único documento que puede servir como prueba de identidad Y de estatus migratorio a la vez). Alternativamente, puedes usar combinaciones de hasta 13 tipos de documentos aceptados.',
+          'Adjunta el documento que demuestra por qué necesitas el ITIN: típicamente una declaración de impuestos pendiente (Form 1040-NR) o una carta de withholding de un banco o pagador estadounidense.',
+          'Envía el W-7 + documentos + declaración de impuestos (si aplica) al IRS por correo certificado o usa un Acceptance Agent autorizado.',
+          'El IRS procesa la solicitud en aproximadamente 7 a 11 semanas (más tiempo en temporada de impuestos: enero a abril).',
+          'Recibes tu ITIN por correo postal.',
+        ],
+      },
+      { type: 'h2', text: 'Cómo obtener el ITIN sin enviar tu pasaporte original' },
+      {
+        type: 'p',
+        text: 'El IRS normalmente requiere documentos originales o copias certificadas. Si no quieres enviar tu pasaporte original por correo internacional, tienes dos opciones: (1) usar un Certifying Acceptance Agent (CAA) en tu país — son agentes autorizados por el IRS que pueden verificar tus documentos y enviar copias certificadas sin que tengas que enviar los originales; o (2) visitar una embajada o consulado de EE.UU. en tu país para certificar los documentos.',
+      },
+      { type: 'h2', text: 'Acceptance Agents en México y LATAM' },
+      {
+        type: 'p',
+        text: 'El IRS autoriza a ciertos profesionales (contadores, abogados, agencias especializadas) como Acceptance Agents o Certifying Acceptance Agents (CAA). Puedes encontrar la lista oficial en IRS.gov buscando "ITIN Acceptance Agent Program". En México hay varios CAAs en Ciudad de México, Guadalajara y Monterrey. En Colombia (Bogotá), Argentina (Buenos Aires) y otros países también hay opciones.',
+      },
+      { type: 'h2', text: 'Tiempos y vigencia del ITIN' },
+      {
+        type: 'table',
+        headers: ['Aspecto', 'Detalle'],
+        rows: [
+          ['Tiempo de procesamiento', '7 a 11 semanas (hasta 14 semanas en temporada alta)'],
+          ['Vigencia del ITIN', '3 años (vence si no se usa en 3 años consecutivos)'],
+          ['Renovación', 'Gratuita — mismo proceso con W-7 marcado como "Renewal"'],
+          ['Costo del ITIN', '$0 (el IRS no cobra) + costo del agente si usas CAA'],
+          ['ITIN reemplaza al SSN', 'No — solo para efectos fiscales del IRS'],
+        ],
+      },
+      {
+        type: 'cta',
+        text: '¿Necesitas orientación sobre el ITIN para tu LLC?',
+        href: '/index_final.html?page=wizard&plan=premium',
+        label: 'Consultar con nuestro equipo →',
+      },
+      {
+        type: 'faq',
+        items: [
+          {
+            q: '¿El ITIN me da permiso de trabajo en EE.UU.?',
+            a: 'No. El ITIN es exclusivamente para propósitos fiscales del IRS. No es una visa, no otorga permiso de trabajo, no da estatus migratorio y no es válido como identificación para ningún propósito no fiscal.',
+          },
+          {
+            q: '¿Puedo abrir una cuenta bancaria personal en EE.UU. con ITIN?',
+            a: 'Algunos bancos como Citibank o bancos comunitarios aceptan ITIN para cuentas personales. Sin embargo, los bancos digitales (Chime, Mercury, etc.) generalmente requieren SSN para cuentas personales. Para cuentas empresariales, el EIN es suficiente.',
+          },
+          {
+            q: '¿El ITIN y el EIN son lo mismo?',
+            a: 'No. El EIN (Employer Identification Number) es el número fiscal de tu empresa (LLC o corporación). El ITIN es tu número fiscal personal como individuo extranjero. Son complementarios pero independientes.',
+          },
+          {
+            q: '¿Tengo que pagar impuestos en EE.UU. si tengo ITIN?',
+            a: 'Tener un ITIN no genera automáticamente obligación de pagar impuestos. El ITIN es una herramienta de identificación. Tu obligación fiscal depende de si tienes ingresos de fuente estadounidense o nexo fiscal en EE.UU.',
+          },
+          {
+            q: '¿Cuánto cuesta obtener el ITIN con un Acceptance Agent?',
+            a: 'El IRS no cobra por el ITIN, pero los Acceptance Agents cobran sus honorarios, que varían entre $100 y $400 USD dependiendo del agente y país. En nuestro Plan Premium incluimos orientación y referidos a CAAs de confianza en México y LATAM.',
           },
         ],
       },
