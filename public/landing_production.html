@@ -237,49 +237,55 @@
     }
 
     /* ─── 2. HERO ───────────────────────────────────────────── */
-    .hero-photo {
-      width: 100%;
-      height: 52vh;
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
       background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1920&q=80');
       background-size: cover;
-      background-position: center 30%;
-      display: block;
+      background-position: center top;
+      padding: 0 24px;
     }
-    .hero-text {
-      background: #FAFAF7;
-      padding: 40px 60px 52px;
-      max-width: 700px;
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(20, 35, 50, 0.78);
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     .hero-eyebrow {
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: #2CB98A;
-      display: block;
-      margin-bottom: 14px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 20px;
     }
     .hero-h1 {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      color: #2A3544;
+      color: #ffffff;
+      text-align: center;
       line-height: 1.1;
-      margin-bottom: 16px;
-      font-size: 40px;
-      text-align: left;
-    }
-    .hero-sub {
-      font-size: 16px;
-      color: #6B7A8D;
-      line-height: 1.6;
-      margin-bottom: 28px;
-      max-width: 520px;
+      margin: 0 0 36px 0;
+      font-size: 52px;
     }
     .hero-cta {
       display: block;
-      width: 100%;
-      background: #2CB98A !important;
-      color: #fff !important;
+      background: #2CB98A;
+      color: #ffffff;
       font-family: 'Syne', sans-serif;
       font-weight: 800;
       font-size: 17px;
@@ -287,18 +293,12 @@
       text-decoration: none;
       padding: 18px 0;
       border-radius: 50px;
-      margin-bottom: 20px;
+      width: 100%;
+      max-width: 560px;
       border: none;
-      transition: background 0.15s;
+      transition: background 0.2s;
     }
-    .hero-cta:hover { background: #24a87c !important; }
-    .hero-proof {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      color: #6B7A8D;
-    }
+    .hero-cta:hover { background: #25a87e; }
     .proof-stars { color: #F5B84C; font-size: 14px; letter-spacing: 1px; }
 
     /* ─── 3. TRUST STRIP ────────────────────────────────────── */
@@ -1210,10 +1210,9 @@
       .nav-links, .nav-cta { display: none; }
       .nav-hamburger { display: flex; }
 
-      .hero-photo { height: 42vh; }
-      .hero-text { padding: 28px 20px 36px; max-width: 100%; }
-      .hero-h1 { font-size: 34px; line-height: 1.12; }
-      .hero-sub { font-size: 15px; }
+      .hero { min-height: 100svh; padding: 0 20px; align-items: center; }
+      .hero-h1 { font-size: 30px; line-height: 1.15; margin-bottom: 28px; }
+      .hero-cta { font-size: 16px; padding: 17px 0; max-width: 100%; }
       /* Steps scroll on mobile */
       .steps-scroll { grid-template-columns: repeat(4, 280px); scroll-snap-type: x mandatory; }
       .step-photo-card { scroll-snap-align: start; }
@@ -1291,7 +1290,7 @@
     }
 
     @media (max-width: 390px) {
-      .hero-h1 { font-size: 27px; line-height: 1.16; }
+      .hero-h1 { font-size: 27px; line-height: 1.18; }
     }
   </style>
 </head>
@@ -1330,19 +1329,13 @@
 </header>
 
 <!-- ═══════════════════════════════════════════════════ 2. HERO -->
-<div class="hero-photo" role="img" aria-label="Equipo de trabajo profesional"></div>
-<div style="display:flex; justify-content:flex-start;">
-  <div class="hero-text">
+<section class="hero" id="hero">
+  <div class="hero-inner">
     <p class="hero-eyebrow">Crea tu empresa hoy &#8212; disponible para toda Latinoam&#233;rica</p>
     <h1 class="hero-h1">Crea Tu Empresa<br>en Estados Unidos<br>Desde Cualquier Pa&#237;s</h1>
-    <p class="hero-sub">Abre tu LLC o Corporation de forma r&#225;pida, segura y 100% remota. Sin visas, sin viajes, sin complicaciones.</p>
     <a href="#planes" class="hero-cta">Crear mi empresa &#8594;</a>
-    <div class="hero-proof">
-      <span class="proof-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-      <span>+500 empresas formadas &middot; Atenci&#243;n en espa&#241;ol</span>
-    </div>
   </div>
-</div>
+</section>
 
 <!-- ═══════════════════════════════════════════ 3. TRUST STRIP -->
 <section class="trust">
