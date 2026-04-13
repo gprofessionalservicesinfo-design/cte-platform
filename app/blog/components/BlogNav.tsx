@@ -17,13 +17,16 @@ export default function BlogNav() {
     <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link
-          href="/"
-          className="flex items-center gap-0 text-[1.15rem] font-bold leading-none select-none"
-          style={{ fontFamily: 'Georgia, serif' }}
-        >
-          <span style={{ color: '#0A2540' }}>CreaTuEmpresa</span>
-          <span style={{ color: '#DC2626' }}>USA</span>
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
+          <svg width="36" height="36" viewBox="0 0 64 64" fill="none">
+            <rect width="64" height="64" rx="16" fill="#4DB39A"/>
+            <rect x="0" y="27" width="64" height="10" fill="rgba(0,0,0,0.18)"/>
+            <text x="32" y="46" fontFamily="Syne,sans-serif" fontWeight="800"
+                  fontSize="28" fill="white" textAnchor="middle" letterSpacing="-1">CTE</text>
+          </svg>
+          <span style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: '15px', color: '#2A3544', lineHeight: 1 }}>
+            CreaTuEmpresa<span style={{ color: '#2CB98A' }}>USA</span>
+          </span>
         </Link>
 
         {/* Desktop nav */}
@@ -42,7 +45,10 @@ export default function BlogNav() {
         {/* Desktop CTA */}
         <a
           href="/index_final.html?page=wizard"
-          className="hidden md:inline-flex items-center gap-1 bg-[#0A2540] hover:bg-[#0e2f50] text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors"
+          className="hidden md:inline-flex items-center gap-1 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors"
+          style={{ background: '#2CB98A' }}
+          onMouseEnter={e => (e.currentTarget.style.background = '#4DB39A')}
+          onMouseLeave={e => (e.currentTarget.style.background = '#2CB98A')}
         >
           Crear mi empresa →
         </a>
@@ -88,7 +94,8 @@ export default function BlogNav() {
           <a
             href="/index_final.html?page=wizard"
             onClick={() => setOpen(false)}
-            className="mt-3 flex justify-center bg-[#0A2540] hover:bg-[#0e2f50] text-white text-sm font-semibold px-5 py-3 rounded-xl transition-colors"
+            className="mt-3 flex justify-center text-white text-sm font-semibold px-5 py-3 rounded-xl transition-colors"
+            style={{ background: '#2CB98A' }}
           >
             Crear mi empresa →
           </a>

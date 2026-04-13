@@ -27,7 +27,8 @@ export default function BlogStickyBar({ title, ctaHref }: BlogStickyBarProps) {
       </p>
       <a
         href={ctaHref}
-        className="flex-shrink-0 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors"
+        className="flex-shrink-0 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors"
+        style={{ background: '#2CB98A' }}
       >
         Empezar →
       </a>

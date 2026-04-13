@@ -29,23 +29,44 @@ export default function BlogPage() {
     <>
       <BlogNav />
 
-      {/* Hero */}
+      {/* Hero — foto + overlay */}
       <section
         style={{
-          background: 'linear-gradient(135deg, #0A2540 0%, #1a3a5c 60%, #0e2f50 100%)',
+          position: 'relative',
+          minHeight: '420px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          overflow: 'hidden',
+          backgroundImage: 'url(https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1920&q=80)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center top',
         }}
-        className="py-20 px-6"
       >
-        <div className="max-w-4xl mx-auto text-center">
-          <span className="inline-block text-xs font-semibold text-red-400 uppercase tracking-widest mb-4">
-            Recursos gratuitos
-          </span>
-          <h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-5">
-            Guías para emprendedores<br className="hidden sm:block" /> latinoamericanos
+        {/* Overlay */}
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(30,48,64,0.82)' }} />
+        {/* Content */}
+        <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', padding: '72px 24px' }}>
+          <p style={{
+            fontSize: '11px', fontWeight: 700, letterSpacing: '0.14em',
+            textTransform: 'uppercase', color: '#2CB98A', marginBottom: '14px',
+          }}>
+            Recursos Gratuitos
+          </p>
+          <h1 style={{
+            fontFamily: "'Syne',sans-serif", fontWeight: 800,
+            fontSize: 'clamp(32px, 5vw, 52px)',
+            color: '#ffffff', lineHeight: 1.1, marginBottom: '18px',
+            maxWidth: '600px', margin: '0 auto 18px',
+          }}>
+            Guías para emprendedores latinoamericanos
           </h1>
-          <p className="text-lg text-blue-100 max-w-2xl mx-auto leading-relaxed">
-            Todo lo que necesitas saber para abrir y operar tu empresa en Estados Unidos —
-            sin visa, sin SSN, en español.
+          <p style={{
+            fontSize: '17px', color: 'rgba(255,255,255,0.78)',
+            lineHeight: 1.65, maxWidth: '480px', margin: '0 auto',
+          }}>
+            Todo lo que necesitas saber para abrir y operar tu empresa en USA
+            — sin visa, sin SSN, en español.
           </p>
         </div>
       </section>
@@ -59,18 +80,21 @@ export default function BlogPage() {
             { value: '100%', label: 'Gratis y en español' },
           ].map((s) => (
             <div key={s.label} className="bg-gray-50 rounded-2xl py-5 px-4">
-              <p className="text-2xl font-bold text-gray-900">{s.value}</p>
+              <p className="text-2xl font-bold" style={{ color: '#2A3544' }}>{s.value}</p>
               <p className="text-xs text-gray-500 mt-1">{s.label}</p>
             </div>
           ))}
         </div>
 
-        {/* Category filters */}
+        {/* Category filters — "Todos" active in teal */}
         <div className="flex flex-wrap gap-2 mb-10">
-          {CATEGORIES.map((cat) => (
+          {CATEGORIES.map((cat, i) => (
             <span
               key={cat}
-              className="text-xs font-semibold px-4 py-2 rounded-full border border-gray-200 text-gray-600 bg-white cursor-default select-none"
+              style={i === 0
+                ? { padding: '8px 18px', borderRadius: '30px', fontSize: '13px', fontWeight: 600, cursor: 'default', border: '1.5px solid #4DB39A', background: '#4DB39A', color: '#fff' }
+                : { padding: '8px 18px', borderRadius: '30px', fontSize: '13px', fontWeight: 600, cursor: 'default', border: '1.5px solid #E8E7E2', background: '#fff', color: '#6B7A8D' }
+              }
             >
               {cat}
             </span>
@@ -92,8 +116,8 @@ export default function BlogPage() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-16 bg-[#0A2540] rounded-2xl p-10 text-center">
-          <p className="text-sm font-semibold text-red-400 uppercase tracking-widest mb-2">
+        <div className="mt-16 rounded-2xl p-10 text-center" style={{ background: '#2A3544' }}>
+          <p className="text-sm font-semibold uppercase tracking-widest mb-2" style={{ color: '#2CB98A' }}>
             ¿Listo para empezar?
           </p>
           <h2 className="text-2xl font-bold text-white mb-3">
@@ -105,7 +129,8 @@ export default function BlogPage() {
           </p>
           <a
             href="/index_final.html?page=wizard"
-            className="inline-block bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-3 rounded-xl transition-colors"
+            className="inline-block text-white font-semibold px-8 py-3 rounded-xl transition-colors"
+            style={{ background: '#2CB98A' }}
           >
             Iniciar el proceso →
           </a>

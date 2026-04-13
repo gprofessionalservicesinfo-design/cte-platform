@@ -28,10 +28,10 @@ export default function BlogFAQ({ items }: BlogFAQProps) {
               <span className="pr-4 leading-snug">{item.q}</span>
               <span
                 className={`flex-shrink-0 w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center transition-transform duration-200 ${
-                  open === i ? 'rotate-45 border-red-500' : ''
+                  open === i ? 'rotate-45' : ''
                 }`}
               >
-                <svg viewBox="0 0 10 10" className="w-2.5 h-2.5" fill="none" stroke={open === i ? '#ef4444' : '#9ca3af'} strokeWidth="2">
+                <svg viewBox="0 0 10 10" className="w-2.5 h-2.5" fill="none" stroke={open === i ? '#2CB98A' : '#9ca3af'} strokeWidth="2">
                   <line x1="5" y1="1" x2="5" y2="9" />
                   <line x1="1" y1="5" x2="9" y2="5" />
                 </svg>

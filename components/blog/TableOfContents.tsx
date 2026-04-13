@@ -51,7 +51,7 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
                 item.level === 'h3' ? 'pl-3' : ''
               } ${
                 active === item.id
-                  ? 'text-red-600 font-semibold'
+                  ? 'font-semibold text-[#2CB98A]'
                   : 'text-gray-600 hover:text-gray-900'
               }`}
             >

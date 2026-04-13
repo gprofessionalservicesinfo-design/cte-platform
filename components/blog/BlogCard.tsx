@@ -8,7 +8,7 @@ const BADGE_COLORS: Record<string, { color: string; bg: string }> = {
   'Banca USA':      { color: '#059669', bg: '#ecfdf5' },
   'Impuestos':      { color: '#d97706', bg: '#fffbeb' },
   'Privacidad':     { color: '#64748b', bg: '#f8fafc' },
-  'ITIN':           { color: '#dc2626', bg: '#fff1f2' },
+  'ITIN':           { color: '#2CB98A', bg: '#ecfdf5' },
   'Mercury Bank':   { color: '#059669', bg: '#ecfdf5' },
   'Form 5472':      { color: '#d97706', bg: '#fffbeb' },
   'Comparativa':    { color: '#7c3aed', bg: '#f5f3ff' },
@@ -20,7 +20,7 @@ interface BlogCardProps {
 }
 
 export default function BlogCard({ post, featured = false }: BlogCardProps) {
-  const badge = BADGE_COLORS[post.category] ?? { color: '#dc2626', bg: '#fff1f2' }
+  const badge = BADGE_COLORS[post.category] ?? { color: '#2CB98A', bg: '#ecfdf5' }
 
   if (featured) {
     return (
@@ -43,7 +43,7 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
           </span>
         </div>
         <div className="p-7">
-          <h2 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors leading-snug">
+          <h2 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#2CB98A] transition-colors leading-snug">
             {post.headline}
           </h2>
           <p className="text-gray-500 leading-relaxed mb-5 line-clamp-2">
@@ -59,7 +59,7 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
               <span>·</span>
               <span>{post.readTime} min de lectura</span>
             </div>
-            <span className="text-red-600 font-semibold group-hover:underline">
+            <span className="font-semibold group-hover:underline" style={{ color: '#2CB98A' }}>
               Leer →
             </span>
           </div>
@@ -88,7 +88,7 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
         >
           {post.badge}
         </span>
-        <h2 className="text-base font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors leading-snug flex-1">
+        <h2 className="text-base font-bold text-gray-900 mb-2 group-hover:text-[#2CB98A] transition-colors leading-snug flex-1">
           {post.headline}
         </h2>
         <p className="text-xs text-gray-500 leading-relaxed mb-4 line-clamp-2">

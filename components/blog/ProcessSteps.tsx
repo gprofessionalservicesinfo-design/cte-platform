@@ -13,7 +13,7 @@ export default function ProcessSteps({ steps }: ProcessStepsProps) {
     <div className="my-8 space-y-4">
       {steps.map((step) => (
         <div key={step.number} className="flex gap-4">
-          <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#0A2540] text-white text-sm font-bold flex items-center justify-center mt-0.5">
+          <div className="flex-shrink-0 w-8 h-8 rounded-full text-white text-sm font-bold flex items-center justify-center mt-0.5" style={{ background: '#4DB39A' }}>
             {step.number}
           </div>
           <div>

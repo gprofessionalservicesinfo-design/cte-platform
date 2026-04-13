@@ -7,7 +7,7 @@ export default function ComparisonTable({ headers, rows }: ComparisonTableProps)
   return (
     <div className="overflow-x-auto my-6 rounded-2xl border border-gray-200">
       <table className="w-full text-sm text-left">
-        <thead className="bg-[#0A2540] text-white">
+        <thead className="text-white" style={{ background: '#2A3544' }}>
           <tr>
             {headers.map((h, i) => (
               <th key={i} className="px-5 py-3.5 font-semibold whitespace-nowrap">

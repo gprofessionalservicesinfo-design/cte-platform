@@ -184,7 +184,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 px-6 pb-8 max-w-4xl mx-auto">
-          <span className="inline-block text-xs font-semibold text-white bg-red-600 px-3 py-1 rounded-full mb-3">
+          <span className="inline-block text-xs font-semibold text-white px-3 py-1 rounded-full mb-3" style={{ background: '#4DB39A' }}>
             {post.badge}
           </span>
         </div>
@@ -233,8 +233,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
             {/* Footer CTA */}
             <div className="mt-16 border-t border-gray-100 pt-10">
-              <div className="bg-[#0A2540] rounded-2xl p-8 text-center">
-                <p className="text-sm font-semibold text-red-400 uppercase tracking-widest mb-2">
+              <div className="rounded-2xl p-8 text-center" style={{ background: '#2A3544' }}>
+                <p className="text-sm font-semibold uppercase tracking-widest mb-2" style={{ color: '#2CB98A' }}>
                   ¿Listo para dar el siguiente paso?
                 </p>
                 <h2 className="text-2xl font-bold text-white mb-3">
@@ -246,7 +246,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                 </p>
                 <a
                   href="/index_final.html?page=wizard"
-                  className="inline-block bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-3 rounded-xl transition-colors"
+                  className="inline-block text-white font-semibold px-8 py-3 rounded-xl transition-colors"
+                  style={{ background: '#2CB98A' }}
                 >
                   Iniciar el proceso →
                 </a>
@@ -268,8 +269,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               <TableOfContents items={toc} />
 
               {/* CTA card */}
-              <div className="bg-[#0A2540] rounded-2xl p-6 text-center">
-                <p className="text-xs font-semibold text-red-400 uppercase tracking-widest mb-2">
+              <div className="rounded-2xl p-6 text-center" style={{ background: '#2A3544' }}>
+                <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#2CB98A' }}>
                   ¿Listo para empezar?
                 </p>
                 <p className="text-white font-bold mb-1">Forma tu LLC hoy</p>
@@ -278,7 +279,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                 </p>
                 <a
                   href="/index_final.html?page=wizard"
-                  className="block bg-red-600 hover:bg-red-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors"
+                  className="block text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors"
+                  style={{ background: '#2CB98A' }}
                 >
                   Iniciar →
                 </a>
@@ -289,7 +291,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                 <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">
                   Categoría
                 </p>
-                <span className="inline-block text-xs font-semibold px-3 py-1 rounded-full bg-blue-50 text-blue-700">
+                <span className="inline-block text-xs font-semibold px-3 py-1 rounded-full text-white" style={{ background: '#4DB39A' }}>
                   {post.category}
                 </span>
               </div>
