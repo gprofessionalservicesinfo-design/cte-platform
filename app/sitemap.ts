@@ -15,6 +15,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
     },
     {
+      url: `${BASE_URL}/ein-extranjeros`,
+      priority: 0.9,
+      changeFrequency: 'weekly',
+    },
+    {
+      url: `${BASE_URL}/llc/wyoming`,
+      priority: 0.9,
+      changeFrequency: 'weekly',
+    },
+    {
       url: `${BASE_URL}/blog/abrir-llc-en-usa-desde-mexico`,
       priority: 0.8,
       changeFrequency: 'monthly',
