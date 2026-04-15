@@ -129,6 +129,7 @@ export function MarketingNav() {
         href={WA_URL}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => { if (typeof window !== 'undefined' && typeof (window as any).fbq === 'function') { (window as any).fbq('track', 'Lead') } }}
         style={{
           background: '#25D366',
           color: 'white',
