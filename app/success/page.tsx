@@ -84,6 +84,9 @@ export default async function SuccessPage({
               });
               window.dataLayer.push({ event: 'thankyou_view' });
               window.dataLayer.push({ event: 'handoff_created' });
+              if (typeof fbq === 'function' && ${amountTotal} > 0) {
+                fbq('track', 'Purchase', { value: ${amountTotal}, currency: 'USD' });
+              }
             }
           `,
         }}
