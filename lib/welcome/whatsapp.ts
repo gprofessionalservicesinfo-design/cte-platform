@@ -102,7 +102,24 @@ export async function sendWelcomeWhatsApp(opts: {
 
   try {
     const client = twilio(sid, auth)
-    const msg    = await client.messages.create({ from, to, body: msgBody })
+
+    const messageOptions: any = {
+      from: from,
+      to: `whatsapp:${opts.phone}`,
+    }
+
+    const templateSid = process.env.TWILIO_WELCOME_TEMPLATE_SID
+    if (templateSid) {
+      messageOptions.contentSid = templateSid
+      messageOptions.contentVariables = JSON.stringify({
+        "1": opts.customerName,
+        "2": opts.companyName,
+      })
+    } else {
+      messageOptions.body = msgBody
+    }
+
+    const msg = await client.messages.create(messageOptions)
 
     console.log('[whatsapp] sent successfully')
     console.log('[whatsapp] provider_sid:    ', msg.sid)
