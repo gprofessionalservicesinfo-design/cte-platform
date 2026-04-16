@@ -105,7 +105,7 @@ export async function sendWelcomeWhatsApp(opts: {
 
     const messageOptions: any = {
       from: from,
-      to: `whatsapp:${opts.phone}`,
+      to: to,   // already normalized to "whatsapp:+E164" by formatWhatsAppNumber
     }
 
     const templateSid = process.env.TWILIO_WELCOME_TEMPLATE_SID
