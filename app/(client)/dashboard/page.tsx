@@ -51,7 +51,7 @@ export default async function DashboardPage() {
     )
   }
 
-  const { data: company } = await db.from('companies').select('*').eq('client_id', clientRow.id).order('created_at').limit(1).maybeSingle()
+  const { data: company } = await db.from('companies').select('*, onboarding_completed').eq('client_id', clientRow.id).order('created_at').limit(1).maybeSingle()
 
   if (!company) {
     return (
@@ -79,6 +79,25 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-8">
+      {/* Onboarding banner */}
+      {!company.onboarding_completed && (
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-amber-50 border border-amber-200 rounded-2xl px-6 py-4">
+          <div className="flex items-start gap-3">
+            <span className="text-xl leading-none mt-0.5">⚠️</span>
+            <div>
+              <p className="font-semibold text-amber-900 text-sm">Completa la información de tu empresa</p>
+              <p className="text-amber-700 text-xs mt-0.5">Necesitamos algunos datos para preparar tus documentos legales.</p>
+            </div>
+          </div>
+          <a
+            href="/dashboard/onboarding"
+            className="flex-shrink-0 bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm px-5 py-2.5 rounded-xl transition-colors whitespace-nowrap"
+          >
+            Completar ahora →
+          </a>
+        </div>
+      )}
+
       {/* Welcome header */}
       <div className="rounded-2xl bg-[#0A2540] text-white px-6 py-8 sm:px-8">
         <p className="text-sm font-semibold uppercase tracking-widest text-blue-300 mb-2">Portal de Cliente</p>

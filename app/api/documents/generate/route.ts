@@ -34,6 +34,12 @@ export async function POST(request: NextRequest) {
         state,
         state_code,
         registered_agent,
+        registered_agent_name,
+        registered_agent_address,
+        principal_office_address,
+        mailing_address,
+        organizer_name,
+        organizer_address,
         formation_date,
         ein,
         client_id,
@@ -56,47 +62,60 @@ export async function POST(request: NextRequest) {
 
     const client  = (company as any).clients
     const profile = client?.users
-
-    // ── 2. Resolve members — always fall back to client as sole member ─────
     const clientName = profile?.full_name ?? 'Miembro Principal'
-    const resolvedMembers =
+
+    // ── 2. Resolve members — prefer company_members table, then fallback ───
+    const { data: dbMembers } = await supabase
+      .from('company_members')
+      .select('full_name, address, country, ownership_percentage, capital_contribution')
+      .eq('company_id', company_id)
+      .order('is_primary', { ascending: false })
+
+    const resolvedMembers: GenerationRequest['params']['members'] =
       Array.isArray(params.members) && params.members.length > 0
         ? params.members
-        : [
-            {
-              name:                 clientName,
-              address:              '[DIRECCIÓN DEL MIEMBRO]',
-              ownership_percentage: 100,
-              capital_contribution: '$0.00',
-            },
-          ]
+        : dbMembers && dbMembers.length > 0
+          ? dbMembers.map(m => ({
+              name:                 m.full_name,
+              address:              m.address              ?? '[DIRECCIÓN DEL MIEMBRO]',
+              ownership_percentage: Number(m.ownership_percentage ?? 100),
+              capital_contribution: m.capital_contribution ?? '$0.00',
+            }))
+          : [
+              {
+                name:                 clientName,
+                address:              '[DIRECCIÓN DEL MIEMBRO]',
+                ownership_percentage: 100,
+                capital_contribution: '$0.00',
+              },
+            ]
 
-    // ── 3. Build generation request with real DB data ──────────────────────
+    // ── 3. Build generation request — DB fields take precedence over caller ─
+    const co = company as any
     const req: GenerationRequest = {
       company_id,
       doc_type,
       subtype,
       replace_doc_id,
       params: {
-        // Merge any caller-supplied params on top of DB values
-        registered_agent_name: company.registered_agent ?? params.registered_agent_name,
-        organizer_name:        clientName               ?? params.organizer_name ?? 'CreaTuEmpresaUSA LLC',
-        management_type:       params.management_type   ?? 'member_managed',
-        effective_date:        params.effective_date,
-        purpose:               params.purpose,
-        principal_office_address: params.principal_office_address,
-        registered_agent_address: params.registered_agent_address,
-        organizer_address:        params.organizer_address,
-        mailing_address:          params.mailing_address,
+        registered_agent_name:    co.registered_agent_name    ?? co.registered_agent        ?? params.registered_agent_name    ?? '[AGENTE REGISTRADO]',
+        registered_agent_address: co.registered_agent_address ?? params.registered_agent_address ?? '[DIRECCIÓN AGENTE REGISTRADO]',
+        principal_office_address: co.principal_office_address ?? params.principal_office_address ?? '[DIRECCIÓN OFICINA PRINCIPAL]',
+        mailing_address:          co.mailing_address          ?? params.mailing_address,
+        organizer_name:           co.organizer_name           ?? clientName                 ?? params.organizer_name,
+        organizer_address:        co.organizer_address        ?? params.organizer_address,
+        management_type:          params.management_type      ?? 'member_managed',
+        effective_date:           params.effective_date,
+        purpose:                  params.purpose,
         members:                  resolvedMembers,
         managers:                 params.managers,
         fiscal_year_end:          params.fiscal_year_end,
         ...params, // allow full override from caller
-        // Re-apply resolvedMembers after spread so caller can't accidentally
-        // pass an empty array and trigger the "no members" error downstream
-        members: Array.isArray(params.members) && params.members.length > 0
-          ? params.members
-          : resolvedMembers,
+        // Re-apply after spread so caller cannot accidentally clear resolved values
+        members: resolvedMembers,
+        registered_agent_name:    co.registered_agent_name    ?? co.registered_agent        ?? params.registered_agent_name    ?? '[AGENTE REGISTRADO]',
+        principal_office_address: co.principal_office_address ?? params.principal_office_address ?? '[DIRECCIÓN OFICINA PRINCIPAL]',
+        organizer_name:           co.organizer_name           ?? clientName                 ?? params.organizer_name,
       },
     }
 
