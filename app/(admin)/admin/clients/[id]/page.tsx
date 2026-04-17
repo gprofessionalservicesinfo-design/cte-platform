@@ -15,6 +15,7 @@ import { CrmOpsPanel } from '@/components/admin/crm-ops-panel'
 import { SendEmailModal } from '@/components/admin/send-email-modal'
 import { CompanyEditor } from '@/components/admin/company-editor'
 import { FormationFieldsEditor } from '@/components/admin/formation-fields-editor'
+import { OnboardingStatusBanner } from '@/components/admin/onboarding-status-banner'
 import { ResendWelcomeBtn } from '@/components/admin/resend-welcome-btn'
 import { BankingSetupToggle } from '@/components/admin/banking-setup-toggle'
 import { AddressServiceToggle } from '@/components/admin/address-service-toggle'
@@ -175,6 +176,15 @@ export default async function AdminClientDetailPage({ params }: PageProps) {
           <ResendWelcomeBtn companyId={company.id} />
         </div>
       </div>
+
+      {/* Onboarding status banner */}
+      <OnboardingStatusBanner
+        companyId={company.id}
+        clientName={profile?.full_name ?? 'Cliente'}
+        clientPhone={client?.phone ?? client?.whatsapp ?? null}
+        completed={!!(company as any).onboarding_completed}
+        completedAt={(company as any).onboarding_completed_at ?? null}
+      />
 
       {/* Two-column layout */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

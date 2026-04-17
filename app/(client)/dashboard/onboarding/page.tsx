@@ -261,6 +261,19 @@ export default function OnboardingPage() {
       return
     }
 
+    // Notify admin via WhatsApp (non-blocking — failure doesn't affect UX)
+    fetch('/api/client/notify-onboarding', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        company_id:   companyId,
+        full_name:    userFullName,
+        company_name: companyName,
+        state:        companyState,
+        package:      companyPackage,
+      }),
+    }).catch(() => { /* silent */ })
+
     router.push('/dashboard?onboarding=done')
   }
 

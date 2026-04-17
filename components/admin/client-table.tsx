@@ -32,6 +32,7 @@ interface ClientRow {
   ein: string | null
   created_at: string
   stripe_customer_id: string | null
+  onboarding_completed: boolean | null
   clients: {
     users: {
       full_name: string | null
@@ -211,6 +212,7 @@ export function ClientTable({ clients }: ClientTableProps) {
               <TableHead>Client</TableHead>
               <TableHead>State</TableHead>
               <TableHead>Status</TableHead>
+              <TableHead>Onboarding</TableHead>
               <TableHead>EIN</TableHead>
               <TableHead
                 className="cursor-pointer select-none"
@@ -224,7 +226,7 @@ export function ClientTable({ clients }: ClientTableProps) {
           <TableBody>
             {paginated.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={7} className="text-center py-10 text-gray-400">
+                <TableCell colSpan={8} className="text-center py-10 text-gray-400">
                   No clients found.
                 </TableCell>
               </TableRow>
@@ -243,6 +245,12 @@ export function ClientTable({ clients }: ClientTableProps) {
                   <TableCell>{client.state}</TableCell>
                   <TableCell>
                     <StatusBadge status={client.status} />
+                  </TableCell>
+                  <TableCell>
+                    {client.onboarding_completed
+                      ? <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-green-100 text-green-700">Onboarding ✅</span>
+                      : <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-700">Pendiente ⚠️</span>
+                    }
                   </TableCell>
                   <TableCell>
                     <span className="text-sm font-mono">{client.ein ?? '—'}</span>

@@ -18,6 +18,7 @@ export default async function AdminClientsPage() {
       order_reference,
       created_at,
       stripe_customer_id,
+      onboarding_completed,
       clients (
         user_id,
         phone,
