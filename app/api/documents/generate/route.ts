@@ -1,134 +1,110 @@
-import { NextResponse } from 'next/server'
-import { createClient as createSupabaseAdmin } from '@supabase/supabase-js'
+import { NextRequest, NextResponse } from 'next/server'
+import { createAdminServerClient } from '@/lib/supabase/server'
+import { generateDocument } from '@/lib/document-generator'
+import type { GenerationRequest } from '@/lib/document-templates/types'
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const supabase = createSupabaseAdmin(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
-    )
-
     const body = await request.json()
-    const params = body.params ?? {}
-    const management_structure = params.management_type ?? body.management_structure ?? 'member-managed'
-    const members = params.members ?? body.members ?? []
-    const organizer_name = params.organizer_name ?? body.organizer_name ?? null
-    const organizer_address = params.organizer_address ?? body.organizer_address ?? null
-    const purpose = params.purpose ?? body.purpose ?? null
-    const effective_date = params.effective_date ?? body.effective_date ?? null
 
-    if (!body.company_id || !body.doc_type) {
-      return NextResponse.json({ error: 'Missing fields' }, { status: 400 })
+    const {
+      company_id,
+      doc_type,
+      subtype,
+      params = {},
+      replace_doc_id,
+    } = body
+
+    if (!company_id) {
+      return NextResponse.json({ error: 'company_id is required' }, { status: 400 })
+    }
+    if (!doc_type) {
+      return NextResponse.json({ error: 'doc_type is required' }, { status: 400 })
     }
 
+    const supabase = createAdminServerClient()
+
+    // ── 1. Fetch company with nested client → user ─────────────────────────
     const { data: company, error: companyErr } = await supabase
       .from('companies')
-      .select('id, company_name, state, state_code, entity_type, registered_agent')
-      .eq('id', body.company_id)
+      .select(`
+        id,
+        company_name,
+        entity_type,
+        state,
+        state_code,
+        registered_agent,
+        formation_date,
+        ein,
+        client_id,
+        clients (
+          id,
+          phone,
+          country,
+          users (
+            full_name
+          )
+        )
+      `)
+      .eq('id', company_id)
       .single()
 
     if (companyErr || !company) {
+      console.error('[documents/generate] company fetch error:', companyErr?.message)
       return NextResponse.json({ error: 'Company not found' }, { status: 404 })
     }
 
-    const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-    const effectiveDate = effective_date
-      ? new Date(effective_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-      : date
+    const client  = (company as any).clients
+    const profile = client?.users
 
-    let html = ''
-
-    if (body.doc_type === 'articles') {
-      html = `<!DOCTYPE html><html><head><meta charset="utf-8"><style>
-body{font-family:Georgia,serif;font-size:12pt;margin:1in;line-height:1.6}
-h1{text-align:center;font-size:15pt;text-transform:uppercase;margin-bottom:6px}
-h2{font-size:11pt;text-transform:uppercase;margin-top:20px}
-.draft{color:red;text-align:center;font-size:9pt;font-weight:bold;margin-bottom:12px}
-.center{text-align:center}.sig{border-top:1px solid #000;width:240px;margin-top:36px}
-</style></head><body>
-<p class="draft">DRAFT — FOR REVIEW ONLY — NOT A FILED LEGAL DOCUMENT</p>
-<h1>Articles of Organization</h1>
-<h1>${company.company_name}</h1>
-<p class="center">A ${company.state} Limited Liability Company &nbsp;|&nbsp; Effective: ${effectiveDate}</p>
-<h2>Article I — Name</h2>
-<p>The name of the LLC is <strong>${company.company_name}</strong>.</p>
-<h2>Article II — Registered Agent</h2>
-<p>${company.registered_agent ?? 'CreaTuEmpresaUSA LLC'}, State of ${company.state}.</p>
-<h2>Article III — Management</h2>
-<p>This LLC shall be <strong>${management_structure === 'manager-managed' ? 'Manager-Managed' : 'Member-Managed'}</strong>.</p>
-<h2>Article IV — Purpose</h2>
-<p>${purpose ?? 'To engage in any lawful act or activity for which an LLC may be organized.'}</p>
-<h2>Article V — Organizer</h2>
-<p>${organizer_name ?? 'CreaTuEmpresaUSA LLC'}<br>${organizer_address ?? '850 New Burton Rd, Dover, DE 19904'}</p>
-<div style="margin-top:48px"><div class="sig"></div><p>Organizer: ${organizer_name ?? 'CreaTuEmpresaUSA LLC'} &nbsp; Date: ${date}</p></div>
-</body></html>`
-    } else {
-      const memberRows = members.map((m: any) =>
-        `<tr><td>${m.name}</td><td>${m.address}</td><td>${m.ownership_percentage ?? m.ownership_pct ?? 0}%</td><td>${m.capital_contribution ? '$'+m.capital_contribution : '-'}</td></tr>`
-      ).join('')
-      html = `<!DOCTYPE html><html><head><meta charset="utf-8"><style>
-body{font-family:Georgia,serif;font-size:12pt;margin:1in;line-height:1.6}
-h1{text-align:center;font-size:15pt;text-transform:uppercase;margin-bottom:6px}
-h2{font-size:11pt;text-transform:uppercase;margin-top:20px}
-.draft{color:red;text-align:center;font-size:9pt;font-weight:bold;margin-bottom:12px}
-.center{text-align:center}table{width:100%;border-collapse:collapse;margin:12px 0}
-th,td{border:1px solid #000;padding:6px;text-align:left}th{background:#f0f0f0}
-.sig{border-top:1px solid #000;width:240px;margin-top:36px}
-</style></head><body>
-<p class="draft">DRAFT — FOR REVIEW ONLY — NOT A FILED LEGAL DOCUMENT</p>
-<h1>Operating Agreement</h1>
-<h1>${company.company_name}</h1>
-<p class="center">A ${company.state} Limited Liability Company &nbsp;|&nbsp; Effective: ${effectiveDate}</p>
-<h2>Article I — Formation</h2>
-<p>This Operating Agreement is entered into as of ${effectiveDate} for <strong>${company.company_name}</strong>, organized under the laws of ${company.state}.</p>
-<h2>Article II — Members and Ownership</h2>
-<table><tr><th>Member</th><th>Address</th><th>Ownership</th><th>Capital</th></tr>${memberRows}</table>
-<h2>Article III — Management</h2>
-<p><strong>${management_structure === 'manager-managed' ? 'Manager-Managed' : 'Member-Managed'}</strong>.</p>
-<h2>Article IV — Distributions</h2>
-<p>Distributions shall be made to Members in proportion to their ownership percentages.</p>
-<h2>Article V — Dissolution</h2>
-<p>The Company shall dissolve upon unanimous written consent of all Members.</p>
-<div style="margin-top:48px">${members.map((m: any) => `<div class="sig"></div><p>Member: ${m.name}</p>`).join('<br>')}</div>
-</body></html>`
+    // ── 2. Build generation request with real DB data ──────────────────────
+    const req: GenerationRequest = {
+      company_id,
+      doc_type,
+      subtype,
+      replace_doc_id,
+      params: {
+        // Merge any caller-supplied params on top of DB values
+        registered_agent_name: company.registered_agent ?? params.registered_agent_name,
+        organizer_name:        profile?.full_name        ?? params.organizer_name ?? 'CreaTuEmpresaUSA LLC',
+        management_type:       params.management_type    ?? 'member_managed',
+        effective_date:        params.effective_date,
+        purpose:               params.purpose,
+        principal_office_address: params.principal_office_address,
+        registered_agent_address: params.registered_agent_address,
+        organizer_address:        params.organizer_address,
+        mailing_address:          params.mailing_address,
+        members:                  params.members,
+        managers:                 params.managers,
+        fiscal_year_end:          params.fiscal_year_end,
+        ...params, // allow full override from caller
+      },
     }
 
-    // Ensure bucket exists
-    const { data: buckets } = await supabase.storage.listBuckets()
-    const bucketExists = (buckets ?? []).some(b => b.name === 'documents')
-    if (!bucketExists) {
-      const { error: bucketErr } = await supabase.storage.createBucket('documents', { public: true })
-      if (bucketErr) {
-        console.error('[documents/generate] bucket create failed:', bucketErr.message)
-        return NextResponse.json({ error: 'Bucket create failed: ' + bucketErr.message }, { status: 500 })
-      }
-      console.log('[documents/generate] bucket created')
-    }
+    // ── 3. Generate PDF via lib/document-generator.ts ─────────────────────
+    const SYSTEM_USER_ID = '00000000-0000-0000-0000-000000000001'
+    const result = await generateDocument(req, supabase, SYSTEM_USER_ID)
 
-    // Upload HTML to Supabase Storage
-    const fileName = body.doc_type + '_draft_' + Date.now() + '.html'
-    const storagePath = body.company_id + '/' + fileName
-    const blob = new Blob([html], { type: 'text/html' })
-    const { error: uploadError } = await supabase.storage.from('documents').upload(storagePath, blob, { contentType: 'text/html', upsert: true })
-    if (uploadError) {
-      console.error('[documents/generate] storage upload failed:', uploadError.message, { storagePath })
-      return NextResponse.json({ error: 'Storage upload failed: ' + uploadError.message }, { status: 500 })
-    }
-    console.log('[documents/generate] upload ok:', storagePath)
+    // ── 4. Update the documents record with approval workflow fields ───────
+    await supabase
+      .from('documents')
+      .update({
+        approval_status: 'pending_approval',
+        generated_from:  'auto',
+        client_id:       client?.id ?? null,
+      })
+      .eq('id', result.document_id)
 
-    const { data: docRow } = await supabase.from('documents').insert({
-      company_id: body.company_id,
-      uploaded_by: '00000000-0000-0000-0000-000000000001',
-      type: body.doc_type === 'articles' ? 'articles' : 'operating_agreement',
-      file_name: fileName,
-      file_url: storagePath,
-      storage_path: storagePath,
-      file_size: html.length,
-      mime_type: 'text/html',
-      status: 'draft',
-    }).select('id').single()
+    console.log('[documents/generate] generated doc:', result.document_id, '| file:', result.file_name)
 
-    return NextResponse.json({ success: true, html, document_id: docRow?.id, file_name: body.doc_type + '_draft.html', status: 'draft' })
+    return NextResponse.json({
+      success:      true,
+      document_id:  result.document_id,
+      file_name:    result.file_name,
+      storage_path: result.file_url,
+      template_id:  result.template_id,
+      status:       result.status,
+    })
 
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Internal server error'
