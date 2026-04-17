@@ -48,13 +48,15 @@ export default function OnboardingPage() {
   const router = useRouter()
   const supabase = createClient()
 
-  const [step, setStep]         = useState(1)
-  const [companyId, setCompanyId] = useState<string | null>(null)
+  const [step, setStep]           = useState(1)
+  const [companyId, setCompanyId]   = useState<string | null>(null)
   const [companyName, setCompanyName] = useState('')
+  const [companyPackage, setCompanyPackage] = useState('')
+  const [companyState, setCompanyState]     = useState('')
   const [userFullName, setUserFullName] = useState('')
-  const [loading, setLoading]   = useState(true)
+  const [loading, setLoading]     = useState(true)
   const [submitting, setSubmitting] = useState(false)
-  const [errors, setErrors]     = useState<Record<string, string>>({})
+  const [errors, setErrors]       = useState<Record<string, string>>({})
 
   const [form, setForm] = useState<FormData>({
     business_activity:        '',
@@ -92,7 +94,7 @@ export default function OnboardingPage() {
 
       const { data: company } = await supabase
         .from('companies')
-        .select('id, company_name, onboarding_completed, business_activity, alternate_name_1, alternate_name_2, principal_office_address, mailing_address')
+        .select('id, company_name, package, state, onboarding_completed, business_activity, alternate_name_1, alternate_name_2, principal_office_address, mailing_address')
         .eq('client_id', clientRow.id)
         .order('created_at')
         .limit(1)
@@ -107,6 +109,8 @@ export default function OnboardingPage() {
 
       setCompanyId(company.id)
       setCompanyName(company.company_name ?? '')
+      setCompanyPackage((company.package ?? '').toLowerCase())
+      setCompanyState(company.state ?? '')
 
       // Pre-fill from any existing partial data + user name
       const { data: existingMembers } = await supabase
@@ -517,12 +521,33 @@ export default function OnboardingPage() {
               )}
             </div>
 
-            <div className="bg-blue-50 border border-blue-100 rounded-xl p-4">
-              <p className="text-sm text-blue-800 font-medium mb-1">¿Necesitas dirección en EE.UU.?</p>
-              <p className="text-xs text-blue-600">
-                Si no tienes una dirección física en Estados Unidos, nosotros podemos proveer una dirección comercial profesional en tu estado. Contacta a tu asesor para más información.
-              </p>
-            </div>
+            {/* Registered Agent — conditional on plan */}
+            {['growth', 'professional', 'premium'].includes(companyPackage) ? (
+              <div className="bg-green-50 border border-green-200 rounded-xl p-4">
+                <p className="text-sm text-green-800 font-semibold mb-1">
+                  ✅ Tu plan {companyPackage === 'premium' ? 'Premium' : 'Growth'} incluye Registered Agent Service
+                </p>
+                <p className="text-xs text-green-700">
+                  Nuestro equipo asignará tu agente registrado en {companyState || 'tu estado'} una vez iniciemos el proceso. No necesitas hacer nada.
+                </p>
+              </div>
+            ) : (
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
+                <p className="text-sm text-amber-800 font-semibold mb-1">
+                  ⚠️ Tu plan Basic no incluye Registered Agent
+                </p>
+                <p className="text-xs text-amber-700 mb-3">
+                  Puedes agregarlo por $149/año — incluye agente registrado en tu estado + dirección física.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => window.open('https://wa.me/18669958013?text=Quiero%20agregar%20Registered%20Agent%20a%20mi%20orden', '_blank')}
+                  className="bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold px-4 py-2 rounded-lg transition-colors"
+                >
+                  Agregar Registered Agent — $149
+                </button>
+              </div>
+            )}
 
             <div>
               <label className="flex items-center gap-2 cursor-pointer">

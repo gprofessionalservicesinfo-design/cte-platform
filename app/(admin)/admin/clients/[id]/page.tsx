@@ -14,6 +14,7 @@ import { DocumentChecklist } from '@/components/admin/document-checklist'
 import { CrmOpsPanel } from '@/components/admin/crm-ops-panel'
 import { SendEmailModal } from '@/components/admin/send-email-modal'
 import { CompanyEditor } from '@/components/admin/company-editor'
+import { FormationFieldsEditor } from '@/components/admin/formation-fields-editor'
 import { ResendWelcomeBtn } from '@/components/admin/resend-welcome-btn'
 import { BankingSetupToggle } from '@/components/admin/banking-setup-toggle'
 import { AddressServiceToggle } from '@/components/admin/address-service-toggle'
@@ -241,6 +242,22 @@ export default async function AdminClientDetailPage({ params }: PageProps) {
                   initialEnabled={!!(company as any).address_service_enabled}
                   initialType={(company as any).address_service_type ?? null}
                   initialPeriod={(company as any).address_service_period ?? null}
+                />
+              </div>
+
+              {/* Formation Fields — RA / Organizer / Addresses */}
+              <div className="pt-2 border-t">
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Formation Details</p>
+                <FormationFieldsEditor
+                  companyId={company.id}
+                  initialData={{
+                    registered_agent_name:    (company as any).registered_agent_name    ?? null,
+                    registered_agent_address: (company as any).registered_agent_address ?? null,
+                    organizer_name:           (company as any).organizer_name           ?? null,
+                    organizer_address:        (company as any).organizer_address        ?? null,
+                    principal_office_address: (company as any).principal_office_address ?? null,
+                    mailing_address:          (company as any).mailing_address          ?? null,
+                  }}
                 />
               </div>
             </CardContent>
