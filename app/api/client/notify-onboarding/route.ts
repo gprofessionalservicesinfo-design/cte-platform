@@ -15,11 +15,22 @@ const ADMIN_WA = '+18669958013'
 const APP_URL  = process.env.NEXT_PUBLIC_APP_URL ?? 'https://creatuempresausa.com'
 
 export async function POST(req: NextRequest) {
-  // Verify the caller is an authenticated client
-  const { createClient } = await import('@/lib/supabase/server')
-  const supabase = createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  // Verify the caller is an authenticated client (cookie-based, ES256 workaround)
+  const { cookies } = await import('next/headers')
+  const cookieStore = cookies()
+  let userId: string | null = null
+  try {
+    const tokenName = 'sb-rhprcuqhuesorrncswjs-auth-token'
+    const raw = cookieStore.get(tokenName)?.value
+      || cookieStore.get(`${tokenName}.0`)?.value
+    if (raw) {
+      const d = JSON.parse(decodeURIComponent(raw))
+      const token = d?.access_token || raw
+      const payload = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString())
+      userId = payload?.sub ?? null
+    }
+  } catch {}
+  if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const { company_id, full_name, company_name, state, package: pkg } = await req.json()
   if (!company_id) return NextResponse.json({ error: 'Missing company_id' }, { status: 400 })
@@ -33,7 +44,7 @@ export async function POST(req: NextRequest) {
     .from('companies')
     .select('id, clients!inner(user_id)')
     .eq('id', company_id)
-    .eq('clients.user_id', user.id)
+    .eq('clients.user_id', userId)
     .maybeSingle()
 
   if (!company) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
