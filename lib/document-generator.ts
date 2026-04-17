@@ -1,6 +1,4 @@
 import PDFDocument from 'pdfkit'
-import path from 'path'
-import fs from 'fs'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { DocumentTemplate, DocSection, GenerationRequest, GenerationResult } from './document-templates/types'
 import { buildArticlesTemplate } from './document-templates/articles'
@@ -179,12 +177,11 @@ function buildFooter(doc: PDFKit.PDFDocument, meta: DocumentTemplate['meta']): v
 
 export async function renderTemplateToPDF(template: DocumentTemplate): Promise<Buffer> {
   return new Promise((resolve, reject) => {
-    // Fix pdfkit AFM font path for Next.js
-    process.env.PDFKIT_AFM_PATH = require('path').join(process.cwd(), 'node_modules/pdfkit/js/data')
     const doc = new PDFDocument({
       size: 'LETTER',
       margins: { top: MARGIN, bottom: 60, left: MARGIN, right: MARGIN },
       bufferPages: true,
+      font: 'Helvetica',   // explicit built-in default — no AFM file lookup
       info: {
         Title:   template.meta.title,
         Subject: template.meta.document_type,
