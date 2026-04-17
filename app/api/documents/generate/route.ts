@@ -57,7 +57,21 @@ export async function POST(request: NextRequest) {
     const client  = (company as any).clients
     const profile = client?.users
 
-    // ── 2. Build generation request with real DB data ──────────────────────
+    // ── 2. Resolve members — always fall back to client as sole member ─────
+    const clientName = profile?.full_name ?? 'Miembro Principal'
+    const resolvedMembers =
+      Array.isArray(params.members) && params.members.length > 0
+        ? params.members
+        : [
+            {
+              name:                 clientName,
+              address:              '[DIRECCIÓN DEL MIEMBRO]',
+              ownership_percentage: 100,
+              capital_contribution: '$0.00',
+            },
+          ]
+
+    // ── 3. Build generation request with real DB data ──────────────────────
     const req: GenerationRequest = {
       company_id,
       doc_type,
@@ -66,26 +80,31 @@ export async function POST(request: NextRequest) {
       params: {
         // Merge any caller-supplied params on top of DB values
         registered_agent_name: company.registered_agent ?? params.registered_agent_name,
-        organizer_name:        profile?.full_name        ?? params.organizer_name ?? 'CreaTuEmpresaUSA LLC',
-        management_type:       params.management_type    ?? 'member_managed',
+        organizer_name:        clientName               ?? params.organizer_name ?? 'CreaTuEmpresaUSA LLC',
+        management_type:       params.management_type   ?? 'member_managed',
         effective_date:        params.effective_date,
         purpose:               params.purpose,
         principal_office_address: params.principal_office_address,
         registered_agent_address: params.registered_agent_address,
         organizer_address:        params.organizer_address,
         mailing_address:          params.mailing_address,
-        members:                  params.members,
+        members:                  resolvedMembers,
         managers:                 params.managers,
         fiscal_year_end:          params.fiscal_year_end,
         ...params, // allow full override from caller
+        // Re-apply resolvedMembers after spread so caller can't accidentally
+        // pass an empty array and trigger the "no members" error downstream
+        members: Array.isArray(params.members) && params.members.length > 0
+          ? params.members
+          : resolvedMembers,
       },
     }
 
-    // ── 3. Generate PDF via lib/document-generator.ts ─────────────────────
+    // ── 4. Generate PDF via lib/document-generator.ts ─────────────────────
     const SYSTEM_USER_ID = '00000000-0000-0000-0000-000000000001'
     const result = await generateDocument(req, supabase, SYSTEM_USER_ID)
 
-    // ── 4. Update the documents record with approval workflow fields ───────
+    // ── 5. Update the documents record with approval workflow fields ───────
     await supabase
       .from('documents')
       .update({
