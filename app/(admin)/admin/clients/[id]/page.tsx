@@ -389,6 +389,8 @@ export default async function AdminClientDetailPage({ params }: PageProps) {
               registered_agent: company.registered_agent,
             }}
             existingDocs={(documents as any) ?? []}
+            clientName={profile?.full_name ?? null}
+            clientPhone={client?.phone ?? client?.whatsapp ?? null}
           />
 
           {/* Manual Document Upload */}
