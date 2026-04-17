@@ -36,7 +36,7 @@ export function buildTexasArticles(p: ArticlesParams): DocumentTemplate {
       { type: 'section_heading', text: 'ARTICLE 1 — ENTITY NAME' },
       {
         type: 'paragraph',
-        text: `The filing entity name is: ${p.company_name}`,
+        text: `The filing entity name is: ${p.company_name ?? '[COMPANY NAME]'}`,
         bold: true,
       },
       {
@@ -52,8 +52,8 @@ export function buildTexasArticles(p: ArticlesParams): DocumentTemplate {
       {
         type: 'bullet_list',
         items: [
-          `Registered Agent: ${p.registered_agent_name}`,
-          `Registered Office (Texas Street Address): ${p.registered_agent_address}`,
+          `Registered Agent: ${p.registered_agent_name ?? '[REGISTERED AGENT]'}`,
+          `Registered Office (Texas Street Address): ${p.registered_agent_address ?? '[REGISTERED AGENT ADDRESS]'}`,
         ],
       },
       {
@@ -90,7 +90,7 @@ export function buildTexasArticles(p: ArticlesParams): DocumentTemplate {
         type: 'paragraph',
         text: 'The address of the principal place of business of the Company is:',
       },
-      { type: 'paragraph', text: p.principal_office_address, indent: true, bold: true },
+      { type: 'paragraph', text: p.principal_office_address ?? '[PRINCIPAL OFFICE ADDRESS]', indent: true, bold: true },
 
       { type: 'section_heading', text: 'ARTICLE 6 — DURATION' },
       {
@@ -112,8 +112,8 @@ export function buildTexasArticles(p: ArticlesParams): DocumentTemplate {
       {
         type: 'bullet_list',
         items: [
-          `Organizer Name: ${p.organizer_name}`,
-          `Address: ${p.organizer_address}`,
+          `Organizer Name: ${p.organizer_name ?? '[ORGANIZER NAME]'}`,
+          `Address: ${p.organizer_address ?? '[ORGANIZER ADDRESS]'}`,
         ],
       },
 
@@ -138,8 +138,8 @@ export function buildTexasArticles(p: ArticlesParams): DocumentTemplate {
         type: 'signature_block',
         items: [
           `Organizer Signature: ____________________________`,
-          `Printed Name: ${p.organizer_name}`,
-          `Address: ${p.organizer_address}`,
+          `Printed Name: ${p.organizer_name ?? '[ORGANIZER NAME]'}`,
+          `Address: ${p.organizer_address ?? '[ORGANIZER ADDRESS]'}`,
           `Date: ____________________________`,
         ],
       },

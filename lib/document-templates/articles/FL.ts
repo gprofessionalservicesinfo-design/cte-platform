@@ -36,7 +36,7 @@ export function buildFloridaArticles(p: ArticlesParams): DocumentTemplate {
       { type: 'section_heading', text: 'ARTICLE I — NAME' },
       {
         type: 'paragraph',
-        text: `The name of the limited liability company is: ${p.company_name}`,
+        text: `The name of the limited liability company is: ${p.company_name ?? '[COMPANY NAME]'}`,
         bold: true,
       },
       {
@@ -49,11 +49,11 @@ export function buildFloridaArticles(p: ArticlesParams): DocumentTemplate {
         type: 'paragraph',
         text: 'The mailing address of the Company\'s principal office is:',
       },
-      { type: 'paragraph', text: p.principal_office_address, indent: true, bold: true },
+      { type: 'paragraph', text: p.principal_office_address ?? '[PRINCIPAL OFFICE ADDRESS]', indent: true, bold: true },
       ...(p.mailing_address && p.mailing_address !== p.principal_office_address
         ? [
             { type: 'paragraph' as const, text: 'Mailing Address (if different):' },
-            { type: 'paragraph' as const, text: p.mailing_address, indent: true },
+            { type: 'paragraph' as const, text: p.mailing_address ?? '[MAILING ADDRESS]', indent: true },
           ]
         : []),
 
@@ -65,8 +65,8 @@ export function buildFloridaArticles(p: ArticlesParams): DocumentTemplate {
       {
         type: 'bullet_list',
         items: [
-          `Registered Agent Name: ${p.registered_agent_name}`,
-          `Florida Street Address: ${p.registered_agent_address}`,
+          `Registered Agent Name: ${p.registered_agent_name ?? '[REGISTERED AGENT]'}`,
+          `Florida Street Address: ${p.registered_agent_address ?? '[REGISTERED AGENT ADDRESS]'}`,
         ],
       },
       {
@@ -79,7 +79,7 @@ export function buildFloridaArticles(p: ArticlesParams): DocumentTemplate {
         type: 'signature_block',
         items: [
           'Registered Agent Signature: ____________________________',
-          `Name: ${p.registered_agent_name}`,
+          `Name: ${p.registered_agent_name ?? '[REGISTERED AGENT]'}`,
           'Date: ____________________________',
         ],
       },
@@ -122,8 +122,8 @@ export function buildFloridaArticles(p: ArticlesParams): DocumentTemplate {
       {
         type: 'bullet_list',
         items: [
-          `Name: ${p.organizer_name}`,
-          `Address: ${p.organizer_address}`,
+          `Name: ${p.organizer_name ?? '[ORGANIZER NAME]'}`,
+          `Address: ${p.organizer_address ?? '[ORGANIZER ADDRESS]'}`,
         ],
       },
 
@@ -148,8 +148,8 @@ export function buildFloridaArticles(p: ArticlesParams): DocumentTemplate {
         type: 'signature_block',
         items: [
           `Signature: ____________________________`,
-          `Printed Name: ${p.organizer_name}`,
-          `Address: ${p.organizer_address}`,
+          `Printed Name: ${p.organizer_name ?? '[ORGANIZER NAME]'}`,
+          `Address: ${p.organizer_address ?? '[ORGANIZER ADDRESS]'}`,
           `Date: ____________________________`,
         ],
       },

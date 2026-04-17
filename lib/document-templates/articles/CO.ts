@@ -40,7 +40,7 @@ export function buildColoradoArticles(p: ArticlesParams): DocumentTemplate {
       { type: 'section_heading', text: 'ARTICLE I — NAME OF THE COMPANY' },
       {
         type: 'paragraph',
-        text: `The name of the limited liability company is: ${p.company_name}`,
+        text: `The name of the limited liability company is: ${p.company_name ?? '[COMPANY NAME]'}`,
         bold: true,
       },
       {
@@ -53,7 +53,7 @@ export function buildColoradoArticles(p: ArticlesParams): DocumentTemplate {
         type: 'paragraph',
         text: `The address of the principal office of the Company is:`,
       },
-      { type: 'paragraph', text: p.principal_office_address, indent: true, bold: true },
+      { type: 'paragraph', text: p.principal_office_address ?? '[PRINCIPAL OFFICE ADDRESS]', indent: true, bold: true },
       {
         type: 'paragraph',
         text: `Mailing Address (if different from principal office):`,
@@ -68,8 +68,8 @@ export function buildColoradoArticles(p: ArticlesParams): DocumentTemplate {
       {
         type: 'bullet_list',
         items: [
-          `Registered Agent Name: ${p.registered_agent_name}`,
-          `Registered Agent Address: ${p.registered_agent_address}`,
+          `Registered Agent Name: ${p.registered_agent_name ?? '[REGISTERED AGENT]'}`,
+          `Registered Agent Address: ${p.registered_agent_address ?? '[REGISTERED AGENT ADDRESS]'}`,
         ],
       },
       {
@@ -121,8 +121,8 @@ export function buildColoradoArticles(p: ArticlesParams): DocumentTemplate {
       {
         type: 'bullet_list',
         items: [
-          `Organizer Name: ${p.organizer_name}`,
-          `Organizer Address: ${p.organizer_address}`,
+          `Organizer Name: ${p.organizer_name ?? '[ORGANIZER NAME]'}`,
+          `Organizer Address: ${p.organizer_address ?? '[ORGANIZER ADDRESS]'}`,
         ],
       },
 
@@ -148,8 +148,8 @@ export function buildColoradoArticles(p: ArticlesParams): DocumentTemplate {
       {
         type: 'signature_block',
         items: [
-          `Organizer: ${p.organizer_name}`,
-          `Address: ${p.organizer_address}`,
+          `Organizer: ${p.organizer_name ?? '[ORGANIZER NAME]'}`,
+          `Address: ${p.organizer_address ?? '[ORGANIZER ADDRESS]'}`,
           `Date: ____________________________`,
           `Signature: ____________________________`,
         ],

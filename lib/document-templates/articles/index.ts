@@ -12,7 +12,7 @@ const BUILDERS: Record<string, (p: ArticlesParams) => DocumentTemplate> = {
 }
 
 export function buildArticlesTemplate(p: ArticlesParams): DocumentTemplate {
-  const builder = BUILDERS[p.state_code.toUpperCase()]
+  const builder = BUILDERS[(p.state_code ?? '').toUpperCase()]
   if (!builder) {
     throw new Error(
       `No Articles of Organization template for state "${p.state_code}". ` +
