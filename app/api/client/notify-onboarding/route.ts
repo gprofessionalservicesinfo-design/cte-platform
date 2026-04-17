@@ -11,9 +11,9 @@ import { createClient as createSupabaseAdmin } from '@supabase/supabase-js'
 import { Resend } from 'resend'
 import twilio from 'twilio'
 
-const ADMIN_EMAIL = 'gprofessionalservices.info@gmail.com'
-const ADMIN_WA    = '+18669958013'
-const APP_URL     = process.env.NEXT_PUBLIC_APP_URL ?? 'https://creatuempresausa.com'
+const ADMIN_EMAIL       = 'gprofessionalservices.info@gmail.com'
+const ADMIN_PERSONAL_WA = process.env.ADMIN_PERSONAL_WA ?? '+19046248859'
+const APP_URL           = process.env.NEXT_PUBLIC_APP_URL ?? 'https://creatuempresausa.com'
 
 const PLAN_LABEL: Record<string, string> = {
   basic: 'Starter', starter: 'Starter',
@@ -119,29 +119,26 @@ export async function POST(req: NextRequest) {
   const authToken  = process.env.TWILIO_AUTH_TOKEN
   const from       = process.env.TWILIO_WHATSAPP_FROM ?? 'whatsapp:+14155238886'
 
-  if (accountSid && authToken) {
-    const waBody = [
-      '🔔 *Nuevo onboarding completado*',
-      '',
-      `Cliente: ${full_name ?? '—'}`,
-      `Empresa: ${company_name ?? '—'}`,
-      `Estado: ${state ?? '—'}`,
-      `Plan: ${planDisplay}`,
-      '',
-      'Revisa el caso en:',
-      adminUrl,
-    ].join('\n')
-
+  const templateSid = process.env.TWILIO_WELCOME_TEMPLATE_SID
+  if (accountSid && authToken && templateSid) {
     try {
       const twilioClient = twilio(accountSid, authToken)
-      await twilioClient.messages.create({ from, to: `whatsapp:${ADMIN_WA}`, body: waBody })
+      await twilioClient.messages.create({
+        from,
+        to: `whatsapp:${ADMIN_PERSONAL_WA}`,
+        contentSid:       templateSid,
+        contentVariables: JSON.stringify({
+          '1': full_name    ?? 'Cliente',
+          '2': company_name ?? 'tu empresa',
+        }),
+      })
       await db.from('whatsapp_conversations').insert({
-        phone_number: ADMIN_WA,
+        phone_number: ADMIN_PERSONAL_WA,
         company_id,
         role:    'assistant',
-        content: waBody,
+        content: `[template:${templateSid}] ${full_name} / ${company_name}`,
       })
-      console.log('[notify-onboarding] WhatsApp sent to', ADMIN_WA)
+      console.log('[notify-onboarding] WhatsApp sent to', ADMIN_PERSONAL_WA)
     } catch (waErr: any) {
       console.warn('[notify-onboarding] WhatsApp error (non-fatal):', waErr?.message ?? waErr)
     }
