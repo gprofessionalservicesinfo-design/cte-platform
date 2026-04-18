@@ -140,17 +140,23 @@ function DocUploadCard({
 
 // ─── LLC Document card ────────────────────────────────────────────────────────
 
-function LlcDocCard({ doc, onApprove, onRequestChanges }: {
+function LlcDocCard({ doc, versionCount, onApprove, onRequestChanges }: {
   doc: any;
+  versionCount: number;
   onApprove: (id: string) => Promise<void>;
   onRequestChanges: (id: string, note: string) => Promise<void>;
 }) {
-  const [approving,       setApproving]       = useState(false)
-  const [showChangesForm, setShowChangesForm]  = useState(false)
-  const [changeNote,      setChangeNote]       = useState('')
-  const [sendingNote,     setSendingNote]      = useState(false)
-  const isPending  = doc.approval_status === 'pending_approval' || (!doc.approval_status && doc.status !== 'approved')
-  const isApproved = doc.approval_status === 'approved'
+  const [approving,       setApproving]      = useState(false)
+  const [showChangesForm, setShowChangesForm] = useState(false)
+  const [changeNote,      setChangeNote]      = useState('')
+  const [sendingNote,     setSendingNote]     = useState(false)
+
+  // Explicit three-state logic — no implicit fallthrough
+  const approvalStatus = doc.approval_status ?? null
+  const isApproved = approvalStatus === 'approved'
+  const isPending  = approvalStatus === 'pending_approval'
+  // NULL / 'draft' / 'changes_requested' → isDraft (download only, no approve btn)
+  const isDraft    = !isApproved && !isPending
 
   async function handleApprove() {
     setApproving(true)
@@ -167,8 +173,10 @@ function LlcDocCard({ doc, onApprove, onRequestChanges }: {
     setSendingNote(false)
   }
 
+  const borderClass = isApproved ? 'border-green-200' : isPending ? 'border-yellow-200' : 'border-gray-200'
+
   return (
-    <Card className={isApproved ? 'border-green-200' : isPending ? 'border-yellow-200' : ''}>
+    <Card className={borderClass}>
       <CardContent className="p-0">
         <div className="flex items-center gap-3 p-4">
           <div className={`h-9 w-9 rounded-xl flex items-center justify-center shrink-0 ${isApproved ? 'bg-green-50' : 'bg-blue-50'}`}>
@@ -176,19 +184,27 @@ function LlcDocCard({ doc, onApprove, onRequestChanges }: {
           </div>
 
           <div className="flex-1 min-w-0">
-            <p className="font-semibold text-gray-900 text-sm leading-tight">
-              {LLC_DOC_LABELS[doc.type] ?? doc.type}
-            </p>
+            <div className="flex items-center gap-2 flex-wrap">
+              <p className="font-semibold text-gray-900 text-sm leading-tight">
+                {LLC_DOC_LABELS[doc.type] ?? doc.type}
+              </p>
+              {versionCount > 1 && (
+                <span className="text-xs bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded-full font-medium">
+                  {versionCount} versiones
+                </span>
+              )}
+            </div>
             <p className="text-xs text-gray-400 mt-0.5">
               {formatDate(doc.generated_at ?? doc.created_at)}
             </p>
           </div>
 
           <div className="flex flex-col items-end gap-2 shrink-0">
+            {/* Status badge */}
             {isApproved && (
               <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-medium bg-green-100 text-green-700">
                 <CheckCircle2 className="h-3 w-3" />
-                Aprobado
+                Aprobado ✅
               </span>
             )}
             {isPending && (
@@ -198,7 +214,17 @@ function LlcDocCard({ doc, onApprove, onRequestChanges }: {
               </span>
             )}
 
+            {/* Action buttons */}
             <div className="flex gap-1.5 flex-wrap justify-end">
+              {isApproved && (
+                <a href={`/api/documents/download/${doc.id}`} target="_blank" rel="noreferrer">
+                  <Button variant="outline" size="sm" className="h-7 text-xs gap-1">
+                    <Download className="h-3 w-3" />
+                    Descargar
+                  </Button>
+                </a>
+              )}
+
               {isPending && (
                 <>
                   <Button
@@ -207,24 +233,22 @@ function LlcDocCard({ doc, onApprove, onRequestChanges }: {
                     onClick={handleApprove}
                     disabled={approving}
                   >
-                    {approving
-                      ? <Loader2 className="h-3 w-3 animate-spin" />
-                      : <ThumbsUp className="h-3 w-3" />
-                    }
+                    {approving ? <Loader2 className="h-3 w-3 animate-spin" /> : <ThumbsUp className="h-3 w-3" />}
                     Aprobar
                   </Button>
                   <Button
                     variant="outline"
                     size="sm"
-                    className="h-7 text-xs gap-1 text-orange-600 border-orange-200 hover:bg-orange-50"
+                    className="h-7 text-xs text-orange-600 border-orange-200 hover:bg-orange-50"
                     onClick={() => setShowChangesForm(v => !v)}
                   >
                     Solicitar cambios
                   </Button>
                 </>
               )}
-              {/* Download only after approval */}
-              {isApproved && (doc.storage_path || doc.file_url) && (
+
+              {/* Draft / null / changes_requested — always show download */}
+              {isDraft && (
                 <a href={`/api/documents/download/${doc.id}`} target="_blank" rel="noreferrer">
                   <Button variant="outline" size="sm" className="h-7 text-xs gap-1">
                     <Download className="h-3 w-3" />
@@ -351,11 +375,25 @@ export default function DocumentsPage() {
   )
 
   // LLC docs (generated by admin) vs client uploads
-  const LLC_TYPES     = new Set(['articles', 'operating_agreement', 'ein_letter', 'formation_certificate', 'annual_report', 'other'])
-  const CLIENT_TYPES  = new Set([...BASE_DOCS, ...ADDITIONAL_DOCS].map(d => d.id))
-  const llcDocs       = docs
+  const LLC_TYPES    = new Set(['articles', 'operating_agreement', 'ein_letter', 'formation_certificate', 'annual_report', 'other'])
+  const CLIENT_TYPES = new Set([...BASE_DOCS, ...ADDITIONAL_DOCS].map(d => d.id))
+
+  // Sort all LLC-type docs newest-first, then deduplicate: one card per type
+  // (most recent). Track total count per type for the version badge.
+  const allLlcDocs = docs
     .filter(d => LLC_TYPES.has(d.type) || (!CLIENT_TYPES.has(d.type) && d.template_id))
     .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+
+  const llcVersionCounts: Record<string, number> = {}
+  allLlcDocs.forEach(d => { llcVersionCounts[d.type] = (llcVersionCounts[d.type] ?? 0) + 1 })
+
+  // Keep only the newest per type
+  const seenTypes = new Set<string>()
+  const llcDocs   = allLlcDocs.filter(d => {
+    if (seenTypes.has(d.type)) return false
+    seenTypes.add(d.type)
+    return true
+  })
 
   const filesByType = docs.reduce((acc, d) => {
     if (!acc[d.type]) acc[d.type] = []
@@ -397,7 +435,13 @@ export default function DocumentsPage() {
         ) : (
           <div className="space-y-2">
             {llcDocs.map((doc) => (
-              <LlcDocCard key={doc.id} doc={doc} onApprove={handleApprove} onRequestChanges={handleRequestChanges} />
+              <LlcDocCard
+                key={doc.id}
+                doc={doc}
+                versionCount={llcVersionCounts[doc.type] ?? 1}
+                onApprove={handleApprove}
+                onRequestChanges={handleRequestChanges}
+              />
             ))}
           </div>
         )}

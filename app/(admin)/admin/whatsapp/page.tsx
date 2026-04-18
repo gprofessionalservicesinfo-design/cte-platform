@@ -1,10 +1,9 @@
 'use client'
 
-import { useEffect, useState, useRef, useCallback } from 'react'
+import { useEffect, useState, useRef, useCallback, useMemo } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils'
 import { Send, RefreshCw, MessageCircle, Phone } from 'lucide-react'
-import { AdminSidebar } from '@/components/admin/sidebar'
 
 interface Message {
   id: string
@@ -23,7 +22,10 @@ interface Thread {
 }
 
 export default function WhatsAppInboxPage() {
-  const supabase = createClient()
+  // Stable client — createClient() is a singleton in the browser but we
+  // memoize to avoid it appearing as a new reference on every render,
+  // which would cause all useCallback([supabase]) deps to retrigger.
+  const supabase = useMemo(() => createClient(), [])
 
   const [threads, setThreads] = useState<Thread[]>([])
   const [selected, setSelected] = useState<string | null>(null)
@@ -32,13 +34,7 @@ export default function WhatsAppInboxPage() {
   const [sending, setSending] = useState(false)
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
-  const [userEmail, setUserEmail] = useState<string | null>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
-
-  // ── Load user email ───────────────────────────────────────────────────────
-  useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => setUserEmail(data.user?.email ?? null))
-  }, [supabase])
 
   // ── Load threads ──────────────────────────────────────────────────────────
   const loadThreads = useCallback(async () => {
@@ -178,11 +174,11 @@ export default function WhatsAppInboxPage() {
   }
 
   return (
-    <div className="flex h-screen bg-slate-50">
-      <AdminSidebar userEmail={userEmail} />
-
-      {/* Main area */}
-      <div className="flex flex-1 lg:pl-64 overflow-hidden">
+    // fixed + left-0 lg:left-64 lets this page fill the viewport to the right
+    // of the sidebar without being constrained by the layout's max-w-7xl / padding.
+    // The layout still renders the sidebar — we just escape its content wrapper.
+    <div className="fixed inset-0 lg:left-64 flex bg-slate-50 overflow-hidden z-10">
+      <div className="flex flex-1 overflow-hidden">
 
         {/* Thread list */}
         <div className="w-80 flex-shrink-0 border-r border-slate-200 bg-white flex flex-col">

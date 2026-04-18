@@ -6,6 +6,7 @@ import { StatusBadge } from '@/components/client/status-badge'
 import { StatusTimeline } from '@/components/client/status-timeline'
 import { FileText, Mail, Building2, CheckCircle2, Clock, MessageSquare } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
+import { ServicesPanel } from '@/components/client/services-panel'
 
 export default async function DashboardPage() {
   // Read user from cookie directly (legacy anon key workaround)
@@ -132,6 +133,16 @@ export default async function DashboardPage() {
             <p className="text-sm font-medium text-gray-700 mb-6">Progreso de formacion</p>
             <StatusTimeline currentStatus={company.status} />
           </div>
+        </CardContent>
+      </Card>
+
+      {/* Services + Compliance + Upsells */}
+      <Card>
+        <CardHeader className="pb-3">
+          <CardTitle className="text-base">Servicios adicionales</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ServicesPanel companyId={company.id} />
         </CardContent>
       </Card>
 
