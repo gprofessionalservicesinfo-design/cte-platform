@@ -60,6 +60,17 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Company not found' }, { status: 404 })
     }
 
+    // Override doc_type based on entity_type
+    let resolvedDocType = doc_type
+    const entityType = (company.entity_type ?? '').toUpperCase()
+    if (doc_type === 'articles') {
+      if (entityType === 'CORP' || entityType === 'CORPORATION' || entityType === 'INC') {
+        resolvedDocType = 'articles_corp'
+      } else if (entityType === 'DBA') {
+        resolvedDocType = 'dba'
+      }
+    }
+
     const client  = (company as any).clients
     const profile = client?.users
     const clientName = profile?.full_name ?? 'Miembro Principal'
@@ -94,7 +105,7 @@ export async function POST(request: NextRequest) {
     const co = company as any
     const req: GenerationRequest = {
       company_id,
-      doc_type,
+      doc_type:      resolvedDocType as any,
       subtype,
       replace_doc_id,
       params: {

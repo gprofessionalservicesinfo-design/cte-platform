@@ -21,9 +21,10 @@ import { BankingSetupToggle } from '@/components/admin/banking-setup-toggle'
 import { AddressServiceToggle } from '@/components/admin/address-service-toggle'
 import { AddressServicePanel } from '@/components/admin/address-service-panel'
 import { OperationsHub } from '@/components/admin/operations-hub'
-import { MailItemsPanel } from '@/components/admin/mail-items-panel'
+import { UnifiedInbox } from '@/components/admin/unified-inbox'
 import { WhatsAppStatusPanel } from '@/components/admin/whatsapp-status-panel'
 import { OpsDetailPanel } from '@/components/admin/ops-detail-panel'
+import { AddonServicesPanel } from '@/components/admin/addon-services-panel'
 import { ChevronLeft, Building2, User, Mail, CreditCard, ClipboardList, TrendingUp, MessageCircle, ExternalLink, ListChecks } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
 import type { InvoiceRow } from '@/components/billing/invoice-table'
@@ -89,11 +90,10 @@ export default async function AdminClientDetailPage({ params }: PageProps) {
   const client = company.clients as any
   const profile = client?.users
 
-  // Load documents, notes, mail_items, status_history, payments in parallel
+  // Load documents, notes, status_history, payments in parallel
   const [
     { data: documents },
     { data: notes },
-    { data: mail },
     { data: statusHistory },
     { data: payments },
   ] = await Promise.all([
@@ -107,11 +107,6 @@ export default async function AdminClientDetailPage({ params }: PageProps) {
       .select('id, content, pinned, created_at, users(full_name, email)')
       .eq('company_id', params.id)
       .order('pinned', { ascending: false })
-      .order('created_at', { ascending: false }),
-    supabase
-      .from('mail_items')
-      .select('*')
-      .eq('company_id', params.id)
       .order('created_at', { ascending: false }),
     supabase
       .from('status_history')
@@ -433,18 +428,38 @@ export default async function AdminClientDetailPage({ params }: PageProps) {
             </CardContent>
           </Card>
 
-          {/* Mail */}
+          {/* Unified Communications */}
           <Card>
             <CardHeader className="pb-3">
               <CardTitle className="text-base flex items-center gap-2">
                 <Mail className="h-4 w-4 text-gray-500" />
-                Mail ({mail?.length ?? 0})
+                Comunicaciones
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <MailItemsPanel initialItems={(mail as any) ?? []} />
+              <UnifiedInbox
+                companyId={company.id}
+                clientName={profile?.full_name ?? 'Cliente'}
+                clientPhone={client?.phone ?? client?.whatsapp ?? null}
+                clientEmail={profile?.email ?? ''}
+                companyName={company.company_name}
+              />
             </CardContent>
           </Card>
+          {/* Addon Services */}
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base">Addon Services</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <AddonServicesPanel
+                companyId={company.id}
+                clientPhone={client?.phone ?? client?.whatsapp ?? null}
+                clientName={profile?.full_name ?? 'Cliente'}
+              />
+            </CardContent>
+          </Card>
+
           {/* Document Checklist */}
           <Card>
             <CardHeader className="pb-3">

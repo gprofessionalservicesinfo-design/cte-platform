@@ -49,6 +49,40 @@ export function StatusWorkflow({ companyId, currentStatus, statusHistory = [] }:
 
     setStatus(newStatus)
     toast.success(`Status updated to "${STATUS_LABELS[newStatus]}"`)
+
+    // Auto-create compliance events when company is completed
+    if (newStatus === 'completed') {
+      const nextYear = new Date()
+      nextYear.setFullYear(nextYear.getFullYear() + 1)
+      const dueDateStr = nextYear.toISOString().split('T')[0]
+      try {
+        await Promise.all([
+          fetch('/api/admin/compliance-events', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              company_id: companyId,
+              event_type: 'Annual Report Filing',
+              due_date:   dueDateStr,
+              notes:      'Auto-created on formation completion',
+            }),
+          }),
+          fetch('/api/admin/compliance-events', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              company_id: companyId,
+              event_type: 'Registered Agent Renewal',
+              due_date:   dueDateStr,
+              notes:      'Auto-created on formation completion',
+            }),
+          }),
+        ])
+      } catch {
+        // Non-fatal
+      }
+    }
+
     setLoading(null)
   }
 

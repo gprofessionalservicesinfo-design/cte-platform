@@ -13,6 +13,8 @@ import type {
 } from './document-templates/types'
 import { buildArticlesTemplate } from './document-templates/articles'
 import { buildOATemplate }       from './document-templates/operating-agreement'
+import { buildCorpArticles }     from './document-templates/articles/corp'
+import { buildDBATemplate }      from './document-templates/dba'
 
 // ─── Layout constants ────────────────────────────────────────────────────────
 
@@ -297,6 +299,38 @@ export async function generateDocument(
       registered_agent_name:    company.registered_agent ?? req.params.registered_agent_name,
       registered_agent_address: req.params.registered_agent_address,
     }, req.subtype)
+
+  } else if (req.doc_type === 'articles_corp') {
+    // Articles of Incorporation for CORP entity type
+    template = buildCorpArticles({
+      company_name:             company.company_name,
+      state:                    company.state,
+      state_code:               company.state_code,
+      principal_office_address: req.params.principal_office_address ?? '[PRINCIPAL OFFICE ADDRESS]',
+      registered_agent_name:    company.registered_agent ?? req.params.registered_agent_name ?? '[REGISTERED AGENT]',
+      registered_agent_address: req.params.registered_agent_address ?? '[REGISTERED AGENT ADDRESS]',
+      organizer_name:           req.params.organizer_name    ?? '[INCORPORATOR NAME]',
+      organizer_address:        req.params.organizer_address ?? '[INCORPORATOR ADDRESS]',
+      management_type:          req.params.management_type   ?? 'member_managed',
+      effective_date:           req.params.effective_date,
+      purpose:                  req.params.purpose,
+    })
+
+  } else if (req.doc_type === 'dba') {
+    // Fictitious Name Registration (DBA)
+    template = buildDBATemplate({
+      company_name:             company.company_name,
+      state:                    company.state,
+      state_code:               company.state_code,
+      principal_office_address: req.params.principal_office_address ?? '[BUSINESS ADDRESS]',
+      registered_agent_name:    '[N/A]',
+      registered_agent_address: '[N/A]',
+      organizer_name:           req.params.organizer_name    ?? '[OWNER NAME]',
+      organizer_address:        req.params.organizer_address ?? '[OWNER ADDRESS]',
+      management_type:          'member_managed',
+      effective_date:           req.params.effective_date,
+      purpose:                  req.params.purpose,
+    })
 
   } else {
     throw new Error(`Unknown doc_type: ${req.doc_type}`)

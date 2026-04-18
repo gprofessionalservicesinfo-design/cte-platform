@@ -140,8 +140,15 @@ function DocUploadCard({
 
 // ─── LLC Document card ────────────────────────────────────────────────────────
 
-function LlcDocCard({ doc, onApprove }: { doc: any; onApprove: (id: string) => Promise<void> }) {
-  const [approving, setApproving] = useState(false)
+function LlcDocCard({ doc, onApprove, onRequestChanges }: {
+  doc: any;
+  onApprove: (id: string) => Promise<void>;
+  onRequestChanges: (id: string, note: string) => Promise<void>;
+}) {
+  const [approving,       setApproving]       = useState(false)
+  const [showChangesForm, setShowChangesForm]  = useState(false)
+  const [changeNote,      setChangeNote]       = useState('')
+  const [sendingNote,     setSendingNote]      = useState(false)
   const isPending  = doc.approval_status === 'pending_approval' || (!doc.approval_status && doc.status !== 'approved')
   const isApproved = doc.approval_status === 'approved'
 
@@ -149,6 +156,15 @@ function LlcDocCard({ doc, onApprove }: { doc: any; onApprove: (id: string) => P
     setApproving(true)
     await onApprove(doc.id)
     setApproving(false)
+  }
+
+  async function handleSendChanges() {
+    if (!changeNote.trim()) return
+    setSendingNote(true)
+    await onRequestChanges(doc.id, changeNote)
+    setChangeNote('')
+    setShowChangesForm(false)
+    setSendingNote(false)
   }
 
   return (
@@ -182,22 +198,33 @@ function LlcDocCard({ doc, onApprove }: { doc: any; onApprove: (id: string) => P
               </span>
             )}
 
-            <div className="flex gap-1.5">
+            <div className="flex gap-1.5 flex-wrap justify-end">
               {isPending && (
-                <Button
-                  size="sm"
-                  className="h-7 text-xs bg-green-600 hover:bg-green-700 text-white gap-1"
-                  onClick={handleApprove}
-                  disabled={approving}
-                >
-                  {approving
-                    ? <Loader2 className="h-3 w-3 animate-spin" />
-                    : <ThumbsUp className="h-3 w-3" />
-                  }
-                  Revisar y aprobar
-                </Button>
+                <>
+                  <Button
+                    size="sm"
+                    className="h-7 text-xs bg-green-600 hover:bg-green-700 text-white gap-1"
+                    onClick={handleApprove}
+                    disabled={approving}
+                  >
+                    {approving
+                      ? <Loader2 className="h-3 w-3 animate-spin" />
+                      : <ThumbsUp className="h-3 w-3" />
+                    }
+                    Aprobar
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-7 text-xs gap-1 text-orange-600 border-orange-200 hover:bg-orange-50"
+                    onClick={() => setShowChangesForm(v => !v)}
+                  >
+                    Solicitar cambios
+                  </Button>
+                </>
               )}
-              {(doc.storage_path || doc.file_url) && (
+              {/* Download only after approval */}
+              {isApproved && (doc.storage_path || doc.file_url) && (
                 <a href={`/api/documents/download/${doc.id}`} target="_blank" rel="noreferrer">
                   <Button variant="outline" size="sm" className="h-7 text-xs gap-1">
                     <Download className="h-3 w-3" />
@@ -208,6 +235,33 @@ function LlcDocCard({ doc, onApprove }: { doc: any; onApprove: (id: string) => P
             </div>
           </div>
         </div>
+
+        {/* Request changes form */}
+        {showChangesForm && (
+          <div className="px-4 pb-4 border-t border-gray-100 pt-3">
+            <p className="text-xs text-gray-600 mb-2 font-medium">Describe los cambios que necesitas:</p>
+            <textarea
+              rows={3}
+              value={changeNote}
+              onChange={e => setChangeNote(e.target.value)}
+              placeholder="Ej: El nombre de la empresa está incorrecto, debe ser..."
+              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 resize-none"
+            />
+            <div className="flex gap-2 mt-2 justify-end">
+              <Button variant="outline" size="sm" className="h-7 text-xs" onClick={() => setShowChangesForm(false)}>
+                Cancelar
+              </Button>
+              <Button
+                size="sm"
+                className="h-7 text-xs bg-orange-500 hover:bg-orange-600 text-white"
+                onClick={handleSendChanges}
+                disabled={sendingNote || !changeNote.trim()}
+              >
+                {sendingNote ? <Loader2 className="h-3 w-3 animate-spin" /> : 'Enviar nota'}
+              </Button>
+            </div>
+          </div>
+        )}
       </CardContent>
     </Card>
   )
@@ -269,6 +323,22 @@ export default function DocumentsPage() {
     }
   }
 
+  async function handleRequestChanges(docId: string, note: string) {
+    if (!company) return
+    // Save to mail_items so admin sees the request
+    const res = await fetch('/api/client/request-doc-changes', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ company_id: company.id, doc_id: docId, note }),
+    })
+    if (!res.ok) {
+      const data = await res.json()
+      toast.error(data.error ?? 'Error al enviar solicitud')
+    } else {
+      toast.success('Solicitud enviada al equipo')
+    }
+  }
+
   function handleDownload(doc: any) {
     window.open(`/api/documents/download/${doc.id}`, '_blank')
   }
@@ -327,7 +397,7 @@ export default function DocumentsPage() {
         ) : (
           <div className="space-y-2">
             {llcDocs.map((doc) => (
-              <LlcDocCard key={doc.id} doc={doc} onApprove={handleApprove} />
+              <LlcDocCard key={doc.id} doc={doc} onApprove={handleApprove} onRequestChanges={handleRequestChanges} />
             ))}
           </div>
         )}
