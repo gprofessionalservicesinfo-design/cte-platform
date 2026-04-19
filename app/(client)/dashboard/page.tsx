@@ -100,16 +100,18 @@ export default async function DashboardPage() {
       )}
 
       {/* Welcome header */}
-      <div className="rounded-2xl bg-[#0A2540] text-white px-6 py-8 sm:px-8">
-        <p className="text-sm font-semibold uppercase tracking-widest text-blue-300 mb-2">Portal de Cliente</p>
-        <h1 className="text-2xl sm:text-3xl font-bold mb-1">Bienvenido, {firstName}</h1>
-        <p className="text-blue-100 text-sm mt-1">
-          Tu empresa <strong>{company.company_name}</strong>
-          {company.state ? ` en ${company.state}` : ''} está en proceso de formación.
+      <div className="rounded-2xl bg-[#0A2540] text-white px-6 py-8 sm:px-10 relative overflow-hidden">
+        {/* subtle brand accent bar */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#4DB39A] to-[#2CB98A]" />
+        <p className="text-xs font-semibold uppercase tracking-widest text-[#4DB39A] mb-2">Portal de Cliente</p>
+        <h1 className="text-2xl sm:text-3xl font-bold mb-2">Bienvenido, {firstName}</h1>
+        <p className="text-blue-100 text-sm leading-relaxed">
+          Tu empresa <strong className="text-white">{company.company_name}</strong>
+          {company.state ? ` · ${company.state}` : ''} está en proceso de formación.
           Nuestro equipo está trabajando en tu caso.
         </p>
         {company.order_reference && (
-          <p className="text-blue-300 text-xs mt-3">Referencia de orden: {company.order_reference}</p>
+          <p className="text-blue-400 text-xs mt-4 font-mono">#{company.order_reference}</p>
         )}
       </div>
 
@@ -192,26 +194,35 @@ export default async function DashboardPage() {
       </Card>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <a href="/dashboard/documents">
+          <Card className="hover:shadow-md transition-shadow cursor-pointer h-full">
+            <CardContent className="pt-6">
+              <div className="flex items-center gap-4">
+                <div className="bg-[#4DB39A]/10 p-3 rounded-xl"><FileText className="h-5 w-5 text-[#2CB98A]" /></div>
+                <div><p className="text-2xl font-bold text-[#2A3544]">{docCount ?? 0}</p><p className="text-sm text-gray-500">Documentos</p></div>
+              </div>
+            </CardContent>
+          </Card>
+        </a>
+        <a href="/dashboard/mail">
+          <Card className="hover:shadow-md transition-shadow cursor-pointer h-full">
+            <CardContent className="pt-6">
+              <div className="flex items-center gap-4">
+                <div className="bg-amber-50 p-3 rounded-xl relative">
+                  <Mail className="h-5 w-5 text-amber-600" />
+                  {(unreadMailCount ?? 0) > 0 && (
+                    <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-amber-500 text-white text-[10px] font-bold flex items-center justify-center">{unreadMailCount}</span>
+                  )}
+                </div>
+                <div><p className="text-2xl font-bold text-[#2A3544]">{unreadMailCount ?? 0}</p><p className="text-sm text-gray-500">Correo sin leer</p></div>
+              </div>
+            </CardContent>
+          </Card>
+        </a>
         <Card>
           <CardContent className="pt-6">
-            <div className="flex items-center gap-3">
-              <div className="bg-blue-100 p-2 rounded-lg"><FileText className="h-5 w-5 text-blue-600" /></div>
-              <div><p className="text-2xl font-bold text-gray-900">{docCount ?? 0}</p><p className="text-sm text-gray-500">Documentos</p></div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center gap-3">
-              <div className="bg-yellow-100 p-2 rounded-lg"><Mail className="h-5 w-5 text-yellow-600" /></div>
-              <div><p className="text-2xl font-bold text-gray-900">{unreadMailCount ?? 0}</p><p className="text-sm text-gray-500">Correo sin leer</p></div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center gap-3">
-              <div className="bg-green-100 p-2 rounded-lg"><Building2 className="h-5 w-5 text-green-600" /></div>
+            <div className="flex items-center gap-4">
+              <div className="bg-[#4DB39A]/10 p-3 rounded-xl"><Building2 className="h-5 w-5 text-[#2CB98A]" /></div>
               <div><StatusBadge status={company.status} /><p className="text-sm text-gray-500 mt-1">Estado actual</p></div>
             </div>
           </CardContent>
@@ -305,12 +316,18 @@ export default async function DashboardPage() {
       )}
 
       <Card>
-        <CardHeader><CardTitle className="text-base">Necesitas ayuda?</CardTitle></CardHeader>
+        <CardHeader><CardTitle className="text-base">¿Necesitas ayuda?</CardTitle></CardHeader>
         <CardContent>
-          <p className="text-sm text-gray-500 mb-3">Nuestro equipo está disponible para resolver cualquier pregunta sobre tu caso.</p>
+          <p className="text-sm text-gray-500 mb-4">Nuestro equipo está disponible para resolver cualquier pregunta sobre tu caso.</p>
           <div className="flex flex-wrap gap-3">
-            <a href="https://wa.me/19046248859" target="_blank" className="bg-[#0A2540] text-white px-5 py-2 rounded-lg font-medium text-sm">WhatsApp</a>
-            <a href="mailto:soporte@creatuempresausa.com" className="bg-gray-100 text-gray-700 px-5 py-2 rounded-lg font-medium text-sm">Email</a>
+            <a href="https://wa.me/19046248859" target="_blank" rel="noopener noreferrer"
+              className="bg-[#2CB98A] hover:bg-[#24a87c] text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition-colors flex items-center gap-2">
+              <MessageSquare className="h-4 w-4" />WhatsApp
+            </a>
+            <a href="mailto:soporte@creatuempresausa.com"
+              className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-5 py-2.5 rounded-xl font-medium text-sm transition-colors flex items-center gap-2">
+              <Mail className="h-4 w-4" />Email
+            </a>
           </div>
         </CardContent>
       </Card>

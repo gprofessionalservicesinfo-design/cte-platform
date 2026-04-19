@@ -50,7 +50,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       <AdminSidebar userEmail={devEmail} />
       <div className="lg:pl-64">
         {isLocalDev && <div className="pt-8" />}
-        <main className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">{children}</main>
+        <main className="pt-16 lg:pt-8 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">{children}</main>
       </div>
     </div>
   )

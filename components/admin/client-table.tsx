@@ -199,7 +199,7 @@ export function ClientTable({ clients }: ClientTableProps) {
       </div>
 
       {/* Table */}
-      <div className="rounded-md border bg-white overflow-hidden">
+      <div className="rounded-md border bg-white overflow-x-auto">
         <Table>
           <TableHeader>
             <TableRow>
