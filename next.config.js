@@ -9,12 +9,19 @@ const nextConfig = {
   serverExternalPackages: [],
   async redirects() {
     return [
+      // www → non-www canonical
       {
         source: '/:path*',
         has: [{ type: 'host', value: 'www.creatuempresausa.com' }],
         destination: 'https://creatuempresausa.com/:path*',
         permanent: true,
       },
+      // Legacy blog URL redirects — recover SEO juice
+      { source: '/blog/abrir-cuenta-bancaria-usa',           destination: '/blog/abrir-cuenta-bancaria-usa-sin-ssn',              permanent: true },
+      { source: '/blog/como-elegir-estado-para-tu-llc',      destination: '/blog/mejor-estado-para-abrir-llc-extranjero',         permanent: true },
+      { source: '/blog/ein-para-extranjeros',                destination: '/blog/sacar-ein-sin-ssn',                              permanent: true },
+      { source: '/blog/impuestos-llc-extranjeros',           destination: '/blog/impuestos-llc-no-residentes',                    permanent: true },
+      { source: '/blog/llc-en-usa-guia-completa',            destination: '/blog/abrir-llc-en-usa-desde-mexico',                  permanent: true },
     ]
   },
   async rewrites() {
