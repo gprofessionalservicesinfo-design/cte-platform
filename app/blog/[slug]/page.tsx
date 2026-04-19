@@ -24,14 +24,17 @@ export async function generateMetadata({
   if (!post) return {}
 
   const url = `https://creatuempresausa.com/blog/${post.slug}`
+  const seoTitle = post.metaTitle ?? post.title
+  const seoDesc  = post.metaDescription ?? post.description
 
   return {
-    title: post.title,
-    description: post.description,
+    title: seoTitle,
+    description: seoDesc,
+    keywords: post.focusKeyword,
     alternates: { canonical: url },
     openGraph: {
-      title: post.title,
-      description: post.description,
+      title: seoTitle,
+      description: seoDesc,
       url,
       siteName: 'CreaTuEmpresaUSA',
       locale: 'es_MX',
@@ -42,8 +45,8 @@ export async function generateMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      title: post.title,
-      description: post.description,
+      title: seoTitle,
+      description: seoDesc,
       images: [post.photo],
     },
   }

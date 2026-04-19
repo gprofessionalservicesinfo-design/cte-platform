@@ -7,6 +7,16 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   serverExternalPackages: [],
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.creatuempresausa.com' }],
+        destination: 'https://creatuempresausa.com/:path*',
+        permanent: true,
+      },
+    ]
+  },
   async rewrites() {
     return [
       { source: '/', destination: '/landing_production.html' },
