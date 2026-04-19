@@ -4,26 +4,27 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* CTE Brand: Primary #4DB39A · CTA #2CB98A · BG #FAFAF7 · Text #2A3544 */
+    --background: 60 33% 98%;
+    --foreground: 215 24% 22%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 215 24% 22%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --popover-foreground: 215 24% 22%;
+    --primary: 163 38% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 163 20% 94%;
+    --secondary-foreground: 215 24% 22%;
+    --muted: 163 15% 95%;
+    --muted-foreground: 215 16% 46%;
+    --accent: 159 61% 45%;
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.5rem;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214.3 20% 89%;
+    --input: 214.3 20% 89%;
+    --ring: 163 38% 50%;
+    --radius: 0.625rem;
   }
 
   .dark {
@@ -55,5 +56,9 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-syne), var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   }
 }

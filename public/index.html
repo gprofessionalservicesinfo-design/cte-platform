@@ -7,7 +7,7 @@
   <meta name="description" content="Abre tu LLC o Corporation en Estados Unidos desde cualquier país de Latinoamérica. 100% remoto, sin visa, sin SSN. Proceso guiado en español." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     /* ===== CSS RESET & VARIABLES ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -15,8 +15,10 @@
       --navy: #0A2540;
       --navy-light: #0d2e4d;
       --navy-dark: #071a2e;
-      --red: #2CB98A;
-      --red-hover: #24a87c;
+      --cta: #2CB98A;
+      --cta-hover: #24a87c;
+      --red: #ef4444;
+      --red-hover: #dc2626;
       --wa: #25D366;
       --wa-hover: #1ebe5d;
       --gray-50: #f8fafc;
@@ -28,8 +30,8 @@
       --gray-600: #475569;
       --gray-700: #334155;
       --white: #ffffff;
-      --font-head: 'Manrope', sans-serif;
-      --font-body: 'Inter', sans-serif;
+      --font-head: 'Syne', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
       --nav-h: 60px;
       --strip-h: 34px;
       --radius: 12px;
@@ -62,7 +64,7 @@
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--red);
+      color: var(--cta);
       margin-bottom: 10px;
     }
     .eyebrow--white { color: rgba(255,255,255,0.55); }
@@ -107,14 +109,14 @@
     }
     .btn--navy:hover { background: var(--navy-light); border-color: var(--navy-light); transform: translateY(-1px); box-shadow: var(--shadow-md); }
     .btn--red {
-      background: var(--red);
+      background: var(--cta);
       color: var(--white);
       border-color: rgba(255,255,255,0.6);
       font-size: 1rem;
       padding: 14px 32px;
       border-radius: 10px;
     }
-    .btn--red:hover { background: var(--red-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(220,38,38,0.35); }
+    .btn--red:hover { background: var(--cta-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(220,38,38,0.35); }
     .btn--wa {
       background: var(--wa);
       color: var(--white);
@@ -165,7 +167,7 @@
       width: 5px;
       height: 5px;
       border-radius: 50%;
-      background: var(--red);
+      background: var(--cta);
       flex-shrink: 0;
     }
 
@@ -201,7 +203,7 @@
       align-items: center;
       gap: 2px;
     }
-    .nav-logo span { color: var(--red); }
+    .nav-logo span { color: var(--cta); }
     .nav-links {
       display: flex;
       align-items: center;
@@ -329,7 +331,7 @@
       line-height: 1.15;
       color: var(--white);
     }
-    .hero-h1 .red { color: var(--red); }
+    .hero-h1 .red { color: var(--cta); }
     .hero-sub {
       font-size: 0.9rem;
       color: rgba(255,255,255,0.72);
@@ -738,7 +740,7 @@
       margin-bottom: 8px;
       line-height: 1.2;
     }
-    .extranjeros-text h2 .red { color: var(--red); }
+    .extranjeros-text h2 .red { color: var(--cta); }
     .extranjeros-sub {
       font-size: 0.92rem;
       color: rgba(255,255,255,0.65);
@@ -1993,7 +1995,7 @@
     <div class="footer-top">
       <div class="footer-brand">
         <a href="/index_final.html" class="nav-logo" style="color:white; font-family:var(--font-head); font-weight:800; font-size:1.1rem; display:flex; align-items:center; gap:2px; margin-bottom:12px;">
-          CreaTuEmpresa<span style="color:var(--red);">USA</span>
+          CreaTuEmpresa<span style="color:var(--cta);">USA</span>
         </a>
         <p class="footer-tagline">Ayudamos a emprendedores latinoamericanos a establecer su presencia en el mercado estadounidense de forma rápida, segura y 100% remota.</p>
       </div>
