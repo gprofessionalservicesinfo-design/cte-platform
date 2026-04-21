@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { Users, FileText, Activity, CreditCard, Shield, LogOut, Menu, X, ShoppingBag, Mail, Wrench, LayoutDashboard, RefreshCw, MessageCircle, CalendarCheck, BarChart3 } from 'lucide-react'
+import { Users, FileText, Activity, CreditCard, Shield, LogOut, Menu, X, ShoppingBag, Mail, Wrench, LayoutDashboard, RefreshCw, MessageCircle, CalendarCheck, BarChart3, GitBranch } from 'lucide-react'
 import { Logo } from '@/components/logo'
 import { cn } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
@@ -13,6 +13,7 @@ const NAV_ITEMS = [
   { href: '/admin/dashboard',  label: 'CEO Dashboard', icon: BarChart3 },
   { href: '/admin',            label: 'Overview',      icon: LayoutDashboard },
   { href: '/admin/clients',    label: 'Clients',       icon: Users },
+  { href: '/admin/pipeline',   label: 'Pipeline',      icon: GitBranch },
   { href: '/admin/orders',     label: 'Orders',      icon: ShoppingBag },
   { href: '/admin/renewals',   label: 'Renewals',    icon: RefreshCw },
   { href: '/admin/documents',  label: 'Documents',   icon: FileText },

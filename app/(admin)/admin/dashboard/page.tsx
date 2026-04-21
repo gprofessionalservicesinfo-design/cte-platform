@@ -140,12 +140,12 @@ export default async function CEODashboardPage() {
   const now = new Date()
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString()
 
-  // Two parallel queries cover everything
-  const [{ data: allCompanies }, { data: documents }] = await Promise.all([
+  // Three parallel queries cover everything
+  const [{ data: allCompanies }, { data: documents }, { data: paymentsData }] = await Promise.all([
     supabase
       .from('companies')
       .select(`
-        id, company_name, state, status, package, total_paid, created_at,
+        id, company_name, state, status, package, created_at,
         onboarding_completed, whatsapp_status, whatsapp_sent_at,
         clients ( id, users ( full_name, email ) )
       `)
@@ -153,17 +153,29 @@ export default async function CEODashboardPage() {
     supabase
       .from('documents')
       .select('id, company_id, type, approval_status, created_at'),
+    supabase
+      .from('payments')
+      .select('id, company_id, amount_paid, created_at'),
   ])
 
-  const all  = (allCompanies ?? []) as any[]
-  const docs = (documents    ?? []) as any[]
+  const all      = (allCompanies ?? []) as any[]
+  const docs     = (documents    ?? []) as any[]
+  const payments = (paymentsData ?? []) as any[]
 
   // ── Monthly slice ────────────────────────────────────────────────────────────
   const thisMonth = all.filter(c => c.created_at >= startOfMonth)
 
+  // Shared lookup: company by id
+  const companyById: Record<string, any> = {}
+  for (const c of all) companyById[c.id] = c
+
   // ── Section 1: CEO KPIs ──────────────────────────────────────────────────────
-  const revenueRaw      = thisMonth.reduce((s: number, c: any) => s + (c.total_paid ?? 0), 0)
-  const revenueDisplay  = `$${(revenueRaw / 100).toLocaleString('en-US', { maximumFractionDigits: 0 })}`
+  const revenueTotalCents = payments.reduce((s: number, p: any) => s + (p.amount_paid ?? 0), 0)
+  const revenueMonthCents = payments
+    .filter((p: any) => p.created_at >= startOfMonth)
+    .reduce((s: number, p: any) => s + (p.amount_paid ?? 0), 0)
+  const revenueDisplay      = `$${(revenueTotalCents / 100).toLocaleString('en-US', { maximumFractionDigits: 0 })}`
+  const revenueMonthDisplay = `$${(revenueMonthCents / 100).toLocaleString('en-US', { maximumFractionDigits: 0 })} este mes`
   const newClients      = thisMonth.length
   const activeCases     = all.filter(c => c.status !== 'completed').length
   const blockedCases    = all.filter(c => c.status === 'on_hold').length
@@ -173,11 +185,12 @@ export default async function CEODashboardPage() {
     d.approval_status === 'approved' && d.created_at >= startOfMonth
   ).length
 
-  // Revenue by plan this month
+  // Revenue by plan this month (from payments table, joined to company for plan)
   const revByPlan: Record<string, number> = {}
-  for (const c of thisMonth) {
-    const plan = PLAN_NORMALIZED[c.package ?? ''] ?? 'Otro'
-    revByPlan[plan] = (revByPlan[plan] ?? 0) + (c.total_paid ?? 0)
+  for (const p of payments.filter((p: any) => p.created_at >= startOfMonth)) {
+    const company = companyById[p.company_id]
+    const plan = PLAN_NORMALIZED[company?.package ?? ''] ?? 'Otro'
+    revByPlan[plan] = (revByPlan[plan] ?? 0) + (p.amount_paid ?? 0)
   }
 
   // ── Section 2: Sales Funnel ──────────────────────────────────────────────────
@@ -209,9 +222,6 @@ export default async function CEODashboardPage() {
   const stateEntries = Object.entries(stateMap).sort((a, b) => b[1] - a[1])
 
   // ── Section 3: Operations Queue ───────────────────────────────────────────────
-  const companyById: Record<string, any> = {}
-  for (const c of all) companyById[c.id] = c
-
   type QueueItem = {
     id: string; name: string; email: string
     issue: string; daysAgo: number; status: string
@@ -283,9 +293,9 @@ export default async function CEODashboardPage() {
         <SectionTitle>Snapshot del mes</SectionTitle>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           <KpiCard
-            label="Revenue este mes"
+            label="Revenue total"
             value={revenueDisplay}
-            sub="USD cobrado"
+            sub={revenueMonthDisplay}
             icon={DollarSign}
           />
           <KpiCard
