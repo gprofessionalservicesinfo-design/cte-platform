@@ -3,15 +3,17 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { Users, FileText, Activity, CreditCard, Shield, LogOut, Menu, X, ShoppingBag, Mail, Wrench, LayoutDashboard, RefreshCw, MessageCircle, CalendarCheck } from 'lucide-react'
+import { Users, FileText, Activity, CreditCard, Shield, LogOut, Menu, X, ShoppingBag, Mail, Wrench, LayoutDashboard, RefreshCw, MessageCircle, CalendarCheck, BarChart3, GitBranch } from 'lucide-react'
 import { Logo } from '@/components/logo'
 import { cn } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 
 const NAV_ITEMS = [
-  { href: '/admin',            label: 'Dashboard',   icon: LayoutDashboard },
-  { href: '/admin/clients',    label: 'Clients',     icon: Users },
+  { href: '/admin/dashboard',  label: 'CEO Dashboard', icon: BarChart3 },
+  { href: '/admin',            label: 'Overview',      icon: LayoutDashboard },
+  { href: '/admin/clients',    label: 'Clients',       icon: Users },
+  { href: '/admin/pipeline',   label: 'Pipeline',      icon: GitBranch },
   { href: '/admin/orders',     label: 'Orders',      icon: ShoppingBag },
   { href: '/admin/renewals',   label: 'Renewals',    icon: RefreshCw },
   { href: '/admin/documents',  label: 'Documents',   icon: FileText },
@@ -65,7 +67,7 @@ export function AdminSidebar({ userEmail }: AdminSidebarProps) {
               className={cn(
                 'flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition-colors',
                 active
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-[#2CB98A] text-white shadow-sm'
                   : 'text-slate-300 hover:bg-slate-800 hover:text-white'
               )}
             >

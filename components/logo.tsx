@@ -6,7 +6,7 @@ interface LogoProps {
 
 export function Logo({ height = 36, invert = false }: LogoProps) {
   const navy = invert ? '#ffffff' : '#0A2540'
-  const red  = invert ? '#ffaaaa' : '#DC2626'
+  const red  = invert ? '#7DDBCA' : '#2CB98A'
   const scale = height / 28
 
   return (

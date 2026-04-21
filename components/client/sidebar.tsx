@@ -55,7 +55,7 @@ export function ClientSidebar({ companyName, userEmail }: SidebarProps) {
   const SidebarContent = () => (
     <div className="flex h-full flex-col">
       {/* Logo */}
-      <div className="flex items-center px-6 py-5 border-b">
+      <div className="flex items-center px-6 py-5 border-b border-gray-100">
         <Logo height={28} />
       </div>
 
@@ -79,8 +79,8 @@ export function ClientSidebar({ companyName, userEmail }: SidebarProps) {
               className={cn(
                 'flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition-colors',
                 active
-                  ? 'bg-primary text-white'
-                  : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                  ? 'bg-[#2CB98A] text-white shadow-sm'
+                  : 'text-gray-600 hover:bg-[#4DB39A]/10 hover:text-[#2CB98A]'
               )}
             >
               <item.icon className="h-4 w-4 flex-shrink-0" />
