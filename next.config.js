@@ -16,6 +16,8 @@ const nextConfig = {
         destination: 'https://creatuempresausa.com/:path*',
         permanent: true,
       },
+      // Legal page consolidation — preserve SEO juice from old URL
+      { source: '/aviso-legal', destination: '/legal/disclaimer', permanent: true },
       // Legacy blog URL redirects — recover SEO juice
       { source: '/blog/abrir-cuenta-bancaria-usa',           destination: '/blog/abrir-cuenta-bancaria-usa-sin-ssn',              permanent: true },
       { source: '/blog/como-elegir-estado-para-tu-llc',      destination: '/blog/mejor-estado-para-abrir-llc-extranjero',         permanent: true },

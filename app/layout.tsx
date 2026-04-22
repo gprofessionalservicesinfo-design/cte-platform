@@ -4,6 +4,8 @@ import './globals.css'
 import { Toaster } from 'sonner'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import Script from 'next/script'
+import DisclaimerFooter from '@/components/legal/DisclaimerFooter'
+import LegalConsentBanner from '@/components/legal/LegalConsentBanner'
 
 const syne = Syne({
   subsets: ['latin'],
@@ -32,6 +34,8 @@ export default function RootLayout({
       <body className={`${syne.variable} ${plusJakarta.variable}`}>
         {children}
         <Toaster richColors position="top-right" />
+        <DisclaimerFooter />
+        <LegalConsentBanner />
         <GoogleAnalytics gaId="G-5Y7CX5NXJQ" />
         {/* Meta Pixel — global, loads on all Next.js pages */}
         <Script id="meta-pixel-global" strategy="afterInteractive">{`
