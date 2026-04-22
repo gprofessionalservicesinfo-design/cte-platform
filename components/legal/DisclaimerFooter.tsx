@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 
 const FULL_DISCLAIMER =
   'CreaTuEmpresaUSA LLC no es una firma de abogados ni sustituye los servicios de un abogado ' +
@@ -37,6 +38,10 @@ export default function DisclaimerFooter() {
             </strong>
           </p>
         )}
+        {' · '}
+        <Link href="/legal/disclaimer" className="underline text-gray-400 hover:text-gray-600 transition-colors">
+          Aviso Legal completo
+        </Link>
       </footer>
     )
   }
@@ -48,6 +53,10 @@ export default function DisclaimerFooter() {
       <strong className="font-semibold">
         El uso de este sitio web no crea una relación abogado-cliente.
       </strong>
+      {' · '}
+      <Link href="/legal/disclaimer" className="underline text-gray-500 hover:text-gray-700 transition-colors">
+        Ver aviso completo
+      </Link>
     </footer>
   )
 }
