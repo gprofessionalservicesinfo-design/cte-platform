@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Aviso Legal y Descargo de Responsabilidad | CreaTuEmpresaUSA',
   description:
-    'Aviso legal completo de CreaTuEmpresaUSA LLC. Naturaleza de servicios administrativos, ' +
+    'Aviso legal completo de Gutierrez Professional Services LLC d/b/a CreaTuEmpresaUSA. Naturaleza de servicios administrativos, ' +
     'ausencia de asesoría legal o fiscal, limitación de responsabilidad y ausencia de relación ' +
     'abogado-cliente.',
 }
@@ -21,16 +21,35 @@ export default function DisclaimerPage() {
           Aviso Legal y Descargo de Responsabilidad
         </h1>
         <p className="text-sm text-gray-500">
-          <strong>CreaTuEmpresaUSA LLC</strong> — Última actualización: 22 de abril de 2026
+          <strong>Gutierrez Professional Services LLC d/b/a CreaTuEmpresaUSA</strong> — Última actualización: 22 de abril de 2026
         </p>
       </div>
+
+      {/* 0 */}
+      <section className="mb-10 pt-8 border-t border-gray-200">
+        <h2 className="text-2xl font-semibold mb-4">0. Identificación de la empresa</h2>
+        <div className="space-y-3 leading-relaxed text-gray-700">
+          <p>Este sitio web y los servicios que en él se ofrecen son operados por:</p>
+          <ul className="list-none pl-0 space-y-2">
+            <li><strong>Razón social:</strong> Gutierrez Professional Services LLC</li>
+            <li><strong>Nombre comercial (DBA):</strong> CreaTuEmpresaUSA</li>
+            <li><strong>Estado de constitución:</strong> Florida, Estados Unidos</li>
+            <li><strong>Registro en estado extranjero:</strong> Colorado (Condado de El Paso)</li>
+            <li><strong>Dirección principal:</strong> Colorado Springs, Colorado, EE. UU.</li>
+          </ul>
+          <p>
+            Las referencias a &ldquo;CreaTuEmpresaUSA&rdquo; en este sitio corresponden a{' '}
+            <strong>Gutierrez Professional Services LLC d/b/a CreaTuEmpresaUSA</strong>.
+          </p>
+        </div>
+      </section>
 
       {/* 1 */}
       <section className="mb-10 pt-8 border-t border-gray-200">
         <h2 className="text-2xl font-semibold mb-4">1. Naturaleza de nuestros servicios</h2>
         <div className="space-y-3 leading-relaxed text-gray-700">
           <p>
-            <strong>CreaTuEmpresaUSA LLC</strong> es un proveedor de servicios de formación de
+            <strong>Gutierrez Professional Services LLC d/b/a CreaTuEmpresaUSA</strong> es un proveedor de servicios de formación de
             entidades (<em>business formation</em>) y tramitación administrativa en los Estados
             Unidos.
           </p>
@@ -62,7 +81,7 @@ export default function DisclaimerPage() {
         <div className="space-y-3 leading-relaxed text-gray-700">
           <p>
             El contenido publicado en este sitio web, blog, videos, redes sociales y cualquier
-            comunicación de CreaTuEmpresaUSA LLC tiene carácter{' '}
+            comunicación de CreaTuEmpresaUSA tiene carácter{' '}
             <strong>informativo general únicamente</strong>.
           </p>
           <ul className="list-disc pl-6 space-y-2">
@@ -90,16 +109,16 @@ export default function DisclaimerPage() {
           <p>
             <strong>
               El uso de este sitio web, la compra de cualquiera de nuestros servicios, o cualquier
-              comunicación con CreaTuEmpresaUSA LLC no crea una relación abogado-cliente.
+              comunicación con Gutierrez Professional Services LLC d/b/a CreaTuEmpresaUSA no crea una relación abogado-cliente.
             </strong>
           </p>
           <ul className="list-disc pl-6 space-y-2">
             <li>
-              Ninguna comunicación con CreaTuEmpresaUSA LLC está cubierta por el privilegio
+              Ninguna comunicación con CreaTuEmpresaUSA está cubierta por el privilegio
               abogado-cliente (<em>attorney-client privilege</em>).
             </li>
             <li>
-              No existe obligación fiduciaria legal entre CreaTuEmpresaUSA LLC y sus clientes más
+              No existe obligación fiduciaria legal entre Gutierrez Professional Services LLC d/b/a CreaTuEmpresaUSA y sus clientes más
               allá de la prestación del servicio administrativo contratado.
             </li>
             <li>
@@ -116,7 +135,7 @@ export default function DisclaimerPage() {
         <h2 className="text-2xl font-semibold mb-4">4. Jurisdicción y limitaciones</h2>
         <div className="space-y-3 leading-relaxed text-gray-700">
           <p>
-            Los servicios de CreaTuEmpresaUSA LLC están disponibles sujetos a las leyes aplicables
+            Los servicios de CreaTuEmpresaUSA están disponibles sujetos a las leyes aplicables
             de los Estados Unidos de América.
           </p>
           <ul className="list-disc pl-6 space-y-2">
@@ -171,7 +190,7 @@ export default function DisclaimerPage() {
           <p>En la máxima medida permitida por la ley aplicable:</p>
           <ul className="list-disc pl-6 space-y-2">
             <li>
-              La responsabilidad de CreaTuEmpresaUSA LLC se limita al monto efectivamente pagado
+              La responsabilidad de Gutierrez Professional Services LLC d/b/a CreaTuEmpresaUSA se limita al monto efectivamente pagado
               por el servicio específico contratado.
             </li>
             <li>
@@ -196,7 +215,6 @@ export default function DisclaimerPage() {
         <h2 className="text-2xl font-semibold mb-4">7. Contacto para consultas legales</h2>
         <div className="space-y-3 leading-relaxed text-gray-700">
           <p>Para consultas relacionadas con este aviso legal o descargo de responsabilidad:</p>
-          {/* TODO: Create legal@creatuempresausa.com inbox and update this email when ready */}
           <ul className="list-disc pl-6 space-y-2">
             <li>
               <strong>Correo de contacto:</strong>{' '}
@@ -208,12 +226,16 @@ export default function DisclaimerPage() {
               </a>
             </li>
             <li>
-              <strong>Empresa:</strong> CreaTuEmpresaUSA LLC
+              <strong>Razón social:</strong> Gutierrez Professional Services LLC
             </li>
-            {/* TODO: verify state of incorporation before publishing — check Stripe/formation docs */}
             <li>
-              <strong>Estado de constitución:</strong> [ESTADO DE INCORPORACIÓN - VERIFICAR],
-              Estados Unidos
+              <strong>Nombre comercial:</strong> CreaTuEmpresaUSA
+            </li>
+            <li>
+              <strong>Estado de constitución:</strong> Florida, Estados Unidos
+            </li>
+            <li>
+              <strong>Registro en estado extranjero:</strong> Colorado (Condado de El Paso)
             </li>
           </ul>
           <p className="text-sm text-gray-500 pt-2">
@@ -228,7 +250,7 @@ export default function DisclaimerPage() {
           Última actualización: <strong className="text-gray-700">22 de abril de 2026</strong>
         </p>
         <p>
-          CreaTuEmpresaUSA LLC se reserva el derecho de actualizar este aviso en cualquier momento.
+          Gutierrez Professional Services LLC d/b/a CreaTuEmpresaUSA se reserva el derecho de actualizar este aviso en cualquier momento.
           El uso continuado del sitio tras la publicación de cambios implica aceptación de los
           mismos.
         </p>

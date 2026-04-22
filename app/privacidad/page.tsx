@@ -10,6 +10,7 @@ const EFFECTIVE_DATE    = '22 de abril de 2026'
 const EFFECTIVE_DATE_EN = 'April 22, 2026'
 const CONTACT_EMAIL     = 'soporte@creatuempresausa.com'
 const COMPANY           = 'CreaTuEmpresaUSA'
+const LEGAL_ENTITY      = 'Gutierrez Professional Services LLC d/b/a CreaTuEmpresaUSA'
 
 export default function PrivacidadPage() {
   return (
@@ -129,7 +130,7 @@ export default function PrivacidadPage() {
                   0. Aviso Importante sobre Comunicaciones y Privilegio Legal
                 </h3>
                 <p className="mb-3">
-                  Las comunicaciones del Usuario con {COMPANY} LLC a través de cualquier canal
+                  Las comunicaciones del Usuario con {LEGAL_ENTITY} a través de cualquier canal
                   (correo electrónico, WhatsApp, portal cliente, formularios web, llamadas
                   telefónicas, chats automatizados) <strong>NO están cubiertas por el privilegio
                   abogado-cliente (attorney-client privilege)</strong>.
@@ -155,7 +156,7 @@ export default function PrivacidadPage() {
                 </ul>
                 <p className="mt-3">
                   Si el Usuario desea comunicaciones protegidas por privilegio legal, debe
-                  establecer relación directa con un abogado licenciado. {COMPANY} LLC no puede
+                  establecer relación directa con un abogado licenciado. {LEGAL_ENTITY} no puede
                   ofrecer esta protección.
                 </p>
               </div>
@@ -164,16 +165,18 @@ export default function PrivacidadPage() {
               <div id="es-1">
                 <h3 className="font-semibold text-gray-900 mb-2">1. Quiénes somos</h3>
                 <p className="mb-3">
-                  {COMPANY} es una empresa de servicios administrativos para la formación de
-                  empresas en Estados Unidos. No somos un despacho de abogados ni proveemos
-                  asesoría legal. Nuestra dirección de contacto es{' '}
+                  Este sitio web es operado por <strong>{LEGAL_ENTITY}</strong>. {COMPANY} es
+                  una empresa de servicios administrativos especializada en la formación de
+                  entidades comerciales en Estados Unidos, constituida en el Estado de Florida
+                  y registrada como entidad extranjera en el Estado de Colorado (Condado de
+                  El Paso). Nuestra dirección de contacto es{' '}
                   <a href={`mailto:${CONTACT_EMAIL}`} className="text-teal-600 hover:underline">
                     {CONTACT_EMAIL}
                   </a>.
                 </p>
                 <p>
-                  <strong>{COMPANY} LLC no es firma de abogados, no brinda asesoría legal, y no
-                  establece relación abogado-cliente con sus clientes.</strong> Para más
+                  <strong>{LEGAL_ENTITY} no es firma de abogados, no brinda asesoría legal, y
+                  no establece relación abogado-cliente con sus clientes.</strong> Para más
                   información consulte nuestro{' '}
                   <Link href="/legal/disclaimer" className="text-teal-600 underline hover:text-teal-800">
                     Aviso Legal completo
@@ -315,7 +318,7 @@ export default function PrivacidadPage() {
                   0. Important Notice on Communications and Legal Privilege
                 </h3>
                 <p className="mb-3">
-                  Communications between the User and {COMPANY} LLC through any channel (email,
+                  Communications between the User and {LEGAL_ENTITY} through any channel (email,
                   WhatsApp, client portal, web forms, phone calls, automated chats) are{' '}
                   <strong>NOT covered by attorney-client privilege</strong>.
                 </p>
@@ -340,7 +343,7 @@ export default function PrivacidadPage() {
                 </ul>
                 <p className="mt-3">
                   If the User wishes to have communications protected by legal privilege, they
-                  must establish a direct relationship with a licensed attorney. {COMPANY} LLC
+                  must establish a direct relationship with a licensed attorney. {LEGAL_ENTITY}
                   cannot provide this protection.
                 </p>
               </div>
@@ -349,12 +352,14 @@ export default function PrivacidadPage() {
               <div id="en-1">
                 <h3 className="font-semibold text-gray-900 mb-2">1. Who We Are</h3>
                 <p className="mb-3">
-                  {COMPANY} is a business formation and administrative services company. We are
-                  not a law firm and do not provide legal advice. Contact us at{' '}
+                  This website is operated by <strong>{LEGAL_ENTITY}</strong>. {COMPANY} is a
+                  business formation and administrative services company, incorporated in the State
+                  of Florida and registered as a foreign entity in the State of Colorado (El Paso
+                  County). Contact us at{' '}
                   <a href={`mailto:${CONTACT_EMAIL}`} className="text-teal-600 hover:underline">{CONTACT_EMAIL}</a>.
                 </p>
                 <p>
-                  <strong>{COMPANY} LLC is not a law firm, does not provide legal advice, and
+                  <strong>{LEGAL_ENTITY} is not a law firm, does not provide legal advice, and
                   does not establish an attorney-client relationship with its clients.</strong>{' '}
                   For more information, please review our{' '}
                   <Link href="/legal/disclaimer" className="text-teal-600 underline hover:text-teal-800">

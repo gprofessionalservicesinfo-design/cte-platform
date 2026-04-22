@@ -3,7 +3,7 @@ import Link from 'next/link'
 export const metadata = {
   title: 'Términos de Servicio | CreaTuEmpresaUSA',
   description:
-    'Términos y condiciones del servicio de formación empresarial de CreaTuEmpresaUSA LLC. ' +
+    'Términos y condiciones del servicio de formación empresarial de Gutierrez Professional Services LLC d/b/a CreaTuEmpresaUSA. ' +
     'Incluye cláusulas de ausencia de relación abogado-cliente y no práctica del derecho.',
 }
 
@@ -25,7 +25,7 @@ export default function TerminosPage() {
           <span className="text-xl leading-none mt-0.5" aria-hidden="true">⚠️</span>
           <div>
             <p className="font-semibold text-amber-900 text-sm leading-snug">
-              AVISO IMPORTANTE: CreaTuEmpresaUSA LLC NO es una firma de abogados. Nuestros
+              AVISO IMPORTANTE: Gutierrez Professional Services LLC d/b/a CreaTuEmpresaUSA NO es una firma de abogados. Nuestros
               servicios son administrativos, no legales. Lea el aviso completo.
             </p>
             <Link
@@ -102,18 +102,18 @@ export default function TerminosPage() {
         <h2 className="text-xl font-medium mb-4">2. Ausencia de Relación Abogado-Cliente</h2>
         <div className="space-y-4 leading-relaxed">
           <p>
-            <strong>2.1</strong> Al contratar los servicios de CreaTuEmpresaUSA LLC, el Cliente
+            <strong>2.1</strong> Al contratar los servicios de Gutierrez Professional Services LLC d/b/a CreaTuEmpresaUSA, el Cliente
             reconoce expresamente que NO se establece ninguna relación abogado-cliente
             (attorney-client relationship) entre las partes.
           </p>
           <p>
-            <strong>2.2</strong> CreaTuEmpresaUSA LLC no es firma legal, bufete de abogados, ni
+            <strong>2.2</strong> Gutierrez Professional Services LLC d/b/a CreaTuEmpresaUSA no es firma legal, bufete de abogados, ni
             proveedor de servicios jurídicos. Nuestra actividad se limita a la formación
             administrativa de entidades comerciales y tramitación ante agencias estatales y
             federales.
           </p>
           <p>
-            <strong>2.3</strong> Ninguna comunicación entre el Cliente y CreaTuEmpresaUSA LLC,
+            <strong>2.3</strong> Ninguna comunicación entre el Cliente y Gutierrez Professional Services LLC d/b/a CreaTuEmpresaUSA,
             sus representantes, agentes o empleados está cubierta por el privilegio
             abogado-cliente (attorney-client privilege) bajo las leyes de los Estados Unidos ni de
             ninguna otra jurisdicción.
@@ -121,7 +121,7 @@ export default function TerminosPage() {
           <p>
             <strong>2.4</strong> El Cliente reconoce que para obtener asesoría legal privilegiada
             debe contratar directamente con un abogado licenciado en la jurisdicción
-            correspondiente. CreaTuEmpresaUSA LLC puede, a solicitud del Cliente y sin
+            correspondiente. CreaTuEmpresaUSA puede, a solicitud del Cliente y sin
             responsabilidad, proporcionar referencias a profesionales licenciados, pero no
             garantiza los servicios ni resultados de terceros.
           </p>
@@ -140,7 +140,7 @@ export default function TerminosPage() {
         </h2>
         <div className="space-y-4 leading-relaxed">
           <p>
-            <strong>3.1</strong> CreaTuEmpresaUSA LLC declara expresamente que sus servicios NO
+            <strong>3.1</strong> Gutierrez Professional Services LLC d/b/a CreaTuEmpresaUSA declara expresamente que sus servicios NO
             constituyen práctica del derecho en ninguna jurisdicción.
           </p>
           <p>
@@ -152,7 +152,7 @@ export default function TerminosPage() {
             operamos.
           </p>
           <p>
-            <strong>3.3</strong> CreaTuEmpresaUSA LLC no interpreta leyes, no redacta documentos
+            <strong>3.3</strong> CreaTuEmpresaUSA no interpreta leyes, no redacta documentos
             legales personalizados según circunstancias particulares del cliente, no representa
             clientes ante tribunales o agencias en calidad de asesor legal, y no emite opiniones
             legales.
@@ -245,7 +245,8 @@ export default function TerminosPage() {
         <h2 className="text-xl font-medium mb-3">11. Ley aplicable</h2>
         <p className="leading-relaxed">
           Estos términos se rigen por las leyes del Estado de Colorado, Estados Unidos. Cualquier
-          disputa será resuelta en los tribunales competentes de dicha jurisdicción.
+          disputa será resuelta en los tribunales competentes del Condado de El Paso, Colorado,
+          Estados Unidos, salvo que la ley aplicable exija lo contrario.
         </p>
       </section>
 

@@ -5,12 +5,13 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 
 const FULL_DISCLAIMER =
-  'CreaTuEmpresaUSA LLC no es una firma de abogados ni sustituye los servicios de un abogado ' +
-  'licenciado. No brindamos asesoría legal, fiscal o contable. Nuestros servicios son ' +
-  'exclusivamente de formación de entidades (business formation) y tramitación administrativa. ' +
-  'La información publicada en este sitio tiene fines informativos generales y no constituye ' +
-  'opinión legal. Para asesoría específica sobre su situación particular, consulte con un ' +
-  'abogado, CPA o asesor fiscal licenciado en la jurisdicción correspondiente.'
+  'Gutierrez Professional Services LLC d/b/a CreaTuEmpresaUSA no es una firma de abogados ni ' +
+  'sustituye los servicios de un abogado licenciado. No brindamos asesoría legal, fiscal o ' +
+  'contable. Nuestros servicios son exclusivamente de formación de entidades (business formation) ' +
+  'y tramitación administrativa. La información publicada en este sitio tiene fines informativos ' +
+  'generales y no constituye opinión legal. Para asesoría específica sobre su situación ' +
+  'particular, consulte con un abogado, CPA o asesor fiscal licenciado en la jurisdicción ' +
+  'correspondiente.'
 
 export default function DisclaimerFooter() {
   const pathname = usePathname()
