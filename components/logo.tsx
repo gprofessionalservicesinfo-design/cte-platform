@@ -17,6 +17,7 @@ export function Logo({ height = 36, invert = false }: LogoProps) {
       height={height}
       aria-label="CreaTuEmpresaUSA"
       role="img"
+      overflow="visible"
       style={{ display: 'block', flexShrink: 0 }}
     >
       <text
