@@ -78,40 +78,6 @@ const FAQS: { q: string; a: string }[] = [
   },
 ]
 
-// handleWA execution order:
-//   1. Start lead capture fetch (2s AbortController timeout) — non-blocking
-//   2. Fire GA4 event immediately (analytics survive any API failure)
-//   3. Open WhatsApp immediately (user never waits for Supabase)
-function handleWA(cta: string, waText: string) {
-  // 1. Lead capture — 2s hard timeout, logs on failure, never blocks step 2/3
-  const controller = new AbortController()
-  const timer = setTimeout(() => controller.abort(), 2000)
-  fetch('/api/leads/capture', {
-    method:  'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body:    JSON.stringify({ source: 'oferta', clicked_cta: cta, ...utms }),
-    signal:  controller.signal,
-  })
-    .then(() => clearTimeout(timer))
-    .catch(err => {
-      clearTimeout(timer)
-      console.error('[lead_capture_failed]', err, {
-        cta,
-        utm_source:   utms.utm_source,
-        utm_campaign: utms.utm_campaign,
-      })
-    })
-
-  // 2. GA4 event — fires regardless of fetch outcome
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ;(window as any).gtag?.('event', 'lead_whatsapp_click', { event_label: cta })
-  } catch {}
-
-  // 3. WhatsApp redirect — always runs, never blocked
-  window.open(`${WA_BASE}${waText}`, '_blank', 'noopener,noreferrer')
-}
-
 export default function OfertaClient() {
   const params       = useSearchParams()
   const utm_source   = params.get('utm_source')   ?? ''
@@ -121,6 +87,40 @@ export default function OfertaClient() {
   const utms         = { utm_source, utm_medium, utm_campaign, utm_content }
 
   const [openFaq, setOpenFaq] = useState<number | null>(null)
+
+  // handleWA execution order:
+  //   1. Start lead capture fetch (2s AbortController timeout) — non-blocking
+  //   2. Fire GA4 event immediately (analytics survive any API failure)
+  //   3. Open WhatsApp immediately (user never waits for Supabase)
+  function handleWA(cta: string, waText: string) {
+    // 1. Lead capture — 2s hard timeout, logs on failure, never blocks step 2/3
+    const controller = new AbortController()
+    const timer = setTimeout(() => controller.abort(), 2000)
+    fetch('/api/leads/capture', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ source: 'oferta', clicked_cta: cta, ...utms }),
+      signal:  controller.signal,
+    })
+      .then(() => clearTimeout(timer))
+      .catch(err => {
+        clearTimeout(timer)
+        console.error('[lead_capture_failed]', err, {
+          cta,
+          utm_source:   utms.utm_source,
+          utm_campaign: utms.utm_campaign,
+        })
+      })
+
+    // 2. GA4 event — fires regardless of fetch outcome
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ;(window as any).gtag?.('event', 'lead_whatsapp_click', { event_label: cta })
+    } catch {}
+
+    // 3. WhatsApp redirect — always runs, never blocked
+    window.open(`${WA_BASE}${waText}`, '_blank', 'noopener,noreferrer')
+  }
 
   return (
     <div className="min-h-screen bg-white font-sans">
