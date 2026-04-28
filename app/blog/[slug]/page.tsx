@@ -10,8 +10,8 @@ import TableOfContents, { type TOCItem } from '@/components/blog/TableOfContents
 import BlogStickyBar from '@/components/blog/BlogStickyBar'
 
 // ── Static params ─────────────────────────────────────────────────────────────
-export function generateStaticParams() {
-  return getAllSlugs().map((slug) => ({ slug }))
+export async function generateStaticParams() {
+  return (await getAllSlugs()).map((slug) => ({ slug }))
 }
 
 // ── Metadata ──────────────────────────────────────────────────────────────────
@@ -20,7 +20,7 @@ export async function generateMetadata({
 }: {
   params: { slug: string }
 }): Promise<Metadata> {
-  const post = getPost(params.slug)
+  const post = await getPost(params.slug)
   if (!post) return {}
 
   const url = `https://creatuempresausa.com/blog/${post.slug}`
@@ -166,8 +166,8 @@ function RenderSection({ section }: { section: Section }) {
 }
 
 // ── Page ──────────────────────────────────────────────────────────────────────
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = getPost(params.slug)
+export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+  const post = await getPost(params.slug)
   if (!post) notFound()
 
   const toc = buildTOC(post.sections)

@@ -6,3 +6,14 @@ node_modules/
 .DS_Store
 public/fonts/
 .vercel
+
+# Local-only — never commit
+n8n_exports/
+sql_migrations/
+schema_dump.sql
+
+# Backups locales — never commit
+*.backup
+scripts/
+supabase/.temp/
+tsconfig.tsbuildinfo

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { posts } from '@/lib/blog/posts'
+import { getAllPosts } from '@/lib/blog/posts'
 import BlogNav from './components/BlogNav'
 import BlogCard from '@/components/blog/BlogCard'
 
@@ -21,7 +21,8 @@ export const metadata: Metadata = {
 
 const CATEGORIES = ['Todos', 'Formación LLC', 'Elegir Estado', 'EIN', 'Banca USA', 'Impuestos', 'Privacidad', 'ITIN']
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const posts = await getAllPosts()
   const featured = posts[0]
   const rest = posts.slice(1)
 
