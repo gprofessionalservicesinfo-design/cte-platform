@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import type { Post } from '@/lib/blog/posts'
+import BlogCardImg from './BlogCardImg'
 
 const BADGE_COLORS: Record<string, { color: string; bg: string }> = {
   'Formación LLC': { color: '#1d4ed8', bg: '#eff6ff' },
@@ -29,10 +30,11 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
         className="group block rounded-2xl border border-gray-200 overflow-hidden hover:border-gray-400 hover:shadow-xl transition-all duration-300"
       >
         <div className="relative h-56 sm:h-72 overflow-hidden bg-gray-100">
-          <img
+          <BlogCardImg
             src={post.photo}
             alt={post.headline}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            keyword={post.keyword}
+            category={post.category}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
           <span
@@ -74,10 +76,11 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
       className="group flex flex-col border border-gray-100 rounded-2xl overflow-hidden hover:border-gray-300 hover:shadow-lg transition-all duration-300"
     >
       <div className="relative h-40 overflow-hidden bg-gray-100">
-        <img
+        <BlogCardImg
           src={post.photo}
           alt={post.headline}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          keyword={post.keyword}
+          category={post.category}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
       </div>
