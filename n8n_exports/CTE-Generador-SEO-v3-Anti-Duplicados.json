@@ -1,0 +1,247 @@
+{
+  "name": "CTE — Generador SEO Diario v3 (Anti-Duplicados)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [{ "triggerAtHour": 6 }]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 0],
+      "id": "schedule-trigger-001",
+      "name": "Schedule Trigger 6AM"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://creatuempresausa.com/api/blog/topics",
+        "options": { "timeout": 10000 }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [260, 0],
+      "id": "fetch-topics-001",
+      "name": "Fetch Existing Topics"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Recibe la lista de posts existentes y construye el request completo para Anthropic\nconst topicsData = $input.first().json;\nconst posts = topicsData.posts ?? [];\n\n// Formatea la lista para incluirla en el prompt\nconst existingTopicsList = posts\n  .map(p => `  • slug: \"${p.slug}\" | tema: \"${p.title}\"`)\n  .join('\\n');\n\nconst today = new Date().toISOString().split('T')[0];\n\nconst userContent = `Los siguientes ${posts.length} artículos YA ESTÁN PUBLICADOS en el blog. Es OBLIGATORIO elegir un tema que NO esté en esta lista:\n\n${existingTopicsList}\n\n---\n\nElige UN tema NUEVO de estos content gaps aún no cubiertos. Verifica cuidadosamente que tu elección NO sea igual ni similar a ninguno de los temas ya publicados:\n\n• BOI FinCEN 2026 — cómo reportar Beneficial Ownership sin abogado y antes de la multa\n• Operating Agreement LLC — cuándo es obligatorio, qué incluir y cómo hacerlo gratis\n• Relay Financial para latinos — cómo abrirla y ventajas vs Mercury Bank\n• Wise Business vs Mercury Bank — comparativa para LLC de extranjeros 2026\n• Cómo disolver una LLC correctamente sin multas del IRS\n• Annual report LLC — qué estados son más baratos y cuándo hay que presentarlo\n• LLC vs C-Corp — cuál elegir si buscas inversión de capital en USA\n• Form 1040-NR guía para extranjeros con LLC en USA\n• Domicilio fiscal LLC en USA sin vivir allá — opciones legales reales\n• Cómo recibir pagos de Google Ads, Meta Ads o Amazon con tu LLC\n• Brex y Ramp con LLC de extranjero — requisitos y cómo aplicar 2026\n• Payoneer vs Wise vs Mercury — comparativa definitiva para LLC extranjero\n• S-Corp election para LLC siendo extranjero — cuándo conviene y riesgos\n• Cómo contratar empleados en USA desde tu LLC extranjera legalmente\n• Invoice desde tu LLC a clientes de México, Colombia, Argentina — requisitos\n• Consecuencias reales de no declarar tu LLC ante el IRS\n• Comprar inmueble en USA a través de LLC — ventajas fiscales y riesgos\n• Trademark registration USA con tu LLC de extranjero — paso a paso\n• ITIN para parejas de emprendedores latinos — proceso y documentos\n• Firstbase vs Doola vs Stripe Atlas — comparativa de formadores de LLC\n• Repatriar dólares de USA a LATAM legalmente y sin problemas\n• Agente registrado LLC — qué hace exactamente y cómo cambiarlo\n• Cómo actualizar agente registrado en Delaware o Wyoming\n• Form W-8BEN para extranjeros con LLC — cuándo y cómo usarlo\n• FICA taxes para no residentes con LLC en USA — lo que nadie te dice\n• Visa B1/B2 de negocios vs tener LLC en USA — diferencias clave\n\nDevuelve SOLO JSON válido con esta estructura exacta (sin markdown wrapper, sin texto antes/después):\n\n{\n  \"slug\": \"slug-url-friendly-en-espanol-sin-acentos\",\n  \"title\": \"Título H1 con keyword principal (60-70 caracteres)\",\n  \"headline\": \"Mismo título estilizado para el hero del artículo\",\n  \"description\": \"Resumen ejecutivo del artículo de 150-200 caracteres\",\n  \"date\": \"${today}\",\n  \"modified\": \"${today}\",\n  \"read_time\": 9,\n  \"keyword\": \"keyword principal del artículo\",\n  \"meta_title\": \"SEO title tag de 50-60 caracteres\",\n  \"meta_description\": \"Meta description de 150-160 caracteres para Google\",\n  \"focus_keyword\": \"keyword principal exacto\",\n  \"category\": \"una de: Formación LLC | Elegir Estado | EIN | Banca USA | Impuestos | Privacidad | ITIN | Compliance\",\n  \"badge\": \"etiqueta corta para el badge de la card\",\n  \"photo\": \"https://images.unsplash.com/photo-XXXXXXXXXXXXXXXXXX?w=1200&q=80\",\n  \"sections\": [\n    {\"type\": \"p\", \"text\": \"párrafo introductorio atractivo\"},\n    {\"type\": \"h2\", \"text\": \"Sección 1\"},\n    {\"type\": \"p\", \"text\": \"contenido\"},\n    {\"type\": \"ul\", \"items\": [\"punto 1\", \"punto 2\", \"punto 3\"]},\n    {\"type\": \"h2\", \"text\": \"Sección 2\"},\n    {\"type\": \"table\", \"headers\": [\"Columna 1\", \"Columna 2\"], \"rows\": [[\"dato 1\", \"dato 2\"]]},\n    {\"type\": \"cta\", \"text\": \"¿Listo para abrir tu LLC?\", \"href\": \"https://creatuempresausa.com/index_final.html?page=wizard\", \"label\": \"Empezar Ahora →\"},\n    {\"type\": \"h2\", \"text\": \"Preguntas frecuentes\"},\n    {\"type\": \"faq\", \"items\": [\n      {\"q\": \"pregunta 1\", \"a\": \"respuesta completa 1\"},\n      {\"q\": \"pregunta 2\", \"a\": \"respuesta completa 2\"},\n      {\"q\": \"pregunta 3\", \"a\": \"respuesta completa 3\"}\n    ]},\n    {\"type\": \"cta\", \"text\": \"¿Tienes dudas? Nuestro equipo te ayuda en minutos\", \"href\": \"https://creatuempresausa.com/index_final.html?page=wizard\", \"label\": \"Consulta Gratuita →\"}\n  ],\n  \"country_target\": \"USA-hispanos\"\n}\n\nREGLAS OBLIGATORIAS:\n- MÍNIMO 10 secciones en el array sections\n- MÍNIMO 2 CTAs (type: cta)\n- MÍNIMO 1 FAQ con exactamente 3 preguntas\n- El slug NO puede ser igual ni similar a ninguno de los ya publicados\n- La photo debe ser una URL real de Unsplash relacionada al tema`;\n\nreturn [{\n  json: {\n    model: 'claude-sonnet-4-6',\n    max_tokens: 8000,\n    system: 'Eres SEO Senior + Copywriter especializado en CreaTuEmpresaUSA. Generas artículos completos en formato JSON válido para insertar directamente en la base de datos blog_posts de Supabase. Mercado objetivo: emprendedores latinos (México, Colombia, Argentina, Perú, Venezuela, Ecuador, Nicaragua, El Salvador, República Dominicana) que buscan abrir LLC en USA. Tono: profesional, empático, práctico, sin tecnicismos legales innecesarios. Siempre incluye CTAs hacia https://creatuempresausa.com. Responde ÚNICAMENTE con JSON válido, sin markdown, sin explicaciones adicionales.',\n    messages: [{ role: 'user', content: userContent }]\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [520, 0],
+      "id": "build-main-request-001",
+      "name": "Build Main Request"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "anthropic-version", "value": "2023-06-01" },
+            { "name": "content-type",      "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [780, 0],
+      "id": "anthropic-generate-001",
+      "name": "Anthropic Generate Article",
+      "credentials": {
+        "httpHeaderAuth": { "name": "Anthropic CTE" }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parsea la respuesta de Anthropic y verifica duplicados\nconst response = $input.first().json;\nconst rawText = response.content[0].text;\n\nconst cleanText = rawText\n  .replace(/^```json\\s*/i, '')\n  .replace(/\\s*```$/i, '')\n  .trim();\n\ntry {\n  const article = JSON.parse(cleanText);\n\n  if (!article.slug || !article.title || !article.sections) {\n    throw new Error('Faltan campos obligatorios: slug, title, o sections');\n  }\n  if (!Array.isArray(article.sections)) {\n    throw new Error('sections debe ser un array');\n  }\n  if (article.sections.length < 10) {\n    throw new Error(`Solo ${article.sections.length} secciones — mínimo requerido: 10`);\n  }\n\n  const today = new Date().toISOString().split('T')[0];\n  article.date     = today;\n  article.modified = today;\n  article.source   = 'n8n_seo_diario';\n  article.status   = 'published';\n\n  // Verificar duplicados contra todos los posts existentes\n  const topicsData   = $('Fetch Existing Topics').first().json;\n  const existingPosts = topicsData.posts ?? [];\n  const existingSlugs = existingPosts.map(p => p.slug);\n  const existingTopicsList = existingPosts\n    .map(p => `  • slug: \"${p.slug}\" | tema: \"${p.title}\"`)\n    .join('\\n');\n\n  const isDuplicate = existingSlugs.includes(article.slug);\n\n  // Devuelve wrapper: article limpio + meta para el IF node\n  return [{\n    json: {\n      article,  // listo para insertar en Supabase\n      meta: {\n        isDuplicate,\n        duplicateSlug:   article.slug,\n        existingTopics:  existingTopicsList,\n      }\n    }\n  }];\n} catch (error) {\n  throw new Error(`Error parseando JSON del artículo: ${error.message}\\n\\nTexto recibido: ${cleanText.substring(0, 500)}`);\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1040, 0],
+      "id": "parse-article-001",
+      "name": "Parse Article JSON"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "dup-check-cond-001",
+              "leftValue": "={{ $json.meta.isDuplicate }}",
+              "rightValue": true,
+              "operator": { "type": "boolean", "operation": "true" }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1300, 0],
+      "id": "if-duplicate-001",
+      "name": "IF Duplicate?"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extrae el artículo limpio del wrapper para insertarlo en Supabase\nconst data = $input.first().json;\nreturn [{ json: data.article }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1560, -160],
+      "id": "prepare-insert-001",
+      "name": "Prepare for Insert"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://rhprcuqhuesorrncswjs.supabase.co/rest/v1/blog_posts",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Content-Type", "value": "application/json" },
+            { "name": "Prefer",       "value": "return=representation" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1820, -160],
+      "id": "supabase-insert-001",
+      "name": "Insert into blog_posts",
+      "credentials": {
+        "httpHeaderAuth": { "name": "Supabase CTE" }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Construye el request de reintento indicando el slug duplicado\nconst data = $input.first().json;\nconst { duplicateSlug, existingTopics } = data.meta;\n\nconst today = new Date().toISOString().split('T')[0];\n\nconst retryContent = `⚠️ El artículo con slug \"${duplicateSlug}\" YA EXISTE en el blog. Debes generar un artículo sobre un tema COMPLETAMENTE DIFERENTE.\n\nArtículos ya publicados (PROHIBIDO repetir cualquiera de estos):\n${existingTopics}\n\nElige OTRO tema de la lista de content gaps que no haya sido cubierto todavía.\nEl nuevo slug debe ser distinto a \"${duplicateSlug}\" y a todos los slugs listados arriba.\n\nDevuelve SOLO JSON válido con esta estructura exacta:\n\n{\n  \"slug\": \"slug-url-friendly-en-espanol-sin-acentos\",\n  \"title\": \"Título H1 con keyword principal (60-70 caracteres)\",\n  \"headline\": \"Mismo título estilizado para el hero del artículo\",\n  \"description\": \"Resumen ejecutivo de 150-200 caracteres\",\n  \"date\": \"${today}\",\n  \"modified\": \"${today}\",\n  \"read_time\": 9,\n  \"keyword\": \"keyword principal del artículo\",\n  \"meta_title\": \"SEO title tag de 50-60 caracteres\",\n  \"meta_description\": \"Meta description de 150-160 caracteres para Google\",\n  \"focus_keyword\": \"keyword principal exacto\",\n  \"category\": \"una de: Formación LLC | Elegir Estado | EIN | Banca USA | Impuestos | Privacidad | ITIN | Compliance\",\n  \"badge\": \"etiqueta corta para el badge de la card\",\n  \"photo\": \"https://images.unsplash.com/photo-XXXXXXXXXXXXXXXXXX?w=1200&q=80\",\n  \"sections\": [...mínimo 10 secciones, 2 CTAs, 1 FAQ con 3 preguntas...],\n  \"country_target\": \"USA-hispanos\"\n}`;\n\nreturn [{\n  json: {\n    model: 'claude-sonnet-4-6',\n    max_tokens: 8000,\n    system: 'Eres SEO Senior + Copywriter especializado en CreaTuEmpresaUSA. Generas artículos completos en formato JSON válido para Supabase. Responde ÚNICAMENTE con JSON válido, sin markdown, sin explicaciones adicionales.',\n    messages: [{ role: 'user', content: retryContent }]\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1560, 160],
+      "id": "build-retry-request-001",
+      "name": "Build Retry Request"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "anthropic-version", "value": "2023-06-01" },
+            { "name": "content-type",      "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1820, 160],
+      "id": "anthropic-retry-001",
+      "name": "Anthropic Retry",
+      "credentials": {
+        "httpHeaderAuth": { "name": "Anthropic CTE" }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parsea la respuesta del reintento — sin verificación de duplicado extra\nconst response = $input.first().json;\nconst rawText = response.content[0].text;\n\nconst cleanText = rawText\n  .replace(/^```json\\s*/i, '')\n  .replace(/\\s*```$/i, '')\n  .trim();\n\ntry {\n  const article = JSON.parse(cleanText);\n\n  if (!article.slug || !article.title || !article.sections) {\n    throw new Error('Faltan campos obligatorios en el reintento: slug, title, o sections');\n  }\n  if (!Array.isArray(article.sections)) {\n    throw new Error('sections debe ser un array');\n  }\n\n  const today = new Date().toISOString().split('T')[0];\n  article.date     = today;\n  article.modified = today;\n  article.source   = 'n8n_seo_diario_retry';\n  article.status   = 'published';\n\n  return [{ json: article }];\n} catch (error) {\n  throw new Error(`Error parseando JSON del reintento: ${error.message}\\n\\nTexto recibido: ${cleanText.substring(0, 500)}`);\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2080, 160],
+      "id": "parse-retry-001",
+      "name": "Parse Retry JSON"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://rhprcuqhuesorrncswjs.supabase.co/rest/v1/blog_posts",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Content-Type", "value": "application/json" },
+            { "name": "Prefer",       "value": "return=representation" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2340, 160],
+      "id": "supabase-insert-retry-001",
+      "name": "Insert Retry into blog_posts",
+      "credentials": {
+        "httpHeaderAuth": { "name": "Supabase CTE" }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger 6AM": {
+      "main": [[{ "node": "Fetch Existing Topics",     "type": "main", "index": 0 }]]
+    },
+    "Fetch Existing Topics": {
+      "main": [[{ "node": "Build Main Request",        "type": "main", "index": 0 }]]
+    },
+    "Build Main Request": {
+      "main": [[{ "node": "Anthropic Generate Article","type": "main", "index": 0 }]]
+    },
+    "Anthropic Generate Article": {
+      "main": [[{ "node": "Parse Article JSON",        "type": "main", "index": 0 }]]
+    },
+    "Parse Article JSON": {
+      "main": [[{ "node": "IF Duplicate?",             "type": "main", "index": 0 }]]
+    },
+    "IF Duplicate?": {
+      "main": [
+        [{ "node": "Build Retry Request",  "type": "main", "index": 0 }],
+        [{ "node": "Prepare for Insert",   "type": "main", "index": 0 }]
+      ]
+    },
+    "Prepare for Insert": {
+      "main": [[{ "node": "Insert into blog_posts",       "type": "main", "index": 0 }]]
+    },
+    "Build Retry Request": {
+      "main": [[{ "node": "Anthropic Retry",             "type": "main", "index": 0 }]]
+    },
+    "Anthropic Retry": {
+      "main": [[{ "node": "Parse Retry JSON",            "type": "main", "index": 0 }]]
+    },
+    "Parse Retry JSON": {
+      "main": [[{ "node": "Insert Retry into blog_posts","type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "tags": ["blog", "seo", "anti-duplicados"]
+}
