@@ -10,6 +10,8 @@ export type Section =
   | { type: 'table'; headers: string[]; rows: string[][] }
   | { type: 'cta'; text: string; href: string; label: string }
   | { type: 'faq'; items: { q: string; a: string }[] }
+  | { type: 'highlight'; text: string }
+  | { type: 'wa_cta'; headline?: string; subtext?: string; message?: string }
 
 export interface Post {
   slug: string
