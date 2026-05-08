@@ -86,7 +86,7 @@ export function MarketingNav() {
       {open && (
         <div
           style={{ borderBottom: '1px solid #e2e8f0', boxShadow: '0 8px 32px rgba(0,0,0,0.1)' }}
-          className="fixed top-[60px] left-0 right-0 z-40 bg-white px-6 py-4 flex flex-col gap-1"
+          className="fixed top-[60px] left-0 right-0 z-[60] bg-white px-6 py-4 flex flex-col gap-1"
         >
           {[
             { label: '¿Qué estado elegir?', href: '/que-estado-elegir' },
@@ -124,7 +124,8 @@ export function MarketingNav() {
         </div>
       )}
 
-      {/* Floating WA */}
+      {/* Floating WA — hidden when mobile menu is open to prevent overlap */}
+      {!open && (
       <a
         href={WA_URL}
         target="_blank"
@@ -144,6 +145,7 @@ export function MarketingNav() {
         </svg>
         Consultar gratis
       </a>
+      )}
     </>
   )
 }
