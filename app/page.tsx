@@ -16,7 +16,7 @@ export default function Home() {
     'utf-8',
   )
 
-  // Extract <style> blocks from <head>
+  // Pull every <style> block from the file (they live in <head>)
   const styles = (html.match(/<style[\s\S]*?<\/style>/gi) ?? []).join('')
 
   // Isolate raw <body> content
@@ -27,23 +27,23 @@ export default function Home() {
     bodyClose !== -1 ? bodyClose : html.length,
   )
 
-  // Slice off the embedded <header> entirely (one </header> exists at line 1378).
-  // MarketingNav above replaces it — no CSS trickery needed.
-  const headerEnd = rawBody.indexOf('</header>')
-  const bodyWithoutNav = headerEnd !== -1
-    ? rawBody.slice(headerEnd + '</header>'.length)
-    : rawBody
+  // Strip elements that MarketingNav replaces or duplicates.
+  // Regex is more resilient than indexOf against whitespace / attribute variations.
+  const bodyClean = rawBody
+    // Remove the entire embedded <header> (nav + mobile menu)
+    .replace(/<header[\s\S]*?<\/header>/gi, '')
+    // Remove the landing's own floating WA button (targets aria-label; no class attr on this element)
+    .replace(/<a\b[^>]+aria-label="Contactar por WhatsApp"[\s\S]*?<\/a>/i, '')
 
-  // Lift <script> blocks out — React discards them in dangerouslySetInnerHTML
+  // Lift <script> blocks out — React silently drops them inside dangerouslySetInnerHTML
   const scripts: string[] = []
-  const bodyHtml = bodyWithoutNav.replace(
+  const bodyHtml = bodyClean.replace(
     /<script\b[^>]*>([\s\S]*?)<\/script>/gi,
     (_, src) => { scripts.push(src); return '' },
   )
 
-  // Guard hamburger init: element no longer exists after nav removal.
-  // Replacing this exact string lets the IIFE return early instead of
-  // throwing a TypeError that would also kill the tabs + FAQ accordion.
+  // Guard hamburger init: #hamburger no longer exists after header removal.
+  // Adding an early return prevents a TypeError that would also kill tabs + FAQ scripts.
   const scriptContent = scripts.join('\n').replace(
     "var btn = document.getElementById('hamburger');",
     "var btn = document.getElementById('hamburger'); if (!btn) return;",
@@ -53,15 +53,8 @@ export default function Home() {
     <>
       <MarketingNav />
       <div
-        dangerouslySetInnerHTML={{
-          __html:
-            styles +
-            // Hide the landing's own floating WA (MarketingNav has one already)
-            '<style>.wa-float{display:none!important}</style>' +
-            bodyHtml,
-        }}
+        dangerouslySetInnerHTML={{ __html: styles + bodyHtml }}
       />
-      {/* Execute landing JS (tabs, FAQ) after React hydration */}
       <Script id="landing-js" strategy="afterInteractive">
         {scriptContent}
       </Script>
