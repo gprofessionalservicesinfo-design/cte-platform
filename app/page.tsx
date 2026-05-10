@@ -16,22 +16,37 @@ export default function Home() {
     'utf-8',
   )
 
-  // Pull every <style> block from the file (they live in <head>)
+  // Extract <style> blocks from <head>
   const styles = (html.match(/<style[\s\S]*?<\/style>/gi) ?? []).join('')
 
-  // Isolate the raw <body> content
-  const bodyOpen = html.indexOf('<body>')
+  // Isolate raw <body> content
+  const bodyOpen  = html.indexOf('<body>')
   const bodyClose = html.lastIndexOf('</body>')
   const rawBody = html.slice(
-    bodyOpen !== -1 ? bodyOpen + '<body>'.length : 0,
+    bodyOpen  !== -1 ? bodyOpen  + '<body>'.length : 0,
     bodyClose !== -1 ? bodyClose : html.length,
   )
 
-  // Extract <script> blocks so React doesn't silently discard them
+  // Slice off the embedded <header> entirely (one </header> exists at line 1378).
+  // MarketingNav above replaces it — no CSS trickery needed.
+  const headerEnd = rawBody.indexOf('</header>')
+  const bodyWithoutNav = headerEnd !== -1
+    ? rawBody.slice(headerEnd + '</header>'.length)
+    : rawBody
+
+  // Lift <script> blocks out — React discards them in dangerouslySetInnerHTML
   const scripts: string[] = []
-  const bodyHtml = rawBody.replace(
+  const bodyHtml = bodyWithoutNav.replace(
     /<script\b[^>]*>([\s\S]*?)<\/script>/gi,
     (_, src) => { scripts.push(src); return '' },
+  )
+
+  // Guard hamburger init: element no longer exists after nav removal.
+  // Replacing this exact string lets the IIFE return early instead of
+  // throwing a TypeError that would also kill the tabs + FAQ accordion.
+  const scriptContent = scripts.join('\n').replace(
+    "var btn = document.getElementById('hamburger');",
+    "var btn = document.getElementById('hamburger'); if (!btn) return;",
   )
 
   return (
@@ -40,21 +55,15 @@ export default function Home() {
       <div
         dangerouslySetInnerHTML={{
           __html:
-            // Landing page styles
             styles +
-            // Hide embedded nav (MarketingNav replaces it) + duplicate WA float.
-            // Extra logo selectors catch any element that might escape the .nav rule.
-            '<style>' +
-            '#nav,header.nav,.nav{display:none!important}' +
-            '.wa-float{display:none!important}' +
-            '.nav-logo,.nav-logo-text,[class*="nav-logo"],[id="nav"]{display:none!important}' +
-            '</style>' +
+            // Hide the landing's own floating WA (MarketingNav has one already)
+            '<style>.wa-float{display:none!important}</style>' +
             bodyHtml,
         }}
       />
-      {/* Re-inject landing scripts (tabs, FAQ accordion, hamburger) via Next.js Script */}
+      {/* Execute landing JS (tabs, FAQ) after React hydration */}
       <Script id="landing-js" strategy="afterInteractive">
-        {scripts.join('\n')}
+        {scriptContent}
       </Script>
     </>
   )
