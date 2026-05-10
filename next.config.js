@@ -38,11 +38,8 @@ const nextConfig = {
       { source: '/index_final.html', destination: '/', permanent: true },
     ]
   },
-  async rewrites() {
-    return [
-      { source: '/', destination: '/landing_production.html' },
-    ]
-  },
+  // No rewrites needed — app/page.tsx serves the home page directly
+  // extracting content from landing_production.html at build time.
 }
 
 module.exports = nextConfig

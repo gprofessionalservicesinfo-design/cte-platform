@@ -43,42 +43,63 @@ export function MarketingNav() {
             ))}
           </div>
 
-          {/* Desktop actions */}
-          <div className="hidden md:flex items-center gap-2 flex-shrink-0">
-            <Link
-              href="/login"
-              className="text-sm font-medium text-slate-600 hover:text-slate-900 px-3 py-1.5 rounded-md transition-colors"
-            >
-              Iniciar sesión
-            </Link>
-            <Link
-              href="/index_final.html#pricing"
-              style={{ background: NAVY, color: 'white', borderRadius: '8px' }}
-              className="text-sm font-semibold px-4 py-2 hover:opacity-90 transition-opacity"
-            >
-              Comenzar
-            </Link>
-          </div>
+          {/* Right-side controls */}
+          <div className="flex items-center gap-1 flex-shrink-0">
 
-          {/* Burger */}
-          <button
-            onClick={() => setOpen(v => !v)}
-            className="md:hidden flex flex-col gap-[5px] p-2 rounded-md hover:bg-slate-100 transition-colors"
-            aria-label="Menu"
-          >
-            <span
-              style={{ background: NAVY }}
-              className={`block w-[22px] h-[2px] rounded-sm transition-transform duration-250 ${open ? 'translate-y-[7px] rotate-45' : ''}`}
-            />
-            <span
-              style={{ background: NAVY }}
-              className={`block w-[22px] h-[2px] rounded-sm transition-opacity duration-250 ${open ? 'opacity-0' : ''}`}
-            />
-            <span
-              style={{ background: NAVY }}
-              className={`block w-[22px] h-[2px] rounded-sm transition-transform duration-250 ${open ? '-translate-y-[7px] -rotate-45' : ''}`}
-            />
-          </button>
+            {/* Desktop-only actions */}
+            <div className="hidden md:flex items-center gap-2">
+              <Link
+                href="/login"
+                className="text-sm font-medium text-slate-600 hover:text-slate-900 px-3 py-1.5 rounded-md transition-colors"
+              >
+                Iniciar sesión
+              </Link>
+              <Link
+                href="/index_final.html#pricing"
+                style={{ background: NAVY, color: 'white', borderRadius: '8px' }}
+                className="text-sm font-semibold px-4 py-2 hover:opacity-90 transition-opacity"
+              >
+                Comenzar
+              </Link>
+            </div>
+
+            {/* Mobile-only: login icon + burger */}
+            <div className="md:hidden flex items-center gap-1">
+              {/* Login / account icon */}
+              <Link
+                href="/login"
+                aria-label="Iniciar sesión"
+                className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-slate-100 transition-colors"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke={NAVY} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+              </Link>
+
+              {/* Hamburger */}
+              <button
+                onClick={() => setOpen(v => !v)}
+                aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+                className="w-10 h-10 rounded-full flex flex-col items-center justify-center gap-[5px] hover:bg-slate-100 transition-colors"
+              >
+                <span
+                  style={{ background: NAVY }}
+                  className={`block w-[22px] h-[2px] rounded-sm transition-transform duration-200 ${open ? 'translate-y-[7px] rotate-45' : ''}`}
+                />
+                <span
+                  style={{ background: NAVY }}
+                  className={`block w-[22px] h-[2px] rounded-sm transition-opacity duration-200 ${open ? 'opacity-0' : ''}`}
+                />
+                <span
+                  style={{ background: NAVY }}
+                  className={`block w-[22px] h-[2px] rounded-sm transition-transform duration-200 ${open ? '-translate-y-[7px] -rotate-45' : ''}`}
+                />
+              </button>
+            </div>
+
+          </div>
         </div>
       </nav>
 
