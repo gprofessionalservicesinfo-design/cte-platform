@@ -42,8 +42,13 @@ export default function Home() {
           __html:
             // Landing page styles
             styles +
-            // Hide embedded nav (MarketingNav replaces it) + duplicate WA float
-            '<style>.nav{display:none!important}.wa-float{display:none!important}</style>' +
+            // Hide embedded nav (MarketingNav replaces it) + duplicate WA float.
+            // Extra logo selectors catch any element that might escape the .nav rule.
+            '<style>' +
+            '#nav,header.nav,.nav{display:none!important}' +
+            '.wa-float{display:none!important}' +
+            '.nav-logo,.nav-logo-text,[class*="nav-logo"],[id="nav"]{display:none!important}' +
+            '</style>' +
             bodyHtml,
         }}
       />
