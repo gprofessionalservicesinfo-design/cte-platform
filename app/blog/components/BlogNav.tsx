@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { CteBadge } from '@/components/cte-badge'
 
 const NAV_LINKS = [
   { label: 'Inicio', href: '/' },
@@ -18,12 +19,7 @@ export default function BlogNav() {
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-          <svg width="36" height="36" viewBox="0 0 64 64" fill="none">
-            <rect width="64" height="64" rx="16" fill="#000000"/>
-            <rect x="0" y="27" width="64" height="10" fill="rgba(0,0,0,0.18)"/>
-            <text x="32" y="46" fontFamily="Syne,sans-serif" fontWeight="800"
-                  fontSize="28" fill="white" textAnchor="middle" letterSpacing="-1">CTE</text>
-          </svg>
+          <CteBadge size={36} />
           <span style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: '15px', color: '#2A3544', lineHeight: 1 }}>
             CreaTuEmpresa<span style={{ color: '#2CB98A' }}>USA</span>
           </span>
