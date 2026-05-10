@@ -10,10 +10,10 @@ export function MarketingFooter() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <p
-              style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 800, fontSize: '1.15rem' }}
+              style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '1.15rem' }}
               className="mb-3"
             >
-              CreaTuEmpresa<span style={{ color: '#DC2626' }}>USA</span>
+              CreaTuEmpresa<span style={{ color: '#4DB39A' }}>USA</span>
             </p>
             <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>
               Formamos empresas en EE.UU. para emprendedores latinoamericanos. 100% remoto, en español.
