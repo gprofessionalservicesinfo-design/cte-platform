@@ -4,6 +4,9 @@ import Script from 'next/script'
 import { MarketingNav } from '@/components/marketing/marketing-nav'
 import type { Metadata } from 'next'
 
+// Force SSR — prevents Vercel from serving stale static output
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'CreaTuEmpresaUSA — Forma tu LLC en EE.UU. desde cualquier país',
   description:
