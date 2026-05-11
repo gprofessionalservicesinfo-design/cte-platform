@@ -37,8 +37,8 @@ const nextConfig = {
       { source: '/index_final.html', has: [{ type: 'query', key: 'page', value: 'testimonios' }], destination: '/',       permanent: true },
       { source: '/index_final.html', has: [{ type: 'query', key: 'page', value: 'faq' }],         destination: '/',       permanent: true },
       { source: '/index_final.html', has: [{ type: 'query', key: 'page', value: 'contacto' }],    destination: '/',       permanent: true },
-      // Bare /index_final.html (no query string) → home
-      { source: '/index_final.html', destination: '/', permanent: true },
+      // Bare /index_final.html → home, EXCEPT ?page=wizard (wizard SPA must reach static file)
+      { source: '/index_final.html', missing: [{ type: 'query', key: 'page', value: 'wizard' }], destination: '/', permanent: true },
     ]
   },
   // No rewrites needed — app/page.tsx serves the home page directly
