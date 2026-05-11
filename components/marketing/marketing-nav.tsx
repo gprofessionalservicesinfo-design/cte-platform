@@ -20,7 +20,7 @@ const MOBILE_MENU: NavItem[] = [
   { label: 'Cómo funciona', href: '/#proceso' },
   { label: 'Servicios',     href: '/#planes' },
   { label: 'Precios',       href: '/#planes' },
-  { label: 'Asistente',     href: '/wizard' },
+  { label: 'Asistente',     href: '/index_final.html?page=wizard' },
   { label: 'Blog',          href: '/blog' },
   { label: 'Testimonios',   href: '/#testimonios' },
   { label: 'FAQ',           href: '/#faq' },
